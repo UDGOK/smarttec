@@ -17,6 +17,15 @@ const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?:
     ),
   },
   {
+    label: "Calculator",
+    href: "/calculator",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M200,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V40A16,16,0,0,0,200,24ZM192,200H64V184H192Zm0-32H64V152H192Zm0-32H64V120H192Zm0-32H64V88H192Zm0-32H64V56H192Z" />
+      </svg>
+    ),
+  },
+  {
     label: "Power",
     href: "/power",
     icon: (
