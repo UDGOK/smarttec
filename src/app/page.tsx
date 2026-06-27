@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navigation } from "@/components/sections/Navigation";
 import { Footer } from "@/components/sections/Footer";
-import { getAllNews } from "@/lib/news";
+
 
 // Partners row (real — no fake customers)
 const partners = [
@@ -516,79 +516,6 @@ function Reliability() {
   );
 }
 
-async function NewsBand() {
-  const { items, fetchedAt } = await getAllNews();
-  const top = items.slice(0, 5);
-
-  return (
-    <section className="bg-fog border-y border-dashed border-silver">
-      <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-          <div>
-            <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-3">
-              <span className="w-1.5 h-1.5 bg-greptile-green rounded-full animate-pulse-glow" />
-              [ NEWS · LIVE FEED ]
-            </span>
-            <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
-              What&apos;s happening in AI infrastructure.
-            </h2>
-          </div>
-          <Link href="/news" className="font-space-mono text-xs uppercase tracking-wider text-slate hover:text-greptile-green inline-flex items-center gap-2 shrink-0">
-            See all
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3">
-              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L188.69,144H40a8,8,0,0,1,0-16H188.69L122.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
-            </svg>
-          </Link>
-        </div>
-
-        {top.length === 0 ? (
-          <div className="font-space-mono text-sm text-slate/60">News feeds loading…</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-px bg-slate/30 border border-dashed border-slate/30">
-            {top.map((item) => (
-              <a
-                key={item.id}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-background p-5 group hover:bg-greptile-green/5 transition-colors flex flex-col"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className={`w-1.5 h-1.5 ${
-                    item.category === 'Data Center' ? 'bg-greptile-green' :
-                    item.category === 'AI Compute' ? 'bg-peach' :
-                    item.category === 'Power' ? 'bg-seafoam' :
-                    item.category === 'Batteries' ? 'bg-lavender' :
-                    item.category === 'Grid' ? 'bg-ice' : 'bg-pink'
-                  }`} />
-                  <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">
-                    [ {item.category} ]
-                  </span>
-                </div>
-                <h3 className="text-sm font-anybody font-bold text-slate leading-tight mb-3 flex-1">
-                  {item.title}
-                </h3>
-                <div className="flex items-center justify-between pt-3 border-t border-dashed border-slate/20">
-                  <span className="font-space-mono text-[9px] uppercase tracking-wider text-slate/50">
-                    {item.sourceShort}
-                  </span>
-                  <span className="font-space-mono text-[9px] uppercase tracking-wider text-slate/50">
-                    ↗
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        )}
-
-        <div className="mt-4 font-space-mono text-[10px] uppercase tracking-wider text-slate/50">
-          [ LIVE FEED · {top.length} HEADLINES · {new Date(fetchedAt).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} ]
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ClosingCTA() {
   return (
     <section id="cta" className="relative bg-background">
@@ -754,7 +681,7 @@ export default function Home() {
         <AURA />
         <Reliability />
         <DesignPartners />
-        <NewsBand />
+        {/* NewsBand moved to /news page */}
         <ClosingCTA />
       </main>
       <Footer />
