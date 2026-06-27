@@ -71,36 +71,48 @@ export default function ComputePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
+                className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden"
               >
-                <span className="font-anybody font-extrabold text-2xl text-slate mb-4 block">[ NVIDIA ]</span>
-                <h3 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate mb-4 leading-tight">
-                  For training and dense inference.
-                </h3>
-                <p className="text-slate/70 leading-relaxed mb-6">
-                  H100 / H200 / B200 / GB200 [confirm fleet]. Deployed to the NVIDIA Cloud Partner reference architecture [pursuing NCP status — confirm before claiming]. On-demand or reserved, bare-metal or orchestrated with Kubernetes or Slurm.
-                </p>
-                <Link href="/contact" className="btn-hex btn-hex-sm !border-slate !bg-slate !text-fog">
-                  Reserve NVIDIA →
-                </Link>
+                <div className="relative w-full aspect-[16/9] bg-slate overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/hardware/nvidia-hgx-b200-baseboard.jpg" alt="NVIDIA HGX B200 8-GPU baseboard" className="absolute inset-0 w-full h-full object-cover" />
+                </div>
+                <div className="p-8 md:p-10">
+                  <span className="font-anybody font-extrabold text-2xl text-slate mb-4 block">[ NVIDIA ]</span>
+                  <h3 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate mb-4 leading-tight">
+                    For training and dense inference.
+                  </h3>
+                  <p className="text-slate/70 leading-relaxed mb-6">
+                    H100 / H200 / B200 / GB200 [confirm fleet]. Deployed to the NVIDIA Cloud Partner reference architecture [pursuing NCP status — confirm before claiming]. On-demand or reserved, bare-metal or orchestrated with Kubernetes or Slurm.
+                  </p>
+                  <Link href="/inference" className="btn-hex btn-hex-sm !border-slate !bg-slate !text-fog">
+                    Run fit-check →
+                  </Link>
+                </div>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
+                className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden"
               >
-                <span className="font-anybody font-extrabold text-2xl text-peach mb-4 block">[ CEREBRAS ]</span>
-                <h3 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate mb-4 leading-tight">
-                  For the fastest tokens on earth.
-                </h3>
-                <p className="text-slate/70 leading-relaxed mb-6">
-                  Wafer-scale compute for the lowest-latency inference available — ideal for real-time and agentic workloads. Very few clouds offer Cerebras alongside NVIDIA. We run both on one network.
-                </p>
-                <Link href="/contact" className="btn-hex btn-hex-sm !border-slate !bg-slate !text-fog">
-                  Reserve Cerebras →
-                </Link>
+                <div className="relative w-full aspect-[16/9] bg-slate overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/hardware/cerebras-cs3-system.png" alt="Cerebras CS-3 system" className="absolute inset-0 w-full h-full object-cover" />
+                </div>
+                <div className="p-8 md:p-10">
+                  <span className="font-anybody font-extrabold text-2xl text-peach mb-4 block">[ CEREBRAS ]</span>
+                  <h3 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate mb-4 leading-tight">
+                    For the fastest tokens on earth.
+                  </h3>
+                  <p className="text-slate/70 leading-relaxed mb-6">
+                    Wafer-scale compute for the lowest-latency inference available — ideal for real-time and agentic workloads. Very few clouds offer Cerebras alongside NVIDIA. We run both on one network.
+                  </p>
+                  <Link href="/inference" className="btn-hex btn-hex-sm !border-slate !bg-slate !text-fog">
+                    Run fit-check →
+                  </Link>
+                </div>
               </motion.div>
             </div>
 
