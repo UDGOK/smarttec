@@ -68,13 +68,13 @@ function ThreePillars() {
     {
       n: "01",
       kicker: "POWERED",
-      title: "We own our power. z1power megawatt LFP stacks sit behind the meter — no interconnection queue, no diesel.",
+      title: "Your AI factory, independent of the grid. z1power megawatt LFP stacks sit behind the meter — no interconnection queue, no diesel.",
       accent: "bg-greptile-green",
     },
     {
       n: "02",
       kicker: "PERFORMANT",
-      title: "NVIDIA for training and dense inference. Cerebras for the fastest tokens on earth. AURA tunes every rack for tokens-per-watt.",
+      title: "NVIDIA for training and dense inference. Cerebras for the fastest tokens on earth. AURA tunes every rack for tokens-per-watt — the new efficiency metric.",
       accent: "bg-seafoam",
     },
     {
@@ -630,6 +630,50 @@ function DesignPartners() {
   );
 }
 
+function DgxSparkCallout() {
+  return (
+    <section className="relative bg-fog/30 border-y border-dashed border-slate/30">
+      <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-14 md:py-20">
+        <div className="grid lg:grid-cols-[5fr_7fr] gap-8 items-center">
+          {/* Photo */}
+          <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden aspect-[16/10]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/hardware/nvidia-dgx-spark-desktop.jpg" alt="NVIDIA DGX Spark desktop supercomputer" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-slate/85 backdrop-blur px-4 py-2 border-t border-slate/30">
+              <div className="flex items-baseline justify-between gap-3">
+                <div className="font-space-mono text-[10px] uppercase tracking-[0.18em] text-greptile-green">[ NVIDIA CES 2025 ]</div>
+                <div className="font-anybody font-bold text-sm text-fog">DGX Spark · GB10</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Copy */}
+          <div>
+            <div className="flex items-center gap-2 font-space-mono text-[11px] uppercase tracking-[0.18em] text-greptile-green mb-3">
+              <span className="inline-block w-2 h-2 bg-greptile-green" />
+              <span>[ NVIDIA JUST MOVED ]</span>
+            </div>
+            <h2 className="font-anybody font-extrabold text-3xl md:text-4xl lg:text-5xl text-slate tracking-tight leading-[1.05] mb-4">
+              NVIDIA gave you a $3K desk box.<br />
+              <span className="text-greptile-green">We give you the AI factory.</span>
+            </h2>
+            <p className="font-anybody text-slate/70 text-lg leading-relaxed mb-6 max-w-xl">
+              The DGX Spark is the most exciting dev box of the year. Same GB10 architecture, same NVIDIA toolchain. Just at production scale — and behind the megawatt batteries we built.
+            </p>
+            <Link
+              href="/dgx-spark"
+              className="inline-flex items-center gap-2 bg-greptile-green text-slate font-space-mono text-[11px] uppercase tracking-wider px-5 py-3 hover:bg-greptile-green/85 transition-colors"
+            >
+              <span className="w-1.5 h-1.5 bg-slate" />
+              See side-by-side →
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function PartnersBand() {
   return (
     <div className="relative bg-background">
@@ -681,6 +725,7 @@ export default function Home() {
         <AURA />
         <Reliability />
         <DesignPartners />
+        <DgxSparkCallout />
         {/* NewsBand moved to /news page */}
         <ClosingCTA />
       </main>
@@ -869,7 +914,7 @@ function Hero() {
               className="text-slate text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-anybody font-extrabold tracking-tight leading-[0.95] max-w-3xl"
             >
               The grid-independent<br />
-              AI cloud.
+              AI factory.
             </motion.h1>
           </div>
 
