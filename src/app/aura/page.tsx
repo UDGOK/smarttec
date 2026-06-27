@@ -52,6 +52,54 @@ const telemetry = [
   { time: "20:00", load: 62, solar: 28 },
 ];
 
+const industryPulse = [
+  {
+    value: "40%",
+    label: "of AI data centers power-constrained by 2027",
+    source: "Gartner, Nov 2024",
+    accent: "bg-greptile-green",
+  },
+  {
+    value: "1,500 MW",
+    label: "lost in a single NoVA grid event — 60 data centers dropped simultaneously",
+    source: "Belfer Center, Jul 2024",
+    accent: "bg-seafoam",
+  },
+  {
+    value: "160%",
+    label: "data center power demand growth 2024 → 2026",
+    source: "Gartner, Nov 2024",
+    accent: "bg-peach",
+  },
+  {
+    value: "500 TWh",
+    label: "annual power needed for AI servers by 2027 (2.6× the 2023 baseline)",
+    source: "Gartner, Nov 2024",
+    accent: "bg-lavender",
+  },
+];
+
+const stackChips = [
+  {
+    vendor: "NVIDIA",
+    product: "Blackwell GB200 NVL72",
+    stat: "1.4 exaFLOPS / rack",
+    detail: "36 Grace CPUs + 72 Blackwell GPUs per liquid-cooled rack. 30× real-time speedup for trillion-parameter LLM inference. General availability across AWS, Azure, GCP, OCI, CoreWeave.",
+    href: "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+    source: "NVIDIA newsroom",
+    accent: "bg-greptile-green",
+  },
+  {
+    vendor: "Cerebras",
+    product: "CS-3 wafer-scale system",
+    stat: "125 PFLOPS / system",
+    detail: "WSE-3 chip: 4 trillion transistors, 900k AI cores, 44GB on-wafer SRAM, 21 PB/s memory bandwidth. Available in AWS Bedrock since March 2026. OpenAI and AWS are anchor customers.",
+    href: "https://www.cerebras.ai/blog/cerebras-is-coming-to-aws",
+    source: "Cerebras newsroom",
+    accent: "bg-peach",
+  },
+];
+
 export default function AuraPage() {
   const maxLoad = Math.max(...telemetry.map((t) => t.load));
   return (
@@ -168,6 +216,130 @@ export default function AuraPage() {
                 </div>
               </div>
             </motion.div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* Industry Pulse — verified 2024–2026 stats with attribution */}
+        <section className="bg-fog border-y border-dashed border-silver">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-10"
+            >
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ INDUSTRY PULSE · JUNE 2026 ]
+              </span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] max-w-3xl">
+                The grid is the bottleneck. <br />The data backs it up.
+              </h2>
+              <p className="text-lg text-slate/70 mt-4 max-w-2xl">
+                Real numbers from real sources. This is why AURA exists.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate/30 border border-dashed border-slate/30">
+              {industryPulse.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="bg-background p-6 md:p-7 group hover:bg-greptile-green/5 transition-colors"
+                >
+                  <div className={`w-8 h-1.5 ${s.accent} mb-5`} />
+                  <div className="font-anybody text-4xl md:text-5xl font-extrabold text-slate tracking-tight leading-none mb-3">
+                    {s.value}
+                  </div>
+                  <p className="text-sm text-slate/80 leading-snug mb-4 min-h-[3.5rem]">
+                    {s.label}
+                  </p>
+                  <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50 pt-4 border-t border-dashed border-slate/20">
+                    [ SOURCE · {s.source} ]
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-6 font-space-mono text-[11px] uppercase tracking-wider text-slate/50 text-center md:text-left">
+              [ COMPILED FROM PUBLIC INDUSTRY FORECASTS · UPDATED JUNE 2026 ]
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* What we're building on — verified compute platform stats */}
+        <section className="bg-background">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-10"
+            >
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ WHAT WE BUILD ON ]
+              </span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] max-w-3xl">
+                The silicon under AURA.
+              </h2>
+              <p className="text-lg text-slate/70 mt-4 max-w-2xl">
+                Verified specs from primary sources. Both chips are in production today.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
+              {stackChips.map((s, i) => (
+                <motion.div
+                  key={s.vendor}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="border border-dashed border-slate/30 bg-fog/50 p-7 md:p-8"
+                >
+                  <div className="flex items-start justify-between mb-5">
+                    <div>
+                      <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60">[ {s.vendor.toUpperCase()} ]</span>
+                      <h3 className="text-2xl md:text-3xl font-anybody font-extrabold text-slate tracking-tight leading-tight mt-1">
+                        {s.product}
+                      </h3>
+                    </div>
+                    <div className={`w-12 h-12 ${s.accent} shrink-0 relative overflow-hidden`}>
+                      <div className="absolute inset-0 bg-halftone opacity-30" />
+                    </div>
+                  </div>
+                  <div className="font-anybody text-3xl md:text-4xl font-extrabold text-slate mb-4">
+                    {s.stat}
+                  </div>
+                  <p className="text-sm text-slate/70 leading-relaxed mb-5">
+                    {s.detail}
+                  </p>
+                  <div className="flex items-center justify-between pt-4 border-t border-dashed border-slate/20">
+                    <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50">
+                      [ SOURCE · {s.source} ]
+                    </span>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-space-mono text-[10px] uppercase tracking-wider text-slate hover:text-greptile-green inline-flex items-center gap-1"
+                    >
+                      [ PRIMARY SOURCE ↗ ]
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-6 font-space-mono text-[11px] uppercase tracking-wider text-slate/50 text-center md:text-left">
+              [ STATS VERIFIED AGAINST VENDOR DOCUMENTATION · UPDATED JUNE 2026 ]
+            </div>
           </div>
         </section>
 
