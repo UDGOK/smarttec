@@ -67,6 +67,7 @@ const companyMenu = [
   { title: "Enterprise", desc: "Federal, federal-adjacent, large teams", href: "/enterprise" },
   { title: "Deployments", desc: "Pilot program", href: "/deployments" },
   { title: "Customers", desc: "Design partners", href: "/customers" },
+  { title: "News", desc: "Live AI infrastructure feed", href: "/news" },
   { title: "Blog", desc: "Engineering + industry", href: "/blog" },
   { title: "Security", desc: "SOC 2 + compliance", href: "/security" },
 ];
