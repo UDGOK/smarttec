@@ -2,42 +2,101 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const stagger = {
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-// Particle component for floating dots
-function Particle({ delay, x, duration }: { delay: number; x: number; duration: number }) {
+// Halftone SVG illustration - stylized battery/energy module
+function HalftoneIllustration() {
   return (
-    <motion.div
-      className="absolute w-1 h-1 rounded-full bg-[#B8FF5C]/40"
+    <svg
+      viewBox="0 0 400 400"
+      className="w-full h-full"
       style={{
-        left: `${x}%`,
-        bottom: "10%",
+        filter: 'grayscale(100%) contrast(1.1)',
       }}
-      initial={{ y: 0, opacity: 0 }}
-      animate={{
-        y: [-20, -200],
-        opacity: [0, 0.6, 0],
-      }}
-      transition={{
-        duration: duration,
-        delay: delay,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
+    >
+      <defs>
+        {/* Halftone pattern */}
+        <pattern id="halftone" patternUnits="userSpaceOnUse" width="6" height="6">
+          <circle cx="3" cy="3" r="1.5" fill="#2C2C38" opacity="0.6" />
+        </pattern>
+        <pattern id="halftone-dense" patternUnits="userSpaceOnUse" width="4" height="4">
+          <circle cx="2" cy="2" r="1.2" fill="#2C2C38" opacity="0.8" />
+        </pattern>
+        {/* Mint glow filter */}
+        <filter id="mintGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feFlood floodColor="#34E2A0" floodOpacity="0.6" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feMerge>
+            <feMergeNode in="glow" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Background grid texture */}
+      <rect width="400" height="400" fill="url(#halftone)" opacity="0.3" />
+      
+      {/* Main battery cell outline */}
+      <g filter="url(#mintGlow)">
+        {/* Outer housing */}
+        <path
+          d="M80 60 L320 60 L340 80 L340 320 L320 340 L80 340 L60 320 L60 80 Z"
+          fill="none"
+          stroke="#2C2C38"
+          strokeWidth="3"
+        />
+        
+        {/* Top terminal block */}
+        <rect x="140" y="40" width="120" height="30" rx="4" fill="#2C2C38" />
+        <rect x="160" y="30" width="80" height="20" rx="3" fill="#3A3A48" />
+        
+        {/* Inner battery stacks */}
+        <rect x="100" y="100" width="200" height="200" rx="8" fill="#2C2C38" />
+        <rect x="100" y="100" width="200" height="200" rx="8" fill="url(#halftone-dense)" />
+        
+        {/* Cell dividers */}
+        <line x1="166" y1="100" x2="166" y2="300" stroke="#6E7079" strokeWidth="1" />
+        <line x1="233" y1="100" x2="233" y2="300" stroke="#6E7079" strokeWidth="1" />
+        
+        {/* Energy level indicators */}
+        <rect x="120" y="130" width="26" height="140" rx="3" fill="#34E2A0" opacity="0.9" />
+        <rect x="187" y="130" width="26" height="140" rx="3" fill="#34E2A0" opacity="0.7" />
+        <rect x="254" y="130" width="26" height="140" rx="3" fill="#34E2A0" opacity="0.5" />
+        
+        {/* Connection ports */}
+        <rect x="100" y="260" width="200" height="25" rx="3" fill="#3A3A48" />
+        <circle cx="140" cy="272" r="6" fill="#34E2A0" />
+        <circle cx="200" cy="272" r="6" fill="#34E2A0" opacity="0.6" />
+        <circle cx="260" cy="272" r="6" fill="#34E2A0" opacity="0.3" />
+        
+        {/* Cooling vents */}
+        <line x1="110" y1="310" x2="130" y2="310" stroke="#6E7079" strokeWidth="2" />
+        <line x1="140" y1="310" x2="160" y2="310" stroke="#6E7079" strokeWidth="2" />
+        <line x1="170" y1="310" x2="190" y2="310" stroke="#6E7079" strokeWidth="2" />
+        <line x1="200" y1="310" x2="220" y2="310" stroke="#6E7079" strokeWidth="2" />
+        <line x1="230" y1="310" x2="250" y2="310" stroke="#6E7079" strokeWidth="2" />
+        <line x1="260" y1="310" x2="280" y2="310" stroke="#6E7079" strokeWidth="2" />
+      </g>
+    </svg>
+  );
+}
+
+// Decorative wireframe arc
+function WireframeArc({ className, opacity = 0.2 }: { className?: string; opacity?: number }) {
+  return (
+    <svg
+      className={`absolute ${className}`}
+      viewBox="0 0 200 100"
+      fill="none"
+      style={{ opacity }}
+    >
+      <path
+        d="M10 90 Q100 10 190 90"
+        stroke="#34E2A0"
+        strokeWidth="1"
+        fill="none"
+      />
+    </svg>
   );
 }
 
@@ -50,108 +109,126 @@ export function Hero() {
     document.getElementById("specs")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Generate random particles
-  const particles = Array.from({ length: 15 }, (_, i) => ({
-    id: i,
-    delay: Math.random() * 5,
-    x: Math.random() * 100,
-    duration: 6 + Math.random() * 4,
-  }));
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0B0D]">
-      {/* Background image with dark overlay */}
-      <div
-        className="absolute inset-0 hero-bg"
-        style={{
-          backgroundImage: `url(/img/datacenter.jpg)`,
-        }}
-      >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0B0D]/85 via-[#0A0B0D]/70 to-[#0A0B0D]" />
-        
-        {/* Animated lime gradient overlay */}
-        <div className="absolute inset-0 animate-gradient-glow bg-gradient-to-t from-[#B8FF5C]/10 via-transparent to-transparent" />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#E9EAE6] bg-dotted-grid">
+      {/* Decorative wireframe arcs */}
+      <WireframeArc className="top-20 left-[-10%] w-[400px] h-[200px]" opacity={0.15} />
+      <WireframeArc className="bottom-40 right-[-5%] w-[300px] h-[150px] rotate-12" opacity={0.1} />
+      <WireframeArc className="top-1/3 right-[10%] w-[250px] h-[125px] -rotate-6" opacity={0.08} />
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {particles.map((particle) => (
-          <Particle
-            key={particle.id}
-            delay={particle.delay}
-            x={particle.x}
-            duration={particle.duration}
-          />
-        ))}
-      </div>
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 bg-radial-glow-subtle pointer-events-none" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div variants={fadeInUp} className="mb-8">
-            <SectionLabel>SmartTec Energy Systems</SectionLabel>
-          </motion.div>
+      {/* Content container */}
+      <div className="container mx-auto px-6 pt-32 pb-20">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          {/* Text content */}
+          <div className="flex-1 text-center lg:text-left z-10">
+            {/* Kicker */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="mb-6"
+            >
+              <span className="font-mono text-sm text-[#6E7079] tracking-wide">
+                [ SmartTec Energy Systems ]
+              </span>
+            </motion.div>
 
-          <motion.h1
-            variants={fadeInUp}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-[1.05] tracking-tight"
-          >
-            The grid-independent{" "}
-            <span className="text-[#B8FF5C]">data center.</span>
-          </motion.h1>
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-[#2C2C38] mb-8 leading-[0.95] tracking-tight"
+              style={{ fontFamily: "'Archivo Expanded', sans-serif", fontWeight: 900 }}
+            >
+              The grid-independent data center.
+            </motion.h1>
 
-          <motion.p
-            variants={fadeInUp}
-            className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
-          >
-            Proprietary battery energy stacks. Zero dependency on the public grid. Built in the USA.
-          </motion.p>
+            {/* Subhead */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg sm:text-xl text-[#6E7079] mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+            >
+              Proprietary battery energy stacks. Zero dependency on the public grid. Built in the USA.
+            </motion.p>
 
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <Button size="lg" onClick={scrollToFeatures}>
+                Request a Demo
+              </Button>
+              <Button variant="accent" size="lg" onClick={scrollToSpecs}>
+                View Technical Specs
+              </Button>
+            </motion.div>
+
+            {/* Trust indicator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-10 flex items-center gap-4 justify-center lg:justify-start"
+            >
+              <span className="text-sm text-[#6E7079]">
+                Trusted by operators across 40+ sites
+              </span>
+              <div className="flex items-center gap-1.5">
+                {[...Array(5)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-6 h-1 bg-[#34E2A0] rounded-full"
+                    style={{ opacity: 1 - i * 0.15 }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Hero illustration */}
           <motion.div
-            variants={fadeInUp}
-            className="flex flex-col sm:flex-row gap-5 justify-center items-center"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex-1 w-full max-w-md lg:max-w-lg"
           >
-            <Button size="lg" onClick={scrollToFeatures}>
-              Request a Demo
-            </Button>
-            <Button variant="secondary" size="lg" onClick={scrollToSpecs}>
-              View Technical Specs
-            </Button>
+            <motion.div
+              animate={{
+                y: [0, -4, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative"
+            >
+              {/* Glow outline effect */}
+              <div 
+                className="absolute inset-0 blur-2xl bg-[#34E2A0]/20 rounded-3xl"
+                style={{ transform: 'scale(1.05)' }}
+              />
+              
+              {/* Main illustration container */}
+              <div className="relative bg-[#F5F5F2] rounded-3xl p-8 border border-[#D9DAD5]">
+                <HalftoneIllustration />
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-      >
-        <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={scrollToFeatures}>
-          <span className="text-xs text-gray-500 uppercase tracking-widest font-mono">
-            Scroll
-          </span>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-[#B8FF5C]"
-          >
-            <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
-        </div>
-      </motion.div>
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#E9EAE6] to-transparent pointer-events-none" />
     </section>
   );
 }

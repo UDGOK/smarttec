@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { forwardRef } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "ghost";
+type ButtonVariant = "primary" | "secondary" | "outline" | "accent";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps {
@@ -18,23 +18,36 @@ interface ButtonProps {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-lime-400 text-black hover:bg-lime-300",
-  secondary: "bg-transparent border border-lime-400 text-lime-400 hover:bg-lime-400/10",
-  ghost: "bg-transparent text-lime-400 hover:bg-lime-400/10",
+  primary: "bg-[#2C2C38] text-white hover:shadow-mint-glow",
+  secondary: "bg-[#34E2A0] text-[#2C2C38] hover:shadow-mint-glow",
+  outline: "bg-transparent border border-[#2C2C38] text-[#2C2C38] hover:bg-[#2C2C38]/5",
+  accent: "bg-[#34E2A0] text-[#2C2C38] hover:bg-[#2dd190] hover:shadow-mint-glow",
 };
 
-const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-base",
-  lg: "px-6 py-3 text-lg",
+const sizePadding: Record<ButtonSize, string> = {
+  sm: "px-3 py-1.5",
+  md: "px-4 py-2",
+  lg: "px-6 py-3",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "primary", size = "md", loading = false, className = "", children, disabled, onClick, type = "button" }, ref) => {
+  (
+    {
+      variant = "primary",
+      size = "md",
+      loading = false,
+      className = "",
+      children,
+      disabled,
+      onClick,
+      type = "button",
+    },
+    ref
+  ) => {
     return (
       <motion.div
-        whileHover={{ scale: disabled || loading ? 1 : 1.02 }}
-        whileTap={{ scale: disabled || loading ? 1 : 0.98 }}
+        whileHover={{ scale: disabled || loading ? 1 : 1.01 }}
+        whileTap={{ scale: disabled || loading ? 1 : 0.99 }}
         className="inline-flex"
       >
         <button
@@ -43,13 +56,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           onClick={onClick}
           disabled={disabled || loading}
           className={`
-            inline-flex items-center justify-center rounded-md font-medium
-            transition-colors duration-200 cursor-pointer
+            ${sizePadding[size]}
+            font-medium
+            transition-all duration-200
+            cursor-pointer
             disabled:opacity-50 disabled:cursor-not-allowed
             ${variantStyles[variant]}
-            ${sizeStyles[size]}
             ${className}
           `}
+          style={{
+            clipPath:
+              size === "sm"
+                ? "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))"
+                : size === "lg"
+                ? "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))"
+                : "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
+          }}
         >
           {loading ? (
             <span className="flex items-center gap-2">
@@ -59,7 +81,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 fill="none"
                 viewBox="0 0 24 24"
               >
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
                 <path
                   className="opacity-75"
                   fill="currentColor"

@@ -5,7 +5,7 @@ export interface NavLink {
 }
 
 export interface ButtonProps {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   className?: string;

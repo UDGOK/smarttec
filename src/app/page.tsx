@@ -14,11 +14,13 @@ import { Reliability } from "@/components/sections/Reliability";
 import { TestimonialWall } from "@/components/sections/TestimonialWall";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { Footer } from "@/components/sections/Footer";
-import { Button } from "@/components/ui/Button";
+
+// Chamfered button styles
+const chamferedButtonBase = "relative px-6 py-3 font-medium text-sm transition-all duration-200 overflow-hidden";
 
 function ClosingCTA() {
   return (
-    <section className="py-24 bg-zinc-950">
+    <section className="py-24 bg-[#F2F2EF]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -27,19 +29,31 @@ function ClosingCTA() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-6">
-            Ready to go off-grid?
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2C2C38] mb-6" style={{ fontFamily: "'Archivo Expanded', sans-serif" }}>
+            Start the conversation.
           </h2>
-          <p className="text-lg text-zinc-400 mb-8">
-            Join leading data center operators who have made the switch to grid-independent infrastructure.
+          <p className="text-lg text-[#6B6B75] mb-10 max-w-xl mx-auto">
+            Talk to our team about your power requirements. We&apos;ll scope a solution within 48 hours.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="primary" size="lg">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="#demo"
+              className="relative px-8 py-4 bg-[#34E2A0] text-[#2C2C38] font-semibold text-sm transition-all duration-200 hover:opacity-90 clip-path-chamfered"
+              style={{
+                clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))"
+              }}
+            >
               Request a Demo
-            </Button>
-            <Button variant="secondary" size="lg">
-              View Technical Specs
-            </Button>
+            </a>
+            <a
+              href="#specsheet"
+              className="relative px-8 py-4 bg-transparent text-[#2C2C38] font-semibold text-sm border border-[#2C2C38] transition-all duration-200 hover:bg-[#2C2C38] hover:text-white"
+              style={{
+                clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))"
+              }}
+            >
+              Download Spec Sheet
+            </a>
           </div>
         </motion.div>
       </div>
@@ -49,21 +63,21 @@ function ClosingCTA() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-black">
+    <div className="min-h-screen">
       <Navigation />
       <main>
         <Hero />
         <LogoCloud />
-        <HowItWorks />
         <FeaturedTestimonial />
+        <HowItWorks />
         <FeatureGrid />
         <Personalization />
         <IntegrationCards />
         <MarqueeCTA />
         <Reliability />
         <TestimonialWall />
-        <ClosingCTA />
         <FAQSection />
+        <ClosingCTA />
       </main>
       <Footer />
     </div>

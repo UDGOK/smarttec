@@ -15,7 +15,7 @@ const integrationSteps: IntegrationStep[] = [
     number: "01",
     title: "Site Survey & Engineering",
     description:
-      "Our team conducts a full power audit, RFQ analysis, and structural assessment. We handle the engineering — you just approve the plans.",
+      "Full power audit, structural assessment, and custom stack design by our engineering team.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
@@ -26,7 +26,7 @@ const integrationSteps: IntegrationStep[] = [
     number: "02",
     title: "Modular Deployment",
     description:
-      "Pre-tested battery modules ship to your site. Our commissioning team installs and validates in days, not months. No construction, no downtime.",
+      "Pre-tested modules ship to your site. Commissioning takes days, not months.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -40,7 +40,7 @@ const integrationSteps: IntegrationStep[] = [
     number: "03",
     title: "Managed Operations",
     description:
-      "24/7 monitoring, predictive maintenance, and quarterly performance reviews. We treat your infrastructure like it's ours.",
+      "24/7 monitoring, predictive maintenance, and quarterly performance reviews included.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -55,9 +55,15 @@ export function IntegrationCards() {
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="integrations" className="relative py-24 md:py-32 bg-[#0A0B0D]">
-      {/* Background grid pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+    <section id="integrations" className="relative py-24 md:py-32 bg-[#2A2A34]">
+      {/* Dotted grid background texture */}
+      <div 
+        className="absolute inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #34E2A0 1px, transparent 1px)`,
+          backgroundSize: '24px 24px'
+        }}
+      />
 
       <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
         {/* Section header */}
@@ -68,15 +74,12 @@ export function IntegrationCards() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-16 md:mb-20"
         >
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#B8FF5C] mb-4">
-            [ How It Plugs In ]
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#34E2A0] mb-4">
+            [ HOW IT PLUGS IN ]
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-            From contract to <span className="text-[#B8FF5C]">grid independence</span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 font-['Archivo_Expanded',sans-serif]">
+            Three ways to deploy.
           </h2>
-          <p className="text-[#8A8F98] text-lg max-w-2xl mx-auto">
-            Three phases. Zero surprises. Your deployment roadmap from initial consultation to 24/7 operations.
-          </p>
         </motion.div>
 
         {/* Integration cards */}
@@ -94,34 +97,28 @@ export function IntegrationCards() {
               }}
               className="group relative"
             >
-              <div className="relative bg-[#111315] border border-[#1F2328] rounded-2xl p-8 transition-all duration-300 hover:border-[#B8FF5C]/30 hover:bg-[#B8FF5C]/[0.03] hover:shadow-[0_0_20px_rgba(184,255,92,0.1)]">
-                {/* Top accent line on hover */}
-                <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#B8FF5C]/0 to-transparent group-hover:via-[#B8FF5C]/50 transition-all duration-500" />
-
+              <div className="relative bg-[#2A2A34] border border-[#3A3B44] rounded-2xl p-8 transition-all duration-300 hover:border-[#34E2A0]/50">
                 {/* Icon container */}
-                <div className="w-12 h-12 rounded-xl bg-[#1a1d21] border border-[#2a2d32] flex items-center justify-center mb-6 text-[#B8FF5C] group-hover:border-[#B8FF5C]/30 group-hover:bg-[#1a1d21]/80 transition-all duration-300">
+                <div className="w-12 h-12 flex items-center justify-center mb-6 text-[#34E2A0]">
                   {step.icon}
                 </div>
 
                 {/* Number badge */}
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-sm text-[#B8FF5C] font-medium">
+                  <span className="font-mono text-sm text-[#34E2A0] font-medium">
                     [ {step.number} ]
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-[#B8FF5C] transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-white mb-4 font-['Archivo_Expanded',sans-serif]">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-[#8A8F98] leading-relaxed group-hover:text-[#8A8F98]/80 transition-colors duration-300">
+                <p className="text-sm text-[#9A9BA3] leading-relaxed">
                   {step.description}
                 </p>
-
-                {/* Bottom accent */}
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-[#1F2328] group-hover:bg-[#B8FF5C]/20 transition-colors duration-500" />
               </div>
             </motion.div>
           ))}

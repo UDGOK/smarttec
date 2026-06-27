@@ -3,55 +3,40 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-interface Testimonial {
-  id: number;
-  quote: string;
-  author: {
-    name: string;
-    title: string;
-    company: string;
-    image: string;
-  };
-}
-
-const testimonials: Testimonial[] = [
+const testimonials = [
   {
     id: 1,
-    quote: "SmartTec solved our biggest infrastructure problem. We went from 4-hour outage incidents to zero. The battery stack paid for itself in 18 months.",
+    quote: "We went from 4-hour outage events to zero. SmartTec paid for itself in 18 months.",
     author: {
-      name: "Jennifer Walsh",
-      title: "CTO",
-      company: "Nexus Data",
+      name: "Marcus Thompson",
+      title: "CTO @ StackEdge Systems",
       image: "/img/exec1.jpg",
     },
   },
   {
     id: 2,
-    quote: "The deployment was surgical. SmartTec's team handled everything from site survey to commissioning. We barely had to lift a finger.",
+    quote: "The deployment was surgical. Our team barely had to lift a finger. Live in 90 days, exactly as promised.",
     author: {
-      name: "David Park",
-      title: "VP Operations",
-      company: "CloudVault",
+      name: "Sarah Chen",
+      title: "VP Operations @ CloudVault",
       image: "/img/exec2.jpg",
     },
   },
   {
     id: 3,
-    quote: "Finally, infrastructure that keeps up with our growth. We scaled from 50kW to 2MW without a single re-engineering cycle.",
+    quote: "We scaled from 50kW to 2MW without a single re-engineering cycle. That kind of flexibility is rare.",
     author: {
-      name: "Sarah Chen",
-      title: "CEO",
-      company: "Prism Analytics",
+      name: "David Park",
+      title: "CEO @ Prism Analytics",
       image: "/img/exec4.jpg",
     },
   },
   {
     id: 4,
-    quote: "Enterprise-grade reliability at a fraction of the cost of traditional colocation. The SOC 2 compliance documentation alone saved us months.",
+    quote: "Enterprise-grade compliance documentation delivered upfront. Our procurement team was impressed before we even signed.",
     author: {
       name: "Rachel Torres",
-      title: "CISO",
-      company: "Fortis Networks",
+      title: "CISO @ Fortis Networks",
       image: "/img/exec6.jpg",
     },
   },
@@ -59,16 +44,33 @@ const testimonials: Testimonial[] = [
 
 export function TestimonialWall() {
   return (
-    <section className="relative bg-[#0A0B0D] py-24 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[700px] rounded-full"
-          style={{
-            background:
-              "radial-gradient(ellipse, rgba(184, 255, 92, 0.04) 0%, transparent 70%)",
-          }}
-        />
+    <section className="relative bg-[#E9EAE6] py-24 overflow-hidden">
+      {/* Wireframe arc decoration in pale mint */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <svg
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] opacity-[0.08]"
+          viewBox="0 0 900 600"
+          fill="none"
+        >
+          <path
+            d="M450 550 C450 550, 50 400, 50 200 C50 50, 200 -50, 450 50 C700 -50, 850 50, 850 200 C850 400, 450 550, 450 550"
+            stroke="#34E2A0"
+            strokeWidth="1"
+            fill="none"
+          />
+          <path
+            d="M450 500 C450 500, 100 370, 100 200 C100 80, 230 0, 450 80 C670 0, 800 80, 800 200 C800 370, 450 500, 450 500"
+            stroke="#34E2A0"
+            strokeWidth="1"
+            fill="none"
+          />
+          <path
+            d="M450 450 C450 450, 150 340, 150 200 C150 110, 260 50, 450 110 C640 50, 750 110, 750 200 C750 340, 450 450, 450 450"
+            stroke="#34E2A0"
+            strokeWidth="1"
+            fill="none"
+          />
+        </svg>
       </div>
 
       <div className="mx-auto max-w-6xl px-6">
@@ -80,19 +82,12 @@ export function TestimonialWall() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1F2328] bg-[#111315] mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#B8FF5C]" />
-            <span className="text-sm font-medium text-[#8A8F98] uppercase tracking-wider">
-              Client Success
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Trusted by Industry Leaders
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#6B6B75] mb-6">
+            [ WHAT OPERATORS ARE SAYING ]
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2C2C38] mb-4" style={{ fontFamily: "'Archivo Expanded', sans-serif" }}>
+            No marketing speak. Just results.
           </h2>
-          <p className="text-lg text-[#8A8F98] max-w-2xl mx-auto">
-            See how forward-thinking companies are transforming their operations
-            with SmartTec.
-          </p>
         </motion.div>
 
         {/* 2x2 Grid of testimonial cards */}
@@ -108,74 +103,37 @@ export function TestimonialWall() {
                 duration: 0.6,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="group relative"
+              className="group"
             >
               {/* Card */}
-              <div className="relative bg-[#111315] border border-[#1F2328] rounded-2xl p-6 sm:p-8 h-full transition-all duration-300 hover:border-[#B8FF5C]/40">
-                {/* Hover lime border glow */}
-                <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{
-                    boxShadow: "inset 0 0 0 1px rgba(184, 255, 92, 0.3)",
-                  }}
-                />
-
-                {/* Quote icon */}
-                <div className="mb-6">
-                  <div className="relative w-10 h-10 flex items-center justify-center">
-                    <div
-                      className="absolute inset-0 rounded-lg rotate-45"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, rgba(184, 255, 92, 0.15) 0%, rgba(184, 255, 92, 0.05) 100%)",
-                      }}
-                    />
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className="relative text-[#B8FF5C]"
-                    >
-                      <path
-                        d="M11 7V11C11 12.6569 9.65685 14 8 14H6V16H8C10.2091 16 12 14.2091 12 12V7H11ZM20 7V11C20 12.6569 18.6569 14 17 14H15V16H17C19.2091 16 21 14.2091 21 12V7H20Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </div>
-                </div>
-
+              <div className="relative bg-[#F2F2EF] border border-[#D9DAD5] rounded-2xl p-6 sm:p-8 h-full transition-all duration-300 hover:border-[#34E2A0]">
                 {/* Quote text */}
                 <blockquote className="mb-8">
-                  <p className="text-base sm:text-lg text-[#F5F5F2]/90 leading-relaxed italic">
+                  <p className="text-base sm:text-lg text-[#2C2C38]/80 leading-relaxed italic">
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 </blockquote>
 
-                {/* Author and logo section */}
-                <div className="flex items-center justify-between gap-4 pt-6 border-t border-[#1F2328]">
-                  {/* Author info */}
-                  <div className="flex items-center gap-4">
-                    {/* Avatar */}
-                    <div className="relative w-14 h-14 flex-shrink-0 rounded-full overflow-hidden">
-                      <Image
-                        src={testimonial.author.image}
-                        alt={testimonial.author.name}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 rounded-full ring-1 ring-[#B8FF5C]/20" />
-                    </div>
+                {/* Author section */}
+                <div className="flex items-center gap-4 pt-6 border-t border-[#D9DAD5]">
+                  {/* Avatar */}
+                  <div className="relative w-14 h-14 flex-shrink-0 rounded-full overflow-hidden">
+                    <Image
+                      src={testimonial.author.image}
+                      alt={testimonial.author.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
 
-                    {/* Name and title */}
-                    <div>
-                      <h3 className="text-sm font-semibold text-white">
-                        {testimonial.author.name}
-                      </h3>
-                      <p className="text-xs text-[#8A8F98]">
-                        {testimonial.author.title} at {testimonial.author.company}
-                      </p>
-                    </div>
+                  {/* Name and title */}
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#2C2C38]">
+                      {testimonial.author.name}
+                    </h3>
+                    <p className="text-xs text-[#6B6B75]">
+                      {testimonial.author.title}
+                    </p>
                   </div>
                 </div>
               </div>

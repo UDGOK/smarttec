@@ -5,9 +5,15 @@ import Image from "next/image";
 
 export function Personalization() {
   return (
-    <section id="personalization" className="relative py-24 md:py-32 bg-[#0A0B0D]">
-      {/* Background grid pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-50" />
+    <section id="personalization" className="relative py-24 md:py-32 bg-[#E9EAE6]">
+      {/* Dotted grid background texture */}
+      <div 
+        className="absolute inset-0 opacity-[0.15]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #2C2C38 1px, transparent 1px)`,
+          backgroundSize: '24px 24px'
+        }}
+      />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header */}
@@ -16,17 +22,11 @@ export function Personalization() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-16 md:mb-20"
+          className="mb-16 md:mb-20"
         >
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#B8FF5C] mb-4">
-            Adaptive Intelligence
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2C38] mb-6 font-['Archivo_Expanded',sans-serif]">
             Load management that thinks ahead.
           </h2>
-          <p className="text-[#8A8F98] text-lg max-w-2xl mx-auto">
-            Our predictive algorithms analyze your traffic patterns 72 hours in advance, pre-positioning battery reserves. You run at peak efficiency whether it&apos;s a Tuesday morning or a holiday traffic spike.
-          </p>
         </motion.div>
 
         {/* Content grid */}
@@ -40,75 +40,89 @@ export function Personalization() {
             className="space-y-8"
           >
             <div className="space-y-6">
+              {/* Feature 1 */}
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#B8FF5C]/10 border border-[#B8FF5C]/20 flex items-center justify-center">
+                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
                   <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
                     fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="text-[#B8FF5C]"
+                    className="text-[#34E2A0]"
                   >
-                    <path d="M12 8v4l3 3" />
-                    <circle cx="12" cy="12" r="9" />
+                    <path
+                      d="M3 8.5L6.5 12L13 5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                  <h3 className="text-lg font-semibold text-[#2C2C38] mb-1 font-['Archivo_Expanded',sans-serif]">
                     Predictive load positioning
                   </h3>
-                  <p className="text-[#8A8F98]">
-                    Reserves pre-charged before demand peaks. Our system forecasts load 72 hours ahead.
+                  <p className="text-[#6B6C70] text-sm">
+                    Reserves pre-charged 72 hours before demand peaks.
                   </p>
                 </div>
               </div>
 
+              {/* Feature 2 */}
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#B8FF5C]/10 border border-[#B8FF5C]/20 flex items-center justify-center">
+                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
                   <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
                     fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="text-[#B8FF5C]"
+                    className="text-[#34E2A0]"
                   >
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    <path
+                      d="M3 8.5L6.5 12L13 5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                  <h3 className="text-lg font-semibold text-[#2C2C38] mb-1 font-['Archivo_Expanded',sans-serif]">
                     Real-time power routing
                   </h3>
-                  <p className="text-[#8A8F98]">
-                    Sub-10ms failover between power sources. Zero perceptible interruption during grid events.
+                  <p className="text-[#6B6C70] text-sm">
+                    Sub-10ms automatic failover between grid and battery.
                   </p>
                 </div>
               </div>
 
+              {/* Feature 3 */}
               <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#B8FF5C]/10 border border-[#B8FF5C]/20 flex items-center justify-center">
+                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
                   <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
                     fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="text-[#B8FF5C]"
+                    className="text-[#34E2A0]"
                   >
-                    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+                    <path
+                      d="M3 8.5L6.5 12L13 5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                  <h3 className="text-lg font-semibold text-[#2C2C38] mb-1 font-['Archivo_Expanded',sans-serif]">
                     Thermal balancing
                   </h3>
-                  <p className="text-[#8A8F98]">
-                    AI-managed cooling reduces PUE by up to 18%. Intelligent temperature regulation across all modules.
+                  <p className="text-[#6B6C70] text-sm">
+                    AI-managed cooling reduces PUE by up to 18%.
                   </p>
                 </div>
               </div>
@@ -123,15 +137,7 @@ export function Personalization() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="relative group"
           >
-            <div className="relative bg-[#111315] border border-[#1F2328] rounded-2xl overflow-hidden transition-all duration-500 hover:border-[#B8FF5C]/30">
-              {/* Hover glow */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{
-                  boxShadow: "0 0 60px rgba(184, 255, 92, 0.1)",
-                }}
-              />
-
+            <div className="relative bg-white border border-[#D4D5D0] rounded-2xl overflow-hidden transition-all duration-500 shadow-sm hover:shadow-md hover:border-[#34E2A0]/30">
               {/* Dashboard image */}
               <div className="relative aspect-[4/3]">
                 <Image
@@ -144,22 +150,22 @@ export function Personalization() {
                 {/* Status badges overlaid on image */}
                 <div className="absolute top-4 left-4 right-4 flex flex-wrap gap-2">
                   {/* Grid Online badge */}
-                  <div className="px-3 py-1.5 rounded-md bg-[#0A0B0D]/90 border border-[#1F2328] backdrop-blur-sm">
-                    <span className="font-mono text-xs text-[#8A8F98] uppercase tracking-wider">
+                  <div className="px-3 py-1.5 rounded-md bg-white/90 border border-[#D4D5D0] backdrop-blur-sm">
+                    <span className="font-mono text-xs text-[#6B6C70] uppercase tracking-wider">
                       GRID ONLINE
                     </span>
                   </div>
 
                   {/* Battery Reserves badge */}
-                  <div className="px-3 py-1.5 rounded-md bg-[#0A0B0D]/90 border border-[#B8FF5C]/30 backdrop-blur-sm">
-                    <span className="font-mono text-xs text-[#B8FF5C] uppercase tracking-wider">
+                  <div className="px-3 py-1.5 rounded-md bg-white/90 border border-[#34E2A0]/50 backdrop-blur-sm">
+                    <span className="font-mono text-xs text-[#34E2A0] uppercase tracking-wider">
                       BATTERY RESERVES: 94%
                     </span>
                   </div>
 
                   {/* Load Optimal badge */}
-                  <div className="px-3 py-1.5 rounded-md bg-[#0A0B0D]/90 border border-[#1F2328] backdrop-blur-sm">
-                    <span className="font-mono text-xs text-white uppercase tracking-wider">
+                  <div className="px-3 py-1.5 rounded-md bg-white/90 border border-[#D4D5D0] backdrop-blur-sm">
+                    <span className="font-mono text-xs text-[#2C2C38] uppercase tracking-wider">
                       LOAD: OPTIMAL
                     </span>
                   </div>

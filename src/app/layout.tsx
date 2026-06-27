@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,10 +13,16 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+  variable: "--font-archivo",
+});
+
 export const metadata: Metadata = {
   title: "SmartTec — The Grid-Independent Data Center",
   description:
-    "SmartTec designs, deploys, and operates data centers powered by proprietary battery energy stacks. USA-based R&D and manufacturing.",
+    "Proprietary battery energy stacks for data center infrastructure. Zero grid dependency. Built in the USA.",
   keywords: [
     "data center",
     "battery energy storage",
@@ -26,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SmartTec — The Grid-Independent Data Center",
     description:
-      "SmartTec designs, deploys, and operates data centers powered by proprietary battery energy stacks. USA-based R&D and manufacturing.",
+      "Proprietary battery energy stacks for data center infrastructure. Zero grid dependency. Built in the USA.",
     type: "website",
     locale: "en_US",
     siteName: "SmartTec",
@@ -35,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SmartTec — The Grid-Independent Data Center",
     description:
-      "SmartTec designs, deploys, and operates data centers powered by proprietary battery energy stacks.",
+      "Proprietary battery energy stacks for data center infrastructure. Zero grid dependency. Built in the USA.",
   },
   robots: {
     index: true,
@@ -49,8 +56,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable}`}>
-      <body className="bg-bg-primary text-txt-primary antialiased">{children}</body>
+    <html
+      lang="en"
+      className={`${inter.variable} ${geistMono.variable} ${archivo.variable}`}
+    >
+      <body className="bg-bg-primary text-txt-primary antialiased">
+        {children}
+      </body>
     </html>
   );
 }

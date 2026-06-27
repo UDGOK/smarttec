@@ -1,14 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #0A0B0D;
-  --bg-secondary: #0B0C0E;
-  --bg-section: #111315;
-  --text-primary: #F5F5F2;
-  --text-secondary: #8A8F98;
-  --accent: #B8FF5C;
-  --accent-alt: #A3E635;
-  --border: #1F2328;
+  /* Light theme color palette */
+  --bg-primary: #E9EAE6;
+  --bg-section: #F2F2EF;
+  --bg-dark: #2A2A34;
+  --text-primary: #2C2C38;
+  --text-secondary: #6E7079;
+  --accent: #34E2A0;
+  --accent-secondary: #E7B6DE;
+  --border: #D9DAD5;
+
+  /* Tailwind-compatible CSS variables */
+  --color-bg-primary: #E9EAE6;
+  --color-bg-section: #F2F2EF;
+  --color-bg-dark: #2A2A34;
+  --color-txt-primary: #2C2C38;
+  --color-txt-secondary: #6E7079;
+  --color-accent: #34E2A0;
+  --color-accent-secondary: #E7B6DE;
+  --color-border: #D9DAD5;
 }
 
 * {
@@ -29,13 +40,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Selection styling with lime accent */
+/* Selection styling with mint accent */
 ::selection {
-  background-color: rgba(184, 255, 92, 0.3);
+  background-color: var(--accent);
   color: var(--text-primary);
 }
 
-/* Custom scrollbar with lime accent */
+/* Custom scrollbar with mint accent */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -51,7 +62,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-alt);
+  background: #2dd190;
 }
 
 /* Firefox scrollbar */
@@ -60,27 +71,90 @@ body {
   scrollbar-color: var(--accent) var(--bg-primary);
 }
 
+/* Gradient text for accent */
 .text-gradient {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, #2dd190 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.bg-grid-pattern {
-  background-image:
-    linear-gradient(rgba(184, 255, 92, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(184, 255, 92, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+/* Dotted grid texture */
+.bg-dotted-grid {
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* Radial glow gradient for background use */
+/* Subtle dotted grid with accent dots */
+.bg-dotted-grid-accent {
+  background-image: radial-gradient(circle, var(--accent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.3;
+}
+
+/* Wireframe arc decorations */
+.arc-wireframe {
+  position: relative;
+}
+
+.arc-wireframe::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.arc-wireframe-sm::before {
+  width: 150%;
+  height: 150%;
+}
+
+.arc-wireframe-lg::before {
+  width: 300%;
+  height: 300%;
+}
+
+/* Halftone/dither pattern */
+.bg-halftone {
+  background-image: radial-gradient(circle at center, var(--text-primary) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.03;
+}
+
+.bg-halftone-accent {
+  background-image: radial-gradient(circle at center, var(--accent) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.15;
+}
+
+/* Section with dark background */
+.section-dark {
+  background: var(--bg-dark);
+  color: white;
+}
+
+.section-dark .text-secondary {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.section-dark .border {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Radial glow for backgrounds */
 .bg-radial-glow {
-  background: radial-gradient(ellipse at center, rgba(184, 255, 92, 0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse at center, rgba(52, 226, 160, 0.1) 0%, transparent 60%);
 }
 
 .bg-radial-glow-subtle {
-  background: radial-gradient(ellipse at center, rgba(184, 255, 92, 0.04) 0%, transparent 50%);
+  background: radial-gradient(ellipse at center, rgba(52, 226, 160, 0.05) 0%, transparent 50%);
 }
 
 /* Grain/noise texture overlay */
@@ -89,18 +163,18 @@ body {
   position: absolute;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.03;
+  opacity: 0.02;
   pointer-events: none;
   z-index: 1;
 }
 
-/* Animated gradient overlay for hero */
+/* Animated gradient overlay */
 @keyframes gradientShift {
   0%, 100% {
-    opacity: 0.15;
+    opacity: 0.1;
   }
   50% {
-    opacity: 0.25;
+    opacity: 0.2;
   }
 }
 
@@ -115,7 +189,20 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Logo fill for white styling */
-.logo-fill-white {
-  fill: #F5F5F2;
+/* Logo fill for dark styling */
+.logo-fill-dark {
+  fill: var(--text-primary);
+}
+
+/* Chamfered button base styles */
+.btn-chamfered {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.btn-chamfered-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.btn-chamfered-lg {
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
 }

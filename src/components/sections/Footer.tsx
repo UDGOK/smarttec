@@ -8,8 +8,8 @@ const productLinks = [
   { label: "Modular Deployments", href: "#integrations" },
   { label: "Managed Operations", href: "#reliability" },
   { label: "Technical Specs", href: "#specs" },
-  { label: "API Documentation", href: "#api" },
   { label: "Pricing", href: "#pricing" },
+  { label: "API Documentation", href: "#api" },
 ];
 
 // Company Links
@@ -75,34 +75,17 @@ const socialLinks = [
   },
 ];
 
-// Energy Core SVG Background - very subtle
-function EnergyCoreBackground() {
+// Subtle dotted grid background
+function DottedGridBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.015]">
-      <svg
-        className="absolute w-[800px] h-[800px] -bottom-1/4 -right-1/4"
-        viewBox="0 0 400 400"
-        fill="none"
-      >
-        <circle cx="200" cy="200" r="180" stroke="#BEF264" strokeWidth="1" />
-        <circle cx="200" cy="200" r="150" stroke="#BEF264" strokeWidth="1" />
-        <circle cx="200" cy="200" r="120" stroke="#BEF264" strokeWidth="1" />
-        <circle cx="200" cy="200" r="90" stroke="#BEF264" strokeWidth="1" />
-        <circle cx="200" cy="200" r="60" stroke="#BEF264" strokeWidth="1" />
-        <circle cx="200" cy="200" r="30" stroke="#BEF264" strokeWidth="1" />
-        <circle cx="200" cy="200" r="10" fill="#BEF264" fillOpacity="0.5" />
-        {/* Radial lines */}
-        {[...Array(12)].map((_, i) => (
-          <line
-            key={i}
-            x1="200"
-            y1="200"
-            x2={200 + 180 * Math.cos((i * Math.PI) / 6)}
-            y2={200 + 180 * Math.sin((i * Math.PI) / 6)}
-            stroke="#BEF264"
-            strokeWidth="0.5"
-          />
-        ))}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.03]">
+      <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="#E9EAE6" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dots)" />
       </svg>
     </div>
   );
@@ -112,8 +95,8 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#0A0B0D] border-t border-[#1F2328]">
-      <EnergyCoreBackground />
+    <footer className="relative bg-[#2A2A34]">
+      <DottedGridBackground />
 
       {/* Main Footer Content */}
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
@@ -122,14 +105,18 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-4">
             <a href="#" className="flex items-center gap-2 mb-4 group">
-              <div className="w-10 h-10 bg-[#B8FF5C] rounded-lg flex items-center justify-center group-hover:opacity-80 transition-opacity">
-                <span className="text-black font-bold text-xl">S</span>
+              <div className="w-10 h-10 bg-[#34E2A0] rounded-lg flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[#2A2A34]">
+                  <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" />
+                  <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </div>
-              <span className="text-white font-bold text-2xl group-hover:text-[#B8FF5C] transition-colors">
+              <span className="text-white font-bold text-2xl" style={{ fontFamily: "'Archivo Expanded', sans-serif" }}>
                 SmartTec
               </span>
             </a>
-            <p className="text-[#8A8F98] text-sm leading-relaxed mb-6 max-w-sm">
+            <p className="text-[#9A9AA8] text-sm leading-relaxed mb-6 max-w-sm">
               Infrastructure that doesn&apos;t fail when the grid does.
             </p>
 
@@ -140,7 +127,7 @@ export function Footer() {
                   key={social.name}
                   href={social.href}
                   aria-label={social.name}
-                  className="w-10 h-10 rounded-full bg-[#111315] border border-[#1F2328] flex items-center justify-center text-[#8A8F98] hover:text-[#B8FF5C] hover:border-[#B8FF5C]/30 transition-colors"
+                  className="w-10 h-10 rounded-full bg-[#363645] flex items-center justify-center text-[#9A9AA8] hover:text-white transition-colors duration-200"
                   whileTap={{ scale: 0.95 }}
                 >
                   {social.icon}
@@ -153,7 +140,7 @@ export function Footer() {
           <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
             {/* Product */}
             <div>
-              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              <h3 className="text-[#34E2A0] font-mono text-xs uppercase tracking-wider mb-4">
                 Product
               </h3>
               <ul className="space-y-3">
@@ -161,7 +148,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-[#8A8F98] text-sm hover:text-[#B8FF5C] transition-colors"
+                      className="text-[#9A9AA8] text-sm hover:text-white transition-colors duration-200"
                     >
                       {link.label}
                     </a>
@@ -172,7 +159,7 @@ export function Footer() {
 
             {/* Company */}
             <div>
-              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              <h3 className="text-[#34E2A0] font-mono text-xs uppercase tracking-wider mb-4">
                 Company
               </h3>
               <ul className="space-y-3">
@@ -180,7 +167,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-[#8A8F98] text-sm hover:text-[#B8FF5C] transition-colors"
+                      className="text-[#9A9AA8] text-sm hover:text-white transition-colors duration-200"
                     >
                       {link.label}
                     </a>
@@ -191,7 +178,7 @@ export function Footer() {
 
             {/* Resources */}
             <div>
-              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              <h3 className="text-[#34E2A0] font-mono text-xs uppercase tracking-wider mb-4">
                 Resources
               </h3>
               <ul className="space-y-3">
@@ -199,7 +186,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-[#8A8F98] text-sm hover:text-[#B8FF5C] transition-colors"
+                      className="text-[#9A9AA8] text-sm hover:text-white transition-colors duration-200"
                     >
                       {link.label}
                     </a>
@@ -210,7 +197,7 @@ export function Footer() {
 
             {/* Contact */}
             <div>
-              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              <h3 className="text-[#34E2A0] font-mono text-xs uppercase tracking-wider mb-4">
                 Contact
               </h3>
               <ul className="space-y-3">
@@ -218,7 +205,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-[#8A8F98] text-sm hover:text-[#B8FF5C] transition-colors"
+                      className="text-[#9A9AA8] text-sm hover:text-white transition-colors duration-200"
                     >
                       {link.label}
                     </a>
@@ -230,24 +217,24 @@ export function Footer() {
         </div>
 
         {/* Bottom Divider */}
-        <div className="border-t border-[#1F2328]" />
+        <div className="border-t border-[#3A3A45]" />
       </div>
 
       {/* Copyright Bar */}
-      <div className="relative border-t border-[#1F2328] bg-[#08090a]">
+      <div className="relative border-t border-[#3A3A45]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-5">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <p className="text-[#8A8F98] text-sm">
-              &copy; {currentYear} SmartTec Inc. All rights reserved.
+            <p className="text-[#6B6B75] text-sm">
+              &copy; {currentYear} SmartTec, Inc. All rights reserved.
             </p>
             <div className="flex items-center gap-6 flex-wrap">
-              <a href="#privacy" className="text-[#8A8F98] text-sm hover:text-[#B8FF5C] transition-colors">
+              <a href="#privacy" className="text-[#6B6B75] text-sm hover:text-white transition-colors duration-200">
                 Privacy Policy
               </a>
-              <a href="#terms" className="text-[#8A8F98] text-sm hover:text-[#B8FF5C] transition-colors">
+              <a href="#terms" className="text-[#6B6B75] text-sm hover:text-white transition-colors duration-200">
                 Terms of Service
               </a>
-              <a href="#cookies" className="text-[#8A8F98] text-sm hover:text-[#B8FF5C] transition-colors">
+              <a href="#cookies" className="text-[#6B6B75] text-sm hover:text-white transition-colors duration-200">
                 Cookie Policy
               </a>
             </div>

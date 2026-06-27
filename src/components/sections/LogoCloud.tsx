@@ -3,20 +3,29 @@
 import { motion } from "framer-motion";
 
 const partners = [
-  { name: "Equinix", logo: "/logos/equinix.svg" },
-  { name: "Digital Realty", logo: "/logos/digital_realty.svg" },
-  { name: "Switch", logo: "/logos/switch.svg" },
-  { name: "CyrusOne", logo: "/logos/cyrusone.svg" },
-  { name: "QTS", logo: "/logos/qts.svg" },
-  { name: "Iron Mountain", logo: "/logos/iron_mountain.svg" },
-  { name: "NTT Data", logo: "/logos/ntt_data.svg" },
-  { name: "Colt", logo: "/logos/colt.svg" },
+  "Equinix",
+  "Digital Realty",
+  "Switch",
+  "CyrusOne",
+  "QTS",
+  "Iron Mountain",
+  "NTT Data",
+  "Colt",
 ];
 
 export function LogoCloud() {
   return (
-    <section className="py-16 md:py-20 border-y border-white/10">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="relative py-16 md:py-20 bg-[#F2F2EF] overflow-hidden">
+      {/* Dotted-grid background texture */}
+      <div 
+        className="absolute inset-0 opacity-[0.15]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #6E7079 1px, transparent 1px)`,
+          backgroundSize: '24px 24px',
+        }}
+      />
+
+      <div className="relative container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -24,32 +33,27 @@ export function LogoCloud() {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#B8FF5C] mb-4">
-            [ Trusted by operators across 40+ sites ]
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#6E7079] mb-4">
+            [ TRUSTED BY OPERATORS ACROSS 40+ SITES ]
           </span>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+        <div className="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-16">
           {partners.map((partner, index) => (
             <motion.div
-              key={partner.name}
+              key={partner}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ 
                 duration: 0.5,
-                delay: index * 0.1 
+                delay: index * 0.08 
               }}
               className="relative group"
             >
-              <div className="w-32 h-16 md:w-40 md:h-20 flex items-center justify-center p-3 bg-white/[0.03] rounded-lg border border-white/10 transition-all duration-300 hover:border-[#B8FF5C]/30 hover:shadow-[0_0_20px_rgba(184,255,92,0.1)]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={partner.logo}
-                  alt={`${partner.name} logo`}
-                  className="max-w-full max-h-full object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                />
-              </div>
+              <span className="text-base md:text-lg font-medium text-[#6E7079] transition-all duration-300 group-hover:text-[#2C2C38] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-[#34E2A0] after:transition-all after:duration-300 group-hover:after:w-full">
+                {partner}
+              </span>
             </motion.div>
           ))}
         </div>
@@ -57,3 +61,5 @@ export function LogoCloud() {
     </section>
   );
 }
+
+export default LogoCloud;
