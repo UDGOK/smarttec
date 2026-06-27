@@ -79,6 +79,51 @@ export default function PricingPage() {
               <p className="text-slate/70 mt-2">Spin up, train, tear down. Spot / preemptible available.</p>
             </div>
 
+            {/* Hardware hero strip — 3 cards showing the actual systems */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-10">
+              {/* H100 / H200 */}
+              <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden group">
+                <div className="relative w-full aspect-[16/9]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/hardware/nvidia-h200-tensor-core.jpg" alt="NVIDIA H100 / H200 8-GPU node" className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                </div>
+                <div className="p-4 bg-slate text-fog">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-[0.18em] text-greptile-green">[ H100 / H200 ]</div>
+                    <div className="font-anybody font-bold text-sm tracking-tight">Hopper · SXM5</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* B200 */}
+              <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden group">
+                <div className="relative w-full aspect-[16/9]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/hardware/nvidia-hgx-b200-baseboard.jpg" alt="NVIDIA HGX B200 8-GPU baseboard" className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                </div>
+                <div className="p-4 bg-slate text-fog">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-[0.18em] text-greptile-green">[ B200 ]</div>
+                    <div className="font-anybody font-bold text-sm tracking-tight">Blackwell · HGX</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* GB200 */}
+              <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden group">
+                <div className="relative w-full aspect-[16/9]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/hardware/nvidia-gb200-nvl72-rack.jpg" alt="NVIDIA GB200 NVL72 rack" className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                </div>
+                <div className="p-4 bg-slate text-fog">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-[0.18em] text-greptile-green">[ GB200 ]</div>
+                    <div className="font-anybody font-bold text-sm tracking-tight">Blackwell · NVL72</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="border border-dashed border-slate/30 overflow-hidden">
               <div className="grid grid-cols-12 bg-fog border-b border-dashed border-slate/30 px-5 py-3 font-space-mono text-[11px] uppercase tracking-wider text-slate/60">
                 <div className="col-span-4">GPU</div>
@@ -148,6 +193,34 @@ export default function PricingPage() {
               <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
                 The fastest tokens on earth.
               </h2>
+            </div>
+
+            {/* CS-3 hardware photo */}
+            <div className="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-3 mb-10">
+              <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden">
+                <div className="relative w-full aspect-[4/3]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/hardware/cerebras-cs3-system.png" alt="Cerebras CS-3 system" className="absolute inset-0 w-full h-full object-cover" />
+                </div>
+                <div className="p-4 bg-slate text-fog">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-[0.18em] text-peach">[ CEREBRAS CS-3 ]</div>
+                    <div className="font-anybody font-bold text-sm tracking-tight">WSE-3 · 4 trillion tx</div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative border border-dashed border-slate/30 bg-fog/30 overflow-hidden">
+                <div className="relative w-full aspect-[4/3]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/hardware/cerebras-cs3-datacenter.jpg" alt="Cerebras CS-3 in production rack" className="absolute inset-0 w-full h-full object-cover" />
+                </div>
+                <div className="p-4 bg-fog">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-[0.18em] text-peach">[ IN PRODUCTION ]</div>
+                    <div className="font-anybody font-bold text-sm text-slate tracking-tight">2× CS-3 per rack · 25 kW each</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
