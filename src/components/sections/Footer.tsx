@@ -126,16 +126,16 @@ export function Footer() {
             © {year} SmartTec, Inc. · Made in Arizona
           </p>
           <div className="flex items-center gap-6 flex-wrap">
-            <a href="#privacy" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+            <a href="/security#privacy" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
               Privacy
             </a>
-            <a href="#terms" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+            <a href="/security#terms" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
               Terms
             </a>
-            <a href="#cookies" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+            <a href="/security#cookies" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
               Cookies
             </a>
-            <a href="#security" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+            <a href="/security" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
               Security
             </a>
           </div>
