@@ -147,19 +147,19 @@ function DeploymentCard({ d, delay }: { d: Deployment; delay: number }) {
       className="group block transition-opacity hover:opacity-95"
     >
       {/* Header */}
-      <div className="py-4">
-        <h3 className="font-anybody text-xl md:text-2xl font-bold text-slate">{d.customer}</h3>
-        <div className="mt-3 flex flex-wrap gap-4">
+      <div className="py-5">
+        <h3 className="font-anybody text-2xl md:text-3xl font-bold text-slate">{d.customer}</h3>
+        <div className="mt-4 flex flex-wrap gap-5">
           {d.stats.map((s) => (
-            <div key={s.label} className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center border border-fog/30 bg-fog/10 text-fog bg-slate/10 border-slate/20 text-slate/70">
+            <div key={s.label} className="flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center border border-slate/20 bg-fog text-slate">
                 <span className="font-space-mono text-[10px] font-bold">
                   {s.label[0]}
                 </span>
               </div>
               <div className="font-space-mono text-slate">
-                <div className="text-[11px] font-semibold">{s.value}</div>
-                <div className="text-[9px] text-slate/60">{s.label}</div>
+                <div className="text-xs font-semibold">{s.value}</div>
+                <div className="text-[10px] text-slate/60 uppercase tracking-wide">{s.label}</div>
               </div>
             </div>
           ))}
@@ -168,20 +168,20 @@ function DeploymentCard({ d, delay }: { d: Deployment; delay: number }) {
 
       {/* Code-diff card */}
       <div className={`flex flex-col overflow-hidden rounded-lg border border-dashed bg-fog/50 ${colorBorder[d.color]}`}>
-        <div className={`border-b border-dashed px-4 py-2.5 flex items-center gap-2 ${colorBorder[d.color]}`}>
+        <div className={`border-b border-dashed px-5 py-3 flex items-center gap-2 ${colorBorder[d.color]}`}>
           <svg width="14" height="14" fill="currentColor" viewBox="0 0 256 256" className="h-3.5 w-3.5 text-slate/40">
             <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z" />
           </svg>
           <span className="font-space-mono text-[11px] font-medium truncate text-slate/60">{d.filename}</span>
         </div>
 
-        <div className={`flex flex-1 flex-col justify-center border-b border-dashed py-1.5 ${colorBorder[d.color]}`}>
+        <div className={`flex flex-1 flex-col justify-center border-b border-dashed py-2 ${colorBorder[d.color]}`}>
           {d.highlight.map((h, i) => (
             <div
               key={i}
-              className={`flex items-center gap-3 px-4 py-1 ${h.type === "del" ? "bg-magenta/10" : "bg-seafoam/10"}`}
+              className={`flex items-center gap-3 px-5 py-1.5 ${h.type === "del" ? "bg-magenta/10" : "bg-seafoam/10"}`}
             >
-              <span className="w-5 shrink-0 text-right font-space-mono text-[11px] text-slate/40">
+              <span className="w-6 shrink-0 text-right font-space-mono text-[11px] text-slate/40">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span
@@ -196,17 +196,17 @@ function DeploymentCard({ d, delay }: { d: Deployment; delay: number }) {
           ))}
         </div>
 
-        <div className="flex flex-1 flex-col px-4 py-3">
+        <div className="flex flex-1 flex-col px-5 py-4">
           <div className="flex items-center gap-2">
             <Image src="/logo.svg" alt="SmartTec" width={16} height={16} className="h-4 w-4" />
             <span className="text-[13px] text-slate/70">smarttec</span>
           </div>
-          <p className="mt-2 font-anybody text-sm font-bold leading-tight text-slate">
+          <p className="mt-2 font-anybody text-base font-bold leading-snug text-slate">
             &ldquo;{d.testimonial}&rdquo;
           </p>
         </div>
 
-        <div className={`flex items-center justify-center gap-1.5 border-t border-dashed px-4 py-2.5 font-space-mono text-[11px] uppercase tracking-wider text-slate/80 bg-fog/15 ${colorBorder[d.color]}`}>
+        <div className={`flex items-center justify-center gap-1.5 border-t border-dashed px-5 py-3 font-space-mono text-[11px] uppercase tracking-wider text-slate/80 bg-fog/15 ${colorBorder[d.color]}`}>
           See deployment
           <svg width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3">
             <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
@@ -219,8 +219,8 @@ function DeploymentCard({ d, delay }: { d: Deployment; delay: number }) {
 
 export function FeaturedTestimonial() {
   return (
-    <section className="relative bg-background py-16 md:py-24">
-      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16">
+    <section className="relative bg-background py-20 md:py-28 lg:py-32">
+      <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}

@@ -30,38 +30,19 @@ export function HowItWorks() {
   return (
     <section id="features" className="relative bg-background section-wrapper-compact">
       {/* Edge marks */}
-      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/20">
-        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-        </div>
-        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-        </div>
-      </div>
-
-      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-24">
+      <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="mb-12 max-w-3xl"
+          className="mb-16 max-w-3xl"
         >
-          <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+          <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-5">
             <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
             [ HOW IT WORKS ]
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-bold text-slate tracking-tight leading-[0.95]">
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-anybody font-bold text-slate tracking-tight leading-[0.95]">
             Three steps to grid independence.
           </h2>
         </motion.div>
@@ -80,33 +61,33 @@ export function HowItWorks() {
               }}
               className="relative"
             >
-              {index > 0 && <div className="h-px bg-slate/20 mb-12" />}
-              <div className="pb-12">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-start">
+              {index > 0 && <div className="h-px bg-slate/20 mb-16" />}
+              <div className="pb-16">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-start">
                   {/* Number */}
-                  <div className="md:col-span-2">
-                    <span className="text-6xl md:text-7xl lg:text-8xl font-anybody font-bold text-slate/15 leading-none block">
+                  <div className="md:col-span-3">
+                    <span className="text-7xl md:text-8xl lg:text-9xl font-anybody font-bold text-slate/15 leading-none block">
                       {step.number}
                     </span>
                   </div>
 
                   {/* Content */}
-                  <div className="md:col-span-7">
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-anybody font-bold text-slate mb-4 tracking-tight">
+                  <div className="md:col-span-6">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-anybody font-bold text-slate mb-4 tracking-tight">
                       {step.title}
                     </h3>
-                    <p className="text-base md:text-lg text-slate/70 leading-relaxed">
+                    <p className="text-base md:text-lg text-slate/70 leading-relaxed max-w-prose">
                       {step.description}
                     </p>
                   </div>
 
                   {/* Metric box */}
                   <div className="md:col-span-3">
-                    <div className="border border-dashed border-slate/30 p-4 bg-fog/30">
-                      <div className="font-anybody text-2xl md:text-3xl font-bold text-slate">
+                    <div className="border border-dashed border-slate/30 p-5 bg-fog/30">
+                      <div className="font-anybody text-3xl md:text-4xl font-bold text-slate">
                         {step.metric}
                       </div>
-                      <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mt-1">
+                      <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mt-2">
                         {step.metricLabel}
                       </div>
                     </div>

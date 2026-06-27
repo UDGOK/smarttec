@@ -230,7 +230,7 @@ export function Navigation() {
                 transition={{ duration: 0.18 }}
                 className="hidden lg:block absolute top-full left-0 right-0 w-full bg-fog border-b border-dashed border-silver"
               >
-                <div className="mx-auto w-full max-w-[1550px] px-8 xl:px-16 py-6">
+                <div className="mx-auto w-full max-w-[1400px] px-8 xl:px-16 py-6">
                   <div className="grid grid-cols-4 gap-4">
                     {featureMenu.map((f) => (
                       <a
@@ -268,7 +268,7 @@ export function Navigation() {
                 transition={{ duration: 0.18 }}
                 className="hidden lg:block absolute top-full left-0 right-0 w-full bg-fog border-b border-dashed border-silver"
               >
-                <div className="mx-auto w-full max-w-[1550px] px-8 xl:px-16 py-4">
+                <div className="mx-auto w-full max-w-[1400px] px-8 xl:px-16 py-4">
                   <div className="grid grid-cols-3">
                     {resourceMenu.map((r) => (
                       <a

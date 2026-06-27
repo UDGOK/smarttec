@@ -81,7 +81,7 @@ export function Footer() {
   return (
     <footer className="relative bg-slate text-fog">
       {/* Top section */}
-      <div className="mx-auto max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+      <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-4">

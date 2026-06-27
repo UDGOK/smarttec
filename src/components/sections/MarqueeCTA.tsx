@@ -30,7 +30,7 @@ export function MarqueeCTA() {
       </div>
 
       {/* CTA */}
-      <div className="py-16 md:py-24">
+      <div className="py-20 md:py-28 lg:py-32">
         <div className="mx-auto max-w-4xl px-6 md:px-12 text-center">
           <h2 className="text-4xl sm:text-5xl lg:text-7xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] mb-8">
             Ready to go<br />grid-independent?

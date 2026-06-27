@@ -37,7 +37,7 @@ function ClosingCTA() {
         </div>
       </div>
 
-      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-20 md:py-32">
+      <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

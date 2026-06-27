@@ -34,26 +34,7 @@ export function Personalization() {
   const maxLoad = Math.max(...telemetry.map((t) => t.load));
   return (
     <section id="aura" className="relative bg-background section-wrapper-compact">
-      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/20">
-        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-        </div>
-        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-        </div>
-      </div>
-
-      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-24">
+      <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left - copy + bullets */}
           <motion.div
@@ -117,7 +98,7 @@ export function Personalization() {
                 </div>
               </div>
 
-              <div className="p-6 md:p-8">
+              <div className="p-7 md:p-9">
                 {/* Top metrics row */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   <div className="border border-dashed border-seafoam/40 bg-seafoam/10 p-3">
@@ -138,7 +119,7 @@ export function Personalization() {
                 </div>
 
                 {/* Chart */}
-                <div className="border border-dashed border-slate/30 p-4 mb-4">
+                <div className="border border-dashed border-slate/30 p-5 mb-4">
                   <div className="flex items-center justify-between mb-4">
                     <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60">24h load forecast</span>
                     <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/40">AURA · predicted</span>

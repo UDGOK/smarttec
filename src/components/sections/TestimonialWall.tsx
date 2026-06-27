@@ -50,32 +50,13 @@ const testimonials = [
 export function TestimonialWall() {
   return (
     <section id="blog" className="relative bg-background section-wrapper-compact">
-      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/20">
-        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-        </div>
-        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
-            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
-          </svg>
-        </div>
-      </div>
-
-      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-24">
+      <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
+          className="text-center mb-14 md:mb-20 max-w-3xl mx-auto"
         >
           <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
             <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
@@ -86,7 +67,7 @@ export function TestimonialWall() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
@@ -94,7 +75,7 @@ export function TestimonialWall() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="group relative flex flex-col gap-4 p-6 md:p-7 border border-dashed border-slate/30 bg-fog/50 hover:bg-greptile-green/10 transition-colors"
+              className="group relative flex flex-col gap-4 p-7 md:p-9 border border-dashed border-slate/30 bg-fog/50 hover:bg-greptile-green/10 transition-colors"
             >
               {/* Top accent bar */}
               <div className={`absolute top-0 left-0 right-0 h-1.5 ${t.accent}`} />
