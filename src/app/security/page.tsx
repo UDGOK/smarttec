@@ -71,12 +71,17 @@ const sections = [
 ];
 
 const quickLinks = [
-  { label: "Trust Center", href: "#" },
-  { label: "Terms of Service", href: "#" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Subprocessors", href: "#" },
-  { label: "Data Processing Agreement", href: "#", note: "Available on request" },
+  { label: "Trust Center", href: "https://trust.smarttec.io", external: true },
+  { label: "Terms of Service", href: "/security/terms" },
+  { label: "Privacy Policy", href: "/security/privacy" },
+  { label: "Subprocessors", href: "/security/subprocessors" },
 ];
+
+const sectionIds: Record<string, string> = {
+  "Hosting and Architecture": "hosting-and-architecture",
+  "Confidentiality and Security Controls": "confidentiality-and-security-controls",
+  "Monitoring and Validation": "monitoring-and-validation",
+};
 
 export default function SecurityPage() {
   return (
@@ -115,22 +120,40 @@ export default function SecurityPage() {
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* Quick links */}
-        <section className="bg-fog border-y border-dashed border-silver">
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-12">
-            <div className="flex flex-wrap items-center gap-6">
-              <span className="font-space-mono text-[11px] uppercase tracking-widest text-slate/60">[ QUICK LINKS ]</span>
+        {/* Quick Links — greptile-style: h2 + bulleted list, inline. No heavy boxed container. */}
+        <section className="bg-background">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+              <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+              [ QUICK LINKS ]
+            </span>
+            <h2 id="quick-links" className="text-4xl md:text-5xl font-anybody font-extrabold text-slate tracking-tight mb-6 scroll-mt-24">
+              Quick Links.
+            </h2>
+
+            <ul className="list-disc pl-6 space-y-2 mb-6">
               {quickLinks.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  className="font-anybody font-bold text-sm text-slate hover:text-greptile-green flex items-center gap-2"
-                >
-                  {l.label}
-                  {l.note && <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50">({l.note})</span>}
-                </a>
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target={l.external ? "_blank" : undefined}
+                    rel={l.external ? "noopener noreferrer" : undefined}
+                    className="text-slate underline underline-offset-4 decoration-slate/40 hover:decoration-greptile-green hover:text-slate transition-colors"
+                  >
+                    {l.label}
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
+
+            <p className="text-sm text-slate/70 leading-relaxed">
+              <strong className="font-anybody font-bold text-slate">Data Processing Agreement (DPA):</strong>{" "}
+              Available on request. Contact{" "}
+              <a href="mailto:security@smarttec.io" className="underline underline-offset-4 decoration-slate/40 hover:decoration-greptile-green text-slate">
+                security@smarttec.io
+              </a>{" "}
+              to obtain a copy.
+            </p>
           </div>
         </section>
 
@@ -142,8 +165,7 @@ export default function SecurityPage() {
             <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 className="mb-12"
               >
@@ -151,7 +173,7 @@ export default function SecurityPage() {
                   <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
                   [ {section.title.toUpperCase()} ]
                 </span>
-                <h2 className="text-4xl md:text-5xl font-anybody font-extrabold text-slate tracking-tight">
+                <h2 id={sectionIds[section.title]} className="text-4xl md:text-5xl font-anybody font-extrabold text-slate tracking-tight scroll-mt-24">
                   {section.title}.
                 </h2>
               </motion.div>
@@ -161,8 +183,7 @@ export default function SecurityPage() {
                   <motion.div
                     key={item.h}
                     initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: i * 0.05 }}
                     className="border border-dashed border-slate/30 bg-fog/50 p-6 md:p-7"
                   >
