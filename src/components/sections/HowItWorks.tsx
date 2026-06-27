@@ -6,21 +6,21 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 const steps = [
   {
     number: "01",
-    title: "Design the site",
+    title: "Site Assessment",
     description:
-      "Our engineers analyze your energy requirements, location constraints, and sustainability goals to architect the perfect off-grid data center solution.",
+      "Our engineers analyze your power requirements, location constraints, and sustainability goals to architect the optimal off-grid data center solution.",
   },
   {
     number: "02",
-    title: "Integrate the battery stack",
+    title: "Deploy Battery Stack",
     description:
-      "We deploy our proprietary energy storage systems, designed for maximum density and reliability, seamlessly integrated with renewable power sources.",
+      "We install our proprietary LiFePO4 energy storage systems, designed for maximum density and reliability, seamlessly integrated with renewable power sources.",
   },
   {
     number: "03",
-    title: "Deploy & operate",
+    title: "Go Live",
     description:
-      "Your facility goes live with 24/7 intelligent monitoring, predictive maintenance, and continuous optimization for peak performance.",
+      "Your facility powers up with 24/7 intelligent monitoring, predictive maintenance, and continuous optimization for peak performance.",
   },
 ];
 
@@ -43,7 +43,7 @@ export function HowItWorks() {
         <div className="text-center mb-16 md:mb-20">
           <SectionLabel>How It Works</SectionLabel>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-4">
-            From concept to <span className="text-[#B8FF5C]">powering on</span>
+            From assessment to <span className="text-[#B8FF5C]">grid independence</span>
           </h2>
         </div>
 
@@ -56,8 +56,7 @@ export function HowItWorks() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              whileHover={{ y: -8 }}
-              className="group relative bg-[#12141A] border border-[#1E2028] rounded-2xl p-8 md:p-10 overflow-hidden transition-all duration-300 hover:border-[#B8FF5C]/30"
+              className="group relative bg-[#12141A] border border-[#1E2028] rounded-2xl p-8 md:p-10 overflow-hidden transition-all duration-300 hover:border-[#B8FF5C]/30 hover:shadow-[0_0_20px_rgba(184,255,92,0.1)]"
             >
               {/* Hover glow effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">

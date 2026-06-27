@@ -1,78 +1,58 @@
 "use client";
 
 import { motion } from "framer-motion";
-import SectionLabel from "../ui/SectionLabel";
 
 const partners = [
-  "Equinix",
-  "Digital Realty",
-  "Switch",
-  "CyrusOne",
-  "QTS",
-  "Iron Mountain",
-  "Aligned",
-  "Voltari",
+  { name: "Equinix", logo: "/logos/equinix.svg" },
+  { name: "Digital Realty", logo: "/logos/digital_realty.svg" },
+  { name: "Switch", logo: "/logos/switch.svg" },
+  { name: "CyrusOne", logo: "/logos/cyrusone.svg" },
+  { name: "QTS", logo: "/logos/qts.svg" },
+  { name: "Iron Mountain", logo: "/logos/iron_mountain.svg" },
+  { name: "NTT Data", logo: "/logos/ntt_data.svg" },
+  { name: "Colt", logo: "/logos/colt.svg" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-};
-
-export default function LogoCloud() {
+export function LogoCloud() {
   return (
-    <section className="relative bg-[#0A0B0D] py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="py-16 md:py-20 border-y border-white/10">
+      <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
         >
-          <SectionLabel className="mb-4 block">Trusted Partners</SectionLabel>
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Powering the Industry&apos;s Leaders
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-400">
-            Leading data center providers trust our solutions to deliver
-            reliable infrastructure at scale.
-          </p>
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#B8FF5C] mb-4">
+            [ Trusted by operators across 40+ sites ]
+          </span>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4"
-        >
-          {partners.map((partner) => (
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          {partners.map((partner, index) => (
             <motion.div
-              key={partner}
-              variants={itemVariants}
-              className="group relative flex items-center justify-center rounded-lg border border-gray-800 bg-[#111113] px-6 py-8 transition-all duration-300 hover:border-[#B8FF5C]/40 hover:bg-[#161718]"
+              key={partner.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ 
+                duration: 0.5,
+                delay: index * 0.1 
+              }}
+              className="relative group"
             >
-              <span className="font-mono text-sm font-medium uppercase tracking-wider text-gray-300 transition-colors duration-300 group-hover:text-[#B8FF5C] sm:text-base">
-                {partner}
-              </span>
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#B8FF5C]/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="w-32 h-16 md:w-40 md:h-20 flex items-center justify-center p-3 bg-white/[0.03] rounded-lg border border-white/10 transition-all duration-300 hover:border-[#B8FF5C]/30 hover:shadow-[0_0_20px_rgba(184,255,92,0.1)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={partner.logo}
+                  alt={`${partner.name} logo`}
+                  className="max-w-full max-h-full object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

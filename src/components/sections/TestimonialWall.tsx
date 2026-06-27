@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface Testimonial {
   id: number;
@@ -9,94 +10,52 @@ interface Testimonial {
     name: string;
     title: string;
     company: string;
-    initials: string;
-  };
-  logo: {
-    name: string;
-    icon: string;
+    image: string;
   };
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    quote:
-      "The predictive maintenance features saved us over $2M in potential downtime costs. SmartTec's AI-driven insights are remarkably accurate.",
+    quote: "SmartTec solved our biggest infrastructure problem. We went from 4-hour outage incidents to zero. The battery stack paid for itself in 18 months.",
     author: {
-      name: "Michael Torres",
+      name: "Jennifer Walsh",
       title: "CTO",
-      company: "Quantum Dynamics",
-      initials: "MT",
-    },
-    logo: {
-      name: "Quantum Dynamics",
-      icon: "QD",
+      company: "Nexus Data",
+      image: "/img/exec1.jpg",
     },
   },
   {
     id: 2,
-    quote:
-      "Integration was seamless. Within 48 hours, our entire fleet of 500+ devices was communicating through SmartTec's unified dashboard.",
+    quote: "The deployment was surgical. SmartTec's team handled everything from site survey to commissioning. We barely had to lift a finger.",
     author: {
-      name: "Elena Vasquez",
-      title: "Head of IoT",
-      company: "Nova Systems",
-      initials: "EV",
-    },
-    logo: {
-      name: "Nova Systems",
-      icon: "NS",
+      name: "David Park",
+      title: "VP Operations",
+      company: "CloudVault",
+      image: "/img/exec2.jpg",
     },
   },
   {
     id: 3,
-    quote:
-      "The energy optimization alone reduced our monthly bills by 34%. Combined with the predictive alerts, it's become essential to our operations.",
+    quote: "Finally, infrastructure that keeps up with our growth. We scaled from 50kW to 2MW without a single re-engineering cycle.",
     author: {
-      name: "James Okonkwo",
-      title: "VP Operations",
-      company: "Apex Manufacturing",
-      initials: "JO",
-    },
-    logo: {
-      name: "Apex Manufacturing",
-      icon: "AM",
+      name: "Sarah Chen",
+      title: "CEO",
+      company: "Prism Analytics",
+      image: "/img/exec4.jpg",
     },
   },
   {
     id: 4,
-    quote:
-      "Real-time monitoring across 12 global facilities gives us complete visibility. The autonomous responses have cut our incident response time by 80%.",
+    quote: "Enterprise-grade reliability at a fraction of the cost of traditional colocation. The SOC 2 compliance documentation alone saved us months.",
     author: {
-      name: "Lisa Chen",
-      title: "Director of Engineering",
-      company: "Stratos Global",
-      initials: "LC",
-    },
-    logo: {
-      name: "Stratos Global",
-      icon: "SG",
+      name: "Rachel Torres",
+      title: "CISO",
+      company: "Fortis Networks",
+      image: "/img/exec6.jpg",
     },
   },
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-};
 
 export function TestimonialWall() {
   return (
@@ -123,37 +82,39 @@ export function TestimonialWall() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1F2328] bg-[#111315] mb-6">
             <span className="w-2 h-2 rounded-full bg-[#B8FF5C]" />
-            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">
+            <span className="text-sm font-medium text-[#8A8F98] uppercase tracking-wider">
               Client Success
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Trusted by Industry Leaders
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-[#8A8F98] max-w-2xl mx-auto">
             See how forward-thinking companies are transforming their operations
             with SmartTec.
           </p>
         </motion.div>
 
         {/* 2x2 Grid of testimonial cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {testimonials.map((testimonial) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              variants={cardVariants}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{
+                delay: index * 0.15,
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="group relative"
             >
               {/* Card */}
-              <div className="relative bg-[#111315] border border-[#1F2328] rounded-2xl p-6 sm:p-8 h-full transition-all duration-300 hover:border-[#B8FF5C]/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#B8FF5C]/5">
+              <div className="relative bg-[#111315] border border-[#1F2328] rounded-2xl p-6 sm:p-8 h-full transition-all duration-300 hover:border-[#B8FF5C]/40">
                 {/* Hover lime border glow */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                <div
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   style={{
                     boxShadow: "inset 0 0 0 1px rgba(184, 255, 92, 0.3)",
                   }}
@@ -186,8 +147,8 @@ export function TestimonialWall() {
 
                 {/* Quote text */}
                 <blockquote className="mb-8">
-                  <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                    "{testimonial.quote}"
+                  <p className="text-base sm:text-lg text-[#F5F5F2]/90 leading-relaxed italic">
+                    &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 </blockquote>
 
@@ -196,19 +157,14 @@ export function TestimonialWall() {
                   {/* Author info */}
                   <div className="flex items-center gap-4">
                     {/* Avatar */}
-                    <div className="relative w-12 h-12 flex-shrink-0">
-                      <div
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #B8FF5C 0%, #8ED64A 50%, #4A7A2A 100%)",
-                        }}
+                    <div className="relative w-14 h-14 flex-shrink-0 rounded-full overflow-hidden">
+                      <Image
+                        src={testimonial.author.image}
+                        alt={testimonial.author.name}
+                        fill
+                        className="object-cover"
                       />
-                      <div className="absolute inset-[2px] rounded-full bg-[#111315] flex items-center justify-center">
-                        <span className="text-sm font-bold text-[#B8FF5C]">
-                          {testimonial.author.initials}
-                        </span>
-                      </div>
+                      <div className="absolute inset-0 rounded-full ring-1 ring-[#B8FF5C]/20" />
                     </div>
 
                     {/* Name and title */}
@@ -216,39 +172,16 @@ export function TestimonialWall() {
                       <h3 className="text-sm font-semibold text-white">
                         {testimonial.author.name}
                       </h3>
-                      <p className="text-xs text-gray-500">
-                        {testimonial.author.title}
+                      <p className="text-xs text-[#8A8F98]">
+                        {testimonial.author.title} at {testimonial.author.company}
                       </p>
-                    </div>
-                  </div>
-
-                  {/* Company logo */}
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center w-20 h-10 rounded-lg border border-[#1F2328] bg-[#0D0E10] px-3">
-                      <div className="flex items-center gap-1.5">
-                        <div
-                          className="w-6 h-6 rounded flex items-center justify-center"
-                          style={{
-                            background:
-                              "linear-gradient(135deg, rgba(184, 255, 92, 0.15) 0%, rgba(184, 255, 92, 0.05) 100%)",
-                            border: "1px solid rgba(184, 255, 92, 0.2)",
-                          }}
-                        >
-                          <span className="text-[#B8FF5C] font-bold text-[10px]">
-                            {testimonial.logo.icon.charAt(0)}
-                          </span>
-                        </div>
-                        <span className="font-mono text-[10px] font-medium text-gray-400 uppercase tracking-wider">
-                          {testimonial.logo.icon}
-                        </span>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

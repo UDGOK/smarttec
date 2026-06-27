@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Navigation } from "@/components/sections/Navigation";
 import { Hero } from "@/components/sections/Hero";
-import LogoCloud from "@/components/sections/LogoCloud";
+import { LogoCloud } from "@/components/sections/LogoCloud";
 import { FeaturedTestimonial } from "@/components/sections/FeaturedTestimonial";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
@@ -28,17 +28,17 @@ function ClosingCTA() {
           className="text-center max-w-3xl mx-auto"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-6">
-            Ready to transform your infrastructure?
+            Ready to go off-grid?
           </h2>
           <p className="text-lg text-zinc-400 mb-8">
-            Join thousands of enterprises using SmartTec to power their most critical workloads.
+            Join leading data center operators who have made the switch to grid-independent infrastructure.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="primary" size="lg">
-              Start Free Trial
+              Request a Demo
             </Button>
             <Button variant="secondary" size="lg">
-              Schedule Demo
+              View Technical Specs
             </Button>
           </div>
         </motion.div>
@@ -54,8 +54,8 @@ export default function Home() {
       <main>
         <Hero />
         <LogoCloud />
-        <FeaturedTestimonial />
         <HowItWorks />
+        <FeaturedTestimonial />
         <FeatureGrid />
         <Personalization />
         <IntegrationCards />

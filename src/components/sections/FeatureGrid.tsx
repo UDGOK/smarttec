@@ -203,12 +203,11 @@ export function FeatureGrid() {
             Core Capabilities
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-            Built for the{" "}
-            <span className="text-[#B8FF5C]">future of infrastructure</span>
+            Built for <span className="text-[#B8FF5C]">uncompromising reliability</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Every system designed for zero-compromise performance in demanding
-            environments where reliability is non-negotiable.
+            environments where uptime is non-negotiable.
           </p>
         </motion.div>
 
