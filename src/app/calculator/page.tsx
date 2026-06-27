@@ -67,6 +67,29 @@ export default function CalculatorPage() {
                 [ ENVIRONMENTAL ] CO₂ figures use regional grid mix emissions factors. SmartTec charging from grid still has some carbon; we model ~30% reduction via arbitrage away from peak gas peakers. [ RESULTS NOT A QUOTE ]
               </div>
             </div>
+
+            {/* Handoff to inference fit-check */}
+            <div className="mt-8 border border-dashed border-greptile-green bg-greptile-green/10 p-6 md:p-8 grid md:grid-cols-[1fr_auto] gap-6 items-center">
+              <div>
+                <div className="flex items-center gap-2 font-space-mono text-[11px] uppercase tracking-[0.18em] text-greptile-green mb-2">
+                  <span className="inline-block w-2 h-2 bg-greptile-green" />
+                  <span>[ NEXT STEP ]</span>
+                </div>
+                <h3 className="font-anybody font-extrabold text-2xl md:text-3xl text-slate tracking-tight">
+                  Economics confirmed. Now: will your model fit?
+                </h3>
+                <p className="font-anybody text-slate/70 mt-2 max-w-2xl">
+                  Use the inference fit-check to pick a model and GPU. You get VRAM fit, throughput, and a ready-to-run vLLM deploy command for SmartTec compute.
+                </p>
+              </div>
+              <Link
+                href="/inference"
+                className="inline-flex items-center gap-2 bg-greptile-green text-slate font-space-mono text-[11px] uppercase tracking-wider px-5 py-3 hover:bg-greptile-green/85 transition-colors whitespace-nowrap"
+              >
+                <span className="w-1.5 h-1.5 bg-slate" />
+                Run fit-check
+              </Link>
+            </div>
           </div>
         </section>
       </div>
