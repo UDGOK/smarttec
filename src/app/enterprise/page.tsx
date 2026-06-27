@@ -7,65 +7,70 @@ import PageShell from "@/components/PageShell";
 const faqs = [
   {
     q: "Can SmartTec be deployed on-prem?",
-    a: "Yes. SmartTec can be deployed on-prem for enterprise customers with strict data privacy or compliance requirements. We also support air-gapped installations for federal customers.",
-  },
-  {
-    q: "What grid types do you support?",
-    a: "We support utility grid tie-in, behind-the-meter, off-grid solar + battery hybrid, microgrid, and diesel-hybrid configurations. Multi-source input and automatic source arbitration are built into AURA.",
-  },
-  {
-    q: "How does SmartTec handle large multi-site deployments?",
-    a: "SmartTec creates a unified fleet model across all sites. AURA correlates load across sites, shifts workloads based on availability, and surfaces anomalies at the fleet level. Centralized observability with per-site drill-down.",
-  },
-  {
-    q: "How can we begin our evaluation of SmartTec?",
-    a: "We offer a 14-day trial of a 200kW starter stack at one site. Need more time or interested in a multi-site enterprise rollout? Reach out and we'll scope a pilot.",
+    a: "Yes. We deliver the full SmartTec compute + AURA stack to your data center or federal facility, with z1power BESS sized to your load. Air-gapped options for ITAR / classified workloads.",
   },
   {
     q: "What compliance frameworks do you support?",
-    a: "SOC 2 Type II, ITAR, FedRAMP Moderate (in process), FIPS 140-3, HIPAA-ready. We provide audit evidence packages and support customer-led assessments.",
+    a: "SOC 2 Type II, ITAR registered, FedRAMP Moderate (in process), FIPS 140-3, HIPAA-ready. Customer-led audits welcomed. See /security for the full Trust Center inventory.",
+  },
+  {
+    q: "How does procurement work for federal customers?",
+    a: "GSA Schedule pending. Direct sales today via OTA (Other Transaction Authority) agreements or standard procurement. Typical CGS cycle 6–10 weeks for federal awards. We counter-sign DPAs and redline MSAs.",
+  },
+  {
+    q: "Can we run on our own cloud?",
+    a: "Yes — SmartTec can be deployed on AWS GovCloud, Azure Government, or your existing GovCloud tenancy. You control the cloud account; we deliver and operate the compute + power stack.",
+  },
+  {
+    q: "What about colocation on a customer site?",
+    a: "We deliver the full SmartTec stack (compute, BESS, controls) to your facility. You provide the floor space and network. We run operations through your SOC.",
+  },
+  {
+    q: "Do you offer volume discounts?",
+    a: "Yes. Reserved capacity tiers, multi-year prepay, and customer-specific fleet builds all carry volume discounts. See /pricing for the standard tiers.",
   },
 ];
 
 const securityFeatures = [
   {
     n: "01",
-    title: "Cloud, on-prem, or air-gapped",
-    desc: "Run SmartTec in our cloud, your cloud, your data center, or fully air-gapped. Same control plane, same AURA engine.",
+    title: "Federal-ready compliance",
+    desc: "SOC 2 Type II. ITAR registered. FedRAMP Moderate in process. FIPS 140-3 modules available. Customer-led audits and redlines welcome.",
   },
   {
     n: "02",
-    title: "Code & data stays where you say",
-    desc: "All telemetry, configuration, and operational data lives in the deployment you specify. No cross-tenant data movement.",
+    title: "Single-tenant isolation",
+    desc: "Dedicated nodes, dedicated fabric, dedicated BESS. No noisy neighbors. Bring your own KMS keys for encryption-at-rest.",
   },
   {
     n: "03",
-    title: "Compliance built for your scale",
-    desc: "SOC 2 Type II, FIPS 140-3, ITAR, HIPAA-ready. FedRAMP Moderate in process. Customer-led audits welcome.",
+    title: "Predictable economics",
+    desc: "Reserved capacity contracts, multi-year prepay, and customer-specific fleet builds. No surprise overage charges. Net-30 billing.",
   },
 ];
 
 const integrations = [
   {
     n: "01",
-    title: "Native BMS integrations",
-    desc: "Pre-built connectors for Honeywell, Schneider, Eaton, Vertiv, ABB. Auto-discovery of cell banks, inverters, switchgear.",
+    title: "AWS GovCloud / Azure Government",
+    desc: "Deploy SmartTec on the cloud you already use. We deliver the compute + power layer; you control the cloud account and the data plane.",
   },
   {
     n: "02",
-    title: "AURA MCP access",
-    desc: "Programmatic access to AURA from any AI agent. Query fleet state, push configurations, trigger diagnostics.",
+    title: "Customer-managed keys",
+    desc: "BYO-KMS via AWS KMS, Azure Key Vault, or HashiCorp Vault. We never see plaintext. Key rotation honored without service interruption.",
   },
   {
     n: "03",
-    title: "PagerDuty / Opsgenie",
-    desc: "Real-time alerting into your existing on-call rotation. Severity routing by site, by system, by anomaly type.",
+    title: "Direct connect & private peering",
+    desc: "AWS Direct Connect, Azure ExpressRoute, or dedicated cross-connect for low-latency, high-throughput paths to your existing infrastructure.",
   },
-  {
-    n: "04",
-    title: "Snowflake / Databricks / BigQuery",
-    desc: "Telemetry exports to your data warehouse. Run your own analytics on top of SmartTec's fleet model.",
-  },
+];
+
+const designPartners = [
+  { role: "AI training team", note: "Reserved 16 nodes for continued pretraining. Locked pricing 12 months." },
+  { role: "Inference provider", note: "Reserved Cerebras CS-3 capacity for low-latency serving. Co-published case study at power-on." },
+  { role: "Federal integrator", note: "Reserved 2 MW for ITAR-compliant deployment. On-prem delivery Q4 2026." },
 ];
 
 export default function EnterprisePage() {
@@ -86,19 +91,18 @@ export default function EnterprisePage() {
                 [ ENTERPRISE ]
               </span>
               <h1 className="text-5xl sm:text-6xl lg:text-8xl font-anybody font-extrabold tracking-tight leading-[0.95] mb-6">
-                Grid-independence<br />for the enterprise.
+                Grid-independence <br />for the enterprise.
               </h1>
-              <p className="text-xl md:text-2xl text-slate/70 max-w-3xl mb-10">
-                SmartTec gives large infrastructure teams a consistent way to validate power systems across complex deployments, sites, and workloads.
+              <p className="text-xl md:text-2xl text-slate/70 max-w-3xl">
+                Reserved NVIDIA + Cerebras capacity on z1power megawatt batteries. Designed for the security, procurement, and predictability that enterprise IT demands.
               </p>
-              <div className="flex flex-wrap gap-4 items-center">
+              <div className="flex flex-wrap gap-4 items-center mt-8">
                 <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black">
-                  Get started
+                  Talk to enterprise sales
                 </Link>
-                <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate">
-                  Contact sales
+                <Link href="/deployments" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate">
+                  See design partner program
                 </Link>
-                <span className="font-space-mono text-xs text-slate/60">No credit card required · 14-day free pilot</span>
               </div>
             </motion.div>
           </div>
@@ -106,87 +110,42 @@ export default function EnterprisePage() {
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* The complete energy layer */}
+        {/* Security / Compliance */}
         <section className="bg-background">
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="mb-12 max-w-3xl"
             >
               <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
                 <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
-                [ THE COMPLETE ENERGY LAYER ]
+                [ SECURITY & COMPLIANCE ]
               </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] mb-4">
-                SmartTec catches more failures, because it predicts them.
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95]">
+                Built for procurement.
               </h2>
-              <p className="text-lg text-slate/70 max-w-2xl">
-                AURA combines thermal sensing, load forecasting, and cell-level telemetry to predict failures days before they happen — no more 3 AM pager fires.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="border border-dashed border-slate/30 bg-fog/50 p-8">
-                <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mb-4 block">AURA · PREDICTIVE LAYER</span>
-                <h3 className="text-2xl font-anybody font-bold mb-3">Predictive load management</h3>
-                <p className="text-slate/70 mb-4 leading-relaxed">
-                  72-hour forward forecasts with sub-2% error. Pre-charged reserves positioned before demand peaks.
-                </p>
-                <Link href="/features" className="font-anybody font-bold text-sm text-slate hover:text-greptile-green">Learn more →</Link>
-              </div>
-              <div className="border border-dashed border-slate/30 bg-fog/50 p-8">
-                <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mb-4 block">AURA · THERMAL AI</span>
-                <h3 className="text-2xl font-anybody font-bold mb-3">Cell-level anomaly detection</h3>
-                <p className="text-slate/70 mb-4 leading-relaxed">
-                  Catches cell-level anomalies 14 days before they become incidents. No more reactive firefighting.
-                </p>
-                <Link href="/features" className="font-anybody font-bold text-sm text-slate hover:text-greptile-green">Learn more →</Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <hr className="border-border w-full opacity-30" />
-
-        {/* Security */}
-        <section className="bg-fog border-y border-dashed border-silver">
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-12 max-w-3xl"
-            >
-              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
-                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
-                [ SECURITY ]
-              </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] mb-4">
-                Enterprise-grade security.
-              </h2>
-              <p className="text-lg text-slate/70 max-w-2xl">
-                SOC 2 Type II, with built-in security and governance controls. <Link href="/security" className="font-bold text-slate underline">Learn about security</Link>.
+              <p className="text-lg text-slate/70 mt-4">
+                The certifications, audit packages, and redline-ready contracts your security team needs.
               </p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {securityFeatures.map((f, i) => (
-                <motion.div
-                  key={f.n}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="bg-background border border-dashed border-slate/30 p-7"
-                >
-                  <span className="font-space-mono text-[11px] text-slate/40 font-bold">{f.n}</span>
-                  <h3 className="text-lg font-anybody font-bold mt-3 mb-2">{f.title}</h3>
+              {securityFeatures.map((f) => (
+                <div key={f.n} className="border border-dashed border-slate/30 bg-fog/50 p-6 md:p-7">
+                  <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/40 font-bold mb-3">[{f.n}]</div>
+                  <h3 className="text-2xl font-anybody font-bold text-slate mb-3">{f.title}</h3>
                   <p className="text-sm text-slate/70 leading-relaxed">{f.desc}</p>
-                </motion.div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              {["SOC 2 Type II", "ITAR registered", "FedRAMP Moderate (in process)", "FIPS 140-3", "HIPAA-ready"].map((c) => (
+                <span key={c} className="font-space-mono text-[11px] uppercase tracking-wider px-3 py-1.5 border border-dashed border-slate/40 bg-fog/50 text-slate/80">
+                  {c}
+                </span>
               ))}
             </div>
           </div>
@@ -194,78 +153,67 @@ export default function EnterprisePage() {
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* Independence / integrations */}
+        {/* Design partner program */}
+        <section className="bg-fog border-y border-dashed border-silver">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+              <div>
+                <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                  <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                  [ DESIGN PARTNER PROGRAM ]
+                </span>
+                <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight mb-4">
+                  Three slots. Q4 2026 power-on.
+                </h2>
+                <p className="text-slate/70 leading-relaxed mb-6">
+                  We&apos;re reserving the first wave of capacity for three design-partner teams. Launch pricing locked 12 months, direct engineering access, named case study at power-on.
+                </p>
+                <Link href="/deployments" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog">
+                  Apply for design partner
+                </Link>
+              </div>
+              <div className="space-y-3">
+                {designPartners.map((d, i) => (
+                  <div key={i} className="border border-dashed border-slate/30 bg-background p-5">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="font-space-mono text-[10px] uppercase tracking-wider text-greptile-green">[ SLOT {String(i + 1).padStart(2, "0")} ]</span>
+                      <span className="w-1.5 h-1.5 bg-greptile-green rounded-full animate-pulse-glow" />
+                    </div>
+                    <div className="font-anybody font-bold text-base text-slate">{d.role}</div>
+                    <div className="text-sm text-slate/70 leading-relaxed mt-1">{d.note}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* Integrations */}
         <section className="bg-background">
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="mb-12 max-w-3xl"
             >
               <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
                 <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
-                [ INDEPENDENCE ]
+                [ INTEGRATIONS ]
               </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] mb-4">
-                Vendor-independent by design.
-              </h2>
-              <p className="text-lg text-slate/70 max-w-2xl">
-                SmartTec stays independent from any battery cell vendor, inverter OEM, or BMS supplier — so you&apos;re not locked into one supply chain.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {integrations.map((f, i) => (
-                <motion.div
-                  key={f.n}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="border border-dashed border-slate/30 bg-fog/50 p-7"
-                >
-                  <span className="font-space-mono text-[11px] text-slate/40 font-bold">{f.n}</span>
-                  <h3 className="text-lg font-anybody font-bold mt-3 mb-2">{f.title}</h3>
-                  <p className="text-sm text-slate/70 leading-relaxed">{f.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <hr className="border-border w-full opacity-30" />
-
-        {/* Live fleet feed */}
-        <section className="bg-background">
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
-            >
-              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
-                <span className="w-1.5 h-1.5 bg-bloom rounded-full animate-pulse-glow" />
-                [ LIVE FROM THE FLEET ]
-              </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight">
-                12 MW running today.
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95]">
+                Drops into your environment.
               </h2>
             </motion.div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {[
-                { value: "12 MW", label: "Deployed capacity" },
-                { value: "40+", label: "Live sites" },
-                { value: "99.997%", label: "Fleet uptime" },
-                { value: "73%", label: "Avg grid reduction" },
-              ].map((s) => (
-                <div key={s.label} className="border border-dashed border-slate/30 bg-fog/30 p-5 text-center">
-                  <div className="font-anybody text-2xl md:text-3xl font-extrabold text-slate">{s.value}</div>
-                  <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60 mt-1">{s.label}</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {integrations.map((i) => (
+                <div key={i.n} className="border border-dashed border-slate/30 bg-fog/50 p-6 md:p-7">
+                  <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/40 font-bold mb-3">[{i.n}]</div>
+                  <h3 className="text-xl font-anybody font-bold text-slate mb-3">{i.title}</h3>
+                  <p className="text-sm text-slate/70 leading-relaxed">{i.desc}</p>
                 </div>
               ))}
             </div>
@@ -279,8 +227,7 @@ export default function EnterprisePage() {
           <div className="relative mx-auto w-full max-w-3xl px-6 md:px-12 py-20 md:py-28">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
@@ -295,15 +242,10 @@ export default function EnterprisePage() {
 
             <div className="space-y-3">
               {faqs.map((f, i) => (
-                <details
-                  key={i}
-                  className="group border border-dashed border-slate/30 bg-fog/50"
-                >
+                <details key={i} className="group border border-dashed border-slate/30 bg-fog/50">
                   <summary className="cursor-pointer px-5 py-4 flex items-center justify-between gap-4 hover:bg-greptile-green/10">
                     <div className="flex items-center gap-4">
-                      <span className="font-space-mono text-[11px] text-slate/40 font-bold">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                      <span className="font-space-mono text-[11px] text-slate/40 font-bold">{String(i + 1).padStart(2, "0")}</span>
                       <span className="font-anybody font-bold text-slate">{f.q}</span>
                     </div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate/60 transition-transform group-open:rotate-180">
@@ -316,10 +258,23 @@ export default function EnterprisePage() {
                 </details>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div className="text-center mt-12">
-              <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black">
-                Contact us
+        <hr className="border-border w-full opacity-30" />
+
+        {/* CTA */}
+        <section className="bg-greptile-green border-y border-slate/20">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28 text-center">
+            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-anybody font-extrabold text-slate tracking-tight mb-8">
+              Reserve enterprise capacity.
+            </h2>
+            <div className="btn-hex-group justify-center">
+              <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
+                Talk to enterprise sales
+              </Link>
+              <Link href="/security" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
+                View Trust Center
               </Link>
             </div>
           </div>

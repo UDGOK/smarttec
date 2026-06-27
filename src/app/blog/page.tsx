@@ -15,9 +15,9 @@ interface Post {
 }
 
 const featured: Post = {
-  title: "Introducing AURA: Predictive load AI for data center power",
-  excerpt: "AURA combines thermal sensing, cell-level telemetry, and 72-hour forecasting to predict failures days before they happen. Here's how we built it, what it caught in the first 30 days, and why traditional threshold-based alerting is dead.",
-  category: "Engineering",
+  title: "Why we're building a grid-independent AI cloud",
+  excerpt: "AI workloads need 10x the power of traditional compute. The grid can't keep up — interconnection queues are 4 to 7 years long. We bet that owning the power layer is the only way to ship AI compute at the pace the market needs.",
+  category: "Industry",
   author: "Daksh Gupta",
   date: "Jun 22, 2026",
   featured: true,
@@ -25,92 +25,92 @@ const featured: Post = {
 
 const posts: Post[] = [
   {
-    title: "Why we refreshed SmartTec's brand",
-    excerpt: "We gave SmartTec a brand refresh, entirely in-house. Not just a visual update — a way to give a technical product a clearer shape.",
+    title: "Announcing our design partner program",
+    excerpt: "Three slots, locked pricing for 12 months, direct engineering access, named case study at power-on. Here's how we're picking our first three production customers.",
     category: "Announcement",
     author: "Soohoon Choi",
     date: "Jun 12, 2026",
   },
   {
-    title: "A statistical study of grid events across 40+ deployments",
-    excerpt: "ERCOT, PJM, CAISO, MISO — what actually happens during a grid event? We pulled 18 months of telemetry across 40+ sites to find out.",
+    title: "Cerebras vs. NVIDIA H200: when to use which",
+    excerpt: "A practical guide for inference teams choosing between NVIDIA H200 and Cerebras CS-3. The answer is rarely \"one or the other\" — most workloads benefit from running both.",
     category: "Engineering",
     author: "Rahul Bathija",
     date: "May 28, 2026",
   },
   {
-    title: "The rise of grid-independent AI infrastructure",
-    excerpt: "AI workloads need 10x the power of traditional compute. The grid can't keep up. What comes next isn't bigger substations — it's local generation.",
-    category: "Industry",
-    author: "Daksh Gupta",
+    title: "How AURA predicts grid events 48 hours in advance",
+    excerpt: "AURA watches ISO/RTO load forecasts, weather, and historical event patterns to predict grid instability before it happens. Here's how the model works and what it caught in our first 90 days.",
+    category: "Engineering",
+    author: "Vaishant Kameswaran",
     date: "May 15, 2026",
   },
   {
-    title: "Frontier PUE at lower cost: thermal AI vs. chilled water",
-    excerpt: "We tested our liquid cooling + thermal AI stack against a traditional chilled-water plant at a 5MW deployment. The results surprised us.",
+    title: "Inside z1power: building megawatt BESS in Tulsa",
+    excerpt: "Why we chose Tulsa, why we manufacture cells in-house, and what it takes to ship a 5 MW battery stack that the federal government will accept under ITAR.",
     category: "Engineering",
-    author: "Chun-Wei Yang",
+    author: "Marcus Thompson",
     date: "May 4, 2026",
   },
   {
-    title: "Why ITAR matters for grid-independent data centers",
-    excerpt: "Federal customers can't deploy battery stacks with foreign-made cells. Here's how we designed SmartTec to be 100% ITAR-compliant.",
+    title: "ITAR, FedRAMP, and the long road to federal AI",
+    excerpt: "Federal customers can't deploy AI on foreign-made silicon. Here's how we designed SmartTec to be ITAR-clean across the full stack — power, compute, networking, and firmware.",
     category: "Federal",
     author: "Everett Butler",
     date: "Apr 22, 2026",
   },
   {
-    title: "There is a battery energy storage bubble",
-    excerpt: "Today everyone is selling BESS. Here's how SmartTec's viewpoint is differentiated — independent cells, predictive AI, and a financially-backed SLA.",
+    title: "The AI infrastructure build-out is bottlenecked on power, not chips",
+    excerpt: "Everyone is talking about GPU shortages. The real bottleneck is megawatt-scale power delivery. We pulled 18 months of data on interconnection queues and the picture is grim.",
     category: "Industry",
-    author: "Soohoon Choi",
+    author: "Daksh Gupta",
     date: "Apr 8, 2026",
   },
   {
-    title: "Sub-second telemetry: what we measure at every cell",
-    excerpt: "Voltage, current, temperature, impedance, gas evolution — what we measure at every cell, why, and what we do with it.",
-    category: "Engineering",
-    author: "Vaishant Kameswaran",
+    title: "What a 5 MW AI compute hall actually costs",
+    excerpt: "Capex, opex, PPA, lease — we break down the real numbers for a 5 MW AI compute deployment running NVIDIA H100s on z1power battery-backed power.",
+    category: "Business",
+    author: "Soohoon Choi",
     date: "Mar 24, 2026",
   },
   {
-    title: "Cell-level anomaly detection: catching failure 14 days early",
-    excerpt: "We rebuilt our anomaly detection from scratch. Here's how it works, what it caught in the first 30 days, and why threshold-based alerting is fundamentally broken.",
-    category: "Product",
-    author: "Daksh Gupta",
+    title: "Sub-10ms failover: how we keep GPUs running through grid events",
+    excerpt: "When the grid drops, our batteries take over in under 10 milliseconds. Here's the switchgear, the controls, and the load-shedding logic that makes it work without interrupting your training job.",
+    category: "Engineering",
+    author: "Chun-Wei Yang",
     date: "Mar 11, 2026",
   },
   {
-    title: "Building a 5MW data center in 90 days",
-    excerpt: "From signed contract to live operations in 90 days. Here's how we actually do it, and the 14 things that almost stopped us.",
-    category: "Case Study",
-    author: "Marcus Thompson",
+    title: "Behind the scenes: building the SmartTec brand",
+    excerpt: "Why we refreshed the brand, what we kept, what we threw away, and how the design system ended up looking like a battery manufacturer's spec sheet (in the best way).",
+    category: "Announcement",
+    author: "Soohoon Choi",
     date: "Feb 27, 2026",
   },
   {
-    title: "Slop is not necessarily the future",
-    excerpt: "Everyone's worried about bad code and bad deployments. But good infrastructure will prevail — not only because we want it to.",
-    category: "Industry",
+    title: "The economics of behind-the-meter AI compute",
+    excerpt: "When you own the power, your cost structure changes. We model out five years of TCO for grid-tied vs. behind-the-meter AI compute at 1 MW, 5 MW, and 50 MW scales.",
+    category: "Business",
     author: "Daksh Gupta",
     date: "Feb 14, 2026",
   },
   {
-    title: "Grid independence isn't a feature, it's a business model",
-    excerpt: "When your data center can run on its own power, everything changes — siting, sizing, sales cycles, even your CFO's risk model.",
-    category: "Business",
-    author: "Daksh Gupta",
+    title: "Why we're starting with NVIDIA Cloud Partner architecture",
+    excerpt: "Reference architectures aren't glamorous, but they save months of integration work. Here's why we picked NVIDIA's NCP framework for our base deployment and what it unlocks for customers.",
+    category: "Product",
+    author: "Vaishant Kameswaran",
     date: "Jan 28, 2026",
   },
   {
-    title: "Introducing SmartTec v2: AURA + thermal AI",
-    excerpt: "SmartTec's biggest update yet. AURA predictive layer, thermal AI, and 30% lower TCO. Launching today.",
+    title: "Announcing SmartTec: the grid-independent AI cloud",
+    excerpt: "Today we're announcing SmartTec. NVIDIA and Cerebras compute on megawatt batteries we build ourselves. Q4 2026 power-on. Three design-partner slots now open.",
     category: "Product",
-    author: "Vaishant Kameswaran",
+    author: "Daksh Gupta",
     date: "Jan 12, 2026",
   },
 ];
 
-const categories = ["All", "Engineering", "Product", "Industry", "Announcement", "Federal", "Case Study", "Business"];
+const categories = ["All", "Engineering", "Product", "Industry", "Announcement", "Federal", "Business"];
 
 export default function BlogPage() {
   const [filter, setFilter] = useState("All");
@@ -136,7 +136,7 @@ export default function BlogPage() {
                 Notes from the<br />grid frontier.
               </h1>
               <p className="text-xl md:text-2xl text-slate/70 max-w-2xl">
-                Engineering, product, and industry deep-dives from the SmartTec team. Updated weekly.
+                Engineering, product, and industry deep-dives from the SmartTec team.
               </p>
             </motion.div>
           </div>
@@ -149,8 +149,7 @@ export default function BlogPage() {
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
             >
@@ -208,8 +207,7 @@ export default function BlogPage() {
                 <motion.article
                   key={post.title}
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
                   className="group flex flex-col border border-dashed border-slate/30 bg-fog/50 hover:bg-greptile-green/10 transition-colors"
                 >

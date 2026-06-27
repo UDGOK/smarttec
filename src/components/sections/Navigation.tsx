@@ -58,16 +58,16 @@ const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?:
 const computeMenu = [
   { title: "NVIDIA Compute", desc: "H100 · H200 · B200 · GB200", tag: "Training", color: "bg-greptile-green", href: "/compute" },
   { title: "Cerebras Inference", desc: "Fastest tokens on earth", tag: "Inference", color: "bg-peach", href: "/compute" },
-  { title: "Bare-metal", desc: "Full hardware isolation", color: "bg-seafoam", href: "/compute" },
-  { title: "Inference endpoints", desc: "Per-token billing", color: "bg-lavender", href: "/compute" },
+  { title: "Features", desc: "The full SmartTec stack", color: "bg-seafoam", href: "/features" },
+  { title: "AURA control plane", desc: "Predictive orchestration", color: "bg-lavender", href: "/aura" },
 ];
 
 const companyMenu = [
   { title: "About", desc: "Our story + team", href: "/about" },
+  { title: "Enterprise", desc: "Federal, federal-adjacent, large teams", href: "/enterprise" },
   { title: "Deployments", desc: "Pilot program", href: "/deployments" },
   { title: "Customers", desc: "Design partners", href: "/customers" },
   { title: "Blog", desc: "Engineering + industry", href: "/blog" },
-  { title: "Status", desc: "Live system health", href: "/status" },
   { title: "Security", desc: "SOC 2 + compliance", href: "/security" },
 ];
 
