@@ -5,34 +5,54 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqItems = [
   {
-    question: "How long does a SmartTec deployment take?",
+    question: "When does SmartTec actually go online?",
     answer:
-      "From signed contract to live operations, typical deployments take 60-90 days. Site prep adds 30-60 days for ground-mount configurations. We provide a detailed project timeline during the engineering phase.",
+      "Q4 2026 power-on is our current target. Power infrastructure is being built first; compute halls come online in phases through Q1 2027. We'll publish exact milestones on our /status page as construction progresses.",
   },
   {
-    question: "What's the footprint requirement for a battery energy stack?",
+    question: "What NVIDIA models are available?",
     answer:
-      "Our modular units start at 200kW and require approximately 400 sq ft per 100kW. A 1MW installation fits in a standard parking lot space. We also do rooftop and ground-mount configurations.",
+      "At launch: H100 80GB and H200 141GB. B200 and GB200 follow in phase 2 (Q1 2027). All on InfiniBand NDR fabric, 8 GPUs per node, full fat-tree topology. Bare-metal or hypervisor-bounded — your choice.",
   },
   {
-    question: "How does SmartTec handle thermal management?",
+    question: "How is power actually delivered without the grid?",
     answer:
-      "Active liquid cooling with AI-driven temperature optimization. Our thermal management system maintains cell temperatures within 2°C variance, extending cycle life by up to 40% versus passive systems.",
+      "z1power megawatt-class BESS — built by us — provides primary power. Grid is a backup, not primary. AURA orchestrates charge/discharge cycles to keep GPU load steady. Sub-10ms failover to batteries.",
   },
   {
-    question: "What's included in the 99.997% uptime SLA?",
+    question: "What's the minimum contract?",
     answer:
-      "Full power delivery guarantee with financial payout clauses. Covers battery availability, inverter uptime, and grid-transfer switching. Excludes scheduled maintenance windows agreed in advance.",
+      "On-demand: no minimum. Reserved clusters: 12-month terms. Colocation: 5-year PPA typical. Design partners get launch pricing locked for 12 months from power-on.",
   },
   {
-    question: "Can SmartTec integrate with existing UPS and generator infrastructure?",
+    question: "Who can reserve capacity?",
     answer:
-      "Yes. Our systems are designed to layer with existing UPS and generator assets. We map your current infrastructure during site survey and design integration points that maintain full redundancy.",
+      "Anyone with a clear workload profile and procurement budget. We're choosing three design partners for the first wave — each gets locked pricing and direct engineering access. After Q1 2027 we'll open general reservations.",
   },
   {
-    question: "What financing options are available for enterprise deployments?",
+    question: "Where is SmartTec located?",
     answer:
-      "CAPEX purchase, operating lease, and power-purchase-agreement (PPA) models are available. We also work with select infrastructure lenders who specialize in data center assets.",
+      "Phase 1 in Oklahoma, near Tulsa. We chose OK for low electricity prices, low disaster risk, fast interconnection timelines, and a friendly policy environment for energy infrastructure.",
+  },
+  {
+    question: "What about Cerebras?",
+    answer:
+      "Dedicated wafer-scale CS-3 systems for committed inference workloads. Per-token billing on shared endpoints, dedicated CS-3 for committed customers. Cerebras handles multi-billion-parameter inference at the lowest latency on earth.",
+  },
+  {
+    question: "How does AURA work?",
+    answer:
+      "AURA is our orchestration layer. It predicts grid events 48 hours out, manages BESS charge cycles, balances thermal load across GPU halls, and exposes real-time telemetry. Your workloads run normally — AURA handles the power underneath.",
+  },
+  {
+    question: "Is the carbon footprint better than traditional data centers?",
+    answer:
+      "Yes. We don't run diesel generators, don't build dedicated gas turbines, and don't rely on grid coal. BESS charges from grid mix or on-site solar; dispatches batteries during high-carbon-intensity grid hours.",
+  },
+  {
+    question: "Can I bring my own hardware for colocation?",
+    answer:
+      "Yes. Standard colocation starts at 100kW. Custom builds scale to multi-MW. We'll handle power, cooling, networking, and physical security.",
   },
 ];
 
@@ -42,7 +62,7 @@ function FAQItem({ item, index, isOpen, onToggle }: { item: typeof faqItems[0]; 
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.08, duration: 0.5 }}
+      transition={{ delay: index * 0.05, duration: 0.5 }}
       className="border border-dashed border-slate/30 bg-fog/50"
     >
       <button
@@ -56,7 +76,7 @@ function FAQItem({ item, index, isOpen, onToggle }: { item: typeof faqItems[0]; 
             <span className="font-space-mono text-[11px] text-slate/40 font-bold">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className={`text-base md:text-lg font-anybody font-bold transition-colors ${isOpen ? "text-slate" : "text-slate"}`}>
+            <span className="text-base md:text-lg font-anybody font-bold text-slate">
               {item.question}
             </span>
           </div>
@@ -72,7 +92,7 @@ function FAQItem({ item, index, isOpen, onToggle }: { item: typeof faqItems[0]; 
             strokeLinejoin="round"
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.25 }}
-            className={`flex-shrink-0 text-slate/60`}
+            className="flex-shrink-0 text-slate/60"
           >
             <path d="M6 9l6 6 6-6" />
           </motion.svg>
@@ -116,7 +136,7 @@ export function FAQSection() {
             [ FAQ ]
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-bold text-slate tracking-tight leading-[0.95]">
-            Common questions.
+            Buyer questions, answered.
           </h2>
         </motion.div>
 

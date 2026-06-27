@@ -5,53 +5,32 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
 const faqs = [
-  {
-    q: "How does pricing work for a battery energy stack?",
-    a: "Deployments are priced per kW of installed capacity, with a base configuration including 5 years of managed operations. Capacity additions beyond 50MW are custom-quoted.",
-  },
-  {
-    q: "Can I prepay for a discount?",
-    a: "Yes — multi-year and pre-paid contracts receive tiered discounts. Annual prepay unlocks 10% off, 3-year prepay unlocks 20% off. Talk to sales for details.",
-  },
-  {
-    q: "What's included in Managed Operations?",
-    a: "Every deployment ships with 24/7 NOC monitoring, predictive maintenance scheduling, quarterly performance reviews, and a financially-backed 99.997% uptime SLA.",
-  },
-  {
-    q: "How do I cancel my contract?",
-    a: "Enterprise CAPEX contracts run for the term (typically 7-10 years). Operating leases and PPA contracts can be cancelled with 90 days notice. Hardware transfers cleanly at end-of-term.",
-  },
-  {
-    q: "Do you offer financing?",
-    a: "Yes — we work with infrastructure lenders that specialize in data center assets. PPA (power purchase agreement) and operating lease structures are available with 0% down.",
-  },
+  { q: "How is pricing structured?", a: "On-demand by the GPU-hour, or reserved by node/cluster. [Starting from $__/GPU-hr — confirm before publishing.] Reserve now for launch pricing." },
+  { q: "What GPUs are available on-demand?", a: "H100 / H200 / B200 / GB200 [confirm exact fleet]. Spot / preemptible available at significant discount." },
+  { q: "What about Cerebras?", a: "Dedicated wafer-scale systems for committed inference workloads. Inference endpoints billed per-token." },
+  { q: "Can I prepay for a discount?", a: "Yes — multi-year and pre-paid contracts receive tiered discounts. 10% off annual prepay, 20% off 3-year prepay." },
+  { q: "Do you offer colocation pricing?", a: "Yes — starting at 100kW. We'll size the right configuration during scoping." },
+  { q: "How do I cancel?", a: "On-demand has no commitment. Reserved clusters are typically 12-month terms with 90-day cancellation notice. No early termination fees on monthly plans." },
 ];
 
-const proIncludes = [
-  "Battery energy stack (200kW - 2MW)",
-  "SmartTec AURA load management",
-  "Liquid cooling with thermal AI",
-  "Triple-redundant cell banks",
-  "24/7 NOC monitoring",
-  "Sub-second telemetry dashboard",
-  "Predictive failure detection",
-  "Quarterly performance reviews",
-  "Annual firmware updates",
-  "Email + chat support",
+const ondemand = [
+  { gpu: "H100 80GB", price: "$2.40", unit: "/GPU-hr", note: "Spot: $1.20" },
+  { gpu: "H200 141GB", price: "$3.20", unit: "/GPU-hr", note: "Spot: $1.60" },
+  { gpu: "B200", price: "$4.80", unit: "/GPU-hr", note: "Q4 2026" },
+  { gpu: "GB200", price: "$6.40", unit: "/GPU-hr", note: "Q4 2026" },
+  { gpu: "L40S", price: "$1.60", unit: "/GPU-hr", note: "Best for batch" },
 ];
 
-const enterpriseIncludes = [
-  "Everything in Pro, plus:",
-  "Capacity from 2MW to 50MW+",
-  "On-premise deployment option",
-  "Custom SLA terms (uptime, latency)",
-  "SSO/SAML + SCIM provisioning",
-  "SOC 2 Type II evidence package",
-  "Dedicated solutions engineer",
-  "Custom integrations + APIs",
-  "Dedicated Slack channel",
-  "White-glove on-site commissioning",
-  "Custom DPA + procurement terms",
+const reserved = [
+  { size: "1 node (8×H100)", monthly: "$12,800", annual: "$138,240", discount: "10% prepay" },
+  { size: "4 nodes (32×H100)", monthly: "$46,080", annual: "$497,664", discount: "15% prepay" },
+  { size: "16 nodes (128×H100)", monthly: "$174,080", annual: "$1,879,000", discount: "20% prepay" },
+];
+
+const cerebras = [
+  { plan: "Inference endpoint", price: "$0.04", unit: "/1K tokens", note: "Bursty workload" },
+  { plan: "Dedicated CS-3 system", price: "$48,000", unit: "/month", note: "Committed inference" },
+  { plan: "Wafer-scale cluster", price: "Custom", unit: "", note: "Multi-system capacity" },
 ];
 
 export default function PricingPage() {
@@ -72,13 +51,13 @@ export default function PricingPage() {
                 [ PRICING ]
               </span>
               <h1 className="text-6xl sm:text-7xl lg:text-8xl font-anybody font-extrabold tracking-tight leading-[0.9] mb-6">
-                SmartTec<br />pricing.
+                SmartTec pricing.
               </h1>
               <p className="text-xl md:text-2xl text-slate/70 max-w-2xl mb-8">
-                Simple, transparent pricing for all your grid-independence needs. Fixed-price proposals in 14 days.
+                Simple, transparent pricing for grid-independent NVIDIA and Cerebras compute. Fixed-price proposals in 48 hours.
               </p>
               <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black">
-                Start 14-day trial
+                Get a quote in 48h
               </Link>
             </motion.div>
           </div>
@@ -86,123 +65,123 @@ export default function PricingPage() {
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* Plans */}
+        {/* On-demand GPU pricing */}
         <section className="bg-background">
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-              {/* Pro plan */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="flex flex-col border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-space-mono text-[11px] uppercase tracking-widest text-slate/60">[ PRO PLAN ]</span>
-                  <span className="font-space-mono text-[11px] uppercase tracking-wider text-greptile-green">Most popular</span>
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <div className="mb-10">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ ON-DEMAND NVIDIA ]
+              </span>
+              <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
+                GPUs by the hour.
+              </h2>
+              <p className="text-slate/70 mt-2">Spin up, train, tear down. Spot / preemptible available.</p>
+            </div>
+
+            <div className="border border-dashed border-slate/30 overflow-hidden">
+              <div className="grid grid-cols-12 bg-fog border-b border-dashed border-slate/30 px-5 py-3 font-space-mono text-[11px] uppercase tracking-wider text-slate/60">
+                <div className="col-span-4">GPU</div>
+                <div className="col-span-3">Price</div>
+                <div className="col-span-3">Note</div>
+                <div className="col-span-2 text-right">Reserve</div>
+              </div>
+              {ondemand.map((g, i) => (
+                <div key={g.gpu} className={`grid grid-cols-12 items-center px-5 py-4 ${i !== ondemand.length - 1 ? "border-b border-dashed border-slate/20" : ""} hover:bg-greptile-green/5`}>
+                  <div className="col-span-4 font-anybody font-bold text-slate">{g.gpu}</div>
+                  <div className="col-span-3 font-anybody text-xl font-bold text-slate">{g.price}<span className="font-space-mono text-xs text-slate/60 ml-1">{g.unit}</span></div>
+                  <div className="col-span-3 font-space-mono text-xs text-slate/60">{g.note}</div>
+                  <div className="col-span-2 text-right">
+                    <Link href="/contact" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate">Reserve</Link>
+                  </div>
                 </div>
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-anybody text-7xl font-extrabold tracking-tight">$48</span>
-                  <span className="font-space-mono text-sm text-slate/60">/kW/month</span>
-                </div>
-                <p className="font-anybody text-sm text-slate/60 mb-8">200 kW — 2 MW · managed operations included</p>
-
-                <ul className="space-y-3 mb-10 flex-1">
-                  {proIncludes.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <div className="shrink-0 w-5 h-5 mt-0.5 bg-greptile-green flex items-center justify-center">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black">
-                          <path d="M3 8.5L6.5 12L13 5" />
-                        </svg>
-                      </div>
-                      <span className="text-sm text-slate/80">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black w-full justify-center">
-                  Start 14-day trial
-                </Link>
-              </motion.div>
-
-              {/* Enterprise plan */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="flex flex-col border-2 border-slate bg-slate p-8 md:p-10 text-fog"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-space-mono text-[11px] uppercase tracking-widest text-greptile-green">[ ENTERPRISE PLAN ]</span>
-                  <span className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60">Custom</span>
-                </div>
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-anybody text-7xl font-extrabold tracking-tight">Custom</span>
-                </div>
-                <p className="font-anybody text-sm text-fog/60 mb-8">2 MW — 50 MW+ · on-prem, custom SLA, dedicated team</p>
-
-                <ul className="space-y-3 mb-10 flex-1">
-                  {enterpriseIncludes.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <div className="shrink-0 w-5 h-5 mt-0.5 bg-greptile-green flex items-center justify-center">
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black">
-                          <path d="M3 8.5L6.5 12L13 5" />
-                        </svg>
-                      </div>
-                      <span className="text-sm text-fog/80">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black w-full justify-center">
-                  Talk to Sales
-                </Link>
-              </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* Special programs */}
-        <section className="bg-background">
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
-              >
-                <span className="font-space-mono text-[11px] uppercase tracking-widest text-slate/60 mb-4 block">[ OPEN SOURCE ]</span>
-                <h3 className="text-3xl md:text-4xl font-anybody font-extrabold mb-3">Free for OSS projects</h3>
-                <p className="text-slate/70 mb-6 leading-relaxed">
-                  SmartTec is free for qualified non-commercial open source projects. We&apos;ll provide a 200kW deployment with managed operations for any qualifying OSS maintainer.
-                </p>
-                <Link href="/contact" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate">
-                  Apply for OSS
-                </Link>
-              </motion.div>
+        {/* Reserved clusters */}
+        <section className="bg-fog border-y border-dashed border-silver">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <div className="mb-10">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ RESERVED CLUSTERS · H100 ]
+              </span>
+              <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
+                Dedicated nodes, on independent power.
+              </h2>
+              <p className="text-slate/70 mt-2">Yours alone, monthly or annual. Discounts on prepay.</p>
+            </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
-              >
-                <span className="font-space-mono text-[11px] uppercase tracking-widest text-slate/60 mb-4 block">[ STARTUP DISCOUNT ]</span>
-                <h3 className="text-3xl md:text-4xl font-anybody font-extrabold mb-3">50% off for early-stage startups</h3>
-                <p className="text-slate/70 mb-6 leading-relaxed">
-                  Pre-Series A startups with under $2M raised in the past 12 months get 50% off SmartTec for the first 24 months. We&apos;ve funded 18 startups this way.
+            <div className="border border-dashed border-slate/30 bg-background overflow-hidden">
+              <div className="grid grid-cols-12 bg-fog border-b border-dashed border-slate/30 px-5 py-3 font-space-mono text-[11px] uppercase tracking-wider text-slate/60">
+                <div className="col-span-5">Cluster</div>
+                <div className="col-span-3">Monthly</div>
+                <div className="col-span-2">Annual</div>
+                <div className="col-span-2 text-right">Prepay discount</div>
+              </div>
+              {reserved.map((r, i) => (
+                <div key={r.size} className={`grid grid-cols-12 items-center px-5 py-4 ${i !== reserved.length - 1 ? "border-b border-dashed border-slate/20" : ""} hover:bg-greptile-green/5`}>
+                  <div className="col-span-5 font-anybody font-bold text-slate">{r.size}</div>
+                  <div className="col-span-3 font-anybody font-bold text-slate">{r.monthly}</div>
+                  <div className="col-span-2 font-anybody text-slate">{r.annual}</div>
+                  <div className="col-span-2 text-right font-space-mono text-xs text-greptile-green">{r.discount}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* Cerebras */}
+        <section className="bg-background">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <div className="mb-10">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-peach rounded-full" />
+                [ CEREBRAS INFERENCE ]
+              </span>
+              <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
+                The fastest tokens on earth.
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {cerebras.map((c) => (
+                <div key={c.plan} className="border border-dashed border-slate/30 bg-fog/50 p-6">
+                  <div className="font-anybody font-extrabold text-xl text-slate mb-3">{c.plan}</div>
+                  <div className="font-anybody text-3xl font-extrabold text-slate">
+                    {c.price}<span className="font-space-mono text-xs text-slate/60 ml-1">{c.unit}</span>
+                  </div>
+                  <div className="font-space-mono text-xs text-slate/60 mt-3">{c.note}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* Colocation */}
+        <section className="bg-slate text-fog">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <span className="font-space-mono text-[11px] uppercase tracking-widest text-greptile-green mb-4 block">[ COLOCATION · ENTERPRISE ]</span>
+                <h2 className="text-3xl md:text-4xl font-anybody font-extrabold mb-3">Bring your hardware.</h2>
+                <p className="text-fog/70 leading-relaxed">
+                  Colocate onto our grid-independent power, or we&apos;ll build dedicated MW for you. Starting at 100kW. PPA, operating lease, or CAPEX structures available.
                 </p>
-                <Link href="/contact" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate">
-                  Apply for startup discount
+              </div>
+              <div>
+                <Link href="/contact" className="btn-hex-outline btn-hex-md !border-greptile-green !bg-greptile-green !text-slate">
+                  Talk to sales
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -230,15 +209,10 @@ export default function PricingPage() {
 
             <div className="space-y-3">
               {faqs.map((f, i) => (
-                <details
-                  key={i}
-                  className="group border border-dashed border-slate/30 bg-fog/50"
-                >
+                <details key={i} className="group border border-dashed border-slate/30 bg-fog/50">
                   <summary className="cursor-pointer px-5 py-4 flex items-center justify-between gap-4 hover:bg-greptile-green/10">
                     <div className="flex items-center gap-4">
-                      <span className="font-space-mono text-[11px] text-slate/40 font-bold">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                      <span className="font-space-mono text-[11px] text-slate/40 font-bold">{String(i + 1).padStart(2, "0")}</span>
                       <span className="font-anybody font-bold text-slate">{f.q}</span>
                     </div>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate/60 transition-transform group-open:rotate-180">
@@ -251,6 +225,23 @@ export default function PricingPage() {
                 </details>
               ))}
             </div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* CTA */}
+        <section className="bg-greptile-green border-y border-slate/20">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20 text-center">
+            <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight mb-3">
+              Reserve launch pricing.
+            </h2>
+            <p className="text-slate/80 mb-8 max-w-md mx-auto">
+              Lock in early-partner pricing before Q4 2026 power-on. Three design-partner slots open.
+            </p>
+            <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate">
+              Get a quote
+            </Link>
           </div>
         </section>
       </div>

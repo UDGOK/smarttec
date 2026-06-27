@@ -1,39 +1,40 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
-const productLinks = [
-  { label: "Battery Energy Stack", href: "#features" },
-  { label: "Modular Deployments", href: "#integrations" },
-  { label: "AURA Load AI", href: "#aura" },
-  { label: "Thermal AI", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "API Documentation", href: "#docs" },
+const computeLinks = [
+  { label: "NVIDIA compute", href: "/compute" },
+  { label: "Cerebras inference", href: "/compute" },
+  { label: "AURA control plane", href: "/aura" },
+  { label: "Bare-metal", href: "/compute" },
+  { label: "Colocation", href: "/contact" },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 const companyLinks = [
-  { label: "About", href: "#about" },
-  { label: "Careers", href: "#careers" },
-  { label: "Press", href: "#press" },
-  { label: "Partners", href: "#partners" },
-  { label: "Case Studies", href: "#case-studies" },
-  { label: "Blog", href: "#blog" },
+  { label: "About", href: "/about" },
+  { label: "Deployments", href: "/deployments" },
+  { label: "Customers", href: "/customers" },
+  { label: "Power story", href: "/power" },
+  { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/contact" },
 ];
 
 const resourceLinks = [
-  { label: "Technical Documentation", href: "#docs" },
-  { label: "Compliance & Security", href: "#security" },
-  { label: "ROI Calculator", href: "#calculator" },
-  { label: "Capacity Planner", href: "#planner" },
-  { label: "Status Page", href: "#status" },
-  { label: "Changelog", href: "#changelog" },
+  { label: "System status", href: "/status" },
+  { label: "Security & SOC 2", href: "/security" },
+  { label: "Technical docs", href: "/security" },
+  { label: "Pilot program", href: "/deployments" },
+  { label: "AURA telemetry", href: "/aura" },
+  { label: "Changelog", href: "/blog" },
 ];
 
 const contactLinks = [
-  { label: "Sales", href: "#sales" },
-  { label: "Support", href: "#support" },
-  { label: "Partnerships", href: "#partnerships" },
-  { label: "Press Inquiries", href: "#press-contact" },
+  { label: "Sales", href: "/contact" },
+  { label: "Design partners", href: "/deployments" },
+  { label: "Press", href: "/contact" },
+  { label: "Investors", href: "/contact" },
 ];
 
 const socialLinks = [
@@ -57,7 +58,7 @@ const socialLinks = [
   },
   {
     name: "GitHub",
-    href: "#",
+    href: "https://github.com/UDGOK/smarttec",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
         <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
@@ -85,11 +86,11 @@ export function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-4">
-            <a href="#" className="inline-flex items-center mb-5">
+            <Link href="/" className="inline-flex items-center mb-5">
               <Image src="/logo-green.svg" alt="SmartTec" width={180} height={50} className="h-9 w-auto" />
-            </a>
+            </Link>
             <p className="text-fog/60 text-sm leading-relaxed mb-6 max-w-sm">
-              Infrastructure that doesn&apos;t fail when the grid does. Built in the USA. Deployed in 90 days.
+              The grid-independent AI cloud. NVIDIA and Cerebras compute on megawatt batteries we build ourselves.
             </p>
 
             <div className="flex items-center gap-3">
@@ -107,13 +108,13 @@ export function Footer() {
 
             <div className="mt-8 flex items-center gap-2 font-space-mono text-[11px] uppercase tracking-wider text-fog/60">
               <span className="w-1.5 h-1.5 bg-greptile-green rounded-full animate-pulse-glow" />
-              All systems operational
+              Pre-launch · Q4 2026 power-on
             </div>
           </div>
 
           {/* Link columns */}
           <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <FooterColumn title="Product" links={productLinks} />
+            <FooterColumn title="Compute" links={computeLinks} />
             <FooterColumn title="Company" links={companyLinks} />
             <FooterColumn title="Resources" links={resourceLinks} />
             <FooterColumn title="Contact" links={contactLinks} />
@@ -123,21 +124,18 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-dashed border-fog/20 pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <p className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60">
-            © {year} SmartTec, Inc. · Made in Arizona
+            © {year} SmartTec, Inc. · Tulsa, Oklahoma
           </p>
           <div className="flex items-center gap-6 flex-wrap">
-            <a href="/security#privacy" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
-              Privacy
-            </a>
-            <a href="/security#terms" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
-              Terms
-            </a>
-            <a href="/security#cookies" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
-              Cookies
-            </a>
-            <a href="/security" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+            <Link href="/security" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
               Security
-            </a>
+            </Link>
+            <Link href="/contact" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+              Privacy & terms
+            </Link>
+            <Link href="/status" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+              Status
+            </Link>
           </div>
         </div>
       </div>
@@ -154,9 +152,9 @@ function FooterColumn({ title, links }: { title: string; links: { label: string;
       <ul className="space-y-2.5">
         {links.map((l) => (
           <li key={l.label}>
-            <a href={l.href} className="text-fog/70 text-sm hover:text-greptile-green transition-colors">
+            <Link href={l.href} className="text-fog/70 text-sm hover:text-greptile-green transition-colors">
               {l.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

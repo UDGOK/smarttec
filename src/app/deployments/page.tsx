@@ -1,95 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
-
-const customerSections = [
-  {
-    company: "StackEdge Systems",
-    stars: "12 sites",
-    forks: "2 MW",
-    repos: "Hyperscale edge",
-    files: [
-      { file: "stackedge/integrations.yaml", category: "Redundancy", content: "Triple-redundant cell banks deployed.", w: "w-3/4" },
-      { file: "stackedge/thermal.config", category: "Thermal", content: "AI liquid cooling engaged, 1.8°C variance.", w: "w-4/5" },
-      { file: "stackedge/sla.report", category: "Reliability", content: "99.997% uptime maintained over 18 months.", w: "w-2/3" },
-    ],
-  },
-  {
-    company: "CloudVault",
-    stars: "3 sites",
-    forks: "500 kW",
-    repos: "Mid-market SaaS",
-    files: [
-      { file: "cloudvault/fleet.json", category: "Load", content: "Diesel generators fully decommissioned.", w: "w-3/4" },
-      { file: "cloudvault/integrations.yaml", category: "Microgrid", content: "Edge microgrid active across 3 sites.", w: "w-4/5" },
-      { file: "cloudvault/forecast.api", category: "AI", content: "AURA predictive layer integrated with scheduler.", w: "w-2/3" },
-    ],
-  },
-  {
-    company: "Prism Analytics",
-    stars: "8 sites",
-    forks: "1.5 MW",
-    repos: "Data infrastructure",
-    files: [
-      { file: "prism/load-forecast.json", category: "AURA", content: "72-hour load forecast drift under 2.1%.", w: "w-4/5" },
-      { file: "prism/thermal.config", category: "Cooling", content: "Sub-2°C cell variance across all banks.", w: "w-3/4" },
-      { file: "prism/billing.api", category: "Billing", content: "PPA metering integrated with cloud cost tooling.", w: "w-1/2" },
-    ],
-  },
-  {
-    company: "Fortis Networks",
-    stars: "5 sites",
-    forks: "800 kW",
-    repos: "Federal / Defense",
-    files: [
-      { file: "fortis/compliance.audit", category: "Compliance", content: "SOC 2 Type II evidence packaged.", w: "w-3/4" },
-      { file: "fortis/encryption.config", category: "Security", content: "FIPS 140-3 modules verified.", w: "w-2/3" },
-      { file: "fortis/access.policy", category: "Access", content: "Zero standing privilege on power controls.", w: "w-4/5" },
-    ],
-  },
-  {
-    company: "Nimbus Edge",
-    stars: "24 sites",
-    forks: "300 kW",
-    repos: "CDN / Edge compute",
-    files: [
-      { file: "nimbus/thermal.config", category: "Cooling", content: "Liquid cooling lifts cycle life by 40%.", w: "w-3/4" },
-      { file: "nimbus/edge-routing.json", category: "Routing", content: "Sub-10ms failover verified across all sites.", w: "w-4/5" },
-      { file: "nimbus/ppa.contract", category: "PPA", content: "Power purchase agreement active with utility.", w: "w-2/5" },
-    ],
-  },
-  {
-    company: "Hadron Compute",
-    stars: "2 sites",
-    forks: "5 MW",
-    repos: "AI infrastructure",
-    files: [
-      { file: "hadron/sla.report", category: "SLA", content: "99.997% uptime maintained, 0 payouts.", w: "w-4/5" },
-      { file: "hadron/grid-mix.json", category: "Grid", content: "73% reduction in grid draw since launch.", w: "w-3/4" },
-      { file: "hadron/scaling.config", category: "Scaling", content: "Capacity scaled 3x without re-engineering.", w: "w-2/5" },
-    ],
-  },
-];
-
-const liveFeed = [
-  { type: "Logic", message: "Outdated firmware version detected on StackEdge site PHX-2", site: "stackedge/phx-2", code: "#4421" },
-  { type: "Compliance", message: "SOC 2 audit evidence gap in Fortis Networks Q3 log export", site: "fortis/audit-q3", code: "#4420" },
-  { type: "Thermal", message: "Cell variance drift detected on Nimbus Edge cluster CDG-1", site: "nimbus/cdg-1", code: "#4419" },
-  { type: "Load", message: "AURA forecast accuracy degraded 3.1% on CloudVault use-east-1", site: "cloudvault/use1", code: "#4418" },
-  { type: "Reliability", message: "Predictive maintenance flag: Prism Analytics battery bank 7", site: "prism/bank-7", code: "#4417" },
-  { type: "Logic", message: "Stale configuration on Hadron Compute SLA reporting endpoint", site: "hadron/sla-api", code: "#4416" },
-  { type: "Thermal", message: "Liquid coolant flow rate outside tolerance on StackEdge AUS-1", site: "stackedge/aus-1", code: "#4415" },
-  { type: "Compliance", message: "Annual penetration test report upload required for Fortis FY27", site: "fortis/pentest", code: "#4414" },
-];
 
 export default function DeploymentsPage() {
   return (
     <PageShell>
-      <div className="relative bg-background bg-paper-plus-ruled">
-        <section className="relative">
+      <div className="bg-background">
+        {/* Hero */}
+        <section className="relative bg-paper-plus-ruled">
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28 lg:py-32">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -99,156 +19,185 @@ export default function DeploymentsPage() {
             >
               <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-5">
                 <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
-                [ DEPLOYMENTS ]
+                [ DEPLOYMENTS · PILOT PROGRAM ]
               </span>
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-anybody font-extrabold tracking-tight leading-[0.9] mb-6">
-                SmartTec<br />
-                in action.
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-anybody font-extrabold tracking-tight leading-[0.95] mb-6">
+                SmartTec<br />in production.
               </h1>
-              <p className="text-xl md:text-2xl text-slate/70 max-w-2xl">
-                See SmartTec battery stacks operating in the most demanding enterprise environments — hyperscale, federal, edge, AI.
+              <p className="text-xl md:text-2xl text-slate/70 max-w-3xl mb-10">
+                SmartTec is currently in pre-launch. First-phase power-on is targeted for Q4 2026. We&apos;re reserving capacity now for design partners who want to be among the first three production deployments.
               </p>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black">
+                  Apply for design partner
+                </Link>
+                <Link href="/status" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate">
+                  Live system status
+                </Link>
+              </div>
             </motion.div>
-
-            {/* Category pills */}
-            <div className="mt-12 flex flex-wrap gap-2">
-              {["All", "Hyperscale", "Federal", "Edge", "AI Infrastructure", "CDN", "Mid-market"].map((c, i) => (
-                <button
-                  key={c}
-                  className={`font-space-mono text-xs uppercase tracking-wider px-4 py-2 border border-dashed transition-colors ${i === 0 ? "bg-greptile-green border-greptile-green text-black" : "border-slate/30 text-slate/70 hover:bg-greptile-green/10 hover:text-slate"}`}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
           </div>
         </section>
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* Customer sections */}
-        {customerSections.map((section, idx) => (
-          <section key={section.company} className="relative bg-background">
-            <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
-                className="mb-10"
-              >
-                <div className="flex flex-wrap items-end justify-between gap-6 mb-8">
-                  <div>
-                    <h2 className="text-4xl sm:text-5xl font-anybody font-extrabold text-slate tracking-tight mb-3">
-                      {section.company}
-                    </h2>
-                    <div className="flex flex-wrap gap-4 font-space-mono text-xs uppercase tracking-wider text-slate/60">
-                      <span>[ {section.repos} ]</span>
-                      <span>[ {section.forks} ]</span>
-                      <span>[ {section.stars} ]</span>
-                    </div>
-                  </div>
-                  <Link href={`#case-${section.company.toLowerCase().replace(/\s+/g, '-')}`} className="btn-hex btn-hex-sm !border-slate !bg-greptile-green !text-black">
-                    View case study
-                  </Link>
+        {/* Pilot program status */}
+        <section className="bg-background">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            >
+              <div>
+                <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                  <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                  [ PILOT PROGRAM STATUS ]
+                </span>
+                <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] mb-6">
+                  Three slots. Q4 2026 power-on.
+                </h2>
+                <p className="text-slate/70 leading-relaxed">
+                  We&apos;re running a closed design-partner program ahead of full launch. Three teams will get launch pricing, direct engineering access, and a named case study at power-on.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="border border-dashed border-slate/30 bg-fog/30 p-5">
+                  <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mb-2">[ SLOTS ]</div>
+                  <div className="font-anybody text-2xl font-extrabold text-slate">3 of 3 open</div>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5">
-                  {section.files.map((f, i) => (
-                    <motion.div
-                      key={f.file}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-60px" }}
-                      transition={{ duration: 0.5, delay: i * 0.08 }}
-                      className="group flex flex-col overflow-hidden rounded-lg border border-dashed border-slate/30 bg-fog/50 hover:bg-greptile-green/10 transition-colors"
-                    >
-                      <div className="border-b border-dashed border-slate/30 px-4 py-3 flex items-center gap-2">
-                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 256 256" className="h-3.5 w-3.5 text-slate/40">
-                          <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z" />
-                        </svg>
-                        <span className="font-space-mono text-[11px] font-medium truncate text-slate/60">{f.file}</span>
-                      </div>
-                      <div className="flex-1 px-4 py-3 flex flex-col gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/40">{f.category}</span>
-                          <span className="font-space-mono text-[10px] text-slate/30">·</span>
-                          <span className="font-space-mono text-[10px] text-slate/40">smarttec</span>
-                        </div>
-                        <p className="font-anybody text-base font-bold leading-snug text-slate">{f.content}</p>
-                      </div>
-                      <div className="flex items-center justify-center gap-1.5 border-t border-dashed border-slate/30 px-4 py-2.5 font-space-mono text-[11px] uppercase tracking-wider text-slate/80 bg-fog/30">
-                        See PR <span aria-hidden>→</span>
-                      </div>
-                    </motion.div>
-                  ))}
+                <div className="border border-dashed border-slate/30 bg-fog/30 p-5">
+                  <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mb-2">[ POWER-ON ]</div>
+                  <div className="font-anybody text-2xl font-extrabold text-slate">Q4 2026</div>
                 </div>
-              </motion.div>
-            </div>
-            {idx < customerSections.length - 1 && <hr className="border-border w-full opacity-20" />}
-          </section>
-        ))}
+                <div className="border border-dashed border-slate/30 bg-fog/30 p-5">
+                  <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mb-2">[ WORKLOADS ]</div>
+                  <div className="font-anybody text-base font-bold text-slate">Training · Inference · Colocation</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* Live Feed */}
-        <section className="relative bg-background">
+        {/* What partners get */}
+        <section className="bg-fog border-y border-dashed border-silver">
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="mb-12"
+              className="mb-12 max-w-3xl"
             >
               <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
-                <span className="w-1.5 h-1.5 bg-bloom rounded-full animate-pulse-glow" />
-                [ LIVE FROM THE FLEET ]
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ WHAT DESIGN PARTNERS GET ]
               </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-extrabold text-slate tracking-tight">
-                Catching issues in real-time.
+              <h2 className="text-4xl md:text-5xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95]">
+                Real benefits. Real commitments.
               </h2>
-              <p className="mt-4 text-lg text-slate/70 max-w-2xl">
-                What SmartTec AURA is flagging across the deployed fleet right now.
-              </p>
             </motion.div>
 
-            <div className="border border-dashed border-slate/30 bg-fog/50">
-              {liveFeed.map((item, i) => (
-                <div
-                  key={i}
-                  className={`flex items-center gap-4 px-5 py-4 ${i !== liveFeed.length - 1 ? "border-b border-dashed border-slate/20" : ""} hover:bg-greptile-green/10 transition-colors`}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {[
+                { n: "01", title: "Launch pricing locked", desc: "First 12 months at design-partner rates — significantly below post-launch list price.", accent: "bg-greptile-green" },
+                { n: "02", title: "Direct engineering access", desc: "Slack channel with the SmartTec engineering team. No support tiers in between.", accent: "bg-seafoam" },
+                { n: "03", title: "Co-published case study", desc: "Benchmark numbers, workload profile, and power data published jointly at power-on.", accent: "bg-ice" },
+                { n: "04", title: "Reserved compute", desc: "Locked GPU allocation for the first 12 months post-power-on. No queue.", accent: "bg-lavender" },
+                { n: "05", title: "Roadmap input", desc: "Quarterly product reviews. Your workload shapes what we ship next.", accent: "bg-peach" },
+                { n: "06", title: "Public case study opt-out", desc: "Anonymized references available for procurement-friendly teams.", accent: "bg-pink" },
+              ].map((b, i) => (
+                <motion.div
+                  key={b.n}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  className="bg-background border border-dashed border-slate/30 p-6"
                 >
-                  <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/40 w-24 shrink-0">{item.type}</span>
-                  <span className="font-anybody text-sm md:text-base text-slate flex-1">{item.message}</span>
-                  <span className="font-space-mono text-[11px] text-slate/60 hidden md:inline">{item.site}</span>
-                  <span className="font-space-mono text-[11px] text-slate/40 shrink-0">{item.code}</span>
-                </div>
+                  <div className={`w-1.5 h-1.5 ${b.accent} mb-3`} />
+                  <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/40 mb-2">[ {b.n} ]</div>
+                  <h3 className="font-anybody font-bold text-lg text-slate mb-2">{b.title}</h3>
+                  <p className="text-sm text-slate/70 leading-relaxed">{b.desc}</p>
+                </motion.div>
               ))}
-            </div>
-
-            <div className="mt-8 text-center">
-              <button className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate">
-                Load more
-              </button>
             </div>
           </div>
         </section>
 
         <hr className="border-border w-full opacity-30" />
 
-        {/* Bottom CTA */}
-        <section className="relative bg-greptile-green border-y border-slate/20 overflow-hidden">
+        {/* Pre-launch z1power deployments */}
+        <section className="bg-background">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-10"
+            >
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ z1power · PRE-LAUNCH DEPLOYMENTS ]
+              </span>
+              <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
+                Where our batteries already run.
+              </h2>
+              <p className="text-slate/70 mt-2">
+                z1power battery stacks have shipped to commercial customers since 2023. Numbers below are real.
+              </p>
+            </motion.div>
+
+            <div className="border border-dashed border-slate/30 overflow-hidden">
+              <div className="grid grid-cols-12 bg-fog border-b border-dashed border-slate/30 px-5 py-3 font-space-mono text-[11px] uppercase tracking-wider text-slate/60">
+                <div className="col-span-3">Customer</div>
+                <div className="col-span-3">Site</div>
+                <div className="col-span-2">Capacity</div>
+                <div className="col-span-2">Live since</div>
+                <div className="col-span-2 text-right">Status</div>
+              </div>
+              {[
+                { c: "[Regional colocation #1]", s: "Midwest US", cap: "500 kW", live: "2024", st: "Operational", ok: true },
+                { c: "[Industrial microgrid #2]", s: "Oklahoma", cap: "1.2 MW", live: "2025", st: "Operational", ok: true },
+                { c: "[Edge compute operator #3]", s: "Texas", cap: "300 kW", live: "2025", st: "Operational", ok: true },
+                { c: "SmartTec Q4 launch site", s: "Oklahoma", cap: "5 MW phase 1", live: "Q4 2026", st: "Under construction", ok: false },
+              ].map((r, i) => (
+                <div key={i} className={`grid grid-cols-12 items-center px-5 py-4 ${i !== 3 ? "border-b border-dashed border-slate/20" : ""} hover:bg-greptile-green/5`}>
+                  <div className="col-span-3 font-anybody font-bold text-slate">{r.c}</div>
+                  <div className="col-span-3 font-space-mono text-xs text-slate/80">{r.s}</div>
+                  <div className="col-span-2 font-space-mono text-xs text-slate/80">{r.cap}</div>
+                  <div className="col-span-2 font-space-mono text-xs text-slate/80">{r.live}</div>
+                  <div className="col-span-2 text-right font-space-mono text-[11px] uppercase tracking-wider">
+                    <span className={r.ok ? "text-greptile-green" : "text-slate/60"}>{r.st}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="font-space-mono text-[11px] uppercase tracking-wider text-slate/50 mt-4">
+              [Customer names redacted by mutual NDA. Confirm before publishing.]
+            </p>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* CTA */}
+        <section className="bg-greptile-green border-y border-slate/20">
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28 text-center">
             <h2 className="text-4xl sm:text-5xl lg:text-7xl font-anybody font-extrabold text-slate tracking-tight mb-8">
-              See SmartTec<br />power your fleet.
+              Become a design partner.
             </h2>
             <div className="btn-hex-group justify-center">
               <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
-                Book a demo
+                Apply for design partner
               </Link>
-              <Link href="/pricing" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
-                Start now
+              <Link href="/power" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
+                See the power story
               </Link>
             </div>
           </div>

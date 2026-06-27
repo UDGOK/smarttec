@@ -2,15 +2,35 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?: boolean }[] = [
   {
-    label: "Deployments",
-    href: "/deployments",
+    label: "Compute",
+    href: "/compute",
+    hasMenu: true,
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z" />
+        <path d="M152,120H136V56h8a32,32,0,0,1,32,32,8,8,0,0,0,16,0,48.05,48.05,0,0,0-48-48h-8V24a8,8,0,0,0-16,0V40h-8a48,48,0,0,0,0,96h8v64H104a32,32,0,0,1-32-32,8,8,0,0,0-16,0,48.05,48.05,0,0,0,48,48h16v16a8,8,0,0,0,16,0V216h16a48,48,0,0,0,0-96Zm-40,0a32,32,0,0,1,0-64h8v64Zm40,80H136V136h16a32,32,0,0,1,0,64Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Power",
+    href: "/power",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M120,32L24,160h72l-16,64,96-128H104Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "AURA",
+    href: "/aura",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88Z" />
       </svg>
     ),
   },
@@ -19,89 +39,48 @@ const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?:
     href: "/pricing",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M152,120H136V56h8a32,32,0,0,1,32,32,8,8,0,0,0,16,0,48.05,48.05,0,0,0-48-48h-8V24a8,8,0,0,0-16,0V40h-8a48,48,0,0,0,0,96h8v64H104a32,32,0,0,1-32-32,8,8,0,0,0-16,0,48.05,48.05,0,0,0,48,48h16v16a8,8,0,0,0,16,0V216h16a48,48,0,0,0,0-96Zm-40,0a32,32,0,0,1,0-64h8v64Zm40,80H136V136h16a32,32,0,0,1,0,64Z" />
+        <path d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z" />
       </svg>
     ),
   },
   {
-    label: "Features",
-    href: "/features",
+    label: "Company",
+    href: "/about",
     hasMenu: true,
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Enterprise",
-    href: "/enterprise",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
         <path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z" />
       </svg>
     ),
   },
-  {
-    label: "Blog",
-    href: "/blog",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Resources",
-    href: "/resources",
-    hasMenu: true,
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M208,24H72A32,32,0,0,0,40,56V224a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16H56a16,16,0,0,1,16-16H208a8,8,0,0,0,8-8V32A8,8,0,0,0,208,24Zm-8,160H72a31.82,31.82,0,0,0-16,4.29V56A16,16,0,0,1,72,40H200Z" />
-      </svg>
-    ),
-  },
 ];
 
-const featureMenu = [
-  {
-    title: "AURA Load Management",
-    desc: "Predictive 72-hour load forecasting.",
-    tag: "New",
-    color: "bg-greptile-green",
-    href: "/features#aura",
-  },
-  {
-    title: "Thermal AI",
-    desc: "Sub-2°C variance liquid cooling.",
-    color: "bg-seafoam",
-    href: "/features#thermal",
-  },
-  {
-    title: "Triple-Redundant Cells",
-    desc: "Zero single points of failure.",
-    color: "bg-lavender",
-    href: "/features#redundancy",
-  },
-  {
-    title: "USA Manufacturing",
-    desc: "ITAR-compliant facilities.",
-    color: "bg-peach",
-    href: "/enterprise",
-  },
+const computeMenu = [
+  { title: "NVIDIA Compute", desc: "H100 · H200 · B200 · GB200", tag: "Training", color: "bg-greptile-green", href: "/compute" },
+  { title: "Cerebras Inference", desc: "Fastest tokens on earth", tag: "Inference", color: "bg-peach", href: "/compute" },
+  { title: "Bare-metal", desc: "Full hardware isolation", color: "bg-seafoam", href: "/compute" },
+  { title: "Inference endpoints", desc: "Per-token billing", color: "bg-lavender", href: "/compute" },
 ];
 
-const resourceMenu = [
-  { title: "Technical Docs", desc: "API & integration guides.", href: "/security" },
-  { title: "Case Studies", desc: "Real deployment outcomes.", href: "/customers" },
-  { title: "ROI Calculator", desc: "PPA vs CAPEX in 60 seconds.", href: "/pricing" },
-  { title: "Status Page", desc: "Live fleet uptime.", href: "#" },
-  { title: "Security", desc: "SOC 2 & compliance docs.", href: "/security" },
-  { title: "Partners", desc: "Reseller & integrator program.", href: "/contact" },
+const companyMenu = [
+  { title: "About", desc: "Our story + team", href: "/about" },
+  { title: "Deployments", desc: "Pilot program", href: "/deployments" },
+  { title: "Customers", desc: "Design partners", href: "/customers" },
+  { title: "Blog", desc: "Engineering + industry", href: "/blog" },
+  { title: "Status", desc: "Live system health", href: "/status" },
+  { title: "Security", desc: "SOC 2 + compliance", href: "/security" },
 ];
+
+function CaretIcon({ open }: { open: boolean }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}>
+      <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z" />
+    </svg>
+  );
+}
 
 export function Navigation() {
-  const [openMenu, setOpenMenu] = useState<"Features" | "Resources" | null>(null);
+  const [openMenu, setOpenMenu] = useState<"Compute" | "Company" | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -114,7 +93,7 @@ export function Navigation() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Announcement banner */}
+      {/* Announcement banner — repositioned as "Now reserving" */}
       <div className="bg-greptile-green border-b border-slate/20">
         <div className="relative z-10 flex items-center justify-center h-10 sm:h-11 px-3 sm:px-4">
           <div className="flex max-w-7xl items-center justify-center gap-2 text-center">
@@ -124,25 +103,15 @@ export function Navigation() {
               </svg>
             </span>
             <p className="font-space-mono text-[11px] sm:text-xs md:text-sm font-medium tracking-wide text-black">
-              <span className="hidden md:inline">Introducing AURA: AI that predicts load 72 hours in advance.</span>
-              <span className="md:hidden">AURA: Predictive load AI.</span>
+              <span className="hidden md:inline">Now reserving first-wave capacity.</span>
+              <span className="md:hidden">Now reserving.</span>
             </p>
-            <a
-              href="#aura"
-              className="group inline-flex items-center gap-1 font-space-mono text-[11px] sm:text-xs md:text-sm font-medium tracking-wide text-black"
-            >
-              <span className="underline underline-offset-2">Learn More</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                fill="currentColor"
-                viewBox="0 0 256 256"
-                className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
-              >
+            <Link href="#reserve" className="group inline-flex items-center gap-1 font-space-mono text-[11px] sm:text-xs md:text-sm font-medium tracking-wide text-black">
+              <span className="underline underline-offset-2">Lock in launch pricing</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3 transition-transform group-hover:translate-x-0.5">
                 <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -155,35 +124,20 @@ export function Navigation() {
         >
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center h-16 px-4 xl:px-8">
-            {/* Logo */}
-            <a href="#" className="flex items-center group">
+            <Link href="/" className="flex items-center group">
               <span className="group inline-flex">
-                <Image
-                  src="/logo.svg"
-                  alt="SmartTec"
-                  width={180}
-                  height={50}
-                  className="h-9 w-auto group-hover:hidden"
-                  priority
-                />
-                <Image
-                  src="/logo-green.svg"
-                  alt="SmartTec"
-                  width={180}
-                  height={50}
-                  className="h-9 w-auto hidden group-hover:block"
-                  priority
-                />
+                <Image src="/logo.svg" alt="SmartTec" width={180} height={50} className="h-9 w-auto group-hover:hidden" priority />
+                <Image src="/logo-green.svg" alt="SmartTec" width={180} height={50} className="h-9 w-auto hidden group-hover:block" priority />
               </span>
-            </a>
+            </Link>
             <div className="flex-1" />
-            {/* Links */}
+
             <div className="flex items-center gap-6 xl:gap-8">
               {navLinks.map((link) => (
                 <div
                   key={link.label}
                   className="relative"
-                  onMouseEnter={() => link.hasMenu && setOpenMenu(link.label as "Features" | "Resources")}
+                  onMouseEnter={() => link.hasMenu && setOpenMenu(link.label as "Compute" | "Company")}
                   onMouseLeave={() => link.hasMenu && setOpenMenu(null)}
                 >
                   {link.hasMenu ? (
@@ -191,13 +145,10 @@ export function Navigation() {
                       <button className={`font-space-mono text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5 px-2 -mx-2 py-1 ${openMenu === link.label ? "bg-greptile-green text-black" : "text-slate hover:bg-greptile-green hover:text-black"}`}>
                         {link.icon}
                         {link.label}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className={`h-3 w-3 transition-transform ${openMenu === link.label ? "rotate-180" : ""}`}>
-                          <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z" />
-                        </svg>
+                        <CaretIcon open={openMenu === link.label} />
                       </button>
-                      {/* Inline mega menu: lives INSIDE the hover wrapper so cursor never leaves */}
                       <AnimatePresence>
-                        {openMenu === link.label && link.label === "Features" && (
+                        {openMenu === link.label && link.label === "Compute" && (
                           <motion.div
                             initial={{ opacity: 0, y: 4 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -207,35 +158,29 @@ export function Navigation() {
                           >
                             <div className="w-[640px] bg-fog border border-dashed border-silver shadow-2xl">
                               <div className="grid grid-cols-2 gap-px bg-silver">
-                                {featureMenu.map((f) => (
-                                  <a
-                                    key={f.title}
-                                    href={f.href}
-                                    className="group flex flex-col gap-1.5 p-4 bg-fog hover:bg-greptile-green/20 transition-colors text-left"
-                                  >
-                                    <div className={`w-full h-16 ${f.color} relative overflow-hidden`}>
+                                {computeMenu.map((m) => (
+                                  <Link key={m.title} href={m.href} className="group flex flex-col gap-1.5 p-4 bg-fog hover:bg-greptile-green/20 transition-colors text-left">
+                                    <div className={`w-full h-14 ${m.color} relative overflow-hidden`}>
                                       <div className="absolute inset-0 bg-halftone opacity-30" />
                                     </div>
                                     <div className="flex items-center gap-2 text-sm font-sans text-slate">
-                                      <span className="font-anybody font-bold">{f.title}</span>
-                                      {f.tag && (
-                                        <span className="text-[9px] font-mono uppercase tracking-wider bg-neon text-slate px-1.5 py-0.5 rounded-sm">
-                                          {f.tag}
-                                        </span>
+                                      <span className="font-anybody font-bold">{m.title}</span>
+                                      {m.tag && (
+                                        <span className="text-[9px] font-mono uppercase tracking-wider bg-neon text-slate px-1.5 py-0.5 rounded-sm">{m.tag}</span>
                                       )}
                                     </div>
-                                    <span className="text-xs text-slate/60 leading-snug">{f.desc}</span>
-                                  </a>
+                                    <span className="text-xs text-slate/60 leading-snug">{m.desc}</span>
+                                  </Link>
                                 ))}
                               </div>
                               <div className="px-4 py-3 bg-background border-t border-dashed border-silver flex items-center justify-between">
-                                <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60">See all features</span>
-                                <a href="/features" className="font-anybody font-bold text-sm text-slate hover:text-greptile-green">Explore the stack →</a>
+                                <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60">See all compute options</span>
+                                <Link href="/compute" className="font-anybody font-bold text-sm text-slate hover:text-greptile-green">Explore compute →</Link>
                               </div>
                             </div>
                           </motion.div>
                         )}
-                        {openMenu === link.label && link.label === "Resources" && (
+                        {openMenu === link.label && link.label === "Company" && (
                           <motion.div
                             initial={{ opacity: 0, y: 4 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -245,20 +190,16 @@ export function Navigation() {
                           >
                             <div className="w-[480px] bg-fog border border-dashed border-silver shadow-2xl">
                               <div className="grid grid-cols-1 gap-px bg-silver">
-                                {resourceMenu.map((r) => (
-                                  <a
-                                    key={r.title}
-                                    href={r.href}
-                                    className="group flex items-start gap-3 p-4 bg-fog hover:bg-greptile-green/20 transition-colors text-left"
-                                  >
+                                {companyMenu.map((m) => (
+                                  <Link key={m.title} href={m.href} className="group flex items-start gap-3 p-4 bg-fog hover:bg-greptile-green/20 transition-colors text-left">
                                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 256 256" className="h-4 w-4 shrink-0 mt-0.5 text-slate">
                                       <path d="M208,24H72A32,32,0,0,0,40,56V224a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16H56a16,16,0,0,1,16-16H208a8,8,0,0,0,8-8V32A8,8,0,0,0,208,24Zm-8,160H72a31.82,31.82,0,0,0-16,4.29V56A16,16,0,0,1,72,40H200Z" />
                                     </svg>
                                     <div>
-                                      <div className="text-sm font-anybody font-bold text-slate">{r.title}</div>
-                                      <div className="text-xs text-slate/60 leading-snug">{r.desc}</div>
+                                      <div className="text-sm font-anybody font-bold text-slate">{m.title}</div>
+                                      <div className="text-xs text-slate/60 leading-snug">{m.desc}</div>
                                     </div>
-                                  </a>
+                                  </Link>
                                 ))}
                               </div>
                             </div>
@@ -267,46 +208,38 @@ export function Navigation() {
                       </AnimatePresence>
                     </>
                   ) : (
-                    <a
-                      href={link.href}
-                      className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-1.5 px-2 -mx-2 py-1"
-                    >
+                    <Link href={link.href} className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-1.5 px-2 -mx-2 py-1">
                       {link.icon}
                       {link.label}
-                    </a>
+                    </Link>
                   )}
                 </div>
               ))}
             </div>
+
             <div className="flex-1 flex justify-end pl-6">
               <div className="btn-hex-group">
-                <a
-                  href="/contact"
-                  className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate hidden xl:inline-flex"
-                >
-                  Contact Sales
-                </a>
-                <a
-                  href="/pricing"
-                  className="btn-hex-outline btn-hex-sm btn-hex !border-greptile-green !bg-greptile-green !text-black"
-                >
-                  Get a quote
-                </a>
+                <Link href="/about" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate hidden xl:inline-flex">
+                  About
+                </Link>
+                <Link href="/contact" className="btn-hex-outline btn-hex-sm btn-hex !border-greptile-green !bg-greptile-green !text-black">
+                  Reserve compute
+                </Link>
               </div>
             </div>
           </div>
 
           {/* Mobile nav */}
           <div className="flex lg:hidden items-center justify-between h-16 px-4 md:px-8">
-            <a href="/" className="flex items-center">
+            <Link href="/" className="flex items-center">
               <span className="group inline-flex">
                 <Image src="/logo.svg" alt="SmartTec" width={140} height={36} className="h-8 w-auto" />
               </span>
-            </a>
+            </Link>
             <div className="flex items-center gap-2">
-              <a href="/pricing" className="btn-hex-outline btn-hex-sm btn-hex !border-greptile-green !bg-greptile-green !text-black">
-                Get a quote
-              </a>
+              <Link href="/contact" className="btn-hex-outline btn-hex-sm btn-hex !border-greptile-green !bg-greptile-green !text-black">
+                Reserve
+              </Link>
               <button
                 className="p-2 text-slate"
                 aria-label="Toggle menu"
@@ -343,7 +276,7 @@ export function Navigation() {
             >
               <div className="px-6 py-4 flex flex-col gap-1">
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.label}
                     href={link.href}
                     className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-2 px-2 py-2"
@@ -351,7 +284,7 @@ export function Navigation() {
                   >
                     {link.icon}
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </motion.div>
