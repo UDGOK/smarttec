@@ -406,9 +406,9 @@ export function Calculator() {
         {/* Output 3: Economics */}
         <ResultsCard title="Economics" accent="bg-peach" highlight>
           <BigStat label="Revenue / month" value={fmtMoney(result.revenueMonthly)} accent />
-          <StatRow label="Power cost / month" value={fmtMoney(result.powerMonthly)} />
-          <BigStat label="Margin / month" value={fmtMoney(result.marginMonthly)} />
-          <StatRow label="Margin %" value={`${result.marginPct.toFixed(1)}%`} />
+          <StatRow label="Power cost / month" value={fmtMoney(result.powerMonthly)} inverted />
+          <BigStat label="Margin / month" value={fmtMoney(result.marginMonthly)} accent />
+          <StatRow label="Margin %" value={`${result.marginPct.toFixed(1)}%`} inverted />
         </ResultsCard>
 
         {/* Output 4: Resilience */}
@@ -520,13 +520,13 @@ function ResultsCard({ title, accent, children, highlight }: { title: string; ac
   );
 }
 
-function StatRow({ label, value, unit }: { label: string; value: string; unit?: string }) {
+function StatRow({ label, value, unit, inverted }: { label: string; value: string; unit?: string; inverted?: boolean }) {
   return (
     <div className="flex items-baseline justify-between gap-4 border-b border-dashed border-slate/15 pb-2">
-      <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60 truncate">{label}</span>
-      <span className="font-anybody font-bold text-lg text-slate shrink-0">
+      <span className={`font-space-mono text-[10px] uppercase tracking-wider truncate ${inverted ? "text-fog/60" : "text-slate/60"}`}>{label}</span>
+      <span className={`font-anybody font-bold text-lg shrink-0 ${inverted ? "text-fog" : "text-slate"}`}>
         {value}
-        {unit && <span className="font-space-mono text-[10px] text-slate/50 ml-1">{unit}</span>}
+        {unit && <span className={`font-space-mono text-[10px] ml-1 ${inverted ? "text-fog/50" : "text-slate/50"}`}>{unit}</span>}
       </span>
     </div>
   );
@@ -536,7 +536,7 @@ function BigStat({ label, value, accent }: { label: string; value: string; accen
   return (
     <div className={`flex items-baseline justify-between gap-4 ${accent ? "py-2" : "border-b border-dashed border-slate/15 pb-2"}`}>
       <span className="font-space-mono text-[11px] uppercase tracking-wider text-greptile-green">{label}</span>
-      <span className="font-anybody font-extrabold text-3xl md:text-4xl text-slate tracking-tight">{value}</span>
+      <span className={`font-anybody font-extrabold text-3xl md:text-4xl tracking-tight ${accent ? "text-fog" : "text-slate"}`}>{value}</span>
     </div>
   );
 }
