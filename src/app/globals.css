@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0A0B0D;
+  --bg-secondary: #0B0C0E;
+  --bg-section: #111315;
+  --text-primary: #F5F5F2;
+  --text-secondary: #8A8F98;
+  --accent: #B8FF5C;
+  --accent-alt: #A3E635;
+  --border: #1F2328;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba(184, 255, 92, 0.25);
+  color: var(--accent);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2d32;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3d42;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(184, 255, 92, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 255, 92, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
