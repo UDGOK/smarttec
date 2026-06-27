@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { generateCalculatorPdf } from "./generateCalculatorPdf";
 
 type Chip = "H100" | "H200" | "B200" | "GB200" | "CS-3";
 type Workload = "training" | "inference";
@@ -248,6 +249,28 @@ export function Calculator() {
 
   return (
     <div className="space-y-8">
+      {/* Download PDF + reset row */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border border-dashed border-slate/30 bg-fog/30 px-5 py-3">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-greptile-green rounded-full animate-pulse-glow" />
+          <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">[ LIVE · UPDATES AS YOU TYPE ]</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => generateCalculatorPdf(
+              { workload, chip, qty, util, hrsPerDay, region, strategy },
+              { ...result, smarttecOnlyPowerMonthly, gridOnlyPowerMonthly }
+            )}
+            className="btn-hex btn-hex-sm !border-slate !bg-slate !text-fog inline-flex items-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3">
+              <path d="M224,152v56a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V152a8,8,0,0,1,16,0v56H208V152a8,8,0,0,1,16,0ZM120,40V136L86.34,102.34a8,8,0,0,0-11.32,11.32l48,48a8,8,0,0,0,11.32,0l48-48a8,8,0,0,0-11.32-11.32L136,136V40a8,8,0,0,0-16,0Z" />
+            </svg>
+            Download PDF
+          </button>
+        </div>
+      </div>
       {/* Inputs panel */}
       <div className="border border-dashed border-slate/30 bg-fog/30 p-6 md:p-8">
         <div className="flex items-center gap-2 mb-6">
