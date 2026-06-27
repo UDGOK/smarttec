@@ -7,11 +7,11 @@ import PageShell from "@/components/PageShell";
 const faqs = [
   {
     q: "Can SmartTec be deployed on-prem?",
-    a: "Yes. We deliver the full SmartTec compute + AURA stack to your data center or federal facility, with z1power BESS sized to your load. Air-gapped options for ITAR / classified workloads.",
+    a: "Yes. We deliver the full SmartTec compute + AURA stack to your data center or federal facility, with z1power BESS sized to your load. Air-gapped options for classified workloads.",
   },
   {
     q: "What compliance frameworks do you support?",
-    a: "SOC 2 Type II, ITAR registered, FedRAMP Moderate (in process), FIPS 140-3, HIPAA-ready. Customer-led audits welcomed. See /security for the full Trust Center inventory.",
+    a: "SOC 2 Type II, NDAA §889 compliant, FEOC restricted supply chain, FedRAMP Moderate (in process), FIPS 140-3, HIPAA-ready. Customer-led audits welcomed. See /security for the full Trust Center inventory.",
   },
   {
     q: "How does procurement work for federal customers?",
@@ -35,7 +35,7 @@ const securityFeatures = [
   {
     n: "01",
     title: "Federal-ready compliance",
-    desc: "SOC 2 Type II. ITAR registered. FedRAMP Moderate in process. FIPS 140-3 modules available. Customer-led audits and redlines welcome.",
+    desc: "SOC 2 Type II. NDAA §889 compliant. FEOC restricted supply chain. FedRAMP Moderate in process. FIPS 140-3 modules available. Customer-led audits and redlines welcome.",
   },
   {
     n: "02",
@@ -70,7 +70,7 @@ const integrations = [
 const designPartners = [
   { role: "AI training team", note: "Reserved 16 nodes for continued pretraining. Locked pricing 12 months." },
   { role: "Inference provider", note: "Reserved Cerebras CS-3 capacity for low-latency serving. Co-published case study at power-on." },
-  { role: "Federal integrator", note: "Reserved 2 MW for ITAR-compliant deployment. On-prem delivery Q4 2026." },
+  { role: "Federal integrator", note: "Reserved 2 MW for NDAA §889-compliant on-prem delivery Q4 2026." },
 ];
 
 export default function EnterprisePage() {
@@ -142,7 +142,7 @@ export default function EnterprisePage() {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              {["SOC 2 Type II", "ITAR registered", "FedRAMP Moderate (in process)", "FIPS 140-3", "HIPAA-ready"].map((c) => (
+              {["SOC 2 Type II", "NDAA §889 compliant", "FEOC restricted", "FedRAMP Moderate (in process)", "FIPS 140-3", "HIPAA-ready"].map((c) => (
                 <span key={c} className="font-space-mono text-[11px] uppercase tracking-wider px-3 py-1.5 border border-dashed border-slate/40 bg-fog/50 text-slate/80">
                   {c}
                 </span>

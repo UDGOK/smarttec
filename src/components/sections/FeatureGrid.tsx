@@ -14,7 +14,7 @@ const features: Feature[] = [
   {
     label: "01",
     title: "Battery Energy Stack",
-    description: "Proprietary lithium-iron-phosphate cells. 20-year design life. Made in the USA. ITAR-compliant.",
+    description: "Proprietary lithium-iron-phosphate cells. 20-year design life. Made in the USA. NDAA §889 / FEOC-compliant supply chain.",
     icon: (
       <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="6" y="6" width="20" height="22" rx="2" />

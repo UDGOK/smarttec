@@ -6,7 +6,7 @@ const testimonials = [
   {
     quote: "We went from 4-hour outage events to zero. SmartTec paid for itself in 18 months.",
     name: "Marcus Thompson",
-    role: "CTO · StackEdge",
+    role: "VP Infra · StackEdge",
     initials: "MT",
     accent: "bg-greptile-green",
   },
@@ -18,7 +18,7 @@ const testimonials = [
     accent: "bg-seafoam",
   },
   {
-    quote: "We scaled from 50kW to 2MW without a single re-engineering cycle. That kind of flexibility is rare.",
+    quote: "We scaled from 50 kW to 1.5 MW without a single re-engineering cycle. That kind of flexibility is rare.",
     name: "David Park",
     role: "CEO · Prism Analytics",
     initials: "DP",
@@ -32,7 +32,7 @@ const testimonials = [
     accent: "bg-lavender",
   },
   {
-    quote: "The AURA load forecasts are eerie. It knew about a Texas grid event 48 hours before ERCOT did.",
+    quote: "The AURA load forecasts are eerie. When ERCOT issued a grid alert, we were already islanded on full reserves before the event hit.",
     name: "James Okonkwo",
     role: "SRE Lead · Hadron Compute",
     initials: "JO",
@@ -65,6 +65,9 @@ export function TestimonialWall() {
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-bold text-slate tracking-tight leading-[0.95]">
             No marketing speak.<br />Just results.
           </h2>
+          <p className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50 mt-5">
+            [ ILLUSTRATIVE QUOTES · REPLACE WITH NAMED REFERENCE CUSTOMERS AT POWER-ON ]
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">

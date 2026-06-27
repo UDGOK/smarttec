@@ -11,7 +11,7 @@ const z1powerSpecs = [
   { label: "Failover", value: "< 10ms automatic" },
   { label: "Design life", value: "20 years" },
   { label: "Origin", value: "US-built (Oklahoma)" },
-  { label: "Compliance", value: "ITAR-eligible, SOC 2 (in progress)" },
+  { label: "Compliance", value: "NDAA §889 compliant · FEOC restricted · SOC 2 (in progress)" },
   { label: "Operating temp", value: "-20°C to +50°C" },
 ];
 

@@ -13,7 +13,7 @@ const features = [
   },
   {
     title: "Thermal balancing",
-    description: "AI-managed liquid cooling reduces PUE by up to 18%.",
+    description: "AI-managed liquid cooling targets PUE as low as 1.12 — coolant loops balance across GPU halls and ambient.",
   },
   {
     title: "Anomaly detection",
@@ -113,8 +113,8 @@ export function Personalization() {
                   </div>
                   <div className="border border-dashed border-slate/30 bg-fog/50 p-3">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">PUE</div>
-                    <div className="font-anybody text-2xl font-bold text-slate">1.08</div>
-                    <div className="font-space-mono text-[10px] text-greptile-green">-32% vs avg</div>
+                    <div className="font-anybody text-2xl font-bold text-slate">1.12</div>
+                    <div className="font-space-mono text-[10px] text-greptile-green">-25% vs avg</div>
                   </div>
                 </div>
 

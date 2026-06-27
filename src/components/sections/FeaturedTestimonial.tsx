@@ -234,7 +234,7 @@ export function FeaturedTestimonial() {
             [ DEPLOYMENTS ]
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-anybody font-bold text-slate tracking-tight">
-            What changed after going grid-independent.
+            What changed after going battery-backed.
           </h2>
         </motion.div>
 

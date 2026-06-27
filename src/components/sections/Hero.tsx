@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -83,7 +84,7 @@ export function Hero() {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="text-slate text-6xl sm:text-7xl lg:text-8xl font-anybody font-extrabold tracking-tight leading-[0.9] max-w-3xl"
             >
-              The grid-independent<br />
+              The battery-backed<br />
               data center.
             </motion.h1>
           </div>
@@ -103,9 +104,9 @@ export function Hero() {
                 <a href="#contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
                   Contact Sales
                 </a>
-                <a href="#specs" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black xl:btn-hex-lg">
-                  See live specs
-                </a>
+                <Link href="/pricing" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black xl:btn-hex-lg">
+                  See pricing
+                </Link>
               </div>
             </motion.div>
           </div>

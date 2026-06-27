@@ -17,7 +17,7 @@ const quickLinks = [
 
 const trustCenterDocs = [
   { name: "SOC 2 Type II report", status: "Available", note: "Current period: Jan–Dec 2025. Renewed annually." },
-  { name: "ITAR registration letter", status: "Available", note: "U.S. Department of State, Directorate of Defense Trade Controls." },
+  { name: "NDAA §889 compliance attestation", status: "Available", note: "No covered telecommunications or video surveillance equipment from named foreign entities." },
   { name: "FedRAMP Moderate", status: "In process", note: "3PAO engaged. Target authorization: Q4 2026." },
   { name: "HIPAA Business Associate Agreement", status: "Template available", note: "Counter-signed on request for covered entities." },
   { name: "Penetration test executive summary", status: "Available under NDA", note: "Annual third-party test by CREST-accredited firm." },
@@ -54,7 +54,7 @@ const privacyPolicy = [
 
 const terms = [
   { h: "1. Acceptance", p: "By creating an account or using SmartTec, you agree to these Terms of Service. If you are entering into them on behalf of a company, you represent that you have authority to bind that company." },
-  { h: "2. Service description", p: "SmartTec provides on-demand and reserved access to NVIDIA and Cerebras compute running on SmartTec's grid-independent battery-backed power infrastructure. Specific features, GPU types, and SLAs are described on the Compute, Pricing, and Status pages." },
+  { h: "2. Service description", p: "SmartTec provides on-demand and reserved access to NVIDIA and Cerebras compute running on SmartTec's battery-backed power infrastructure. The grid is backup; SmartTec's z1power LFP stacks are the primary source, with sub-10ms island-mode failover. Specific features, GPU types, and SLAs are described on the Compute, Pricing, and Status pages." },
   { h: "3. Acceptable use", p: "You may not use SmartTec for illegal activity, to deploy malware, to attempt unauthorized access to other customers' resources, or to violate export control laws. Cryptographic mining is permitted on dedicated bare-metal reservations only." },
   { h: "4. Fees & payment", p: "Fees are billed monthly in arrears based on usage, or in advance for reservations. Payment is due net-30 for Enterprise contracts. Late payment may suspend service after 15 days written notice." },
   { h: "5. Intellectual property", p: "You retain all rights to your data, models, and workloads. We retain all rights to the SmartTec platform, AURA orchestration layer, and z1power hardware designs. We may use aggregated, anonymized operational metrics to improve the service." },
@@ -118,7 +118,7 @@ const sections = [
     items: [
       {
         h: "Certificates",
-        p: "SOC 2 Type II compliant. ITAR registered. HIPAA-ready. FedRAMP Moderate in process. Customer-facing trust center at trust.smarttec.io.",
+        p: "SOC 2 Type II compliant. NDAA §889 / FEOC restricted supply chain. HIPAA-ready. FedRAMP Moderate in process. Customer-facing trust center at trust.smarttec.io.",
       },
       {
         h: "Penetration testing",

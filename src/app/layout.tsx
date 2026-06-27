@@ -27,30 +27,32 @@ const nanumPenScript = Nanum_Pen_Script({
 });
 
 export const metadata: Metadata = {
-  title: "SmartTec | The Grid-Independent Data Center",
+  title: "SmartTec | Resilient AI Cloud — Stay Online When the Grid Goes Down",
   description:
-    "AI-managed battery energy stacks for data center infrastructure. Zero grid dependency. Built in the USA.",
+    "AI compute on megawatt-scale LFP batteries. AURA islands your cluster in <10ms when the grid faults. Up to 73% modeled grid reduction. Built in the USA.",
   keywords: [
     "data center",
     "battery energy storage",
-    "grid-independent",
+    "grid resilience",
+    "behind the meter",
     "AI cooling",
     "modular data center",
     "PUE optimization",
+    "islanded operation",
   ],
   openGraph: {
-    title: "SmartTec | The Grid-Independent Data Center",
+    title: "SmartTec | Resilient AI Cloud",
     description:
-      "AI-managed battery energy stacks. Zero grid dependency. Built in the USA.",
+      "Megawatt-scale battery-backed AI compute. AURA islands your cluster in under 10 milliseconds. Built in the USA.",
     type: "website",
     locale: "en_US",
     siteName: "SmartTec",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SmartTec | The Grid-Independent Data Center",
+    title: "SmartTec | Resilient AI Cloud",
     description:
-      "AI-managed battery energy stacks. Zero grid dependency. Built in the USA.",
+      "Megawatt-scale battery-backed AI compute. AURA islands your cluster in under 10 milliseconds.",
   },
   robots: {
     index: true,

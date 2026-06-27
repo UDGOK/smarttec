@@ -42,7 +42,7 @@ const faqItems = [
   {
     question: "How does AURA work?",
     answer:
-      "AURA is our orchestration layer. It predicts grid events 48 hours out, manages BESS charge cycles, balances thermal load across GPU halls, and exposes real-time telemetry. Your workloads run normally — AURA handles the power underneath.",
+      "AURA is our orchestration layer. It forecasts your load 72 hours out, pre-positions battery reserves, and islands your cluster automatically when the grid faults. Your workloads run normally — AURA handles the power underneath.",
   },
   {
     question: "Is the carbon footprint better than traditional data centers?",

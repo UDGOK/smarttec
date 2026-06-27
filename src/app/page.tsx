@@ -18,7 +18,7 @@ function WhyNowBand() {
   const stats = [
     { value: "4–7 yrs", label: "typical grid-connection wait" },
     { value: "~1,500 GW", label: "stuck in the US interconnection queue" },
-    { value: "Behind the meter", label: "so you never join it" },
+    { value: "<10 ms", label: "battery failover · ride through" },
   ];
 
   return (
@@ -67,8 +67,8 @@ function ThreePillars() {
   const pillars = [
     {
       n: "01",
-      kicker: "POWERED",
-      title: "Your AI factory, independent of the grid. z1power megawatt LFP stacks sit behind the meter — no interconnection queue, no diesel.",
+      kicker: "RESILIENT",
+      title: "z1power megawatt LFP stacks sit behind the meter. When the grid faults, AURA islands your cluster in under 10 milliseconds — no interruption, no diesel.",
       accent: "bg-greptile-green",
     },
     {
@@ -80,7 +80,7 @@ function ThreePillars() {
     {
       n: "03",
       kicker: "PROVABLE",
-      title: "Real-time telemetry, a financially-backed uptime SLA, US-built hardware, and compliance built in from day one.",
+      title: "Real-time telemetry, design-basis SLA targets, US-built hardware, and compliance built in from day one.",
       accent: "bg-ice",
     },
   ];
@@ -165,8 +165,8 @@ function Offer() {
     },
     {
       kind: "COLOCATION & BUILD-TO-SUIT",
-      title: "Bring your hardware onto our grid-independent power.",
-      body: "Or we build dedicated MW for you.",
+      title: "Bring your hardware onto our battery-backed power.",
+      body: "Or we build dedicated MW behind the meter for you.",
       bestFor: "Operators who have silicon but can't get power.",
       cta: "Talk to us",
       href: "/contact",
@@ -825,8 +825,8 @@ function AURA() {
                   </div>
                   <div className="border border-dashed border-slate/30 bg-fog/50 p-3">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">PUE</div>
-                    <div className="font-anybody text-2xl font-bold text-slate">1.08</div>
-                    <div className="font-space-mono text-[10px] text-greptile-green">-32% vs avg</div>
+                    <div className="font-anybody text-2xl font-bold text-slate">1.12</div>
+                    <div className="font-space-mono text-[10px] text-greptile-green">-25% vs avg</div>
                   </div>
                 </div>
 
@@ -913,8 +913,8 @@ function Hero() {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="text-slate text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-anybody font-extrabold tracking-tight leading-[0.95] max-w-3xl"
             >
-              The grid-independent<br />
-              AI factory.
+              Stay online when<br />
+              the grid goes down.
             </motion.h1>
           </div>
 
@@ -926,7 +926,7 @@ function Hero() {
               className="max-w-2xl"
             >
               <p className="text-xl md:text-2xl xl:text-3xl text-slate mb-8">
-                SmartTec runs NVIDIA and Cerebras compute on megawatt batteries we build ourselves. While the rest of the industry waits years for a grid connection, your cluster comes online behind the meter — clean, redundant, and AURA-optimized.
+                SmartTec runs NVIDIA and Cerebras compute on z1power megawatt batteries we build. When the grid faults, AURA islands your cluster in under 10 milliseconds and rides through on batteries. Up to 73% modeled grid reduction. Built in the USA.
               </p>
               <div className="btn-hex-group">
                 <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black xl:btn-hex-lg">

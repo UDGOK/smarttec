@@ -54,7 +54,7 @@ export default function PricingPage() {
                 SmartTec pricing.
               </h1>
               <p className="text-xl md:text-2xl text-slate/70 max-w-2xl mb-8">
-                Simple, transparent pricing for grid-independent NVIDIA and Cerebras compute. Fixed-price proposals in 48 hours.
+                Simple, transparent pricing for battery-backed NVIDIA and Cerebras compute. Fixed-price proposals in 48 hours.
               </p>
               <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black">
                 Get a quote in 48h
@@ -247,7 +247,7 @@ export default function PricingPage() {
                 <span className="font-space-mono text-[11px] uppercase tracking-widest text-greptile-green mb-4 block">[ COLOCATION · ENTERPRISE ]</span>
                 <h2 className="text-3xl md:text-4xl font-anybody font-extrabold mb-3">Bring your hardware.</h2>
                 <p className="text-fog/70 leading-relaxed">
-                  Colocate onto our grid-independent power, or we&apos;ll build dedicated MW for you. Starting at 100kW. PPA, operating lease, or CAPEX structures available.
+                  Colocate onto our battery-backed power, or we&apos;ll build dedicated MW for you. Starting at 100kW. PPA, operating lease, or CAPEX structures available.
                 </p>
               </div>
               <div>

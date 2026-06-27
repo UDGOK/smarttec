@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export function MarqueeCTA() {
   const items = [
     "DEPLOY · POWER · SCALE",
@@ -33,7 +35,7 @@ export function MarqueeCTA() {
       <div className="py-20 md:py-28 lg:py-32">
         <div className="mx-auto max-w-4xl px-6 md:px-12 text-center">
           <h2 className="text-4xl sm:text-5xl lg:text-7xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] mb-8">
-            Ready to go<br />grid-independent?
+            Ready to go<br />battery-backed?
           </h2>
           <p className="text-lg text-slate/80 mb-10 max-w-xl mx-auto">
             Get a fixed-price proposal in 14 days. No surprises, no scope creep, no quarterly renegotiations.
@@ -42,9 +44,9 @@ export function MarqueeCTA() {
             <a href="#contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
               Contact Sales
             </a>
-            <a href="#specs" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
-              See live specs
-            </a>
+            <Link href="/pricing" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
+              See pricing
+            </Link>
           </div>
         </div>
       </div>

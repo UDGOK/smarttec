@@ -168,8 +168,8 @@ export default function AuraPage() {
                   </div>
                   <div className="border border-dashed border-slate/30 bg-fog/50 p-4">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">PUE</div>
-                    <div className="font-anybody text-2xl font-bold text-slate">1.08</div>
-                    <div className="font-space-mono text-[10px] text-greptile-green">-32% vs avg</div>
+                    <div className="font-anybody text-2xl font-bold text-slate">1.12</div>
+                    <div className="font-space-mono text-[10px] text-greptile-green">-25% vs avg</div>
                   </div>
                   <div className="border border-dashed border-slate/30 bg-fog/50 p-4">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Failover</div>
@@ -208,7 +208,7 @@ export default function AuraPage() {
                 <div className="bg-greptile-green text-black px-5 py-4 flex items-center justify-between">
                   <div>
                     <div className="font-anybody text-sm font-bold uppercase tracking-wider">AURA alert</div>
-                    <div className="font-space-mono text-[11px]">Peak demand predicted at 16:00 — pre-charged reserves ready. Predicted a Texas grid event 48h early.</div>
+                    <div className="font-space-mono text-[11px]">ERCOT issued grid alert at 14:23 — AURA had us already islanded on full reserves by 14:24.</div>
                   </div>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />

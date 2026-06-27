@@ -7,7 +7,7 @@ import PageShell from "@/components/PageShell";
 const designPartners = [
   { role: "AI training team · Series B", note: "Reserved 16 nodes for continued pretraining workload." },
   { role: "Inference provider · stealth", note: "Reserved Cerebras CS-3 capacity for low-latency serving." },
-  { role: "Colocation customer · federal", note: "Reserved 2 MW for ITAR-compliant deployment." },
+  { role: "Colocation customer · federal", note: "Reserved 2 MW for NDAA §889-compliant on-prem deployment." },
 ];
 
 const pilots = [
