@@ -1,273 +1,354 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/Button";
 
-const navLinks = [
-  { label: "Products", href: "#products" },
-  { label: "Deployments", href: "#deployments" },
-  { label: "R&D", href: "#rd" },
-  { label: "Company", href: "#company" },
-  { label: "Resources", href: "#", hasDropdown: true },
-  { label: "Contact", href: "#contact" },
+const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?: boolean }[] = [
+  {
+    label: "Deployments",
+    href: "#examples",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Pricing",
+    href: "#pricing",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M152,120H136V56h8a32,32,0,0,1,32,32,8,8,0,0,0,16,0,48.05,48.05,0,0,0-48-48h-8V24a8,8,0,0,0-16,0V40h-8a48,48,0,0,0,0,96h8v64H104a32,32,0,0,1-32-32,8,8,0,0,0-16,0,48.05,48.05,0,0,0,48,48h16v16a8,8,0,0,0,16,0V216h16a48,48,0,0,0,0-96Zm-40,0a32,32,0,0,1,0-64h8v64Zm40,80H136V136h16a32,32,0,0,1,0,64Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Features",
+    href: "#features",
+    hasMenu: true,
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Enterprise",
+    href: "#enterprise",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Blog",
+    href: "#blog",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Resources",
+    href: "#resources",
+    hasMenu: true,
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M208,24H72A32,32,0,0,0,40,56V224a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16H56a16,16,0,0,1,16-16H208a8,8,0,0,0,8-8V32A8,8,0,0,0,208,24Zm-8,160H72a31.82,31.82,0,0,0-16,4.29V56A16,16,0,0,1,72,40H200Z" />
+      </svg>
+    ),
+  },
 ];
 
-const resourceLinks = [
-  { label: "Documentation", href: "#docs", description: "Technical guides and API reference" },
-  { label: "Case Studies", href: "#cases", description: "Customer deployment stories" },
-  { label: "Blog", href: "#blog", description: "Industry insights and news" },
-  { label: "Support", href: "#support", description: "Help center and contact" },
+const featureMenu = [
+  {
+    title: "AI Load Management",
+    desc: "Predictive power positioning.",
+    tag: "New",
+    color: "bg-greptile-green",
+  },
+  {
+    title: "Thermal AI",
+    desc: "Sub-2°C variance cooling.",
+    color: "bg-seafoam",
+  },
+  {
+    title: "Triple-Redundant Cells",
+    desc: "Zero single points of failure.",
+    color: "bg-lavender",
+  },
+  {
+    title: "USA Manufacturing",
+    desc: "ITAR-compliant facilities.",
+    color: "bg-peach",
+  },
 ];
 
-// Chamfered diamond/cube SVG glyph
-function LogoGlyph() {
-  return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 28 28"
-      fill="none"
-      className="flex-shrink-0"
-    >
-      {/* Main cube shape with chamfered corners */}
-      <path
-        d="M14 2L24 9V19L14 26L4 19V9L14 2Z"
-        fill="#2C2C38"
-        stroke="#2C2C38"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      {/* Top face highlight */}
-      <path
-        d="M14 2L24 9L14 13L4 9L14 2Z"
-        fill="#3A3A48"
-      />
-      {/* Left face */}
-      <path
-        d="M4 9L14 13V23L4 19V9Z"
-        fill="#242430"
-      />
-      {/* Right face */}
-      <path
-        d="M24 9L14 13V23L24 19V9Z"
-        fill="#1E1E28"
-      />
-      {/* Center accent dot */}
-      <circle cx="14" cy="14" r="2" fill="#34E2A0" />
-    </svg>
-  );
-}
+const resourceMenu = [
+  { title: "Technical Docs", desc: "API & integration guides." },
+  { title: "Case Studies", desc: "Real deployment outcomes." },
+  { title: "ROI Calculator", desc: "PPA vs CAPEX in 60 seconds." },
+  { title: "Status Page", desc: "Live fleet uptime." },
+  { title: "Security", desc: "SOC 2 & compliance docs." },
+  { title: "Partners", desc: "Reseller & integrator program." },
+];
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<"Features" | "Resources" | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setMobileOpen(false);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Announcement Banner */}
-      <div 
-        className="bg-[#34E2A0]" 
-        style={{ boxShadow: isScrolled ? 'none' : '0 1px 0 rgba(0,0,0,0.05)' }}
-      >
-        <div className="container mx-auto px-4 py-2 flex items-center justify-center">
-          <a 
-            href="#announcement" 
-            className="text-sm font-medium text-[#2C2C38] hover:underline flex items-center gap-1"
-          >
-            New: 2MW deployment in Phoenix now operational →
-          </a>
+      {/* Announcement banner */}
+      <div className="bg-greptile-green border-b border-slate/20">
+        <div className="relative z-10 flex items-center justify-center h-10 sm:h-11 px-3 sm:px-4">
+          <div className="flex max-w-7xl items-center justify-center gap-2 text-center">
+            <span className="inline-flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full bg-black">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#28E99F">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </span>
+            <p className="font-space-mono text-[11px] sm:text-xs md:text-sm font-medium tracking-wide text-black">
+              <span className="hidden md:inline">Introducing AURA: AI that predicts load 72 hours in advance.</span>
+              <span className="md:hidden">AURA: Predictive load AI.</span>
+            </p>
+            <a
+              href="#aura"
+              className="group inline-flex items-center gap-1 font-space-mono text-[11px] sm:text-xs md:text-sm font-medium tracking-wide text-black"
+            >
+              <span className="underline underline-offset-2">Learn More</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                fill="currentColor"
+                viewBox="0 0 256 256"
+                className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
+              >
+                <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Main Navigation */}
-      <nav
-        className={`
-          transition-all duration-300
-          bg-[#E9EAE6]
-          border-b border-[#D9DAD5]
-          ${isScrolled ? "shadow-md" : ""}
-        `}
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+      {/* Main nav */}
+      <nav className="relative" style={{ overflow: "visible" }}>
+        <div
+          className="relative z-10 border-b border-dashed border-slate/20"
+          style={{ backgroundColor: "#EEEEEE" }}
+        >
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center h-16 px-4 xl:px-8">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2 group">
-              <LogoGlyph />
-              <span 
-                className="text-[#2C2C38] font-bold text-2xl tracking-tight"
-                style={{ fontFamily: "'Archivo Expanded', sans-serif", fontWeight: 800 }}
-              >
-                SmartTec
+            <a href="#" className="flex items-center group">
+              <span className="group inline-flex">
+                <Image
+                  src="/logo.svg"
+                  alt="SmartTec"
+                  width={180}
+                  height={50}
+                  className="h-9 w-auto group-hover:hidden"
+                  priority
+                />
+                <Image
+                  src="/logo-green.svg"
+                  alt="SmartTec"
+                  width={180}
+                  height={50}
+                  className="h-9 w-auto hidden group-hover:block"
+                  priority
+                />
               </span>
             </a>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) =>
-                link.hasDropdown ? (
-                  <div
-                    key={link.label}
-                    className="relative"
-                    onMouseEnter={() => setIsResourcesOpen(true)}
-                    onMouseLeave={() => setIsResourcesOpen(false)}
-                  >
-                    <button className="text-[#2C2C38]/80 hover:text-[#34E2A0] transition-colors flex items-center gap-1 font-medium text-sm">
+            <div className="flex-1" />
+            {/* Links */}
+            <div className="flex items-center gap-6 xl:gap-8">
+              {navLinks.map((link) => (
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() => link.hasMenu && setOpenMenu(link.label as "Features" | "Resources")}
+                  onMouseLeave={() => link.hasMenu && setOpenMenu(null)}
+                >
+                  {link.hasMenu ? (
+                    <button className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-1.5 px-2 -mx-2 py-1">
+                      {link.icon}
                       {link.label}
-                      <svg
-                        className={`w-4 h-4 transition-transform ${isResourcesOpen ? "rotate-180" : ""}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3">
+                        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z" />
                       </svg>
                     </button>
-                    <AnimatePresence>
-                      {isResourcesOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.15 }}
-                          className="absolute top-full left-0 mt-2 w-64 bg-[#F5F5F2] border border-[#D9DAD5] rounded-lg shadow-lg p-2"
-                        >
-                          {resourceLinks.map((resource) => (
-                            <a
-                              key={resource.label}
-                              href={resource.href}
-                              className="block px-4 py-3 rounded-md hover:bg-[#34E2A0]/10 transition-colors group"
-                            >
-                              <div className="text-[#2C2C38] group-hover:text-[#34E2A0] font-medium text-sm">
-                                {resource.label}
-                              </div>
-                              <div className="text-xs text-[#6E7079]">{resource.description}</div>
-                            </a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="text-[#2C2C38]/80 hover:text-[#34E2A0] transition-colors font-medium text-sm"
-                  >
-                    {link.label}
-                  </a>
-                )
-              )}
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-1.5 px-2 -mx-2 py-1"
+                    >
+                      {link.icon}
+                      {link.label}
+                    </a>
+                  )}
+                </div>
+              ))}
             </div>
-
-            {/* Desktop CTA Buttons */}
-            <div className="hidden md:flex items-center gap-3">
-              <Button variant="outline" size="sm">
-                Contact Sales
-              </Button>
-              <Button variant="accent" size="sm">
-                Get Started
-              </Button>
+            <div className="flex-1 flex justify-end pl-6">
+              <div className="btn-hex-group">
+                <a
+                  href="#contact"
+                  className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate hidden xl:inline-flex"
+                >
+                  Contact Sales
+                </a>
+                <a
+                  href="#signup"
+                  className="btn-hex-outline btn-hex-sm btn-hex !border-greptile-green !bg-greptile-green !text-black"
+                >
+                  Get a quote
+                </a>
+              </div>
             </div>
+          </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden text-[#2C2C38] hover:text-[#34E2A0] p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          {/* Mega menu - Features */}
+          <AnimatePresence>
+            {openMenu === "Features" && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="hidden lg:block absolute top-full left-0 right-0 w-full bg-fog border-b border-dashed border-silver"
               >
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
+                <div className="mx-auto w-full max-w-[1550px] px-8 xl:px-16 py-6">
+                  <div className="grid grid-cols-4 gap-4">
+                    {featureMenu.map((f) => (
+                      <a
+                        key={f.title}
+                        href="#features"
+                        className="group relative flex flex-col gap-2 p-4 border border-dashed border-border hover:bg-greptile-green/20 transition-colors"
+                      >
+                        <div className={`w-full h-24 ${f.color} relative overflow-hidden`}>
+                          <div className="absolute inset-0 bg-halftone opacity-30" />
+                        </div>
+                        <div className="flex items-center gap-2 text-sm font-sans text-slate">
+                          <svg width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3 shrink-0">
+                            <path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17Z" />
+                          </svg>
+                          <span>{f.title}</span>
+                          {f.tag && (
+                            <span className="text-[9px] font-mono uppercase tracking-wider bg-neon text-slate px-1.5 py-0.5 rounded-sm">
+                              {f.tag}
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-xs text-slate/50">{f.desc}</span>
+                      </a>
+                    ))}
+                  </div>
+                  <div className="divider-hatch mt-6" style={{ height: 8 }} />
+                </div>
+              </motion.div>
+            )}
+            {openMenu === "Resources" && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="hidden lg:block absolute top-full left-0 right-0 w-full bg-fog border-b border-dashed border-silver"
+              >
+                <div className="mx-auto w-full max-w-[1550px] px-8 xl:px-16 py-4">
+                  <div className="grid grid-cols-3">
+                    {resourceMenu.map((r) => (
+                      <a
+                        key={r.title}
+                        href="#"
+                        className="group flex items-start gap-4 p-4 border-l border-r border-b border-dashed border-border hover:bg-greptile-green/20 transition-colors"
+                      >
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 256 256" className="h-5 w-5 shrink-0 mt-0.5 text-slate">
+                          <path d="M208,24H72A32,32,0,0,0,40,56V224a8,8,0,0,0,8,8H192a8,8,0,0,0,0-16H56a16,16,0,0,1,16-16H208a8,8,0,0,0,8-8V32A8,8,0,0,0,208,24Zm-8,160H72a31.82,31.82,0,0,0-16,4.29V56A16,16,0,0,1,72,40H200Z" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-sans text-slate font-medium">{r.title}</div>
+                          <div className="text-xs font-sans text-slate/50 mt-1">{r.desc}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                  <div className="divider-hatch mt-2" style={{ height: 8 }} />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Mobile nav */}
+          <div className="flex lg:hidden items-center justify-between h-16 px-4 md:px-8">
+            <a href="#" className="flex items-center">
+              <span className="group inline-flex">
+                <Image src="/logo.svg" alt="SmartTec" width={140} height={36} className="h-8 w-auto" />
+              </span>
+            </a>
+            <div className="flex items-center gap-2">
+              <a href="#signup" className="btn-hex-outline btn-hex-sm btn-hex !border-greptile-green !bg-greptile-green !text-black">
+                Get a quote
+              </a>
+              <button
+                className="p-2 text-slate"
+                aria-label="Toggle menu"
+                onClick={() => setMobileOpen((v) => !v)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  {mobileOpen ? (
+                    <>
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </>
+                  ) : (
+                    <>
+                      <line x1="3" y1="6" x2="21" y2="6" />
+                      <line x1="3" y1="12" x2="21" y2="12" />
+                      <line x1="3" y1="18" x2="21" y2="18" />
+                    </>
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile dropdown */}
         <AnimatePresence>
-          {isMobileMenuOpen && (
+          {mobileOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden bg-[#E9EAE6] border-t border-[#D9DAD5] overflow-hidden"
+              className="lg:hidden bg-fog border-b border-dashed border-silver overflow-hidden"
             >
-              <div className="container mx-auto px-4 py-4 space-y-4">
-                {navLinks.map((link) =>
-                  link.hasDropdown ? (
-                    <div key={link.label}>
-                      <button
-                        className="w-full text-left text-[#2C2C38]/80 hover:text-[#34E2A0] py-2 flex items-center justify-between"
-                        onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-                      >
-                        {link.label}
-                        <svg
-                          className={`w-4 h-4 transition-transform ${isResourcesOpen ? "rotate-180" : ""}`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
-                      <AnimatePresence>
-                        {isResourcesOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="pl-4 space-y-2 mt-2"
-                          >
-                            {resourceLinks.map((resource) => (
-                              <a
-                                key={resource.label}
-                                href={resource.href}
-                                className="block text-[#6E7079] hover:text-[#34E2A0] py-2 text-sm"
-                              >
-                                {resource.label}
-                              </a>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      className="block text-[#2C2C38]/80 hover:text-[#34E2A0] py-2"
-                    >
-                      {link.label}
-                    </a>
-                  )
-                )}
-                <div className="flex flex-col gap-3 pt-4 border-t border-[#D9DAD5]">
-                  <Button variant="outline" size="md" className="w-full">
-                    Contact Sales
-                  </Button>
-                  <Button variant="accent" size="md" className="w-full">
-                    Get Started
-                  </Button>
-                </div>
+              <div className="px-6 py-4 flex flex-col gap-1">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-2 px-2 py-2"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.icon}
+                    {link.label}
+                  </a>
+                ))}
               </div>
             </motion.div>
           )}

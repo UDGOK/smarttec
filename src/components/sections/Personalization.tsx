@@ -1,174 +1,187 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+
+const features = [
+  {
+    title: "Predictive load positioning",
+    description: "Reserves pre-charged capacity 72 hours before demand peaks.",
+  },
+  {
+    title: "Real-time power routing",
+    description: "Sub-10ms automatic failover between grid and battery banks.",
+  },
+  {
+    title: "Thermal balancing",
+    description: "AI-managed liquid cooling reduces PUE by up to 18%.",
+  },
+  {
+    title: "Anomaly detection",
+    description: "Catches cell-level anomalies 14 days before they become incidents.",
+  },
+];
+
+const telemetry = [
+  { time: "00:00", load: 32, solar: 18 },
+  { time: "04:00", load: 28, solar: 0 },
+  { time: "08:00", load: 56, solar: 24 },
+  { time: "12:00", load: 78, solar: 64 },
+  { time: "16:00", load: 84, solar: 72 },
+  { time: "20:00", load: 62, solar: 28 },
+];
 
 export function Personalization() {
+  const maxLoad = Math.max(...telemetry.map((t) => t.load));
   return (
-    <section id="personalization" className="relative py-24 md:py-32 bg-[#E9EAE6]">
-      {/* Dotted grid background texture */}
-      <div 
-        className="absolute inset-0 opacity-[0.15]"
-        style={{
-          backgroundImage: `radial-gradient(circle, #2C2C38 1px, transparent 1px)`,
-          backgroundSize: '24px 24px'
-        }}
-      />
+    <section id="aura" className="relative bg-background section-wrapper-compact">
+      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/20">
+        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 md:mb-20"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2C38] mb-6 font-['Archivo_Expanded',sans-serif]">
-            Load management that thinks ahead.
-          </h2>
-        </motion.div>
-
-        {/* Content grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left side: Feature bullets */}
+      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left - copy + bullets */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-8"
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5"
           >
-            <div className="space-y-6">
-              {/* Feature 1 */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    className="text-[#34E2A0]"
-                  >
-                    <path
-                      d="M3 8.5L6.5 12L13 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-[#2C2C38] mb-1 font-['Archivo_Expanded',sans-serif]">
-                    Predictive load positioning
-                  </h3>
-                  <p className="text-[#6B6C70] text-sm">
-                    Reserves pre-charged 72 hours before demand peaks.
-                  </p>
-                </div>
-              </div>
+            <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+              <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+              [ AURA ENGINE ]
+            </span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-bold text-slate tracking-tight leading-[0.95] mb-10">
+              Load management<br />that thinks ahead.
+            </h2>
 
-              {/* Feature 2 */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    className="text-[#34E2A0]"
-                  >
-                    <path
-                      d="M3 8.5L6.5 12L13 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+            <div className="space-y-5">
+              {features.map((f, i) => (
+                <div key={i} className="flex gap-4">
+                  <div className="flex-shrink-0 w-6 h-6 mt-1 flex items-center justify-center bg-greptile-green text-black">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 8.5L6.5 12L13 5" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-anybody text-lg md:text-xl font-bold text-slate mb-1">
+                      {f.title}
+                    </h3>
+                    <p className="text-slate/70 text-sm leading-relaxed">
+                      {f.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-[#2C2C38] mb-1 font-['Archivo_Expanded',sans-serif]">
-                    Real-time power routing
-                  </h3>
-                  <p className="text-[#6B6C70] text-sm">
-                    Sub-10ms automatic failover between grid and battery.
-                  </p>
-                </div>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    className="text-[#34E2A0]"
-                  >
-                    <path
-                      d="M3 8.5L6.5 12L13 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-[#2C2C38] mb-1 font-['Archivo_Expanded',sans-serif]">
-                    Thermal balancing
-                  </h3>
-                  <p className="text-[#6B6C70] text-sm">
-                    AI-managed cooling reduces PUE by up to 18%.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Right side: Dashboard image with status badges */}
+          {/* Right - dashboard mockup */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative group"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-7"
           >
-            <div className="relative bg-white border border-[#D4D5D0] rounded-2xl overflow-hidden transition-all duration-500 shadow-sm hover:shadow-md hover:border-[#34E2A0]/30">
-              {/* Dashboard image */}
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src="/img/dashboard.jpg"
-                  alt="SmartTec Dashboard"
-                  fill
-                  className="object-cover"
-                />
-
-                {/* Status badges overlaid on image */}
-                <div className="absolute top-4 left-4 right-4 flex flex-wrap gap-2">
-                  {/* Grid Online badge */}
-                  <div className="px-3 py-1.5 rounded-md bg-white/90 border border-[#D4D5D0] backdrop-blur-sm">
-                    <span className="font-mono text-xs text-[#6B6C70] uppercase tracking-wider">
-                      GRID ONLINE
-                    </span>
+            <div className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden">
+              {/* Status bar */}
+              <div className="border-b border-dashed border-slate/30 px-4 py-2.5 flex items-center justify-between bg-fog">
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-bloom/80" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-neon" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-greptile-green" />
                   </div>
+                  <span className="font-space-mono text-[11px] text-slate/60">aura.smarttec.io/dashboard</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Live</span>
+                  <span className="w-1.5 h-1.5 bg-greptile-green rounded-full animate-pulse-glow" />
+                </div>
+              </div>
 
-                  {/* Battery Reserves badge */}
-                  <div className="px-3 py-1.5 rounded-md bg-white/90 border border-[#34E2A0]/50 backdrop-blur-sm">
-                    <span className="font-mono text-xs text-[#34E2A0] uppercase tracking-wider">
-                      BATTERY RESERVES: 94%
-                    </span>
+              <div className="p-6 md:p-8">
+                {/* Top metrics row */}
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  <div className="border border-dashed border-seafoam/40 bg-seafoam/10 p-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Grid</div>
+                    <div className="font-anybody text-2xl font-bold text-slate">OFFLINE</div>
+                    <div className="font-space-mono text-[10px] text-slate/60">Battery: 100%</div>
                   </div>
+                  <div className="border border-dashed border-slate/30 bg-fog/50 p-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Load</div>
+                    <div className="font-anybody text-2xl font-bold text-slate">84%</div>
+                    <div className="font-space-mono text-[10px] text-slate/60">Optimal range</div>
+                  </div>
+                  <div className="border border-dashed border-slate/30 bg-fog/50 p-3">
+                    <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">PUE</div>
+                    <div className="font-anybody text-2xl font-bold text-slate">1.08</div>
+                    <div className="font-space-mono text-[10px] text-greptile-green">-32% vs avg</div>
+                  </div>
+                </div>
 
-                  {/* Load Optimal badge */}
-                  <div className="px-3 py-1.5 rounded-md bg-white/90 border border-[#D4D5D0] backdrop-blur-sm">
-                    <span className="font-mono text-xs text-[#2C2C38] uppercase tracking-wider">
-                      LOAD: OPTIMAL
-                    </span>
+                {/* Chart */}
+                <div className="border border-dashed border-slate/30 p-4 mb-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60">24h load forecast</span>
+                    <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/40">AURA · predicted</span>
                   </div>
+                  <div className="relative h-32">
+                    {/* Gridlines */}
+                    <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                      {[100, 75, 50, 25, 0].map((v) => (
+                        <div key={v} className="border-t border-dashed border-slate/15 flex items-center">
+                          <span className="font-space-mono text-[9px] text-slate/40 -mt-2 -ml-1">{v}%</span>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Bars */}
+                    <div className="absolute inset-0 flex items-end justify-around px-2 pt-4">
+                      {telemetry.map((t, i) => (
+                        <div key={i} className="flex-1 flex flex-col items-center gap-0.5 px-1">
+                          <div className="w-full flex flex-col items-center">
+                            <div
+                              className="w-full bg-greptile-green"
+                              style={{ height: `${(t.load / maxLoad) * 80}px` }}
+                            />
+                            <div
+                              className="w-full bg-neon"
+                              style={{ height: `${(t.solar / maxLoad) * 30}px`, marginTop: "1px" }}
+                            />
+                          </div>
+                          <span className="font-space-mono text-[9px] text-slate/40 mt-1">{t.time}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom callout */}
+                <div className="bg-greptile-green text-black px-4 py-3 flex items-center justify-between">
+                  <div>
+                    <div className="font-anybody text-sm font-bold uppercase tracking-wider">AURA alert</div>
+                    <div className="font-space-mono text-[11px]">Peak demand predicted at 16:00 — pre-charged reserves ready.</div>
+                  </div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
                 </div>
               </div>
             </div>

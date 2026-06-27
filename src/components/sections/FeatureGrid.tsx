@@ -1,126 +1,186 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 interface Feature {
   label: string;
   title: string;
   description: string;
+  icon: React.ReactNode;
+  accent: string;
 }
 
 const features: Feature[] = [
   {
     label: "01",
-    title: "Battery Energy Storage",
-    description: "Proprietary lithium-iron phosphate cells. 20-year design life. Made in the USA.",
+    title: "Battery Energy Stack",
+    description: "Proprietary lithium-iron-phosphate cells. 20-year design life. Made in the USA. ITAR-compliant.",
+    icon: (
+      <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="6" y="6" width="20" height="22" rx="2" />
+        <rect x="11" y="2" width="10" height="6" rx="1" />
+        <line x1="11" y1="14" x2="21" y2="14" />
+        <line x1="11" y1="20" x2="21" y2="20" />
+        <line x1="11" y1="26" x2="17" y2="26" />
+      </svg>
+    ),
+    accent: "bg-greptile-green",
   },
   {
     label: "02",
-    title: "Thermal Management",
-    description: "AI-controlled cooling reduces PUE to 1.12 in average climates.",
+    title: "AI Load Management",
+    description: "Predictive positioning reserves pre-charged capacity 72 hours before demand peaks. AURA engine.",
+    icon: (
+      <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="16" cy="16" r="3" />
+        <path d="M16 2v4M16 26v4M2 16h4M26 16h4M5.6 5.6l2.8 2.8M23.6 23.6l2.8 2.8M5.6 26.4l2.8-2.8M23.6 8.4l2.8-2.8" />
+      </svg>
+    ),
+    accent: "bg-seafoam",
   },
   {
     label: "03",
-    title: "Grid Independence",
-    description: "Zero draw from the public grid during peak pricing events.",
+    title: "Thermal AI",
+    description: "Liquid cooling with sub-2°C cell variance. 40% longer cycle life vs. passive systems.",
+    icon: (
+      <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 4v18" />
+        <path d="M10 12c0 4 6 4 6 8" />
+        <path d="M22 12c0 4-6 4-6 8" />
+        <circle cx="16" cy="26" r="2" />
+      </svg>
+    ),
+    accent: "bg-ice",
   },
   {
     label: "04",
-    title: "Modular Scaling",
-    description: "Start at 200kW. Scale to 50MW+ without re-engineering.",
+    title: "Triple-Redundant Cells",
+    description: "If one bank fails, two more take over in under 10ms. Zero single points of failure.",
+    icon: (
+      <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="6" y="10" width="6" height="14" rx="1" />
+        <rect x="13" y="10" width="6" height="14" rx="1" />
+        <rect x="20" y="10" width="6" height="14" rx="1" />
+        <path d="M9 14v6M16 14v6M23 14v6" />
+      </svg>
+    ),
+    accent: "bg-lavender",
   },
   {
     label: "05",
     title: "Real-Time Monitoring",
-    description: "Sub-second power metrics. Predictive failure alerts. Full audit trail.",
+    description: "Sub-second telemetry. Predictive failure alerts. Full audit trail. SOC 2 Type II.",
+    icon: (
+      <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="6" width="24" height="20" rx="2" />
+        <path d="M4 12h24" />
+        <path d="M8 18l4-4 4 4 8-8" />
+      </svg>
+    ),
+    accent: "bg-peach",
   },
   {
     label: "06",
-    title: "USA Manufacturing",
-    description: "R&D and manufacturing in the USA. ITAR-compliant facilities.",
+    title: "Modular Scaling",
+    description: "Start at 200kW. Scale to 50MW+ without re-engineering. Pay-as-you-grow PPA available.",
+    icon: (
+      <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="4" width="10" height="10" rx="1" />
+        <rect x="18" y="4" width="10" height="10" rx="1" />
+        <rect x="4" y="18" width="10" height="10" rx="1" />
+        <rect x="18" y="18" width="10" height="10" rx="1" />
+      </svg>
+    ),
+    accent: "bg-pink",
   },
 ];
 
 function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ 
-        duration: 0.5, 
-        delay: index * 0.1,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="group relative bg-[#F2F2EF] border border-[#D9DAD5] rounded-sm p-8 transition-all duration-300 hover:border-[#34E2A0]/60"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-dashed border-border bg-fog/50 hover:bg-greptile-green/10 transition-all duration-300"
     >
-      {/* Chamfered label */}
-      <div className="flex items-center gap-3 mb-5">
-        <span className="inline-flex items-center justify-center w-10 h-10 bg-[#E9EAE6] border border-[#D9DAD5] text-[#34E2A0] font-mono text-sm font-bold transform skew-x-[-6deg] group-hover:bg-[#34E2A0]/10 group-hover:border-[#34E2A0]/40 transition-all duration-300">
-          {feature.label}
-        </span>
-      </div>
+      {/* Top color band */}
+      <div className={`h-2 ${feature.accent}`} />
 
-      {/* Title */}
-      <h3 className="text-lg md:text-xl font-semibold text-[#2C2C38] mb-3" style={{ fontFamily: "'Archivo Expanded', sans-serif" }}>
-        {feature.title}
-      </h3>
+      <div className="p-6 flex flex-col gap-4 flex-1">
+        {/* Icon + number row */}
+        <div className="flex items-center justify-between">
+          <div className="w-12 h-12 border border-dashed border-slate/30 bg-fog flex items-center justify-center text-slate group-hover:bg-greptile-green group-hover:text-black transition-colors">
+            {feature.icon}
+          </div>
+          <span className="font-space-mono text-xs text-slate/40 font-bold tracking-wider">
+            {feature.label}
+          </span>
+        </div>
 
-      {/* Description */}
-      <p className="text-sm text-[#6E7079] leading-relaxed">
-        {feature.description}
-      </p>
+        {/* Title */}
+        <h3 className="font-anybody text-xl md:text-2xl font-bold text-slate tracking-tight">
+          {feature.title}
+        </h3>
 
-      {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-px h-8 bg-[#D9DAD5] rotate-45 origin-bottom-right group-hover:bg-[#34E2A0]/40 transition-colors duration-300" />
-        <div className="absolute top-0 right-0 w-px h-12 bg-[#D9DAD5] rotate-45 origin-bottom-right group-hover:bg-[#34E2A0]/40 transition-colors duration-300" />
+        {/* Description */}
+        <p className="text-sm text-slate/70 leading-relaxed">
+          {feature.description}
+        </p>
+
+        {/* Bottom spacer */}
+        <div className="mt-auto pt-2" />
+
+        {/* Bottom border accent */}
+        <div className={`border-t border-dashed ${feature.accent.replace("bg-", "border-")}/40 -mx-6 -mb-6 px-6 py-3 flex items-center justify-between text-slate/50 text-xs font-space-mono uppercase tracking-wider`}>
+          <span>Spec sheet →</span>
+          <span className="w-2 h-2 bg-greptile-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+        </div>
       </div>
     </motion.div>
   );
 }
 
 export function FeatureGrid() {
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-
   return (
-    <section id="features" className="relative py-24 md:py-32 bg-[#E9EAE6] overflow-hidden">
-      {/* Measurement tick marks along section edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-8 flex flex-col justify-between py-8 pointer-events-none">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-          <div key={i} className="h-px w-4 bg-[#6E7079]/20" />
-        ))}
-      </div>
-      <div className="absolute right-0 top-0 bottom-0 w-8 flex flex-col justify-between py-8 pointer-events-none">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-          <div key={i} className="h-px w-4 bg-[#6E7079]/20 ml-auto" />
-        ))}
+    <section className="relative bg-background section-wrapper-compact">
+      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/20">
+        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-8 lg:px-12">
-        {/* Section header */}
+      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-24">
         <motion.div
-          ref={containerRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#6E7079] mb-4">
+          <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+            <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
             [ CORE CAPABILITIES ]
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2C38] mb-6" style={{ fontFamily: "'Archivo Expanded', sans-serif" }}>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-bold text-slate tracking-tight leading-[0.95] max-w-3xl mx-auto">
             Built for serious infrastructure.
           </h2>
         </motion.div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
           {features.map((feature, index) => (
             <FeatureCard key={feature.title} feature={feature} index={index} />
           ))}

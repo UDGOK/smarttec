@@ -1,68 +1,51 @@
 "use client";
 
-import { motion, useMotionValue, animate } from "framer-motion";
-import { useEffect, useRef } from "react";
-import Button from "@/components/ui/Button";
-
 export function MarqueeCTA() {
-  const constraintsRef = useRef(null);
-  const x = useMotionValue(0);
-
-  useEffect(() => {
-    const finalX = -100 / 2;
-    animate(x, [0, finalX], {
-      duration: 40,
-      repeat: Infinity,
-      ease: "linear",
-    });
-  }, [x]);
+  const items = [
+    "DEPLOY · POWER · SCALE",
+    "DEPLOY · POWER · SCALE",
+    "DEPLOY · POWER · SCALE",
+    "DEPLOY · POWER · SCALE",
+    "DEPLOY · POWER · SCALE",
+    "DEPLOY · POWER · SCALE",
+    "DEPLOY · POWER · SCALE",
+    "DEPLOY · POWER · SCALE",
+  ];
 
   return (
-    <section className="relative bg-[#34E2A0]">
+    <section className="relative bg-greptile-green border-y border-slate/20 overflow-hidden">
       {/* Marquee strip */}
-      <div ref={constraintsRef} className="overflow-hidden py-6 md:py-8">
-        <motion.div
-          style={{ x }}
-          className="flex whitespace-nowrap"
-        >
-          {[...Array(10)].map((_, i) => (
+      <div className="overflow-hidden py-6 md:py-10 border-b border-slate/30">
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[...items, ...items].map((text, i) => (
             <span
               key={i}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#2C2C38] tracking-wider mx-8 font-['Archivo_Expanded',sans-serif]"
+              className="font-anybody font-extrabold text-5xl md:text-7xl lg:text-8xl text-slate tracking-tight mx-6"
             >
-              DESIGN · DEPLOY · POWER
+              {text}
+              <span className="mx-6 text-slate/40">●</span>
             </span>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* CTA Content */}
-      <div className="py-20 md:py-28">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2C38] mb-8 font-['Archivo_Expanded',sans-serif]"
-          >
-            Ready to go grid-independent?
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Button variant="primary" size="lg">
-              Schedule a Consultation
-            </Button>
-            <Button variant="outline" size="lg">
-              View Technical Specs
-            </Button>
-          </motion.div>
+      {/* CTA */}
+      <div className="py-16 md:py-24">
+        <div className="mx-auto max-w-4xl px-6 md:px-12 text-center">
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95] mb-8">
+            Ready to go<br />grid-independent?
+          </h2>
+          <p className="text-lg text-slate/80 mb-10 max-w-xl mx-auto">
+            Get a fixed-price proposal in 14 days. No surprises, no scope creep, no quarterly renegotiations.
+          </p>
+          <div className="btn-hex-group justify-center">
+            <a href="#contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
+              Contact Sales
+            </a>
+            <a href="#specs" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
+              See live specs
+            </a>
+          </div>
         </div>
       </div>
     </section>

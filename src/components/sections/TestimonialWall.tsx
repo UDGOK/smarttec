@@ -1,140 +1,120 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 const testimonials = [
   {
-    id: 1,
     quote: "We went from 4-hour outage events to zero. SmartTec paid for itself in 18 months.",
-    author: {
-      name: "Marcus Thompson",
-      title: "CTO @ StackEdge Systems",
-      image: "/img/exec1.jpg",
-    },
+    name: "Marcus Thompson",
+    role: "CTO · StackEdge",
+    initials: "MT",
+    accent: "bg-greptile-green",
   },
   {
-    id: 2,
     quote: "The deployment was surgical. Our team barely had to lift a finger. Live in 90 days, exactly as promised.",
-    author: {
-      name: "Sarah Chen",
-      title: "VP Operations @ CloudVault",
-      image: "/img/exec2.jpg",
-    },
+    name: "Sarah Chen",
+    role: "VP Ops · CloudVault",
+    initials: "SC",
+    accent: "bg-seafoam",
   },
   {
-    id: 3,
     quote: "We scaled from 50kW to 2MW without a single re-engineering cycle. That kind of flexibility is rare.",
-    author: {
-      name: "David Park",
-      title: "CEO @ Prism Analytics",
-      image: "/img/exec4.jpg",
-    },
+    name: "David Park",
+    role: "CEO · Prism Analytics",
+    initials: "DP",
+    accent: "bg-ice",
   },
   {
-    id: 4,
-    quote: "Enterprise-grade compliance documentation delivered upfront. Our procurement team was impressed before we even signed.",
-    author: {
-      name: "Rachel Torres",
-      title: "CISO @ Fortis Networks",
-      image: "/img/exec6.jpg",
-    },
+    quote: "Enterprise-grade compliance documentation delivered upfront. Procurement signed in 11 days.",
+    name: "Rachel Torres",
+    role: "CISO · Fortis Networks",
+    initials: "RT",
+    accent: "bg-lavender",
+  },
+  {
+    quote: "The AURA load forecasts are eerie. It knew about a Texas grid event 48 hours before ERCOT did.",
+    name: "James Okonkwo",
+    role: "SRE Lead · Hadron Compute",
+    initials: "JO",
+    accent: "bg-peach",
+  },
+  {
+    quote: "Best engineering partnership we&apos;ve ever had. These people actually pick up the phone.",
+    name: "Elena Vasquez",
+    role: "Director · Nimbus Edge",
+    initials: "EV",
+    accent: "bg-pink",
   },
 ];
 
 export function TestimonialWall() {
   return (
-    <section className="relative bg-[#E9EAE6] py-24 overflow-hidden">
-      {/* Wireframe arc decoration in pale mint */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <svg
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] opacity-[0.08]"
-          viewBox="0 0 900 600"
-          fill="none"
-        >
-          <path
-            d="M450 550 C450 550, 50 400, 50 200 C50 50, 200 -50, 450 50 C700 -50, 850 50, 850 200 C850 400, 450 550, 450 550"
-            stroke="#34E2A0"
-            strokeWidth="1"
-            fill="none"
-          />
-          <path
-            d="M450 500 C450 500, 100 370, 100 200 C100 80, 230 0, 450 80 C670 0, 800 80, 800 200 C800 370, 450 500, 450 500"
-            stroke="#34E2A0"
-            strokeWidth="1"
-            fill="none"
-          />
-          <path
-            d="M450 450 C450 450, 150 340, 150 200 C150 110, 260 50, 450 110 C640 50, 750 110, 750 200 C750 340, 450 450, 450 450"
-            stroke="#34E2A0"
-            strokeWidth="1"
-            fill="none"
-          />
-        </svg>
+    <section id="blog" className="relative bg-background section-wrapper-compact">
+      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/20">
+        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Section header */}
+      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-24">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
         >
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-[#6B6B75] mb-6">
-            [ WHAT OPERATORS ARE SAYING ]
+          <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+            <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+            [ WHAT OPERATORS SAY ]
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2C2C38] mb-4" style={{ fontFamily: "'Archivo Expanded', sans-serif" }}>
-            No marketing speak. Just results.
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-anybody font-bold text-slate tracking-tight leading-[0.95]">
+            No marketing speak.<br />Just results.
           </h2>
         </motion.div>
 
-        {/* 2x2 Grid of testimonial cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((testimonial, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          {testimonials.map((t, i) => (
             <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 40 }}
+              key={t.name}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{
-                delay: index * 0.15,
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group"
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="group relative flex flex-col gap-4 p-6 md:p-7 border border-dashed border-slate/30 bg-fog/50 hover:bg-greptile-green/10 transition-colors"
             >
-              {/* Card */}
-              <div className="relative bg-[#F2F2EF] border border-[#D9DAD5] rounded-2xl p-6 sm:p-8 h-full transition-all duration-300 hover:border-[#34E2A0]">
-                {/* Quote text */}
-                <blockquote className="mb-8">
-                  <p className="text-base sm:text-lg text-[#2C2C38]/80 leading-relaxed italic">
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </p>
-                </blockquote>
+              {/* Top accent bar */}
+              <div className={`absolute top-0 left-0 right-0 h-1.5 ${t.accent}`} />
 
-                {/* Author section */}
-                <div className="flex items-center gap-4 pt-6 border-t border-[#D9DAD5]">
-                  {/* Avatar */}
-                  <div className="relative w-14 h-14 flex-shrink-0 rounded-full overflow-hidden">
-                    <Image
-                      src={testimonial.author.image}
-                      alt={testimonial.author.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-slate/30">
+                <path d="M11 7H7.5C6.12 7 5 8.12 5 9.5V10c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-.5c0-.28.22-.5.5-.5H11c.55 0 1-.45 1-1V8c0-.55-.45-1-1-1zm0 6H7.5c-1.38 0-2.5 1.12-2.5 2.5V18c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-1.5c0-.28.22-.5.5-.5H11c.55 0 1-.45 1-1V14c0-.55-.45-1-1-1zm6-6h-3.5C12.12 7 11 8.12 11 9.5V10c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-.5c0-.28.22-.5.5-.5H17c.55 0 1-.45 1-1V8c0-.55-.45-1-1-1zm0 6h-3.5c-1.38 0-2.5 1.12-2.5 2.5V18c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-1.5c0-.28.22-.5.5-.5H17c.55 0 1-.45 1-1V14c0-.55-.45-1-1-1z" />
+              </svg>
 
-                  {/* Name and title */}
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#2C2C38]">
-                      {testimonial.author.name}
-                    </h3>
-                    <p className="text-xs text-[#6B6B75]">
-                      {testimonial.author.title}
-                    </p>
-                  </div>
+              <p
+                className="font-anybody text-base md:text-lg text-slate leading-relaxed italic flex-1"
+                dangerouslySetInnerHTML={{ __html: `&ldquo;${t.quote}&rdquo;` }}
+              />
+
+              <div className="flex items-center gap-3 pt-4 border-t border-dashed border-slate/20">
+                <div className="w-10 h-10 border border-dashed border-slate/30 bg-fog flex items-center justify-center font-anybody font-bold text-slate text-sm">
+                  {t.initials}
+                </div>
+                <div>
+                  <div className="font-anybody font-bold text-slate text-sm">{t.name}</div>
+                  <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">{t.role}</div>
                 </div>
               </div>
             </motion.div>

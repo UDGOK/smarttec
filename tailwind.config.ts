@@ -9,34 +9,56 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: {
-          primary: "#E9EAE6",
-          section: "#F2F2EF",
-          dark: "#2A2A34",
-        },
-        txt: {
-          primary: "#2C2C38",
-          secondary: "#6E7079",
-        },
-        accent: {
-          DEFAULT: "#34E2A0",
-          secondary: "#E7B6DE",
-        },
-        border: "#D9DAD5",
+        // Greptile-aligned palette
+        background: "#E9E9E9",
+        fog: "#EEEEEE",
+        slate: "#3D3B4F",
+        silver: "#D6D6D6",
+        border: "rgba(85, 83, 104, 0.30)",
+        "greptile-green": "#28E99F",
+        seafoam: "#C5FFD6",
+        magenta: "#FFACFE",
+        ice: "#D1E5FF",
+        lavender: "#FFCFFE",
+        peach: "#FFBCB3",
+        pink: "#F783A3",
+        bloom: "#FF6D6D",
+        coral: "#FF7F59",
+        blue: "#5882FF",
+        neon: "#DAFF01",
+        sky: "#71ADFF",
+        lime: "#ECFFA3",
+        sage: "#C8EAD0",
+        customwhite: "#FDFCF9",
+        paper: "#F8F7F3",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "monospace"],
-        archivo: ["var(--font-archivo)", "sans-serif"],
+        sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-space-mono)", "monospace"],
+        anybody: ["var(--font-anybody)", "sans-serif"],
+        "pen-script": ["var(--font-nanum-pen-script)", "cursive"],
       },
-      borderRadius: {
-        "2xl": "1rem",
-        "3xl": "1.5rem",
+      letterSpacing: {
+        wider2: "0.1em",
       },
-      boxShadow: {
-        "mint-glow": "0 0 30px rgba(52, 226, 160, 0.15)",
-        "mint-glow-lg": "0 0 60px rgba(52, 226, 160, 0.2)",
-        "mint-glow-sm": "0 0 15px rgba(52, 226, 160, 0.1)",
+      animation: {
+        marquee: "marquee 40s linear infinite",
+        "fade-in-up": "fadeInUp 0.8s ease-out forwards",
+        "fade-in": "fadeIn 0.6s ease-out forwards",
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
     },
   },

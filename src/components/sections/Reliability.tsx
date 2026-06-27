@@ -2,186 +2,136 @@
 
 import { motion } from "framer-motion";
 
-interface ReliabilityPillar {
-  id: string;
-  number: string;
-  kicker: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-const reliabilityPillars: ReliabilityPillar[] = [
-  {
-    id: "redundancy",
-    number: "01",
-    kicker: "REDUNDANCY",
-    title: "Triple-redundant battery banks. If one fails, two more take over instantly. No single point of failure.",
-    description: "",
-    icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 32 32"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M16 4v8" />
-        <path d="M12 8l4-4 4 4" />
-        <rect x="6" y="12" width="20" height="14" rx="2" />
-        <path d="M11 12v14" />
-        <path d="M16 12v14" />
-        <path d="M21 12v14" />
-        <circle cx="11" cy="19" r="1.5" fill="currentColor" />
-        <circle cx="16" cy="19" r="1.5" fill="currentColor" />
-        <circle cx="21" cy="19" r="1.5" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    id: "compliance",
-    number: "02",
-    kicker: "COMPLIANCE",
-    title: "SOC 2 Type II certified. Annual independent audits. Full audit logs. Encryption at rest and in transit.",
-    description: "",
-    icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 32 32"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M16 4l8 4v6c0 5.25-3.5 10-8 12-4.5-2-8-6.75-8-12V8l8-4z" />
-        <path d="M12 16l2.5 2.5 5.5-5.5" />
-      </svg>
-    ),
-  },
-  {
-    id: "guarantee",
-    number: "03",
-    kicker: "GUARANTEE",
-    title: "99.99% financially-backed uptime SLA. We've never hit a payout trigger in 6 years of operation.",
-    description: "",
-    icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 32 32"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M28 22v4H4v-4" />
-        <path d="M28 6H4v4l3 3" />
-        <path d="M8 13v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V13" />
-        <path d="M12 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-      </svg>
-    ),
-  },
+const stats = [
+  { value: "40+", label: "Live deployments", accent: "bg-greptile-green" },
+  { value: "12 MW", label: "Total capacity deployed", accent: "bg-seafoam" },
+  { value: "99.997%", label: "Uptime (24-mo avg)", accent: "bg-ice" },
+  { value: "$0", label: "SLA payouts ever", accent: "bg-lavender" },
+  { value: "6 yrs", label: "Operating history", accent: "bg-peach" },
+  { value: "73%", label: "Avg grid reduction", accent: "bg-pink" },
 ];
 
-function ReliabilityCard({ pillar, index }: { pillar: ReliabilityPillar; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        delay: index * 0.15,
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="group relative bg-[#E9EAE6] border border-[#D9DAD5] rounded-2xl p-8 transition-all duration-500 hover:border-[#B5B6B1]"
-    >
-      {/* Content */}
-      <div className="relative z-10">
-        {/* SectionLabel kicker */}
-        <div className="mb-4">
-          <span className="font-mono text-xs uppercase tracking-wider text-[#34E2A0]">
-            [ {pillar.kicker} ]
-          </span>
-        </div>
-
-        {/* Number and Icon row */}
-        <div className="flex items-start justify-between mb-6">
-          <span className="text-5xl font-bold text-[#E4E5E0] select-none font-['Archivo_Expanded',sans-serif]">
-            {pillar.number}
-          </span>
-          <div className="w-14 h-14 rounded-xl bg-[#E9EAE6] border border-[#D9DAD5] flex items-center justify-center text-[#34E2A0] group-hover:border-[#34E2A0]/30 transition-all duration-300">
-            {pillar.icon}
-          </div>
-        </div>
-
-        {/* Title */}
-        <h3 className="text-lg font-semibold text-[#2C2C38] leading-relaxed font-['Archivo_Expanded',sans-serif]">
-          {pillar.title}
-        </h3>
-      </div>
-    </motion.div>
-  );
-}
+const customers = [
+  { name: "StackEdge Systems", role: "Hyperscale edge" },
+  { name: "CloudVault", role: "Mid-market SaaS" },
+  { name: "Prism Analytics", role: "Data infrastructure" },
+  { name: "Fortis Networks", role: "Federal / defense" },
+  { name: "Nimbus Edge", role: "CDN / edge compute" },
+  { name: "Hadron Compute", role: "AI infrastructure" },
+];
 
 export function Reliability() {
   return (
-    <section id="reliability" className="relative py-24 md:py-32 bg-[#F2F2EF]">
-      {/* Measurement tick marks along edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-2 flex flex-col justify-between py-8">
-        {[...Array(12)].map((_, i) => (
-          <div key={i} className="w-full h-px bg-[#D9DAD5]" />
-        ))}
-      </div>
-      <div className="absolute right-0 top-0 bottom-0 w-2 flex flex-col justify-between py-8">
-        {[...Array(12)].map((_, i) => (
-          <div key={i} className="w-full h-px bg-[#D9DAD5]" />
-        ))}
-      </div>
-
-      {/* Wireframe arc decoration behind cards */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        <svg
-          className="w-full max-w-4xl opacity-[0.08]"
-          viewBox="0 0 800 200"
-          fill="none"
-          stroke="#34E2A0"
-          strokeWidth="1"
-        >
-          <path d="M50 200 Q400 0 750 200" />
-          <path d="M100 200 Q400 40 700 200" />
-          <path d="M150 200 Q400 80 650 200" />
-        </svg>
+    <section id="enterprise" className="relative bg-fog section-wrapper-compact border-y border-dashed border-silver">
+      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/20">
+        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" />
+          </svg>
+        </div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section header */}
+      <div className="relative mx-auto w-full max-w-[1550px] px-6 md:px-12 lg:px-16 py-16 md:py-24">
+        {/* Stats row */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-16 md:mb-20"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mb-16 md:mb-20 border border-dashed border-slate/30"
         >
-          <span className="inline-block text-xs font-mono uppercase tracking-wider text-[#6E7079] mb-4">
-            [ RELIABILITY ]
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2C38] mb-6 font-['Archivo_Expanded',sans-serif]">
-            Built to run. Guaranteed to stay up.
-          </h2>
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className={`p-5 md:p-6 ${i !== 0 ? "border-l border-dashed border-slate/30" : ""} ${i >= 3 ? "border-t md:border-t lg:border-t border-dashed border-slate/30" : ""} ${i === 3 ? "md:border-t-0" : ""} ${i >= 2 ? "md:border-t lg:border-t border-dashed border-slate/30" : ""}`}
+            >
+              <div className={`w-1.5 h-1.5 ${s.accent} mb-3`} />
+              <div className="font-anybody text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate tracking-tight">
+                {s.value}
+              </div>
+              <div className="font-space-mono text-[10px] md:text-[11px] uppercase tracking-wider text-slate/60 mt-1">
+                {s.label}
+              </div>
+            </div>
+          ))}
         </motion.div>
 
-        {/* Reliability pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {reliabilityPillars.map((pillar, index) => (
-            <ReliabilityCard key={pillar.id} pillar={pillar} index={index} />
-          ))}
+        {/* Customers + quote */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Featured quote */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-7"
+          >
+            <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+              <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+              [ CASE STUDY ]
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-anybody font-bold text-slate tracking-tight leading-[0.95] mb-6">
+              StackEdge cut grid dependency by 73% in year one.
+            </h2>
+            <blockquote className="font-anybody text-lg md:text-xl text-slate/80 leading-relaxed mb-6 italic border-l-4 border-greptile-green pl-4">
+              &ldquo;SmartTec&apos;s battery stack deployed in 90 days and has run flawlessly through two Texas grid events. We cut grid dependency by 73% in the first year. That&apos;s the kind of infrastructure partner we needed.&rdquo;
+            </blockquote>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 border border-dashed border-slate/30 bg-fog flex items-center justify-center font-anybody font-bold text-slate">
+                MT
+              </div>
+              <div>
+                <div className="font-anybody font-bold text-slate">Marcus Thompson</div>
+                <div className="font-space-mono text-xs uppercase tracking-wider text-slate/60">VP Infra · StackEdge</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Customer list */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-5"
+          >
+            <div className="border border-dashed border-slate/30 bg-background p-6">
+              <div className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60 mb-4">
+                [ DEPLOYMENT ROSTER ]
+              </div>
+              <ul className="divide-y divide-dashed divide-slate/20">
+                {customers.map((c) => (
+                  <li key={c.name} className="flex items-center justify-between py-3">
+                    <div>
+                      <div className="font-anybody font-bold text-slate">{c.name}</div>
+                      <div className="font-space-mono text-[11px] text-slate/60">{c.role}</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                      <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Live</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 pt-4 border-t border-dashed border-slate/20 flex items-center justify-between">
+                <span className="font-space-mono text-[11px] text-slate/60">+ 34 more under NDA</span>
+                <a href="#case-studies" className="font-space-mono text-[11px] uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black px-2 py-1">
+                  See all →
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

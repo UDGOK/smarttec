@@ -1,235 +1,117 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-
-// Halftone SVG illustration - stylized battery/energy module
-function HalftoneIllustration() {
-  return (
-    <svg
-      viewBox="0 0 400 400"
-      className="w-full h-full"
-      style={{
-        filter: 'grayscale(100%) contrast(1.1)',
-      }}
-    >
-      <defs>
-        {/* Halftone pattern */}
-        <pattern id="halftone" patternUnits="userSpaceOnUse" width="6" height="6">
-          <circle cx="3" cy="3" r="1.5" fill="#2C2C38" opacity="0.6" />
-        </pattern>
-        <pattern id="halftone-dense" patternUnits="userSpaceOnUse" width="4" height="4">
-          <circle cx="2" cy="2" r="1.2" fill="#2C2C38" opacity="0.8" />
-        </pattern>
-        {/* Mint glow filter */}
-        <filter id="mintGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feFlood floodColor="#34E2A0" floodOpacity="0.6" result="color" />
-          <feComposite in="color" in2="blur" operator="in" result="glow" />
-          <feMerge>
-            <feMergeNode in="glow" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-      
-      {/* Background grid texture */}
-      <rect width="400" height="400" fill="url(#halftone)" opacity="0.3" />
-      
-      {/* Main battery cell outline */}
-      <g filter="url(#mintGlow)">
-        {/* Outer housing */}
-        <path
-          d="M80 60 L320 60 L340 80 L340 320 L320 340 L80 340 L60 320 L60 80 Z"
-          fill="none"
-          stroke="#2C2C38"
-          strokeWidth="3"
-        />
-        
-        {/* Top terminal block */}
-        <rect x="140" y="40" width="120" height="30" rx="4" fill="#2C2C38" />
-        <rect x="160" y="30" width="80" height="20" rx="3" fill="#3A3A48" />
-        
-        {/* Inner battery stacks */}
-        <rect x="100" y="100" width="200" height="200" rx="8" fill="#2C2C38" />
-        <rect x="100" y="100" width="200" height="200" rx="8" fill="url(#halftone-dense)" />
-        
-        {/* Cell dividers */}
-        <line x1="166" y1="100" x2="166" y2="300" stroke="#6E7079" strokeWidth="1" />
-        <line x1="233" y1="100" x2="233" y2="300" stroke="#6E7079" strokeWidth="1" />
-        
-        {/* Energy level indicators */}
-        <rect x="120" y="130" width="26" height="140" rx="3" fill="#34E2A0" opacity="0.9" />
-        <rect x="187" y="130" width="26" height="140" rx="3" fill="#34E2A0" opacity="0.7" />
-        <rect x="254" y="130" width="26" height="140" rx="3" fill="#34E2A0" opacity="0.5" />
-        
-        {/* Connection ports */}
-        <rect x="100" y="260" width="200" height="25" rx="3" fill="#3A3A48" />
-        <circle cx="140" cy="272" r="6" fill="#34E2A0" />
-        <circle cx="200" cy="272" r="6" fill="#34E2A0" opacity="0.6" />
-        <circle cx="260" cy="272" r="6" fill="#34E2A0" opacity="0.3" />
-        
-        {/* Cooling vents */}
-        <line x1="110" y1="310" x2="130" y2="310" stroke="#6E7079" strokeWidth="2" />
-        <line x1="140" y1="310" x2="160" y2="310" stroke="#6E7079" strokeWidth="2" />
-        <line x1="170" y1="310" x2="190" y2="310" stroke="#6E7079" strokeWidth="2" />
-        <line x1="200" y1="310" x2="220" y2="310" stroke="#6E7079" strokeWidth="2" />
-        <line x1="230" y1="310" x2="250" y2="310" stroke="#6E7079" strokeWidth="2" />
-        <line x1="260" y1="310" x2="280" y2="310" stroke="#6E7079" strokeWidth="2" />
-      </g>
-    </svg>
-  );
-}
-
-// Decorative wireframe arc
-function WireframeArc({ className, opacity = 0.2 }: { className?: string; opacity?: number }) {
-  return (
-    <svg
-      className={`absolute ${className}`}
-      viewBox="0 0 200 100"
-      fill="none"
-      style={{ opacity }}
-    >
-      <path
-        d="M10 90 Q100 10 190 90"
-        stroke="#34E2A0"
-        strokeWidth="1"
-        fill="none"
-      />
-    </svg>
-  );
-}
+import Image from "next/image";
 
 export function Hero() {
-  const scrollToFeatures = () => {
-    document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const scrollToSpecs = () => {
-    document.getElementById("specs")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#E9EAE6] bg-dotted-grid">
-      {/* Decorative wireframe arcs */}
-      <WireframeArc className="top-20 left-[-10%] w-[400px] h-[200px]" opacity={0.15} />
-      <WireframeArc className="bottom-40 right-[-5%] w-[300px] h-[150px] rotate-12" opacity={0.1} />
-      <WireframeArc className="top-1/3 right-[10%] w-[250px] h-[125px] -rotate-6" opacity={0.08} />
+    <div className="relative overflow-hidden bg-background bg-paper-plus-ruled">
+      {/* Section tick marks at edges (greptile signature) */}
+      <div className="absolute inset-0 pointer-events-none hidden md:block text-slate/30">
+        <div className="absolute top-0 bottom-0 left-8 border-l border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" stroke="currentColor" strokeWidth="1" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -left-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" stroke="currentColor" strokeWidth="1" />
+          </svg>
+        </div>
+        <svg className="absolute top-0 bottom-0 h-full left-0 w-8" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+          <defs>
+            <pattern id="grid-left" width="6" height="6" patternUnits="userSpaceOnUse">
+              <path d="M 6 0 L 0 0 0 6" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-left)" />
+        </svg>
+        <div className="absolute top-0 bottom-0 right-8 border-r border-dashed border-current">
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -top-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" stroke="currentColor" strokeWidth="1" />
+          </svg>
+          <svg width="10" height="12" viewBox="0 0 10 12" className="absolute -bottom-[6px] -right-[5px]">
+            <polygon points="5,0 10,3 10,9 5,12 0,9 0,3" fill="currentColor" stroke="currentColor" strokeWidth="1" />
+          </svg>
+        </div>
+        <svg className="absolute top-0 bottom-0 h-full right-0 w-8" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+          <defs>
+            <pattern id="grid-right" width="6" height="6" patternUnits="userSpaceOnUse">
+              <path d="M 6 0 L 0 0 0 6" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-right)" />
+        </svg>
+      </div>
 
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 bg-radial-glow-subtle pointer-events-none" />
+      <section className="relative section-wrapper-compact">
+        {/* Decorative texture blocks */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute -top-6 -right-10 w-64 h-52 bg-grid-pattern opacity-20 rotate-3 bg-greptile-green"
+               style={{ maskImage: "radial-gradient(ellipse at center, black 20%, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse at center, black 20%, transparent 70%)" }} />
+          <div className="absolute -bottom-4 -left-8 w-56 h-44 bg-grid-pattern opacity-15 -rotate-2 bg-lavender"
+               style={{ maskImage: "radial-gradient(ellipse at center, black 20%, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse at center, black 20%, transparent 70%)" }} />
+          <div className="absolute top-1/2 -translate-y-1/2 left-4 w-28 h-36 bg-dither-dense opacity-20 rotate-1" />
+          <div className="absolute top-16 right-1/3 w-40 h-28 bg-dither opacity-15 -rotate-1" />
+          <div className="absolute bottom-10 left-1/3 w-48 h-32 bg-halftone opacity-20 rotate-2" />
+        </div>
 
-      {/* Content container */}
-      <div className="container mx-auto px-6 pt-32 pb-20">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          {/* Text content */}
-          <div className="flex-1 text-center lg:text-left z-10">
-            {/* Kicker */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="mb-6"
-            >
-              <span className="font-mono text-sm text-[#6E7079] tracking-wide">
-                [ SmartTec Energy Systems ]
-              </span>
-            </motion.div>
+        {/* Mascot image bottom-right (greptile-style lizard replacement) */}
+        <div className="absolute bottom-0 right-0 pointer-events-none h-auto aspect-square w-[max(500px,min(55vw,100vh))] hidden md:block">
+          <div className="relative w-full h-full">
+            <div className="absolute inset-0 bg-radial-glow" />
+            <Image
+              src="/lizard-mobile.svg"
+              alt="SmartTec Sparky mascot"
+              width={900}
+              height={900}
+              className="object-contain object-right-bottom w-full h-full"
+              priority
+            />
+          </div>
+        </div>
 
-            {/* Headline */}
+        {/* Mobile mascot */}
+        <div className="absolute bottom-0 right-0 pointer-events-none aspect-square w-[80vw] max-w-[500px] opacity-30 md:hidden">
+          <Image src="/lizard-mobile.svg" alt="" width={500} height={500} className="object-contain object-right-bottom w-full h-full" />
+        </div>
+
+        <div className="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-14 lg:px-16 pt-32 md:pt-40 lg:pt-44 pb-16">
+          {/* Top - Headline */}
+          <div className="relative z-10">
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-[#2C2C38] mb-8 leading-[0.95] tracking-tight"
-              style={{ fontFamily: "'Archivo Expanded', sans-serif", fontWeight: 900 }}
+              initial={{ opacity: 0, filter: "blur(8px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="text-slate text-6xl sm:text-7xl lg:text-8xl font-anybody font-extrabold tracking-tight leading-[0.9] max-w-3xl"
             >
-              The grid-independent data center.
+              The grid-independent<br />
+              data center.
             </motion.h1>
+          </div>
 
-            {/* Subhead */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg sm:text-xl text-[#6E7079] mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed"
-            >
-              Proprietary battery energy stacks. Zero dependency on the public grid. Built in the USA.
-            </motion.p>
-
-            {/* CTAs */}
+          {/* Bottom - Description + CTAs */}
+          <div className="relative z-10 pb-12 md:pb-20 lg:pb-24 mt-12">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              initial={{ opacity: 0, filter: "blur(6px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-lg xl:max-w-2xl"
             >
-              <Button size="lg" onClick={scrollToFeatures}>
-                Request a Demo
-              </Button>
-              <Button variant="accent" size="lg" onClick={scrollToSpecs}>
-                View Technical Specs
-              </Button>
-            </motion.div>
-
-            {/* Trust indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-10 flex items-center gap-4 justify-center lg:justify-start"
-            >
-              <span className="text-sm text-[#6E7079]">
-                Trusted by operators across 40+ sites
-              </span>
-              <div className="flex items-center gap-1.5">
-                {[...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-6 h-1 bg-[#34E2A0] rounded-full"
-                    style={{ opacity: 1 - i * 0.15 }}
-                  />
-                ))}
+              <p className="text-xl md:text-2xl xl:text-3xl text-slate mb-8">
+                AI-managed battery energy stacks that keep your infrastructure running — even when the grid doesn&apos;t.
+              </p>
+              <div className="btn-hex-group">
+                <a href="#contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
+                  Contact Sales
+                </a>
+                <a href="#specs" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black xl:btn-hex-lg">
+                  See live specs
+                </a>
               </div>
             </motion.div>
           </div>
-
-          {/* Hero illustration */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex-1 w-full max-w-md lg:max-w-lg"
-          >
-            <motion.div
-              animate={{
-                y: [0, -4, 0],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative"
-            >
-              {/* Glow outline effect */}
-              <div 
-                className="absolute inset-0 blur-2xl bg-[#34E2A0]/20 rounded-3xl"
-                style={{ transform: 'scale(1.05)' }}
-              />
-              
-              {/* Main illustration container */}
-              <div className="relative bg-[#F5F5F2] rounded-3xl p-8 border border-[#D9DAD5]">
-                <HalftoneIllustration />
-              </div>
-            </motion.div>
-          </motion.div>
         </div>
-      </div>
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#E9EAE6] to-transparent pointer-events-none" />
-    </section>
+      </section>
+    </div>
   );
 }
 
