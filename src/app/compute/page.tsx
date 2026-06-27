@@ -69,8 +69,7 @@ export default function ComputePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
               >
@@ -88,8 +87,7 @@ export default function ComputePage() {
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
               >
@@ -109,8 +107,7 @@ export default function ComputePage() {
             {/* Integrated pitch banner */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="mt-12 border-2 border-slate bg-slate text-fog p-10 md:p-12 text-center"
             >
@@ -131,8 +128,7 @@ export default function ComputePage() {
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="mb-12"
             >
@@ -150,8 +146,7 @@ export default function ComputePage() {
                 <motion.div
                   key={m.name}
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                   className="bg-background border border-dashed border-slate/30 p-6 hover:border-greptile-green transition-colors"
                 >
@@ -171,8 +166,7 @@ export default function ComputePage() {
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="mb-12 max-w-3xl"
             >
@@ -214,8 +208,7 @@ export default function ComputePage() {
           <div className="relative mx-auto w-full max-w-3xl px-6 md:px-12 py-20 md:py-28">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
