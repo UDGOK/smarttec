@@ -5,10 +5,8 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
 const team = [
-  { name: "Founder / CEO", role: "Built z1power from a Tulsa garage into megawatt-scale LFP manufacturing.", initials: "?" },
-  { name: "CTO", role: "Designed AURA after too many pager-duty years at hyperscalers.", initials: "?" },
-  { name: "Head of Power", role: "10+ years at the grid edge. Knows every interconnect queue in the US.", initials: "?" },
-  { name: "Head of Compute", role: "Former NVIDIA partner-engineering lead. Believes in fast inference.", initials: "?" },
+  { name: "Syed Hussain", role: "Co-founder & CEO. Background in power systems and energy infrastructure. Founded z1power and SmartTec.", initials: "SH" },
+  { name: "Yasir Jahangir", role: "Co-founder & COO. Operations across cell production, supply chain, deployment, and partner delivery.", initials: "YJ" },
 ];
 
 const values = [

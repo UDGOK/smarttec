@@ -57,19 +57,14 @@ const marketSizing = [
 
 const team = [
   {
-    name: "Daksh Gupta",
+    name: "Syed Hussain",
     title: "Co-founder & CEO",
-    bio: "Built z1power from a Tulsa machine shop into a megawatt-scale LFP manufacturing operation.",
+    bio: "Founded z1power and SmartTec. Background in power systems and energy infrastructure.",
   },
   {
-    name: "Soohoon Choi",
+    name: "Yasir Jahangir",
     title: "Co-founder & COO",
-    bio: "Operations across cell production, supply chain, and partner deployment.",
-  },
-  {
-    name: "Everett Butler",
-    title: "Head of Federal",
-    bio: "Federal procurement: NDAA §889, DFARS, FedRAMP authorization path.",
+    bio: "Operations across cell production, supply chain, deployment, and partner delivery.",
   },
 ];
 
