@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Navigation } from "@/components/sections/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import ModelFitCalculator from "@/components/ModelFitCalculator";
+import FleetBuilder from "@/components/FleetBuilder";
 
 function HardwareCard({
   src,
@@ -110,6 +111,23 @@ export default function InferencePage() {
       <section id="calculator" className="px-6 md:px-12 py-12 md:py-20">
         <div className="max-w-[1280px] mx-auto">
           <ModelFitCalculator />
+        </div>
+      </section>
+
+      {/* ───────────────  FLEET BUILDER  ─────────────── */}
+      <section id="fleet" className="px-6 md:px-12 py-12 md:py-20 border-t border-dashed border-slate/30 bg-fog/40">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="flex items-center gap-2 font-space-mono text-[11px] uppercase tracking-[0.18em] text-greptile-green mb-6">
+            <span className="inline-block w-2 h-2 bg-greptile-green" />
+            <span>[ FLEET BUILDER · MULTI-SERVER COST ]</span>
+          </div>
+          <h2 className="font-anybody font-extrabold text-3xl md:text-4xl text-slate tracking-tight max-w-3xl mb-3">
+            Stack as many servers as you need.
+          </h2>
+          <p className="font-anybody text-slate/70 text-lg leading-relaxed max-w-2xl mb-10">
+            Pick H100s, H200s, B200s, GB200 racks, and Cerebras CS-3 systems in any combination. See the run cost on SmartTec, what you could rent it for, and your gross margin — all live.
+          </p>
+          <FleetBuilder />
         </div>
       </section>
 
