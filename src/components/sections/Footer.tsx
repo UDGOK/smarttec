@@ -34,7 +34,7 @@ const contactLinks = [
   { label: "Sales", href: "/contact" },
   { label: "Design partners", href: "/deployments" },
   { label: "Press", href: "/contact" },
-  { label: "Investors", href: "/contact" },
+  { label: "Investors", href: "/investors" },
 ];
 
 const socialLinks = [
