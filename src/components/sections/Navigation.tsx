@@ -260,8 +260,9 @@ export function Navigation() {
                 Reserve
               </Link>
               <button
-                className="p-2 text-slate"
+                className="p-3 -mr-2 text-slate hover:bg-greptile-green hover:text-black transition-colors border border-dashed border-slate/40"
                 aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
                 onClick={() => setMobileOpen((v) => !v)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -290,21 +291,106 @@ export function Navigation() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.25 }}
               className="lg:hidden bg-fog border-b border-dashed border-silver overflow-hidden"
             >
-              <div className="px-6 py-4 flex flex-col gap-1">
-                {navLinks.map((link) => (
+              <div className="px-4 py-4 flex flex-col">
+                {navLinks.map((link) => {
+                  const hasSubmenu =
+                    link.label === "Compute" || link.label === "Company";
+                  const isOpen = openMenu === link.label;
+                  const submenuItems =
+                    link.label === "Compute"
+                      ? (computeMenu as { title: string; desc?: string; tag?: string; color?: string; href: string }[])
+                      : link.label === "Company"
+                      ? (companyMenu as { title: string; desc?: string; tag?: string; color?: string; href: string }[])
+                      : null;
+
+                  return (
+                    <div key={link.label} className="border-b border-dashed border-slate/20 last:border-b-0">
+                      {hasSubmenu ? (
+                        <>
+                          <button
+                            onClick={() => setOpenMenu(isOpen ? null : (link.label as "Compute" | "Company"))}
+                            className={`w-full font-anybody font-bold text-base md:text-lg tracking-tight uppercase text-left transition-colors flex items-center justify-between gap-3 px-2 py-3 ${
+                              isOpen ? "bg-greptile-green text-black" : "text-slate hover:bg-greptile-green/15"
+                            }`}
+            aria-expanded={isOpen}
+            aria-controls={`mobile-submenu-${link.label}`}
+          >
+                            <span className="flex items-center gap-3">
+                              {link.icon}
+                              {link.label}
+                            </span>
+                            <CaretIcon open={isOpen} />
+                          </button>
+                          <AnimatePresence>
+                            {isOpen && submenuItems && (
+                              <motion.div
+                                id={`mobile-submenu-${link.label}`}
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden bg-slate/5"
+                              >
+                                <div className="py-2 pl-6 pr-2 flex flex-col gap-1">
+                                  {submenuItems.map((m) => (
+                                    <Link
+                                      key={m.title}
+                                      href={m.href}
+                                      className="font-anybody font-bold text-sm md:text-base text-slate hover:text-greptile-green transition-colors py-2 px-2 hover:bg-greptile-green/10"
+                                      onClick={() => setMobileOpen(false)}
+                                    >
+                                      <span className="flex items-center gap-2">
+                                        {m.color && (
+                                          <span className={`inline-block w-1.5 h-1.5 ${m.color}`} />
+                                        )}
+                                        {m.title}
+                                      </span>
+                                      {m.desc && (
+                                        <span className="block font-space-mono text-[10px] uppercase tracking-wider text-slate/55 mt-0.5">
+                                          {m.desc}
+                                        </span>
+                                      )}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="font-anybody font-bold text-base md:text-lg tracking-tight uppercase text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-3 px-2 py-3"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {link.icon}
+                          {link.label}
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* Mobile CTAs */}
+                <div className="mt-4 pt-3 flex flex-col gap-2">
                   <Link
-                    key={link.label}
-                    href={link.href}
-                    className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-2 px-2 py-2"
+                    href="/about"
                     onClick={() => setMobileOpen(false)}
+                    className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate text-center justify-center"
                   >
-                    {link.icon}
-                    {link.label}
+                    About
                   </Link>
-                ))}
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileOpen(false)}
+                    className="btn-hex btn-hex-sm !border-greptile-green !bg-greptile-green !text-black text-center justify-center"
+                  >
+                    Reserve compute
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}
