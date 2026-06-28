@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { TopologyDiagram } from "@/components/sections/TopologyDiagram";
 import { Navigation } from "@/components/sections/Navigation";
 import { Footer } from "@/components/sections/Footer";
 
@@ -363,80 +364,7 @@ function PowerMoat() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="lg:col-span-7"
           >
-            <div className="relative aspect-[5/4] bg-background border border-dashed border-slate/30 overflow-hidden">
-              <div className="absolute inset-0 bg-paper-plus-ruled opacity-50" />
-              {/* Topology diagram: grid (backup) → z1power BESS → switchgear → GPU halls → cooling, with AURA orchestrating */}
-              <svg viewBox="0 0 600 480" className="relative w-full h-full">
-                {/* Grid (backup) */}
-                <g>
-                  <rect x="30" y="200" width="100" height="60" fill="#3D3B4F" />
-                  <text x="80" y="234" fill="#EEEEEE" fontSize="11" fontFamily="monospace" textAnchor="middle" fontWeight="bold">UTILITY GRID</text>
-                  <text x="80" y="250" fill="#28E99F" fontSize="9" fontFamily="monospace" textAnchor="middle">(BACKUP)</text>
-                </g>
-                {/* z1power BESS */}
-                <g>
-                  <rect x="190" y="120" width="120" height="220" fill="#28E99F" />
-                  <text x="250" y="160" fill="#000" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="900">z1power</text>
-                  <text x="250" y="180" fill="#000" fontSize="10" fontFamily="sans-serif" textAnchor="middle" fontWeight="bold">BESS</text>
-                  <rect x="200" y="200" width="100" height="20" fill="#3D3B4F" />
-                  <rect x="200" y="225" width="100" height="20" fill="#3D3B4F" />
-                  <rect x="200" y="250" width="100" height="20" fill="#3D3B4F" />
-                  <text x="250" y="216" fill="#28E99F" fontSize="9" fontFamily="monospace" textAnchor="middle">LFP ×3</text>
-                  <text x="250" y="241" fill="#28E99F" fontSize="9" fontFamily="monospace" textAnchor="middle">LFP ×3</text>
-                  <text x="250" y="266" fill="#28E99F" fontSize="9" fontFamily="monospace" textAnchor="middle">LFP ×3</text>
-                  <text x="250" y="305" fill="#000" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">TRIPLE-REDUNDANT</text>
-                  <text x="250" y="320" fill="#000" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">SUB-10MS FAILOVER</text>
-                </g>
-                {/* Switchgear */}
-                <g>
-                  <rect x="350" y="220" width="60" height="40" fill="#EEEEEE" stroke="#3D3B4F" strokeWidth="1.5" />
-                  <text x="380" y="245" fill="#3D3B4F" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">SWITCH</text>
-                </g>
-                {/* Compute halls */}
-                <g>
-                  <rect x="450" y="140" width="120" height="80" fill="#3D3B4F" />
-                  <text x="510" y="170" fill="#76B900" fontSize="11" fontFamily="sans-serif" textAnchor="middle" fontWeight="900">NVIDIA</text>
-                  <text x="510" y="190" fill="#EEEEEE" fontSize="9" fontFamily="monospace" textAnchor="middle">GPU HALL</text>
-                  <text x="510" y="205" fill="#28E99F" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">[ POWERED ]</text>
-
-                  <rect x="450" y="240" width="120" height="80" fill="#3D3B4F" />
-                  <text x="510" y="270" fill="#FFBCB3" fontSize="11" fontFamily="sans-serif" textAnchor="middle" fontWeight="900">CEREBRAS</text>
-                  <text x="510" y="290" fill="#EEEEEE" fontSize="9" fontFamily="monospace" textAnchor="middle">INFERENCE</text>
-                  <text x="510" y="305" fill="#28E99F" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">[ POWERED ]</text>
-                </g>
-                {/* AURA orchestrator */}
-                <g>
-                  <rect x="220" y="380" width="200" height="60" fill="#3D3B4F" stroke="#28E99F" strokeWidth="2" />
-                  <text x="320" y="410" fill="#28E99F" fontSize="13" fontFamily="sans-serif" textAnchor="middle" fontWeight="900">AURA</text>
-                  <text x="320" y="428" fill="#EEEEEE" fontSize="9" fontFamily="monospace" textAnchor="middle">ORCHESTRATION + TOKENS/WATT</text>
-                </g>
-                {/* Arrows */}
-                <g stroke="#28E99F" strokeWidth="1.5" fill="none">
-                  <line x1="130" y1="230" x2="190" y2="230" />
-                  <polygon points="190,230 184,226 184,234" fill="#28E99F" />
-                  <line x1="310" y1="230" x2="350" y2="240" />
-                  <polygon points="350,240 344,236 344,244" fill="#28E99F" />
-                  <line x1="410" y1="240" x2="450" y2="180" />
-                  <polygon points="450,180 444,184 444,176" fill="#28E99F" />
-                  <line x1="410" y1="240" x2="450" y2="280" />
-                  <polygon points="450,280 444,276 444,284" fill="#28E99F" />
-                  <line x1="320" y1="340" x2="320" y2="380" strokeDasharray="3 3" />
-                </g>
-                {/* Cooling loop (right) */}
-                <g stroke="#71ADFF" strokeWidth="1" fill="none" strokeDasharray="2 2">
-                  <path d="M 570 180 Q 590 180 590 280 Q 590 380 510 380" />
-                </g>
-                <text x="585" y="290" fill="#71ADFF" fontSize="8" fontFamily="monospace" textAnchor="middle">LIQUID COOL</text>
-                {/* Solar tap */}
-                <g>
-                  <rect x="30" y="100" width="100" height="40" fill="#FDFCF9" stroke="#3D3B4F" strokeWidth="1" />
-                  <text x="80" y="124" fill="#3D3B4F" fontSize="10" fontFamily="sans-serif" textAnchor="middle" fontWeight="bold">ON-SITE SOLAR</text>
-                  <line x1="80" y1="140" x2="80" y2="200" stroke="#DAFF01" strokeWidth="1" strokeDasharray="2 2" />
-                  <line x1="80" y1="180" x2="190" y2="180" stroke="#DAFF01" strokeWidth="1" strokeDasharray="2 2" />
-                  <polygon points="190,180 184,176 184,184" fill="#DAFF01" />
-                </g>
-              </svg>
-            </div>
+            <TopologyDiagram />
           </motion.div>
         </div>
       </div>
