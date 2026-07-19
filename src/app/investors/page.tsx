@@ -69,7 +69,7 @@ const team = [
 ];
 
 const timeline = [
-  { date: "2023", event: "z1power founded in Tulsa, Oklahoma. First megawatt-scale LFP stack in a converted machine shop." },
+  { date: "2021", event: "z1power founded by Syed Hussain in Los Angeles, California. First megawatt-scale LFP stack in a converted machine shop." },
   { date: "2024", event: "First commercial pilots online. Regional colocation site (500 kW) operating behind the meter." },
   { date: "2025", event: "Industrial microgrid (1.2 MW) + edge compute operator (300 kW) added. AURA orchestrator v1." },
   { date: "2026 Q2", event: "SmartTec incorporated. Design-partner program opened. Three slots reserved for first-wave teams." },

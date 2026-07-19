@@ -29,7 +29,7 @@ const values = [
 ];
 
 const milestones = [
-  { date: "2023", title: "z1power founded in Tulsa, Oklahoma", body: "Built first megawatt-scale LFP stack in a converted machine shop." },
+  { date: "2021", title: "z1power founded in Los Angeles, California", body: "Founded by Syed Hussain. First megawatt-scale LFP stack built in a converted machine shop; manufacturing later established in Tulsa, Oklahoma." },
   { date: "2024", title: "First commercial deployment", body: "Single-site 500kW deployment for a regional colocation operator." },
   { date: "2025", title: "Multi-site rollouts + AURA v1", body: "5+ sites, predictive load forecasting, automated failover." },
   { date: "2026", title: "SmartTec AI cloud launch", body: "Vertical integration under one brand. NVIDIA + Cerebras compute on z1power power. Now reserving capacity for Q4 2026 power-on." },
@@ -56,7 +56,7 @@ export default function AboutPage() {
                 We build our own power.
               </h1>
               <p className="text-xl md:text-2xl text-slate/70 max-w-3xl">
-                SmartTec runs NVIDIA and Cerebras compute on z1power megawatt batteries. Founded in Tulsa, Oklahoma. Now reserving capacity ahead of Q4 2026 power-on.
+                SmartTec runs NVIDIA and Cerebras compute on z1power megawatt batteries — a partner company founded and owned by our co-founder. Headquartered in Tulsa, Oklahoma. Now reserving capacity ahead of Q4 2026 power-on.
               </p>
             </motion.div>
           </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
                   [ THE STORY ]
                 </span>
                 <h2 className="text-4xl md:text-5xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95]">
-                  From a Tulsa garage to megawatt-scale LFP.
+                  From a Los Angeles garage to megawatt-scale LFP in Oklahoma.
                 </h2>
               </div>
               <div className="lg:col-span-7 space-y-5 text-slate/80 leading-relaxed text-lg">
