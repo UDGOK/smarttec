@@ -19,6 +19,7 @@ const companyLinks = [
   { label: "Power story", href: "/power" },
   { label: "Blog", href: "/blog" },
   { label: "Careers", href: "/contact" },
+  { label: "Investor data room", href: "/invest" },
 ];
 
 const resourceLinks = [
