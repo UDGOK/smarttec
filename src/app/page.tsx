@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { TopologyDiagram } from "@/components/sections/TopologyDiagram";
+import { MeadTwin } from "@/components/sections/MeadTwin";
 import { Navigation } from "@/components/sections/Navigation";
 import { Footer } from "@/components/sections/Footer";
 
@@ -819,19 +820,10 @@ function Hero() {
           <div className="absolute bottom-10 left-1/3 w-48 h-32 bg-halftone opacity-20 rotate-2" />
         </div>
 
-        <div className="absolute bottom-0 right-0 pointer-events-none h-auto aspect-square w-[max(500px,min(55vw,100vh))] hidden md:block">
-          <div className="relative w-full h-full">
-            <div className="absolute inset-0 bg-radial-glow" />
-            <Image
-              src="/lizard-mobile.svg"
-              alt="SmartTec Sparky mascot"
-              width={900}
-              height={900}
-              className="object-contain object-right-bottom w-full h-full"
-              priority
-            />
-          </div>
+        <div className="absolute top-[48%] -translate-y-1/2 right-0 lg:right-8 pointer-events-none w-[min(46vw,620px)] hidden md:block opacity-90">
+          <MeadTwin />
         </div>
+
 
         <div className="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-14 lg:px-16 pt-32 md:pt-40 lg:pt-44 pb-16">
           <div className="relative z-10">
@@ -854,7 +846,7 @@ function Hero() {
               className="max-w-2xl"
             >
               <p className="text-xl md:text-2xl xl:text-3xl text-slate mb-8">
-                SmartTec runs NVIDIA and Cerebras compute on z1power megawatt batteries we build. When the grid faults, AURA islands your cluster in under 10 milliseconds and rides through on batteries. Up to 73% modeled grid reduction. Built in the USA.
+                SmartTec runs NVIDIA and Cerebras compute behind battery storage we engineer on z1power LFP. When the grid faults, AURA islands your cluster in under 10 milliseconds and rides through on batteries. Up to 73% modeled grid reduction. Built in the USA.
               </p>
               <div className="btn-hex-group">
                 <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black xl:btn-hex-lg">
@@ -870,6 +862,9 @@ function Hero() {
                 <span>[ NVIDIA + Cerebras ]</span>
                 <span>[ Behind the meter ]</span>
                 <span>[ US-built ]</span>
+              </div>
+              <div className="md:hidden mt-10 -mx-2">
+                <MeadTwin />
               </div>
             </motion.div>
           </div>
