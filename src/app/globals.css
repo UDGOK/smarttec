@@ -359,6 +359,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* Marquee animation */
@@ -411,3 +412,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-spark-in { animation: none; }
 }
+
+/* Mobile guard: horizontal overflow must never widen the page */
+html, body { overflow-x: clip; }

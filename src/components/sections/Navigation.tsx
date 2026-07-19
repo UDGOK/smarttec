@@ -102,6 +102,15 @@ export function Navigation() {
   const [openMenu, setOpenMenu] = useState<"Compute" | "Company" | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Lock page scroll while the mobile menu is open so the menu itself scrolls.
+  useEffect(() => {
+    if (mobileOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [mobileOpen]);
+
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 1024) setMobileOpen(false);
@@ -288,11 +297,11 @@ export function Navigation() {
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="lg:hidden bg-fog border-b border-dashed border-silver overflow-hidden"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="lg:hidden bg-fog border-b border-dashed border-silver overflow-y-auto overscroll-contain max-h-[calc(100vh-4rem)] max-h-[calc(100dvh-4rem)]"
             >
               <div className="px-4 py-4 flex flex-col">
                 {navLinks.map((link) => {
