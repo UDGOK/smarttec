@@ -336,7 +336,7 @@ function PowerMoat() {
               We don&apos;t buy power off a strained grid. We build it.
             </h2>
             <p className="text-lg text-slate/70 leading-relaxed mb-6">
-              z1power megawatt battery stacks — lithium-iron-phosphate, triple-redundant banks, sub-10ms failover, US-built. Behind the meter means you&apos;re never in the queue and never at the mercy of a grid event.
+              z1power LFP battery systems, engineered by SmartTec into triple-redundant behind-the-meter storage with sub-10ms failover. Behind the meter means you&apos;re never in the queue and never at the mercy of a grid event.
             </p>
             <ul className="space-y-3 mb-8">
               {[
