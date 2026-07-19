@@ -145,7 +145,7 @@ export function Navigation() {
           <div className="hidden lg:flex items-center h-16 px-4 xl:px-8">
             <Link href="/" className="flex items-center group">
               <span className="group inline-flex">
-                <Image src="/logo.svg" alt="SmartTec" width={180} height={50} className="h-9 w-auto group-hover:hidden" priority />
+                <Image src="/logo.svg" alt="SmartTec" width={180} height={50} className="h-9 w-auto group-hover:hidden animate-spark-in" priority />
                 <Image src="/logo-green.svg" alt="SmartTec" width={180} height={50} className="h-9 w-auto hidden group-hover:block" priority />
               </span>
             </Link>

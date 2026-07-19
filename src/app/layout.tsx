@@ -75,6 +75,48 @@ export default function RootLayout({
       className={`${dmSans.variable} ${spaceMono.variable} ${anybody.variable} ${nanumPenScript.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-background bg-noise font-sans text-slate antialiased overflow-x-hidden">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://smarttec.dev/#org",
+                  name: "SmartTec",
+                  url: "https://smarttec.dev",
+                  logo: "https://smarttec.dev/logo.svg",
+                  description:
+                    "Battery-backed AI compute. NVIDIA and Cerebras systems behind z1power LFP battery storage with sub-10ms failover, at an owned site in Mead, Oklahoma.",
+                  foundingDate: "2025",
+                  address: { "@type": "PostalAddress", addressRegion: "OK", addressCountry: "US" },
+                  founders: [
+                    { "@type": "Person", name: "Syed Hussain" },
+                    { "@type": "Person", name: "Yasir Jahangir" },
+                  ],
+                  sameAs: ["https://z1power.com"],
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://smarttec.dev/#site",
+                  url: "https://smarttec.dev",
+                  name: "SmartTec",
+                  publisher: { "@id": "https://smarttec.dev/#org" },
+                },
+                {
+                  "@type": "Service",
+                  name: "GPU cloud and AI compute hosting",
+                  provider: { "@id": "https://smarttec.dev/#org" },
+                  areaServed: "US",
+                  description:
+                    "Reserved and on-demand NVIDIA GPU compute and Cerebras inference, colocation, and behind-the-meter battery-backed power for AI workloads.",
+                },
+              ],
+            }),
+          }}
+        />
+
         {children}
       </body>
     </html>

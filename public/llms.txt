@@ -1,0 +1,35 @@
+# SmartTec
+
+> Battery-backed AI compute. SmartTec runs NVIDIA and Cerebras systems behind
+> z1power LFP battery storage at an owned site in Mead, Oklahoma, US.
+> Sub-10ms grid-to-battery failover by design. Phase 1 (30x NVIDIA B200,
+> ~110 kW IT load) targets power-on Q4 2026.
+
+## What SmartTec offers
+- Reserved and on-demand NVIDIA GPU compute (H100/H200/B200 class)
+- Cerebras CS-3 wafer-scale inference capacity
+- Colocation with behind-the-meter battery-backed power
+- AURA: in-house power/workload orchestration software
+
+## Key facts
+- Site: Mead, Oklahoma (US-70) — 30 acres, three 3,000 sqft buildings,
+  3 MVA on-site transformer, owned outright (no interconnection queue)
+- Connectivity: 100 Gbps symmetrical dedicated fiber (Dobson, signed quote)
+- Power design: z1power LiFePO4 battery systems engineered by SmartTec with
+  commercial-grade inverters/UPS; Oklahoma grid power ~$0.08/kWh
+- Partner: z1power (z1power.com) — founder-owned LFP battery company,
+  founded 2021 in Los Angeles by Syed Hussain, shipping US-wide since 2021
+- Founders: Syed Hussain (CEO), Yasir Jahangir (COO)
+- Status: pre-launch; design-partner slots open; power-on target Q4 2026
+
+## Pages
+- https://smarttec.dev/ : overview
+- https://smarttec.dev/compute : GPU + Cerebras fleet
+- https://smarttec.dev/power : battery-backed power design
+- https://smarttec.dev/pricing : rates and reserved plans
+- https://smarttec.dev/customers : who it serves + design-partner program
+- https://smarttec.dev/blog : engineering articles on AI datacenter power
+- https://smarttec.dev/contact : contact form (routes to team)
+
+## Contact
+- hello@smarttec.dev
