@@ -301,9 +301,9 @@ export function Navigation() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="lg:hidden bg-fog border-b border-dashed border-silver overflow-y-auto overscroll-contain max-h-[calc(100vh-4rem)] max-h-[calc(100dvh-4rem)]"
+              className="lg:hidden bg-fog border-b border-dashed border-silver overflow-y-auto overscroll-contain max-h-[calc(100vh-108px)] max-h-[calc(100dvh-108px)]"
             >
-              <div className="px-4 py-4 flex flex-col">
+              <div className="px-4 pt-4 flex flex-col" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 2rem)" }}>
                 {navLinks.map((link) => {
                   const hasSubmenu =
                     link.label === "Compute" || link.label === "Company";
