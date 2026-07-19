@@ -80,7 +80,7 @@ const timeline = [
 const risks = [
   { title: "Power-on timing", body: "Q4 2026 is a target, not a guarantee. Hardware delivery, commissioning, and grid interconnection dependencies could shift the date by one or two quarters." },
   { title: "Pre-revenue", body: "SmartTec has no product revenue as of June 2026. Revenue depends on Phase 1 power-on plus design-partner commercial conversion." },
-  { title: "Single-site concentration", body: "Phase 1 is a single Tulsa, OK site. Site-specific events (weather, regional grid events, permitting) could affect operations." },
+  { title: "Single-site concentration", body: "Phase 1 is a single Mead, OK site. Site-specific events (weather, regional grid events, permitting) could affect operations." },
   { title: "Hardware supply chain", body: "NVIDIA and Cerebras allocate silicon. Allocation shifts could delay Phase 1 fleet size." },
   { title: "Regulatory", body: "Behind-the-meter battery operation is regulated at the state PUC level and subject to evolving FERC rules. Changes to net-metering or BESS tariffs could affect unit economics." },
   { title: "Competition", body: "Hyperscalers (AWS, Azure, GCP) and emerging colos are also working on battery-backed AI sites. We compete on speed-to-power and behind-the-meter economics, not on a unique moat." },

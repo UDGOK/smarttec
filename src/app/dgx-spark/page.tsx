@@ -18,7 +18,7 @@ const comparison = [
   {
     dimension: "Form factor",
     dgx: "Sits on your desk",
-    smarttec: "Sits in our Tulsa, OK AI factory",
+    smarttec: "Sits in our Mead, OK AI factory",
   },
   {
     dimension: "Power",

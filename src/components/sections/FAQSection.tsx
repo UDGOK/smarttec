@@ -32,7 +32,7 @@ const faqItems = [
   {
     question: "Where is SmartTec located?",
     answer:
-      "Phase 1 in Oklahoma, near Tulsa. We chose OK for low electricity prices, low disaster risk, fast interconnection timelines, and a friendly policy environment for energy infrastructure.",
+      "Phase 1 in Mead, Oklahoma — on land, buildings, and a 3 MVA transformer we already own. We chose OK for low electricity prices, low disaster risk, and a friendly policy environment; batteries are manufactured at our Tulsa facility.",
   },
   {
     question: "What about Cerebras?",
