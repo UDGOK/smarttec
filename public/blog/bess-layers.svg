@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640">
+<rect width="1200" height="640" fill="#E9E9E9"/>
+<rect x="0" y="0" width="10" height="640" fill="#28E99F"/>
+<text x="36" y="46" font-family="Courier New,monospace" font-size="15" letter-spacing="2" fill="#0aa96e">[ THE RESEARCH CONSENSUS · arXiv 2603.00415 ]</text>
+<text x="36" y="86" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#3D3B4F">Energy storage at every layer of an AI data center</text><rect x="60" y="130" width="980" height="92" fill="#EEEEEE" stroke="#3D3B4F" stroke-width="2.5" stroke-dasharray=""/>
+<rect x="60" y="130" width="8" height="92" fill="#28E99F"/>
+<text x="92" y="168" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="bold" fill="#3D3B4F">GRID-SCALE BESS</text>
+<text x="92" y="196" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#6d6c7e">Minutes–hours · peak shaving, arbitrage, islanding</text>
+<text x="1024" y="182" font-family="Courier New,monospace" font-size="13" fill="#0aa96e" text-anchor="end">SITE</text><rect x="60" y="242" width="840" height="92" fill="#FFFFFF" stroke="#3D3B4F" stroke-width="2.5" stroke-dasharray="7,5"/>
+<rect x="60" y="242" width="8" height="92" fill="#28E99F"/>
+<text x="92" y="280" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="bold" fill="#3D3B4F">GRID-INTERACTIVE UPS</text>
+<text x="92" y="308" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#6d6c7e">Milliseconds–seconds · ride-through, frequency support</text>
+<text x="884" y="294" font-family="Courier New,monospace" font-size="13" fill="#0aa96e" text-anchor="end">FACILITY</text><rect x="60" y="354" width="700" height="92" fill="#EEEEEE" stroke="#3D3B4F" stroke-width="2.5" stroke-dasharray="7,5"/>
+<rect x="60" y="354" width="8" height="92" fill="#28E99F"/>
+<text x="92" y="392" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="bold" fill="#3D3B4F">RACK-LEVEL STORAGE</text>
+<text x="92" y="420" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#6d6c7e">Sub-second · smooths GPU cluster power swings</text>
+<text x="744" y="406" font-family="Courier New,monospace" font-size="13" fill="#0aa96e" text-anchor="end">RACK</text><rect x="60" y="466" width="560" height="92" fill="#FFFFFF" stroke="#3D3B4F" stroke-width="2.5" stroke-dasharray="7,5"/>
+<rect x="60" y="466" width="8" height="92" fill="#28E99F"/>
+<text x="92" y="504" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="bold" fill="#3D3B4F">CHIP/SERVER BUFFERING</text>
+<text x="92" y="532" font-family="Arial,Helvetica,sans-serif" font-size="15" fill="#6d6c7e">Microseconds · absorbs per-accelerator spikes</text>
+<text x="604" y="518" font-family="Courier New,monospace" font-size="13" fill="#0aa96e" text-anchor="end">BOARD</text><text x="60" y="600" font-family="Courier New,monospace" font-size="13" fill="#8b8a99">AI loads swing power in sub-seconds — no single storage layer can cover every timescale. Hierarchical coordination is the finding.</text></svg>

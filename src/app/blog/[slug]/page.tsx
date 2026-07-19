@@ -87,6 +87,47 @@ function PostBody({ post }: { post: NonNullable<ReturnType<typeof getPostBySlug>
                 ))}
               </div>
             );
+          case "img":
+            return (
+              <figure key={i} className="my-8 border-2 border-slate bg-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={block.src} alt={block.alt} className="w-full h-auto" loading="lazy" />
+                {block.caption && (
+                  <figcaption className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60 px-4 py-3 border-t border-dashed border-slate/30">
+                    {block.caption}
+                  </figcaption>
+                )}
+              </figure>
+            );
+          case "faq":
+            return (
+              <div key={i} className="my-8">
+                <div className="font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">[ FAQ ]</div>
+                <div className="space-y-4">
+                  {block.items.map((f, j) => (
+                    <div key={j} className="border border-dashed border-slate/40 bg-fog/40 p-5">
+                      <div className="font-anybody font-bold text-lg text-slate mb-2">{f.q}</div>
+                      <p className="text-slate/80 leading-relaxed">{f.a}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          case "sources":
+            return (
+              <div key={i} className="my-8 border-t-2 border-slate pt-5">
+                <div className="font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-3">[ SOURCES ]</div>
+                <ul className="space-y-2">
+                  {block.items.map((src, j) => (
+                    <li key={j} className="text-sm text-slate/70">
+                      <a href={src.url} target="_blank" rel="noopener noreferrer" className="underline decoration-greptile-green underline-offset-4 hover:text-slate">
+                        {src.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
           default:
             return null;
         }
@@ -156,7 +197,42 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
 
         {/* Body */}
         <div className="mx-auto w-full max-w-3xl px-6 md:px-12 py-16 md:py-20">
-          <PostBody post={post} />
+          <>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Article",
+                  headline: post.title,
+                  description: post.excerpt,
+                  datePublished: post.date,
+                  author: { "@type": post.author.includes("Engineering") ? "Organization" : "Person", name: post.author },
+                  publisher: { "@type": "Organization", name: "SmartTec", url: "https://smarttec.dev" },
+                }),
+              }}
+            />
+            {post.body.some((b) => b.type === "faq") && (
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    mainEntity: post.body
+                      .filter((b): b is Extract<typeof b, { type: "faq" }> => b.type === "faq")
+                      .flatMap((b) => b.items)
+                      .map((f) => ({
+                        "@type": "Question",
+                        name: f.q,
+                        acceptedAnswer: { "@type": "Answer", text: f.a },
+                      })),
+                  }),
+                }}
+              />
+            )}
+            <PostBody post={post} />
+          </>
         </div>
 
         <hr className="border-border w-full opacity-30 max-w-3xl mx-auto" />

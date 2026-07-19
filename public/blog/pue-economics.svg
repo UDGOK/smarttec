@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640">
+<rect width="1200" height="640" fill="#E9E9E9"/>
+<rect x="0" y="0" width="10" height="640" fill="#28E99F"/>
+<text x="36" y="46" font-family="Courier New,monospace" font-size="15" letter-spacing="2" fill="#0aa96e">[ INDUSTRY-REPORTED RANGES · 2026 ]</text>
+<text x="36" y="86" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#3D3B4F">PUE is money: overhead watts per 1 MW of IT load</text><text x="60" y="166" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#3D3B4F">AIR COOLING · <tspan font-family="Courier New,monospace" font-size="15" fill="#0aa96e">PUE 1.45–1.60</tspan></text>
+<rect x="60" y="178" width="760" height="46" fill="#3D3B4F"/>
+<text x="830" y="207" font-family="Courier New,monospace" font-size="15" fill="#3D3B4F">450–600 kW overhead</text><text x="60" y="286" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#3D3B4F">DIRECT-TO-CHIP · <tspan font-family="Courier New,monospace" font-size="15" fill="#0aa96e">PUE 1.15–1.25</tspan></text>
+<rect x="60" y="298" width="319" height="46" fill="#3D3B4F"/>
+<text x="389" y="327" font-family="Courier New,monospace" font-size="15" fill="#3D3B4F">150–250 kW overhead</text><text x="60" y="406" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#3D3B4F">IMMERSION · <tspan font-family="Courier New,monospace" font-size="15" fill="#0aa96e">PUE 1.03–1.08</tspan></text>
+<rect x="60" y="418" width="98" height="46" fill="#28E99F"/>
+<text x="168" y="447" font-family="Courier New,monospace" font-size="15" fill="#3D3B4F">30–80 kW overhead</text><text x="60" y="536" font-family="Courier New,monospace" font-size="13" fill="#8b8a99">Every watt of overhead is billed at your power rate 8,760 hours a year. At $0.08/kWh, the air-vs-immersion gap on 1 MW of IT is ~$260–360K/yr.</text></svg>
