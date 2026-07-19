@@ -18,7 +18,13 @@ export default function robots(): MetadataRoute.Robots {
     "Amazonbot",         // Alexa
     "cohere-ai",
     "Bytespider",        // ByteDance
-    "meta-externalagent" // Meta AI
+    "meta-externalagent", // Meta AI
+    "Baiduspider",       // Baidu
+    "Slurp",             // Yahoo
+    "YandexBot",         // Yandex
+    "Yeti",              // Naver
+    "SeznamBot",         // Seznam
+    "DuckDuckBot"        // DuckDuckGo
   ];
   return {
     rules: [

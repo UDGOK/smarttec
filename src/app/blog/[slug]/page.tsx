@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${post.title} · SmartTec Blog`,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${post.slug}` },
   };
 }
 

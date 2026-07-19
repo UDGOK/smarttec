@@ -28,6 +28,7 @@ const nanumPenScript = Nanum_Pen_Script({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smarttec.dev"),
+  alternates: { canonical: "/" },
   title: "SmartTec | Resilient AI Cloud — Stay Online When the Grid Goes Down",
   description:
     "Battery-backed AI compute on z1power LFP storage. AURA islands your cluster in <10ms when the grid faults. NVIDIA + Cerebras at our owned Mead, OK site.",
@@ -95,7 +96,14 @@ export default function RootLayout({
                     { "@type": "Person", name: "Syed Hussain" },
                     { "@type": "Person", name: "Yasir Jahangir" },
                   ],
-                  sameAs: ["https://z1power.com"],
+                  sameAs: [
+                    "https://z1power.com",
+                    "https://twitter.com/smarttec_io",
+                    "https://www.linkedin.com/company/smarttec-io",
+                    "https://github.com/UDGOK/smarttec",
+                    "https://youtube.com/@smarttec",
+                  ],
+                  contactPoint: { "@type": "ContactPoint", email: "hello@smarttec.dev", contactType: "sales" },
                 },
                 {
                   "@type": "WebSite",
