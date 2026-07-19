@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640">
+<rect width="1200" height="640" fill="#E9E9E9"/><rect width="10" height="640" fill="#28E99F"/>
+<text x="36" y="46" font-family="Courier New,monospace" font-size="15" letter-spacing="2" fill="#0aa96e">[ THE 2026 AI COMPUTE MARKET · LOG SCALE ]</text>
+<text x="36" y="86" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="900" fill="#3D3B4F">Four models, four orders of magnitude</text><text x="60" y="144" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#3D3B4F">HYPERSCALERS · AWS / AZURE / GCP</text>
+<rect x="60" y="156" width="880" height="44" fill="#3D3B4F"/>
+<text x="60" y="224" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#6d6c7e">Gigawatts · global regions · everything, with quotas</text><text x="60" y="262" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#3D3B4F">NEOCLOUD GIANTS · COREWEAVE / NEBIUS CLASS</text>
+<rect x="60" y="274" width="721" height="44" fill="#3D3B4F"/>
+<text x="60" y="342" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#6d6c7e">~3.5 GW contracted each · most not yet online · $20B market 2026</text><text x="60" y="380" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#3D3B4F">GPU MARKETPLACES · ~190 OPERATORS</text>
+<rect x="60" y="392" width="457" height="44" fill="#3D3B4F"/>
+<text x="60" y="460" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#6d6c7e">Aggregated spot capacity · cheap · preemption is the model</text><text x="60" y="498" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#3D3B4F">OWNED-SITE OPERATORS · SMARTTEC</text>
+<rect x="60" y="510" width="228" height="44" fill="#28E99F"/>
+<text x="60" y="578" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#6d6c7e">110 kW owned outright · zero queue · 100% pre-committed</text><text x="60" y="626" font-family="Courier New,monospace" font-size="13" fill="#8b8a99">Sources: Synergy Research, io-fund, ABI Research (2026). Scale is not the only axis — ownership, certainty, and queue exposure are the others.</text></svg>

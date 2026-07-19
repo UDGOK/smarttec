@@ -29,6 +29,42 @@ function slugify(title: string): string {
 
 export const posts: Post[] = [
   {
+    slug: "where-a-110-kw-operator-fits-in-a-3-5-gw-world",
+    title: "Where a 110 kW operator fits in a 3.5 GW world",
+    excerpt: "CoreWeave and Nebius have contracted ~3.5 gigawatts each. The Gulf is deploying sovereign AI by the hundreds of megawatts. So what is a 30-GPU site in Oklahoma doing in this market? Winning different rows of the table.",
+    category: "Business",
+    author: "Yasir Jahangir",
+    authorTitle: "Co-founder & COO",
+    date: "Jul 20, 2026",
+    readTime: "8 min read",
+    body: [
+      { type: "p", text: "The AI compute market of 2026 sorts into four models. Hyperscalers run gigawatt-class global clouds. Neocloud giants — CoreWeave, Nebius, Lambda, Crusoe — have turned specialized GPU hosting into a market Synergy Research pegs around $20B this year, heading toward hundreds of billions by 2031; CoreWeave and Nebius have each secured roughly 3.5 GW of contracted power. GPU marketplaces aggregate spot capacity from roughly 190 operators. And then there is the fourth model, the one we picked: a small operator that owns its ground, its transformer, and its power design outright." },
+      { type: "img", src: "/blog/market-tiers.svg", alt: "Log-scale chart of hyperscalers, neocloud giants, GPU marketplaces, and owned-site operators in the 2026 AI compute market", caption: "Four models across four orders of magnitude — scale is one axis; ownership and certainty are the others" },
+      { type: "h2", text: "The giants\u2019 own numbers reveal the gap" },
+      { type: "p", text: "Here is the detail buried in the neocloud story: contracted power is not active power. Analyses of CoreWeave and Nebius note that the vast majority of their multi-gigawatt portfolios has yet to come online — CoreWeave targets 1.7 GW active by the end of 2026 against 3.5 GW contracted. The same interconnection physics that created the neocloud opportunity now gates their growth. Meanwhile the Middle East is deploying at sovereign scale — Saudi Arabia\u2019s HUMAIN ordered an 18,000-GPU GB300 system, and Khazna holds over 70% of the UAE market — but much of that compute is sovereign-use, not commercially rentable, and Gulf capital is notably flowing into US sites." },
+      { type: "stat", items: [ { value: "~3.5 GW", label: "Contracted power each — CoreWeave, Nebius (most not yet online)" }, { value: "~190", label: "Distinct neocloud operators worldwide" }, { value: "110 kW", label: "SmartTec Phase 1 — owned, queue-free, pre-committed" } ] },
+      { type: "h2", text: "What the small end of the market is actually for" },
+      { type: "p", text: "A 30-GPU operator cannot win the rows the giants win, and pretending otherwise would insult your intelligence. What a small owned-site operator can do is win the rows that scale actively works against. Capacity certainty: our entire Phase 1 is pre-committed to named anchor tenants by contract before power-on — a promise no shared cloud can make, because their business model is oversubscription. Power ownership: no lease, no landlord, no queue; Phase 1 draws under 4% of a transformer we own. Cost structure: Oklahoma power at roughly $0.08/kWh behind our own meter, with z1power LFP batteries riding through grid faults in under 10 milliseconds by design. And the support model collapses to its simplest form: the engineer who racked your GPUs answers your message." },
+      { type: "callout", title: "The honest positioning", body: "If you need 2,000 GPUs next quarter, call CoreWeave — genuinely. If you run 1 to 30 GPUs of steady workload and want a fixed invoice, no preemption, and a person who answers, that is the exact customer our site was designed around. Markets this large have room for both truths." },
+      { type: "h2", text: "Why we published the comparison table" },
+      { type: "p", text: "We built a full comparison page — hyperscalers vs neoclouds vs marketplaces vs us — and marked the rows we lose, in public: scale, global regions, certification depth today, and track record. Concessions are what make the wins believable. In a category where every provider claims to be best at everything, the only durable marketing position left is the truth." },
+      { type: "faq", items: [
+        { q: "How big is the neocloud market in 2026?", a: "Synergy Research estimates the neocloud segment — specialized GPU clouds like CoreWeave, Nebius, Lambda, and Crusoe — at roughly $20 billion in revenue for 2026, on a path toward hundreds of billions by 2030-2031. Roughly 190 distinct operators compete in the segment, with CoreWeave and Nebius each holding about 3.5 GW of contracted power." },
+        { q: "What is the difference between contracted power and active power for a GPU cloud?", a: "Contracted power is capacity a provider has secured rights to; active power is capacity actually energized and serving customers. The distinction matters because most of the leading neoclouds\u2019 contracted gigawatts are not yet online — CoreWeave targets 1.7 GW active by end of 2026 against 3.5 GW contracted — so headline power numbers overstate deliverable compute today." },
+        { q: "Can small GPU operators compete with CoreWeave and AWS?", a: "Not on scale — and honest ones say so. Small owned-site operators compete on capacity certainty (pre-committed contracts instead of oversubscription), power ownership (no interconnection queue, no lease), fixed transparent pricing, and direct engineering support. SmartTec\u2019s 110 kW Phase 1 in Mead, Oklahoma is built entirely around those dimensions." },
+        { q: "Is the Middle East a competitor to US GPU clouds?", a: "Mostly a complement in 2026: much Gulf compute is sovereign-use rather than commercially rentable — Saudi Arabia\u2019s HUMAIN GB300 supercomputer serves PIF-backed deployments — while Gulf capital flows into US infrastructure, with G42\u2019s Core42 already operating sites in Texas and New York." }
+      ] },
+      { type: "sources", items: [
+        { label: "Neocloud market forecast — Synergy Research Group (2026)", url: "https://www.srgresearch.com/articles/neocloud-market-forecast-to-approach-400b-by-2031-driven-by-surging-ai-infrastructure-demand" },
+        { label: "CoreWeave/Nebius contracted vs active power — io-fund (Jun 2026)", url: "https://io-fund.com/ai-stocks/nvidia-coreweave-nebius-circular-financing-gpu-boom" },
+        { label: "Profiling leading neocloud companies — ABI Research (2026)", url: "https://www.abiresearch.com/blog/leading-neocloud-companies" },
+        { label: "AI arrives in the Middle East — SemiAnalysis", url: "https://newsletter.semianalysis.com/p/ai-arrives-in-the-middle-east-us-strikes-a-deal-with-uae-and-ksa" },
+        { label: "GPU cloud providers in the Middle East 2026 — Spheron", url: "https://www.spheron.network/blog/gpu-cloud-middle-east-2026/" }
+      ] }
+    ],
+  },
+
+  {
     slug: "the-research-is-in-ai-data-centers-need-batteries-at-every-layer",
     title: "The research is in: AI data centers need batteries at every layer",
     excerpt: "A 2026 wave of peer-reviewed work — from a Nature Energy paper to arXiv reviews — converges on one finding: AI power profiles break traditional data center design, and layered energy storage is the fix.",

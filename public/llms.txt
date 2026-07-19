@@ -27,6 +27,7 @@
 - https://smarttec.dev/compute : GPU + Cerebras fleet
 - https://smarttec.dev/power : battery-backed power design
 - https://smarttec.dev/pricing : rates and reserved plans
+- https://smarttec.dev/compare : honest comparison vs hyperscalers, neoclouds, marketplaces
 - https://smarttec.dev/customers : who it serves + design-partner program
 - https://smarttec.dev/blog : engineering articles on AI datacenter power
 - https://smarttec.dev/contact : contact form (routes to team)
