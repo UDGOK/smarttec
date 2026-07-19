@@ -32,12 +32,34 @@ function relTime(iso: string): string {
   return formatDate(iso);
 }
 
+function dayLabel(iso: string): string {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "Earlier";
+  const today = new Date(); today.setHours(0,0,0,0);
+  const day = new Date(d); day.setHours(0,0,0,0);
+  const diff = Math.round((today.getTime() - day.getTime()) / 86_400_000);
+  if (diff <= 0) return "Today";
+  if (diff === 1) return "Yesterday";
+  return d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+}
+
 export function NewsList({ items, activeCategory }: { items: NewsItem[]; activeCategory: NewsItem["category"] | null }) {
   return (
     <div className="space-y-3">
-      {items.map((item, i) => (
+      {items.map((item, i) => {
+        const label = dayLabel(item.publishedAt);
+        const prevLabel = i > 0 ? dayLabel(items[i - 1].publishedAt) : null;
+        const showHeader = label !== prevLabel;
+        return (
+        <div key={item.id}>
+        {showHeader && (
+          <div className="flex items-center gap-3 pt-8 pb-3 first:pt-0">
+            <span className="w-2 h-2 bg-greptile-green" />
+            <span className="font-space-mono text-xs uppercase tracking-widest text-slate/60">[ {label} ]</span>
+            <span className="flex-1 border-t border-dashed border-slate/20" />
+          </div>
+        )}
         <motion.a
-          key={item.id}
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
@@ -81,7 +103,9 @@ export function NewsList({ items, activeCategory }: { items: NewsItem[]; activeC
             </div>
           </div>
         </motion.a>
-      ))}
+        </div>
+        );
+      })}
     </div>
   );
 }

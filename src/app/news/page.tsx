@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
-import { getAllNews, NewsItem } from "@/lib/news";
+import { getAllNews, NewsItem, COMPANY_NEWS } from "@/lib/news";
 import { NewsList, CategoryFilter } from "./NewsList";
 
 // Revalidate hourly — fresh items every hour
@@ -67,6 +67,26 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
 
         <hr className="border-border w-full opacity-30" />
 
+        {/* Pinned company milestones */}
+        <section className="bg-background">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 pt-12">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-2 h-2 bg-greptile-green" />
+              <span className="font-space-mono text-xs uppercase tracking-widest text-slate/60">[ SMARTTEC UPDATES ]</span>
+              <span className="flex-1 border-t border-dashed border-slate/20" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {COMPANY_NEWS.slice(0, 6).map((n) => (
+                <Link key={n.title} href={n.href ?? "/news"} className="group border-2 border-slate bg-white p-5 hover:border-greptile-green transition-colors block">
+                  <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50">{n.date}</div>
+                  <div className="font-anybody font-extrabold text-lg text-slate mt-2 leading-snug">{n.title}</div>
+                  <p className="text-sm text-slate/70 mt-2 leading-relaxed">{n.body}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Feed */}
         <section className="bg-background">
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
@@ -106,6 +126,42 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
           </div>
         </section>
       </div>
+        {/* FAQ */}
+        <section className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-14">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="w-2 h-2 bg-greptile-green" />
+            <span className="font-space-mono text-xs uppercase tracking-widest text-slate/60">[ FAQ ]</span>
+            <span className="flex-1 border-t border-dashed border-slate/20" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="border border-dashed border-slate/40 bg-fog/40 p-5">
+              <div className="font-anybody font-bold text-lg text-slate mb-2">What is the SmartTec news page?</div>
+              <p className="text-sm text-slate/75 leading-relaxed">A live, hourly-refreshed feed of AI infrastructure news — data centers, GPU compute, power, batteries, and the grid — aggregated from ten primary industry sources, alongside pinned SmartTec company milestones. Every external headline links directly to the original publisher.</p>
+            </div>
+            <div className="border border-dashed border-slate/40 bg-fog/40 p-5">
+              <div className="font-anybody font-bold text-lg text-slate mb-2">How often is the news feed updated?</div>
+              <p className="text-sm text-slate/75 leading-relaxed">The feed re-fetches its sources every hour and shows items from the last 30 days, grouped by day. The last-refresh time is displayed at the top of the page.</p>
+            </div>
+            <div className="border border-dashed border-slate/40 bg-fog/40 p-5">
+              <div className="font-anybody font-bold text-lg text-slate mb-2">Which sources does the feed aggregate?</div>
+              <p className="text-sm text-slate/75 leading-relaxed">Primary industry publications including The Next Platform, Data Center Dynamics, Data Center Knowledge, ServeTheHome, HPCwire, IEEE Spectrum, Utility Dive, Canary Media, Energy-Storage.news, and TechCrunch AI. SmartTec does not edit or endorse third-party items; headlines link to the publishers.</p>
+            </div>
+            <div className="border border-dashed border-slate/40 bg-fog/40 p-5">
+              <div className="font-anybody font-bold text-lg text-slate mb-2">Is SmartTec affiliated with the publications in the feed?</div>
+              <p className="text-sm text-slate/75 leading-relaxed">No. The feed is an unedited aggregation for readers tracking AI infrastructure. SmartTec company announcements appear separately in the pinned SmartTec Updates section, clearly labeled.</p>
+            </div>
+          </div>
+        </section>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [{"@type": "Question", "name": "What is the SmartTec news page?", "acceptedAnswer": {"@type": "Answer", "text": "A live, hourly-refreshed feed of AI infrastructure news — data centers, GPU compute, power, batteries, and the grid — aggregated from ten primary industry sources, alongside pinned SmartTec company milestones. Every external headline links directly to the original publisher."}}, {"@type": "Question", "name": "How often is the news feed updated?", "acceptedAnswer": {"@type": "Answer", "text": "The feed re-fetches its sources every hour and shows items from the last 30 days, grouped by day. The last-refresh time is displayed at the top of the page."}}, {"@type": "Question", "name": "Which sources does the feed aggregate?", "acceptedAnswer": {"@type": "Answer", "text": "Primary industry publications including The Next Platform, Data Center Dynamics, Data Center Knowledge, ServeTheHome, HPCwire, IEEE Spectrum, Utility Dive, Canary Media, Energy-Storage.news, and TechCrunch AI. SmartTec does not edit or endorse third-party items; headlines link to the publishers."}}, {"@type": "Question", "name": "Is SmartTec affiliated with the publications in the feed?", "acceptedAnswer": {"@type": "Answer", "text": "No. The feed is an unedited aggregation for readers tracking AI infrastructure. SmartTec company announcements appear separately in the pinned SmartTec Updates section, clearly labeled."}}],
+            }),
+          }}
+        />
     </PageShell>
   );
 }

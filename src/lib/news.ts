@@ -20,12 +20,58 @@ export type FeedSource = {
   category: NewsItem["category"];
 };
 
+
+export interface CompanyNewsItem {
+  date: string;
+  title: string;
+  body: string;
+  href?: string;
+}
+
+// Curated SmartTec milestones — pinned above the live feed.
+export const COMPANY_NEWS: CompanyNewsItem[] = [
+  {
+    date: "Jul 19, 2026",
+    title: "Research series: five papers-to-practice articles published",
+    body: "Five new engineering articles grounded in 2025–26 peer-reviewed research — battery-layered AI data centers, the thermal wall, PUE economics, and lessons from subsea and Asian deployments — each with infographics, FAQs, and cited sources.",
+    href: "/blog",
+  },
+  {
+    date: "Jul 19, 2026",
+    title: "Investor data room goes live",
+    body: "A password-protected data room is now available for invited investors, covering the Mead, Oklahoma Phase 1 build: memorandum, FAQ, and a live financial model.",
+    href: "/invest",
+  },
+  {
+    date: "Jul 19, 2026",
+    title: "100 Gbps symmetrical fiber quote secured for the Mead site",
+    body: "Carrier quote in hand for dedicated 100 Gbps symmetrical internet access at the Phase 1 site — symmetrical matters, because tenants pull checkpoints out as fast as they push data in.",
+  },
+  {
+    date: "Jul 18, 2026",
+    title: "Mead, Oklahoma confirmed as Phase 1 site",
+    body: "Phase 1 (30× NVIDIA B200, ~110 kW IT load) deploys on 30 owned acres with three buildings and a 3 MVA on-site transformer. Batteries remain manufactured by partner z1power; power-on target Q4 2026.",
+    href: "/deployments",
+  },
+  {
+    date: "Jun 22, 2026",
+    title: "Design-partner program open — three slots",
+    body: "Three design-partner slots for launch tenants: locked launch pricing, direct engineering access, and co-published case studies at power-on.",
+    href: "/customers",
+  },
+];
+
 export const FEED_SOURCES: FeedSource[] = [
   { name: "The Next Platform", short: "Next Platform", url: "https://www.nextplatform.com/feed/", category: "Data Center" },
   { name: "Canary Media", short: "Canary", url: "https://www.canarymedia.com/rss.rss", category: "Power" },
   { name: "IEEE Spectrum", short: "IEEE", url: "https://spectrum.ieee.org/feeds/feed.rss", category: "Grid" },
   { name: "Utility Dive", short: "Utility Dive", url: "https://www.utilitydive.com/feeds/news/", category: "Grid" },
   { name: "TechCrunch", short: "TechCrunch", url: "https://techcrunch.com/category/artificial-intelligence/feed/", category: "AI Compute" },
+  { name: "Data Center Dynamics", short: "DCD", url: "https://www.datacenterdynamics.com/rss/", category: "Data Center" },
+  { name: "Data Center Knowledge", short: "DCK", url: "https://www.datacenterknowledge.com/rss.xml", category: "Data Center" },
+  { name: "ServeTheHome", short: "STH", url: "https://www.servethehome.com/feed/", category: "AI Compute" },
+  { name: "HPCwire", short: "HPCwire", url: "https://www.hpcwire.com/feed/", category: "AI Compute" },
+  { name: "Energy-Storage.news", short: "ES News", url: "https://www.energy-storage.news/feed/", category: "Batteries" },
 ];
 
 const UA = "Mozilla/5.0 (compatible; SmartTec-News/1.0; +https://smarttec.io/news)";
