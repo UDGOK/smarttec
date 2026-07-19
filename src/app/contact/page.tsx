@@ -5,15 +5,18 @@ import { useState } from "react";
 import PageShell from "@/components/PageShell";
 
 const teams = [
-  { id: "sales", label: "Sales", email: "sales@smarttec.io", desc: "Talk to our team about deployment scope and pricing." },
-  { id: "engineering", label: "Engineering", email: "engineering@smarttec.io", desc: "Connect with our solutions engineers for technical scoping." },
-  { id: "partnerships", label: "Partnerships", email: "partners@smarttec.io", desc: "Reseller, integrator, and OEM programs." },
-  { id: "press", label: "Press", email: "press@smarttec.io", desc: "Media inquiries and interview requests." },
+  { id: "sales", label: "Sales", email: "sales@smarttec.dev", desc: "Talk to our team about deployment scope and pricing." },
+  { id: "engineering", label: "Engineering", email: "engineering@smarttec.dev", desc: "Connect with our solutions engineers for technical scoping." },
+  { id: "partnerships", label: "Partnerships", email: "partners@smarttec.dev", desc: "Reseller, integrator, and OEM programs." },
+  { id: "press", label: "Press", email: "press@smarttec.dev", desc: "Media inquiries and interview requests." },
 ];
 
 export default function ContactPage() {
   const [activeTeam, setActiveTeam] = useState("sales");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
+  const [sentTo, setSentTo] = useState("");
   const team = teams.find((t) => t.id === activeTeam)!;
 
   return (
@@ -102,14 +105,25 @@ export default function ContactPage() {
                     </div>
                     <h3 className="text-2xl font-anybody font-extrabold text-slate mb-3">Message received.</h3>
                     <p className="text-slate/70">
-                      The {team.label.toLowerCase()} team will reply to <span className="font-bold">you@example.com</span> within {team.id === "sales" ? "4" : team.id === "engineering" ? "8" : "24"} hours.
+                      The {team.label.toLowerCase()} team will reply to <span className="font-bold">{sentTo || "your email"}</span> within {team.id === "sales" ? "4" : team.id === "engineering" ? "8" : "24"} hours.
                     </p>
                   </motion.div>
                 ) : (
                   <motion.form
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setSending(true); setError(false);
+                      const fd = new FormData(e.currentTarget);
+                      const payload = Object.fromEntries(fd.entries());
+                      try {
+                        const r = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, team: team.id }) });
+                        if (!r.ok) throw new Error();
+                        setSentTo(String(payload.email || ""));
+                        setSubmitted(true);
+                      } catch { setError(true); } finally { setSending(false); }
+                    }}
                     className="border border-dashed border-slate/30 bg-fog/50 p-8 md:p-10"
                   >
                     <div className="font-space-mono text-[11px] uppercase tracking-widest text-slate/60 mb-6">
@@ -121,6 +135,7 @@ export default function ContactPage() {
                         <label className="block font-space-mono text-[11px] uppercase tracking-wider text-slate/70 mb-2">Full name *</label>
                         <input
                           type="text"
+                          name="name"
                           required
                           className="w-full px-4 py-3 bg-background border border-dashed border-slate/30 focus:border-greptile-green focus:outline-none font-sans text-slate"
                           placeholder="Your name"
@@ -130,6 +145,7 @@ export default function ContactPage() {
                         <label className="block font-space-mono text-[11px] uppercase tracking-wider text-slate/70 mb-2">Work email *</label>
                         <input
                           type="email"
+                          name="email"
                           required
                           className="w-full px-4 py-3 bg-background border border-dashed border-slate/30 focus:border-greptile-green focus:outline-none font-sans text-slate"
                           placeholder="you@company.com"
@@ -143,16 +159,16 @@ export default function ContactPage() {
                         <input
                           type="text"
                           className="w-full px-4 py-3 bg-background border border-dashed border-slate/30 focus:border-greptile-green focus:outline-none font-sans text-slate"
-                          placeholder="Your company"
+                          name="company" placeholder="Your company"
                         />
                       </div>
                       <div>
                         <label className="block font-space-mono text-[11px] uppercase tracking-wider text-slate/70 mb-2">Power requirement</label>
-                        <select className="w-full px-4 py-3 bg-background border border-dashed border-slate/30 focus:border-greptile-green focus:outline-none font-sans text-slate">
-                          <option>200 kW — 2 MW</option>
-                          <option>2 MW — 10 MW</option>
-                          <option>10 MW — 50 MW</option>
-                          <option>{"50 MW+"}</option>
+                        <select name="power" className="w-full px-4 py-3 bg-background border border-dashed border-slate/30 focus:border-greptile-green focus:outline-none font-sans text-slate">
+                          <option>1 — 8 GPUs (reserved)</option>
+                          <option>8 — 30 GPUs (dedicated)</option>
+                          <option>Dedicated CS-3 / inference</option>
+                          <option>{"Colo / power (100 kW+)"}</option>
                           <option>Not sure yet</option>
                         </select>
                       </div>
@@ -162,6 +178,7 @@ export default function ContactPage() {
                       <label className="block font-space-mono text-[11px] uppercase tracking-wider text-slate/70 mb-2">Tell us about your deployment *</label>
                       <textarea
                         required
+                        name="message"
                         rows={5}
                         className="w-full px-4 py-3 bg-background border border-dashed border-slate/30 focus:border-greptile-green focus:outline-none font-sans text-slate resize-none"
                         placeholder="Site location, current power setup, target deployment date, anything else we should know..."
@@ -171,9 +188,15 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black w-full justify-center"
+                    disabled={sending}
                     >
-                      Send to {team.label}
+                      {sending ? "Sending…" : `Send to ${team.label}`}
                     </button>
+                    {error && (
+                      <p className="mt-4 font-space-mono text-[12px] text-bloom">
+                        [ Couldn&apos;t send — email us directly at hello@smarttec.dev ]
+                      </p>
+                    )}
 
                     <p className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50 mt-4 text-center">
                       We never share your info. By submitting, you agree to our privacy policy.

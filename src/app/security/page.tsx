@@ -44,12 +44,12 @@ const privacyPolicy = [
   { h: "How we use it", p: "To provide and improve the service, bill for usage, respond to support requests, send service notifications, and meet legal obligations. We do not use customer data to train third-party models." },
   { h: "Cookies & analytics", p: "Strictly necessary cookies for authentication. Optional analytics cookies only with consent (off by default). We do not sell or share behavioral data with advertisers." },
   { h: "Data retention", p: "Account data is retained while your account is active and for 30 days after termination for recovery. Operational telemetry is retained for 90 days, then aggregated and anonymized. Backups destroyed within 30 days of termination." },
-  { h: "Your rights (GDPR / CCPA)", p: "Access, correction, deletion, portability, restriction of processing, objection to processing. Email privacy@smarttec.io to exercise any right. We respond within 30 days. EU/UK representative on request." },
+  { h: "Your rights (GDPR / CCPA)", p: "Access, correction, deletion, portability, restriction of processing, objection to processing. Email privacy@smarttec.dev to exercise any right. We respond within 30 days. EU/UK representative on request." },
   { h: "International transfers", p: "Customer data is stored in US regions by default. For EU customers, we offer EU data residency (Frankfurt) on Enterprise plans. Standard Contractual Clauses apply for any cross-border transfer." },
   { h: "Subprocessors", p: "See the Subprocessors section below. We notify customers 30 days before adding a new subprocessor that handles customer data." },
   { h: "Security", p: "See Hosting & Architecture, Security Controls, and Monitoring & Validation above for the technical and organizational measures protecting your data." },
   { h: "Children's privacy", p: "SmartTec is a B2B service not directed at children under 16. We do not knowingly collect data from children." },
-  { h: "Contact our DPO", p: "Email privacy@smarttec.io, Attn: Data Protection Officer — SmartTec, Inc., Tulsa, OK, USA." },
+  { h: "Contact our DPO", p: "Email privacy@smarttec.dev, Attn: Data Protection Officer — SmartTec, Inc., Tulsa, OK, USA." },
 ];
 
 const terms = [
@@ -431,8 +431,8 @@ export default function SecurityPage() {
                   <Link href="/contact" className="btn-hex-outline btn-hex-md !border-greptile-green !bg-greptile-green !text-slate">
                     Request a signed DPA
                   </Link>
-                  <Link href="mailto:privacy@smarttec.io" className="font-anybody font-bold text-sm text-fog underline underline-offset-4 decoration-fog/30 hover:decoration-greptile-green">
-                    privacy@smarttec.io →
+                  <Link href="mailto:privacy@smarttec.dev" className="font-anybody font-bold text-sm text-fog underline underline-offset-4 decoration-fog/30 hover:decoration-greptile-green">
+                    privacy@smarttec.dev →
                   </Link>
                 </div>
               </div>

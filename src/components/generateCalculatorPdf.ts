@@ -221,7 +221,7 @@ export function generateCalculatorPdf(config: CalculatorConfig, results: Calcula
   const assumptions = [
     {
       title: "Compute rates",
-      body: "GPU-hour rates reflect June 2026 retail market rates across major cloud providers (CoreWeave, Lambda, AWS, GCP range). Cerebras CS-3 inference is billed per 1K tokens at Cerebras Cloud list rate. SmartTec design-partner pricing is typically 20–40% below list — contact partners@smarttec.io for locked launch pricing on your specific configuration.",
+      body: "GPU-hour rates reflect June 2026 retail market rates across major cloud providers (CoreWeave, Lambda, AWS, GCP range). Cerebras CS-3 inference is billed per 1K tokens at Cerebras Cloud list rate. SmartTec design-partner pricing is typically 20–40% below list — contact partners@smarttec.dev for locked launch pricing on your specific configuration.",
     },
     {
       title: "Power consumption",
@@ -268,7 +268,7 @@ export function generateCalculatorPdf(config: CalculatorConfig, results: Calcula
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.setTextColor(COLORS.slate);
-  doc.text("1. Send this PDF to partners@smarttec.io to lock launch pricing for this exact configuration.", margin + 14, y + 44);
+  doc.text("1. Send this PDF to partners@smarttec.dev to lock launch pricing for this exact configuration.", margin + 14, y + 44);
   doc.text("2. We'll scope the z1power battery build, GPU allocation, and network requirements.", margin + 14, y + 60);
   doc.text("3. Power-on target: Q4 2026. Three design-partner slots open.", margin + 14, y + 76);
   doc.setFont("helvetica", "bold");
