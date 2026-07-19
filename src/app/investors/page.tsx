@@ -23,12 +23,12 @@ const traction = [
   {
     n: "01",
     title: "Pre-existing battery product line",
-    body: "z1power LFP battery stacks have been in pilot deployment since 2024. Cell production, module assembly, and BMS are manufactured at our Tulsa, Oklahoma facility. End-to-end US supply chain.",
+    body: "z1power LiFePO4 batteries have shipped to US customers since 2021 — founder-owned partner company (Syed Hussain). SmartTec engineers z1power LFP modules with commercial-grade inverters and UPS into behind-the-meter storage.",
   },
   {
     n: "02",
-    title: "5+ operating pilot sites",
-    body: "Active z1power installations at regional colocation (Midwest, 500 kW), industrial microgrid (Oklahoma, 1.2 MW), and edge compute operators (Texas, 300 kW). Customer names redacted by mutual NDA.",
+    title: "Owned Phase-1 site in Mead, OK",
+    body: "30 acres, three 3,000 sqft buildings, and a 3 MVA transformer — owned outright, zero interconnection queue. 100 Gbps symmetrical fiber under signed carrier quote (~90-day install).",
   },
   {
     n: "03",
@@ -43,7 +43,7 @@ const traction = [
 ];
 
 const useOfFunds = [
-  { pct: 40, label: "Hardware procurement", note: "BESS modules + NVIDIA + Cerebras compute for Phase 1 (5 MW)" },
+  { pct: 40, label: "Hardware procurement", note: "BESS integration + NVIDIA compute for Phase 1 (30× B200, ~110 kW IT load)" },
   { pct: 25, label: "Manufacturing scale-up", note: "Tulsa cell + module production line capacity" },
   { pct: 20, label: "Sales + engineering", note: "Federal capture team, deployment engineers, AURA product" },
   { pct: 15, label: "Working capital", note: "12-month operating runway buffer post-power-on" },
@@ -52,7 +52,7 @@ const useOfFunds = [
 const marketSizing = [
   { tier: "TAM", value: "$1T+", label: "AI infrastructure capex 2025–2027 (NVIDIA, sell-side consensus)", source: "Gartner, NVIDIA Q3 2026 earnings call" },
   { tier: "SAM", value: "$80B", label: "US AI compute + battery-backed power, addressable through 2030", source: "Gartner + BloombergNEF" },
-  { tier: "SOM", value: "50 MW", label: "Initial Phase 1+2 capacity (5 MW launch + 45 MW expansion by EOY 2027)", source: "SmartTec internal planning" },
+  { tier: "SOM", value: "3 MVA", label: "On-site transformer capacity — Phase 1 uses under 4%; Buildings 2–3 and solar are the expansion path", source: "SmartTec internal planning" },
 ];
 
 const team = [
@@ -69,12 +69,12 @@ const team = [
 ];
 
 const timeline = [
-  { date: "2021", event: "z1power founded by Syed Hussain in Los Angeles, California. First megawatt-scale LFP stack in a converted machine shop." },
-  { date: "2024", event: "First commercial pilots online. Regional colocation site (500 kW) operating behind the meter." },
-  { date: "2025", event: "Industrial microgrid (1.2 MW) + edge compute operator (300 kW) added. AURA orchestrator v1." },
+  { date: "2021", event: "z1power founded by Syed Hussain in Los Angeles, California. LiFePO4 batteries, solar, and off-grid power systems." },
+  { date: "2024", event: "z1power product line scales across RV, marine, home-backup, and jobsite markets nationwide." },
+  { date: "2025", event: "SmartTec formed. Mead, OK site secured: 30 acres, three buildings, 3 MVA transformer. AURA orchestrator development begins." },
   { date: "2026 Q2", event: "SmartTec incorporated. Design-partner program opened. Three slots reserved for first-wave teams." },
-  { date: "2026 Q4", event: "Target Phase 1 power-on (5 MW initial capacity). Named case studies published with design partners." },
-  { date: "2027 Q1+", event: "General reservations open. Phase 2 expansion (additional 45 MW target) per demand." },
+  { date: "2026 Q4", event: "Target Phase 1 power-on: 30× NVIDIA B200 behind z1power-based BESS. Named case studies published with design partners." },
+  { date: "2027 Q1+", event: "General reservations open. Phase 2 expansion into Building 2 per demand — the site supports ~20× the Phase-1 load." },
 ];
 
 const risks = [
@@ -104,7 +104,7 @@ export default function InvestorsPage() {
             <span className="text-greptile-green">Power-on target Q4 2026.</span>
           </h1>
           <p className="font-anybody text-xl md:text-2xl text-slate/70 mt-6 max-w-2xl leading-relaxed">
-            SmartTec runs NVIDIA and Cerebras compute on z1power megawatt batteries we build. We&apos;re raising to scale Phase 1 (5 MW) to general availability. Materials below contain forward-looking statements — see disclaimer at the bottom of this page.
+            SmartTec runs NVIDIA and Cerebras compute behind battery storage we engineer on z1power LFP. We&apos;re raising to bring Phase 1 (30× B200 at our owned Mead, OK site) online. Materials below contain forward-looking statements — see disclaimer at the bottom of this page.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a
@@ -166,7 +166,7 @@ export default function InvestorsPage() {
             <span>[ WHAT WE HAVE TODAY · NOT VAPORWARE ]</span>
           </div>
           <h2 className="font-anybody font-extrabold text-3xl md:text-4xl text-slate tracking-tight max-w-3xl mb-10">
-            Real assets, real pilots, real manufacturing.
+            Real assets, real contracts, real hardware.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

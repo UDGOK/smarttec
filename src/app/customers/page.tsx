@@ -11,14 +11,14 @@ const designPartners = [
 ];
 
 const pilots = [
-  { title: "Regional colocation operator", site: "Midwest US", cap: "500 kW z1power BESS", since: "2024", summary: "Reduced grid exposure by 80% during peak pricing events. No customer-visible downtime." },
-  { title: "Industrial microgrid", site: "Oklahoma", cap: "1.2 MW z1power BESS", since: "2025", summary: "Behind-the-meter power for an industrial site. Sub-10ms failover verified across 8 grid events." },
-  { title: "Edge compute operator", site: "Texas", cap: "300 kW z1power BESS", since: "2025", summary: "Powers 3 edge sites where utility service was unreliable. AURA predicts grid events 48h early." },
+  { title: "Proven LFP platform", site: "US-wide", cap: "z1power LiFePO4", since: "2021", summary: "z1power — a founder-owned partner company — has shipped LiFePO4 batteries to US customers since 2021: 4,000+ cycle cells, integrated per-cell BMS, 5-year warranties. Verifiable at z1power.com." },
+  { title: "Engineered for compute", site: "SmartTec", cap: "BESS integration", since: "2025", summary: "SmartTec engineers z1power LFP modules with commercial-grade inverters and UPS into behind-the-meter storage, orchestrated by AURA. Sub-10ms failover is the design target, validated at commissioning." },
+  { title: "Deployed on owned ground", site: "Mead, OK", cap: "Phase 1 site", since: "2026", summary: "30 acres, three 3,000 sqft buildings, a 3 MVA transformer, and 100 Gbps symmetrical fiber under signed carrier quote — owned, not leased. No interconnection queue, no landlord." },
 ];
 
 const stats = [
-  { value: "5+", label: "Sites running z1power" },
-  { value: "5 MW", label: "Target capacity at Q4 launch" },
+  { value: "4,000+", label: "Cycle-life z1power LFP cells" },
+  { value: "110 kW", label: "Phase-1 IT load - Mead, OK" },
   { value: "Q4 2026", label: "Power-on target" },
   { value: "3 of 3", label: "Design partner slots open" },
 ];
@@ -132,7 +132,7 @@ export default function CustomersPage() {
                   k: "04",
                   who: "Federal & compliance-sensitive",
                   have: "A mandate: NDAA §889 supply chain, US-built hardware, and single-tenant isolation.",
-                  get: "Batteries manufactured in Tulsa, restricted supply chain end to end, physically separated racks, and audit-ready telemetry. Compliance is the design, not an add-on.",
+                  get: "US-based operations, single-tenant physical isolation, audit-ready telemetry, and supply-chain documentation scoped per contract under NDA. Compliance requirements are engineered in from the design phase.",
                   size: "Typical footprint: dedicated racks to 2 MW",
                 },
               ].map((s, i) => (
@@ -202,12 +202,12 @@ export default function CustomersPage() {
             <div className="mb-10">
               <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
                 <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
-                [ z1power · PRE-LAUNCH PILOTS ]
+                [ z1power · THE BATTERY PLATFORM ]
               </span>
               <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
-                Batteries already in the field.
+                The chemistry is proven. The site is ours.
               </h2>
-              <p className="text-slate/70 mt-2">Customer names redacted by mutual NDA. Stats below are real.</p>
+              <p className="text-slate/70 mt-2">No borrowed case studies. Everything below is verifiable today.</p>
             </div>
 
             <div className="space-y-4">

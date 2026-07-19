@@ -158,12 +158,11 @@ export default function DeploymentsPage() {
                 <div className="col-span-2 text-right">Status</div>
               </div>
               {[
-                { c: "[Regional colocation #1]", s: "Midwest US", cap: "500 kW", live: "2024", st: "Operational", ok: true },
-                { c: "[Industrial microgrid #2]", s: "Oklahoma", cap: "1.2 MW", live: "2025", st: "Operational", ok: true },
-                { c: "[Edge compute operator #3]", s: "Texas", cap: "300 kW", live: "2025", st: "Operational", ok: true },
-                { c: "SmartTec Q4 launch site", s: "Oklahoma", cap: "5 MW phase 1", live: "Q4 2026", st: "Under construction", ok: false },
+                { c: "SmartTec Phase 1 · Mead site", s: "Mead, OK (US-70)", cap: "30× B200 · 110 kW", live: "Q4 2026", st: "In build", ok: false },
+                { c: "Building 2 · Phase 2", s: "Mead, OK", cap: "Expansion shell", live: "2027", st: "Planned", ok: false },
+                { c: "Building 3 + solar · Phase 3", s: "Mead, OK (30 acres)", cap: "~500 kW solar", live: "Planned", st: "Planned", ok: false },
               ].map((r, i) => (
-                <div key={i} className={`grid grid-cols-12 items-center px-5 py-4 ${i !== 3 ? "border-b border-dashed border-slate/20" : ""} hover:bg-greptile-green/5`}>
+                <div key={i} className={`grid grid-cols-12 items-center px-5 py-4 ${i !== 2 ? "border-b border-dashed border-slate/20" : ""} hover:bg-greptile-green/5`}>
                   <div className="col-span-3 font-anybody font-bold text-slate">{r.c}</div>
                   <div className="col-span-3 font-space-mono text-xs text-slate/80">{r.s}</div>
                   <div className="col-span-2 font-space-mono text-xs text-slate/80">{r.cap}</div>

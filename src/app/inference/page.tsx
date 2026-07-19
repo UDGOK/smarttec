@@ -241,7 +241,7 @@ export default function InferencePage() {
               <a className="text-greptile-green underline" href="https://www.nvidia.com/en-us/data-center/" target="_blank" rel="noopener">nvidia.com/data-center</a>{" "}
               (NVIDIA press kit, public marketing assets). Cerebras hardware photography sourced from{" "}
               <a className="text-greptile-green underline" href="https://www.cerebras.ai/" target="_blank" rel="noopener">cerebras.ai</a>{" "}
-              (CS-3 product page, public marketing assets). The wafer-vs-B200 scale comparison is from the Cerebras WSE-3 announcement. We deploy these exact systems at our Mead, OK facility.
+              (CS-3 product page, public marketing assets). The wafer-vs-B200 scale comparison is from the Cerebras WSE-3 announcement. These exact systems deploy at our Mead, OK facility at Q4 2026 power-on.
             </p>
           </div>
         </div>

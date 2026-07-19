@@ -12,7 +12,7 @@ const team = [
 const values = [
   {
     title: "We build what we sell.",
-    desc: "z1power batteries are made in our own facility. We're vertically integrated because we couldn't find anyone else doing it right.",
+    desc: "Battery systems engineered by us on z1power LFP — a founder-owned partner — with integration, inverters, and AURA controls done in-house.",
   },
   {
     title: "Power is the product.",
@@ -29,9 +29,9 @@ const values = [
 ];
 
 const milestones = [
-  { date: "2021", title: "z1power founded in Los Angeles, California", body: "Founded by Syed Hussain. First megawatt-scale LFP stack built in a converted machine shop; manufacturing later established in Tulsa, Oklahoma." },
-  { date: "2024", title: "First commercial deployment", body: "Single-site 500kW deployment for a regional colocation operator." },
-  { date: "2025", title: "Multi-site rollouts + AURA v1", body: "5+ sites, predictive load forecasting, automated failover." },
+  { date: "2021", title: "z1power founded in Los Angeles, California", body: "Founded by Syed Hussain. LiFePO4 batteries, solar, and off-grid power systems — the battery platform SmartTec builds on." },
+  { date: "2024", title: "z1power scales nationwide", body: "LiFePO4 product line shipping across RV, marine, home-backup, and jobsite markets in the US." },
+  { date: "2025", title: "SmartTec formed · Mead site secured", body: "30 acres, three buildings, and a 3 MVA transformer in Mead, OK. AURA orchestrator development begins." },
   { date: "2026", title: "SmartTec AI cloud launch", body: "Vertical integration under one brand. NVIDIA + Cerebras compute on z1power power. Now reserving capacity for Q4 2026 power-on." },
 ];
 

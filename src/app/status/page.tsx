@@ -5,8 +5,8 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
 const services = [
-  { name: "Power (z1power pilot fleet · 5+ sites)", status: "operational", uptime: "live since 2024" },
-  { name: "AURA Orchestration (pilot sites)", status: "operational", uptime: "live since 2025" },
+  { name: "z1power battery platform (partner)", status: "operational", uptime: "shipping since 2021" },
+  { name: "AURA Orchestration", status: "in build", uptime: "Q4 2026" },
   { name: "Compute (NVIDIA + Cerebras)", status: "in build", uptime: "Q4 2026" },
   { name: "SmartTec API", status: "in build", uptime: "Q4 2026" },
   { name: "Customer dashboard", status: "in build", uptime: "Q4 2026" },
@@ -53,7 +53,7 @@ export default function StatusPage() {
                 <div className={`flex items-center gap-3 px-5 py-3 border-2 ${anyIncident ? "bg-bloom/20 border-bloom" : "bg-greptile-green border-greptile-green"}`}>
                   <span className={`w-2 h-2 rounded-full ${anyIncident ? "bg-bloom" : "bg-black"} animate-pulse-glow`} />
                   <span className="font-anybody font-extrabold text-lg text-slate">
-                    {anyIncident ? "Active incident" : allOperational ? "All systems operational" : "Pilot fleet operational · launch systems in build"}
+                    {anyIncident ? "Active incident" : allOperational ? "All systems operational" : "z1power platform shipping · launch systems in build"}
                   </span>
                 </div>
                 <span className="font-space-mono text-xs text-slate/60 uppercase tracking-wider">

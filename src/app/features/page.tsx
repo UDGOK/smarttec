@@ -25,8 +25,8 @@ const features = [
   },
   {
     label: "04",
-    title: "z1power megawatt BESS",
-    description: "Grid-independent power built in-house. Sub-10ms failover from grid to battery. We own the cells, the inverters, and the controls.",
+    title: "z1power-based BESS",
+    description: "Grid-independent power engineered in-house on z1power LFP modules. Sub-10ms failover from grid to battery by design. We control the full integration: storage, inverters, and AURA.",
     accent: "bg-lavender",
   },
   {

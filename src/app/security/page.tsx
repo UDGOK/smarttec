@@ -82,7 +82,7 @@ const sections = [
       },
       {
         h: "Battery cell supply chain",
-        p: "All cells are manufactured in our Tulsa, Oklahoma facility. We do not source from foreign suppliers. Full chain-of-custody audit available to federal customers under NDA.",
+        p: "Federal deployments receive single-tenant physical isolation, US-based operations and personnel, and supply-chain documentation scoped per contract under NDA. Restricted-sourcing configurations are quoted per engagement.",
       },
       {
         h: "Storage of customer telemetry",
