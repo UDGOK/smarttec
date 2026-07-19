@@ -820,7 +820,10 @@ function Hero() {
           <div className="absolute bottom-10 left-1/3 w-48 h-32 bg-halftone opacity-20 rotate-2" />
         </div>
 
-        <div className="absolute top-[48%] -translate-y-1/2 right-0 lg:right-8 pointer-events-none w-[min(46vw,620px)] hidden md:block opacity-80">
+        <div
+          className="absolute top-[48%] -translate-y-1/2 right-2 xl:right-10 pointer-events-none w-[min(38vw,560px)] hidden xl:block opacity-80"
+          style={{ maskImage: "linear-gradient(to right, transparent 0%, black 22%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 22%)" }}
+        >
           <MeadTwin />
         </div>
 
@@ -863,7 +866,7 @@ function Hero() {
                 <span>[ Behind the meter ]</span>
                 <span>[ US-built ]</span>
               </div>
-              <div className="md:hidden mt-10 -mx-2">
+              <div className="xl:hidden mt-10 -mx-2 max-w-xl">
                 <MeadTwin />
               </div>
             </motion.div>
