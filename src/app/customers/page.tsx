@@ -5,9 +5,9 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
 const designPartners = [
-  { role: "AI training team · Series B", note: "Reserved 16 nodes for continued pretraining workload." },
-  { role: "Inference provider · stealth", note: "Reserved Cerebras CS-3 capacity for low-latency serving." },
-  { role: "Colocation customer · federal", note: "Reserved 2 MW for NDAA §889-compliant on-prem deployment." },
+  { role: "AI training team", note: "Slot sized for ~16 nodes of continued-pretraining or fine-tuning workload on dedicated InfiniBand fabric." },
+  { role: "Inference-heavy product", note: "Slot sized for Cerebras CS-3 or dedicated GPU capacity serving low-latency production inference." },
+  { role: "Federal / compliance-sensitive", note: "Slot sized for up to 2 MW of NDAA §889-compliant, single-tenant, US-built-hardware deployment." },
 ];
 
 const pilots = [
@@ -85,6 +85,110 @@ export default function CustomersPage() {
                   <div className="font-anybody font-extrabold text-lg text-slate mb-2">{p.role}</div>
                   <p className="text-sm text-slate/70 leading-relaxed">{p.note}</p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+
+        {/* Who this is for — plain language */}
+        <section className="bg-background">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <div className="mb-10">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ WHO THIS IS FOR ]
+              </span>
+              <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-slate tracking-tight">
+                If one of these is you,<br />the math usually works.
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                {
+                  k: "01",
+                  who: "AI product teams",
+                  have: "A fine-tuned model in production and a cloud bill that doubles every quarter.",
+                  get: "Dedicated GPUs at a fixed monthly number — no noisy neighbors, no surge pricing, no egress surprises. Your invoice looks the same in month one and month twelve.",
+                  size: "Typical footprint: 4–16 GPUs, reserved",
+                },
+                {
+                  k: "02",
+                  who: "Inference-heavy SaaS",
+                  have: "Users who feel every 100 ms, and unit economics measured in tokens per dollar.",
+                  get: "Capacity tuned for serving: batch-optimized GPU nodes or Cerebras CS-3 for the fastest tokens available. We size against your real traffic, not a benchmark.",
+                  size: "Typical footprint: 8+ GPUs or a dedicated CS-3",
+                },
+                {
+                  k: "03",
+                  who: "Research labs & universities",
+                  have: "Training runs that need two weeks of uninterrupted compute, a few times a year.",
+                  get: "Reserved burst windows on a private InfiniBand fabric — schedule the run, get the whole allocation, pay only for the window. No queue, no preemption mid-run.",
+                  size: "Typical footprint: 8–32 GPUs, scheduled windows",
+                },
+                {
+                  k: "04",
+                  who: "Federal & compliance-sensitive",
+                  have: "A mandate: NDAA §889 supply chain, US-built hardware, and single-tenant isolation.",
+                  get: "Batteries manufactured in Tulsa, restricted supply chain end to end, physically separated racks, and audit-ready telemetry. Compliance is the design, not an add-on.",
+                  size: "Typical footprint: dedicated racks to 2 MW",
+                },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.k}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  className="border border-dashed border-slate/30 bg-fog/30 p-6"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-space-mono text-xs text-slate/50">[ {s.k} ]</span>
+                    <span className="w-1.5 h-1.5 bg-greptile-green" />
+                  </div>
+                  <h3 className="font-anybody font-extrabold text-xl text-slate mb-3">{s.who}</h3>
+                  <p className="text-sm text-slate/70 leading-relaxed mb-2"><span className="font-bold text-slate">You have:</span> {s.have}</p>
+                  <p className="text-sm text-slate/70 leading-relaxed mb-3"><span className="font-bold text-slate">You get:</span> {s.get}</p>
+                  <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50 border-t border-dashed border-slate/20 pt-3">{s.size}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border w-full opacity-30" />
+
+        {/* How engagement works */}
+        <section className="bg-slate">
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-16 md:py-20">
+            <div className="mb-10">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-fog/60 mb-4">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ HOW IT WORKS ]
+              </span>
+              <h2 className="text-3xl md:text-4xl font-anybody font-extrabold text-fog tracking-tight">
+                Four steps. No mystery.
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {[
+                { n: "01", t: "Scope call", d: "30 minutes on your actual workload: model sizes, tokens per day, latency targets, compliance needs. No slideware." },
+                { n: "02", t: "Sizing + fixed quote", d: "We run your numbers through the same calculators on this site and hand back a configuration and a fixed price. You can check our math." },
+                { n: "03", t: "Contract + onboarding", d: "Reserve capacity, migrate data over the fiber, get SSH / Kubernetes / Slurm access. A named engineer owns your onboarding." },
+                { n: "04", t: "Live, with receipts", d: "Real-time telemetry dashboard, uptime and performance against SLA targets, and a human who answers when something looks off." },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.n}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.06 }}
+                  className="border border-dashed border-fog/25 p-6"
+                >
+                  <div className="font-space-mono text-greptile-green text-xs mb-3">[ {s.n} ]</div>
+                  <h3 className="font-anybody font-extrabold text-lg text-fog mb-2">{s.t}</h3>
+                  <p className="text-sm text-fog/70 leading-relaxed">{s.d}</p>
+                </motion.div>
               ))}
             </div>
           </div>

@@ -6,7 +6,7 @@ import PageShell from "@/components/PageShell";
 
 const faqs = [
   { q: "How fast can I get GPUs online vs. a hyperscaler waitlist?", a: "From signed reservation to running, typical onboarding is days — not the 6-12 months typical of major hubs. The power is already there." },
-  { q: "What NVIDIA and Cerebras models do you run?", a: "NVIDIA H100 / H200 / B200 / GB200 [confirm fleet before publishing exact mix]. Cerebras wafer-scale systems for fastest-inference workloads. Bare-metal or orchestrated." },
+  { q: "What NVIDIA and Cerebras models do you run?", a: "NVIDIA H100, H200, and B200 at launch, with GB200 racks as allocation opens. Cerebras wafer-scale systems for fastest-inference workloads. Bare-metal or orchestrated." },
   { q: "Can I reserve a dedicated cluster?", a: "Yes — monthly or annual reserved clusters, with early-partner pricing during the build phase. Discounted launch capacity available to design partners." },
   { q: "What's the contract minimum?", a: "On-demand has no minimum. Reserved clusters are typically 12-month terms. Colo starts at 100kW." },
   { q: "Do you offer spot / preemptible instances?", a: "Yes — preemptible NVIDIA instances at significant discounts, suitable for fault-tolerant training jobs." },
@@ -83,7 +83,7 @@ export default function ComputePage() {
                     For training and dense inference.
                   </h3>
                   <p className="text-slate/70 leading-relaxed mb-6">
-                    H100 / H200 / B200 / GB200 [confirm fleet]. Deployed to the NVIDIA Cloud Partner reference architecture [pursuing NCP status — confirm before claiming]. On-demand or reserved, bare-metal or orchestrated with Kubernetes or Slurm.
+                    H100 / H200 / B200 at launch, GB200 as allocation opens. Built to NVIDIA reference-architecture practices: InfiniBand fabric, 8-GPU nodes, non-blocking topology. On-demand or reserved, bare-metal or orchestrated with Kubernetes or Slurm.
                   </p>
                   <Link href="/inference" className="btn-hex btn-hex-sm !border-slate !bg-slate !text-fog">
                     Run fit-check →
