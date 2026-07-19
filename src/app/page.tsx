@@ -587,7 +587,7 @@ function DgxSparkCallout() {
               <span className="text-greptile-green">We give you the AI factory.</span>
             </h2>
             <p className="font-anybody text-slate/70 text-lg leading-relaxed mb-6 max-w-xl">
-              The DGX Spark is the most exciting dev box of the year. Same GB10 architecture, same NVIDIA toolchain. Just at production scale — and behind the megawatt batteries we built.
+              The DGX Spark is the most exciting dev box of the year. Same GB10 architecture, same NVIDIA toolchain. Just at production scale — behind battery storage we engineer on z1power LFP.
             </p>
             <Link
               href="/dgx-spark"

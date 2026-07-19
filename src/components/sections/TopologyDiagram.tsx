@@ -244,10 +244,10 @@ export function TopologyDiagram() {
           <text x="250" y="270" fill="#000" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">TRIPLE-REDUNDANT</text>
           <text x="250" y="285" fill="#000" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">SUB-10MS FAILOVER</text>
           <text x="250" y="310" fill="#000" fontSize="8" fontFamily="monospace" textAnchor="middle" opacity="0.7">
-            TULSA · OK
+            MEAD · OK
           </text>
           <text x="250" y="325" fill="#000" fontSize="8" fontFamily="monospace" textAnchor="middle" opacity="0.7">
-            NDAA §889 / FEOC
+            US-ENGINEERED
           </text>
         </g>
 
