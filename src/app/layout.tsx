@@ -27,9 +27,10 @@ const nanumPenScript = Nanum_Pen_Script({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://smarttec.dev"),
   title: "SmartTec | Resilient AI Cloud — Stay Online When the Grid Goes Down",
   description:
-    "AI compute on megawatt-scale LFP batteries. AURA islands your cluster in <10ms when the grid faults. Up to 73% modeled grid reduction. Built in the USA.",
+    "Battery-backed AI compute on z1power LFP storage. AURA islands your cluster in <10ms when the grid faults. NVIDIA + Cerebras at our owned Mead, OK site.",
   keywords: [
     "data center",
     "battery energy storage",
@@ -41,18 +42,21 @@ export const metadata: Metadata = {
     "islanded operation",
   ],
   openGraph: {
-    title: "SmartTec | Resilient AI Cloud",
+    title: "SmartTec | Battery-Backed AI Compute",
     description:
-      "Megawatt-scale battery-backed AI compute. AURA islands your cluster in under 10 milliseconds. Built in the USA.",
+      "NVIDIA + Cerebras compute behind z1power LFP storage. Sub-10ms failover, behind-the-meter power, Mead, Oklahoma. Q4 2026.",
     type: "website",
     locale: "en_US",
     siteName: "SmartTec",
+    url: "https://smarttec.dev",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SmartTec | Resilient AI Cloud",
+    title: "SmartTec | Battery-Backed AI Compute",
     description:
-      "Megawatt-scale battery-backed AI compute. AURA islands your cluster in under 10 milliseconds.",
+      "NVIDIA + Cerebras compute behind z1power LFP storage. Sub-10ms failover, Mead, Oklahoma.",
+    images: ["/og.png"],
   },
   robots: {
     index: true,
