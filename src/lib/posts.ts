@@ -217,7 +217,7 @@ export const posts: Post[] = [
     authorTitle: "Co-founder & CEO",
     date: "Jun 22, 2026",
     readTime: "8 min read",
-    featured: true,
+    featured: false,
     body: [
       { type: "p", text: "If you've tried to bring a new AI compute hall online in the last three years, you already know the problem. It's not chips. It's not networking. It's not even money, though capital is tight. It's power." },
       { type: "p", text: "Interconnection queues at major US ISOs now run 4 to 7 years for new large-load customers. Some markets — Northern Virginia, Phoenix, parts of Texas — are functionally closed to new AI tenants until the late 2020s. ERCOT, PJM, MISO, CAISO: every single one has multi-year backlogs for projects over 100 MW." },

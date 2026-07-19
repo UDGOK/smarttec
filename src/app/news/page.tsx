@@ -3,6 +3,11 @@ import PageShell from "@/components/PageShell";
 import { getAllNews, NewsItem, COMPANY_NEWS } from "@/lib/news";
 import { NewsList, CategoryFilter } from "./NewsList";
 
+export const metadata = {
+  title: "AI Infrastructure News | SmartTec",
+  description: "Hourly-refreshed news across AI compute, data centers, power, batteries, and the grid — aggregated from ten primary sources, plus SmartTec company updates.",
+};
+
 // Revalidate hourly — fresh items every hour
 export const revalidate = 3600;
 

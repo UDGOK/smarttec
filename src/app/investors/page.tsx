@@ -152,7 +152,7 @@ export default function InvestorsPage() {
           <div className="mt-8 border border-dashed border-slate/30 bg-background p-6">
             <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/50 mb-2">[ THESIS ]</div>
             <p className="font-anybody text-slate/70 leading-relaxed text-base md:text-lg">
-              Hyperscaler AI data centers are constrained by <strong className="text-slate">interconnection queues</strong>, not silicon. NVIDIA can ship GPUs in weeks. Megawatts take 4–7 years. SmartTec builds the power stack ourselves — z1power megawatt LFP batteries behind the meter — so we can deploy AI compute on a Q4 2026 timeline instead of a 2030 timeline. The same bet the hyperscalers should have made in 2023.
+              Hyperscaler AI data centers are constrained by <strong className="text-slate">interconnection queues</strong>, not silicon. NVIDIA can ship GPUs in weeks. Megawatts take 4–7 years. SmartTec builds the power stack ourselves — z1power LFP battery systems engineered behind the meter, on a site with an owned 3 MVA transformer — so we can deploy AI compute on a Q4 2026 timeline instead of a 2030 timeline. The same bet the hyperscalers should have made in 2023.
             </p>
           </div>
         </div>
