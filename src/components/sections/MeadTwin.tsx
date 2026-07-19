@@ -76,8 +76,8 @@ export function MeadTwin() {
 
         {/* ---------- failover badge (appears during fault) ---------- */}
         <g className="mt-badge">
-          <rect x="258" y="330" width="118" height="26" fill="#28E99F" />
-          <text x="268" y="347" className="mt-lbl" fill="#17321f" fillOpacity="1" fontWeight="bold">&lt;10ms FAILOVER</text>
+          <rect x="258" y="330" width="118" height="26" fill="#E9E9E9" stroke="#28E99F" strokeWidth="1.5" />
+          <text x="268" y="347" className="mt-lbl" fill="#0aa96e" fillOpacity="1" fontWeight="bold">&lt;10ms FAILOVER</text>
         </g>
       </svg>
       <div className="mt-cap font-space-mono">[ MEAD, OK · PHASE 1 DIGITAL TWIN — SCHEMATIC, NOT A PHOTO ]</div>
@@ -87,26 +87,23 @@ export function MeadTwin() {
         .mt-twin .mt-cap { font-size: 9px; letter-spacing: 1.5px; color: rgba(61,59,79,0.45); text-transform: uppercase; text-align: right; padding-right: 8px; margin-top: -6px; }
         .mt-twin .mt-wire { stroke: #3D3B4F; stroke-width: 2; stroke-opacity: 0.45; }
         .mt-twin .mt-fiber { stroke: #3D3B4F; stroke-width: 2; stroke-dasharray: 3 5; stroke-opacity: 0.5; animation: mt-dash 1.2s linear infinite; }
-        .mt-twin .mt-flow { stroke: #28E99F; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 6 14; animation: mt-dash 1s linear infinite; }
-        .mt-twin .mt-flowD { stroke-opacity: 0; animation: mt-dash 0.5s linear infinite, mt-catch 16s linear infinite; }
-        .mt-twin .mt-flowA { animation: mt-dash 1s linear infinite, mt-gridout 16s linear infinite; }
-        .mt-twin .mt-gridgrp { animation: mt-gridflicker 16s linear infinite; }
-        .mt-twin .mt-led { fill: #28E99F; animation: mt-blink 2.4s ease-in-out infinite; }
+        .mt-twin .mt-flow { stroke: #28E99F; stroke-width: 2.5; stroke-opacity: 0.75; stroke-linecap: round; stroke-dasharray: 6 14; animation: mt-dash 1.8s linear infinite; }
+        .mt-twin .mt-flowD { stroke-opacity: 0; animation: mt-dash 1s linear infinite, mt-catch 30s linear infinite; }
+        .mt-twin .mt-flowA { animation: mt-dash 1.8s linear infinite, mt-gridout 30s linear infinite; }
+        .mt-twin .mt-gridgrp { animation: mt-gridflicker 30s linear infinite; }
+        .mt-twin .mt-led { fill: #28E99F; animation: mt-blink 3.6s ease-in-out infinite; }
         .mt-twin .mt-l1 { animation-delay: 0.5s; } .mt-twin .mt-l2 { animation-delay: 1.1s; } .mt-twin .mt-l3 { animation-delay: 1.7s; }
-        .mt-twin .mt-cell { animation: mt-blink 3.2s ease-in-out infinite; }
+        .mt-twin .mt-cell { animation: mt-blink 4.5s ease-in-out infinite; }
         .mt-twin .mt-d1 { animation-delay: 0.8s; } .mt-twin .mt-d2 { animation-delay: 1.6s; }
-        .mt-twin .mt-badge { opacity: 0; animation: mt-badgein 16s linear infinite; }
+        .mt-twin .mt-badge { opacity: 0; animation: mt-badgein 30s linear infinite; }
 
         @keyframes mt-dash { to { stroke-dashoffset: -20; } }
-        @keyframes mt-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+        @keyframes mt-blink { 0%,100% { opacity: 0.95; } 50% { opacity: 0.55; } }
         /* the 16s incident timeline: 70%–82% = grid fault window */
-        @keyframes mt-gridout { 0%,69% { stroke-opacity: 1; } 70%,81% { stroke-opacity: 0.08; } 82%,100% { stroke-opacity: 1; } }
-        @keyframes mt-gridflicker {
-          0%,69% { opacity: 1; } 70% { opacity: 0.2; } 71% { opacity: 0.9; } 72% { opacity: 0.15; }
-          73%,80% { opacity: 0.25; } 81% { opacity: 0.7; } 82%,100% { opacity: 1; }
-        }
-        @keyframes mt-catch { 0%,69% { stroke-opacity: 0; } 70.5%,81% { stroke-opacity: 1; } 83%,100% { stroke-opacity: 0; } }
-        @keyframes mt-badgein { 0%,70% { opacity: 0; } 72%,81% { opacity: 1; } 83%,100% { opacity: 0; } }
+        @keyframes mt-gridout { 0%,77% { stroke-opacity: 0.75; } 78.5%,86% { stroke-opacity: 0.1; } 88%,100% { stroke-opacity: 0.75; } }
+        @keyframes mt-gridflicker { 0%,77% { opacity: 1; } 79%,85% { opacity: 0.35; } 88%,100% { opacity: 1; } }
+        @keyframes mt-catch { 0%,77% { stroke-opacity: 0; } 79%,86% { stroke-opacity: 0.85; } 89%,100% { stroke-opacity: 0; } }
+        @keyframes mt-badgein { 0%,78% { opacity: 0; } 80%,86% { opacity: 0.9; } 89%,100% { opacity: 0; } }
 
         @media (prefers-reduced-motion: reduce) {
           .mt-twin * { animation: none !important; }
