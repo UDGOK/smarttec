@@ -7,7 +7,7 @@ import PageShell from "@/components/PageShell";
 const features = [
   {
     label: "01",
-    title: "NVIDIA Cloud Partner architecture",
+    title: "NVIDIA reference architecture",
     description: "Reference-architecture NVIDIA deployments: H100 / H200 / B200 / GB200 on InfiniBand NDR, 8 GPUs per node, full fat-tree topology. Bare-metal or hypervisor-bounded.",
     accent: "bg-greptile-green",
   },
@@ -143,7 +143,7 @@ export default function FeaturesPage() {
                   For training and dense inference.
                 </h3>
                 <p className="text-slate/70 leading-relaxed mb-6">
-                  H100 / H200 / B200 / GB200 on NVIDIA Cloud Partner reference architecture. 8 GPUs per node, InfiniBand NDR fabric, fat-tree topology. Bare-metal or orchestrated with Kubernetes or Slurm.
+                  H100 / H200 / B200 / GB200 built to NVIDIA reference-architecture practices. 8 GPUs per node, InfiniBand NDR fabric, fat-tree topology. Bare-metal or orchestrated with Kubernetes or Slurm.
                 </p>
                 <Link href="/compute#nvidia" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-fog">
                   Explore NVIDIA compute →

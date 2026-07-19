@@ -68,9 +68,9 @@ const integrations = [
 ];
 
 const designPartners = [
-  { role: "AI training team", note: "Reserved 16 nodes for continued pretraining. Locked pricing 12 months." },
-  { role: "Inference provider", note: "Reserved Cerebras CS-3 capacity for low-latency serving. Co-published case study at power-on." },
-  { role: "Federal integrator", note: "Reserved 2 MW for NDAA §889-compliant on-prem delivery Q4 2026." },
+  { role: "AI training team", note: "Slot sized for ~16 nodes of continued pretraining. Launch pricing locked 12 months." },
+  { role: "Inference provider", note: "Slot sized for dedicated Cerebras CS-3 capacity. Co-published case study at power-on." },
+  { role: "Federal integrator", note: "Slot sized for up to 2 MW of NDAA §889-compliant delivery at Q4 2026 power-on." },
 ];
 
 export default function EnterprisePage() {
