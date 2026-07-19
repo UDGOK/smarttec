@@ -69,7 +69,7 @@ function ThreePillars() {
     {
       n: "01",
       kicker: "RESILIENT",
-      title: "z1power megawatt LFP stacks sit behind the meter. When the grid faults, AURA islands your cluster in under 10 milliseconds — no interruption, no diesel.",
+      title: "z1power LFP batteries, engineered by SmartTec into behind-the-meter storage. When the grid faults, AURA islands your cluster in under 10 milliseconds — no interruption, no diesel.",
       accent: "bg-greptile-green",
     },
     {

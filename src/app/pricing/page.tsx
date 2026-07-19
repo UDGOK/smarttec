@@ -5,8 +5,8 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
 const faqs = [
-  { q: "How is pricing structured?", a: "On-demand by the GPU-hour, or reserved by node/cluster. [Starting from $__/GPU-hr — confirm before publishing.] Reserve now for launch pricing." },
-  { q: "What GPUs are available on-demand?", a: "H100 / H200 / B200 / GB200 [confirm exact fleet]. Spot / preemptible available at significant discount." },
+  { q: "How is pricing structured?", a: "On-demand by the GPU-hour, or reserved by node/cluster with prepay discounts. H100 on-demand starts at $2.40/GPU-hr (spot from $1.20). Reserve now for launch pricing." },
+  { q: "What GPUs are available on-demand?", a: "H100, H200, and B200 on-demand at launch; GB200 as allocation opens. Spot / preemptible available at significant discount." },
   { q: "What about Cerebras?", a: "Dedicated wafer-scale systems for committed inference workloads. Inference endpoints billed per-token." },
   { q: "Can I prepay for a discount?", a: "Yes — multi-year and pre-paid contracts receive tiered discounts. 10% off annual prepay, 20% off 3-year prepay." },
   { q: "Do you offer colocation pricing?", a: "Yes — starting at 100kW. We'll size the right configuration during scoping." },

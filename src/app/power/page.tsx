@@ -162,7 +162,7 @@ export default function PowerPage() {
                 Megawatt-scale LFP. Built in Oklahoma.
               </h2>
               <p className="text-lg text-slate/70 mt-4 max-w-2xl">
-                [Specs confirmed for procurement — verify before publishing final numbers.]
+                Specifications shown are design targets; as-built numbers published at power-on.
               </p>
             </motion.div>
 

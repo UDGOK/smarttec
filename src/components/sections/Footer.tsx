@@ -19,6 +19,7 @@ const companyLinks = [
   { label: "Power story", href: "/power" },
   { label: "Blog", href: "/blog" },
   { label: "Careers", href: "/contact" },
+  { label: "Investor data room", href: "/invest" },
 ];
 
 const resourceLinks = [
@@ -90,7 +91,7 @@ export function Footer() {
               <Image src="/logo-green.svg" alt="SmartTec" width={180} height={50} className="h-9 w-auto" />
             </Link>
             <p className="text-fog/60 text-sm leading-relaxed mb-6 max-w-sm">
-              Battery-backed AI compute. NVIDIA and Cerebras on z1power megawatt LFP stacks we build in Tulsa, Oklahoma.
+              Battery-backed AI compute. NVIDIA and Cerebras behind z1power LFP battery systems, engineered by SmartTec in Oklahoma.
             </p>
 
             <div className="flex items-center gap-3">

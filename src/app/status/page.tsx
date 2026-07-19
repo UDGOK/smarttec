@@ -5,12 +5,12 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
 const services = [
-  { name: "SmartTec API", status: "operational", uptime: "99.99%" },
-  { name: "Compute (NVIDIA + Cerebras)", status: "operational", uptime: "—" },
-  { name: "Power (z1power BESS)", status: "operational", uptime: "—" },
-  { name: "AURA Orchestration", status: "operational", uptime: "—" },
-  { name: "Customer dashboard", status: "operational", uptime: "—" },
-  { name: "Network · peering", status: "operational", uptime: "—" },
+  { name: "z1power battery platform (partner)", status: "operational", uptime: "shipping since 2021" },
+  { name: "AURA Orchestration", status: "in build", uptime: "Q4 2026" },
+  { name: "Compute (NVIDIA + Cerebras)", status: "in build", uptime: "Q4 2026" },
+  { name: "SmartTec API", status: "in build", uptime: "Q4 2026" },
+  { name: "Customer dashboard", status: "in build", uptime: "Q4 2026" },
+  { name: "Network · peering", status: "in build", uptime: "Q4 2026" },
 ];
 
 const incidents: { date: string; title: string; status: string; body: string }[] = [
@@ -25,6 +25,7 @@ const upcoming = [
 
 export default function StatusPage() {
   const allOperational = services.every((s) => s.status === "operational");
+  const anyIncident = services.some((s) => s.status === "incident");
 
   return (
     <PageShell>
@@ -49,10 +50,10 @@ export default function StatusPage() {
                 Real-time status of SmartTec services. Updated live.
               </p>
               <div className="flex items-center gap-4">
-                <div className={`flex items-center gap-3 px-5 py-3 border-2 ${allOperational ? "bg-greptile-green border-greptile-green" : "bg-bloom/20 border-bloom"}`}>
-                  <span className={`w-2 h-2 rounded-full ${allOperational ? "bg-black" : "bg-bloom"} animate-pulse-glow`} />
+                <div className={`flex items-center gap-3 px-5 py-3 border-2 ${anyIncident ? "bg-bloom/20 border-bloom" : "bg-greptile-green border-greptile-green"}`}>
+                  <span className={`w-2 h-2 rounded-full ${anyIncident ? "bg-bloom" : "bg-black"} animate-pulse-glow`} />
                   <span className="font-anybody font-extrabold text-lg text-slate">
-                    {allOperational ? "All systems operational" : "Active incident"}
+                    {anyIncident ? "Active incident" : allOperational ? "All systems operational" : "z1power platform shipping · launch systems in build"}
                   </span>
                 </div>
                 <span className="font-space-mono text-xs text-slate/60 uppercase tracking-wider">
@@ -82,11 +83,11 @@ export default function StatusPage() {
               {services.map((s, i) => (
                 <div key={s.name} className={`grid grid-cols-12 items-center gap-4 px-5 py-4 ${i !== services.length - 1 ? "border-b border-dashed border-slate/20" : ""}`}>
                   <div className="col-span-1">
-                    <span className={`w-2.5 h-2.5 rounded-full inline-block ${s.status === "operational" ? "bg-greptile-green animate-pulse-glow" : "bg-bloom"}`} />
+                    <span className={`w-2.5 h-2.5 rounded-full inline-block ${s.status === "operational" ? "bg-greptile-green animate-pulse-glow" : s.status === "in build" ? "bg-slate/30" : "bg-bloom"}`} />
                   </div>
                   <div className="col-span-7 font-anybody font-bold text-slate">{s.name}</div>
                   <div className="col-span-2 font-space-mono text-[11px] uppercase tracking-wider text-slate/60">{s.uptime}</div>
-                  <div className="col-span-2 text-right font-space-mono text-[11px] uppercase tracking-wider text-greptile-green">Operational</div>
+                  <div className={`col-span-2 text-right font-space-mono text-[11px] uppercase tracking-wider ${s.status === "operational" ? "text-greptile-green" : "text-slate/50"}`}>{s.status}</div>
                 </div>
               ))}
             </div>

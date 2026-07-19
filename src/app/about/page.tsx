@@ -12,7 +12,7 @@ const team = [
 const values = [
   {
     title: "We build what we sell.",
-    desc: "z1power batteries are made in our own facility. We're vertically integrated because we couldn't find anyone else doing it right.",
+    desc: "Battery systems engineered by us on z1power LFP — a founder-owned partner — with integration, inverters, and AURA controls done in-house.",
   },
   {
     title: "Power is the product.",
@@ -29,9 +29,9 @@ const values = [
 ];
 
 const milestones = [
-  { date: "2023", title: "z1power founded in Tulsa, Oklahoma", body: "Built first megawatt-scale LFP stack in a converted machine shop." },
-  { date: "2024", title: "First commercial deployment", body: "Single-site 500kW deployment for a regional colocation operator." },
-  { date: "2025", title: "Multi-site rollouts + AURA v1", body: "5+ sites, predictive load forecasting, automated failover." },
+  { date: "2021", title: "z1power founded in Los Angeles, California", body: "Founded by Syed Hussain. LiFePO4 batteries, solar, and off-grid power systems — the battery platform SmartTec builds on." },
+  { date: "2024", title: "z1power scales nationwide", body: "LiFePO4 product line shipping across RV, marine, home-backup, and jobsite markets in the US." },
+  { date: "2025", title: "SmartTec formed · Mead site secured", body: "30 acres, three buildings, and a 3 MVA transformer in Mead, OK. AURA orchestrator development begins." },
   { date: "2026", title: "SmartTec AI cloud launch", body: "Vertical integration under one brand. NVIDIA + Cerebras compute on z1power power. Now reserving capacity for Q4 2026 power-on." },
 ];
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
                 We build our own power.
               </h1>
               <p className="text-xl md:text-2xl text-slate/70 max-w-3xl">
-                SmartTec runs NVIDIA and Cerebras compute on z1power megawatt batteries. Founded in Tulsa, Oklahoma. Now reserving capacity ahead of Q4 2026 power-on.
+                SmartTec runs NVIDIA and Cerebras compute on z1power megawatt batteries — a partner company founded and owned by our co-founder. Headquartered in Tulsa, Oklahoma. Now reserving capacity ahead of Q4 2026 power-on.
               </p>
             </motion.div>
           </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
                   [ THE STORY ]
                 </span>
                 <h2 className="text-4xl md:text-5xl font-anybody font-extrabold text-slate tracking-tight leading-[0.95]">
-                  From a Tulsa garage to megawatt-scale LFP.
+                  From a Los Angeles garage to megawatt-scale LFP in Oklahoma.
                 </h2>
               </div>
               <div className="lg:col-span-7 space-y-5 text-slate/80 leading-relaxed text-lg">
@@ -209,6 +209,19 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+            <div className="mt-6 border border-dashed border-slate/30 bg-background p-6">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-3">
+                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+                [ TEAM CERTIFICATIONS ]
+              </span>
+              <div className="flex flex-wrap gap-3">
+                {["NVIDIA data center design", "Google Cloud Architect", "Anthropic Claude developer"].map((c) => (
+                  <span key={c} className="font-space-mono text-[11px] uppercase tracking-wider text-slate border border-slate/40 px-3 py-1.5 bg-fog/50">{c}</span>
+                ))}
+              </div>
+              <p className="text-sm text-slate/60 mt-3 leading-relaxed">Held across the founding team — the same disciplines this facility is designed to: NVIDIA data-center architecture, hyperscale cloud design, and AI application infrastructure.</p>
+            </div>
+
           </div>
         </section>
 

@@ -13,12 +13,12 @@ const comparison = [
   {
     dimension: "Scale",
     dgx: "1 chip · 1 PFLOPS FP4 · 128 GB unified",
-    smarttec: "1,000+ GPUs · 1.4 exaFLOPS/rack (GB200) · 1320 GB/rack HBM",
+    smarttec: "1,000+ GPUs · 1.4 exaFLOPS/rack (GB200 NVL72) · 13.5 TB/rack HBM3e",
   },
   {
     dimension: "Form factor",
     dgx: "Sits on your desk",
-    smarttec: "Sits in our Tulsa, OK AI factory",
+    smarttec: "Sits in our Mead, OK AI factory",
   },
   {
     dimension: "Power",
@@ -158,8 +158,8 @@ export default function DgxSparkPage() {
                 </div>
                 <div>
                   <div className="font-space-mono text-[9px] uppercase tracking-wider text-slate/50 mb-0.5">MEMORY</div>
-                  <div className="font-anybody font-extrabold text-xl text-slate">1320 GB</div>
-                  <div className="font-space-mono text-[9px] text-slate/50">/rack HBM</div>
+                  <div className="font-anybody font-extrabold text-xl text-slate">13.5 TB</div>
+                  <div className="font-space-mono text-[9px] text-slate/50">/rack HBM3e</div>
                 </div>
               </div>
               <p className="font-anybody text-slate/70 text-sm leading-relaxed">

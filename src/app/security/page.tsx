@@ -49,7 +49,7 @@ const privacyPolicy = [
   { h: "Subprocessors", p: "See the Subprocessors section below. We notify customers 30 days before adding a new subprocessor that handles customer data." },
   { h: "Security", p: "See Hosting & Architecture, Security Controls, and Monitoring & Validation above for the technical and organizational measures protecting your data." },
   { h: "Children's privacy", p: "SmartTec is a B2B service not directed at children under 16. We do not knowingly collect data from children." },
-  { h: "Contact our DPO", p: "Email privacy@smarttec.io or write to SmartTec, Inc., Attn: Data Protection Officer, [Registered address — confirm before publishing], Tulsa, OK, USA." },
+  { h: "Contact our DPO", p: "Email privacy@smarttec.io, Attn: Data Protection Officer — SmartTec, Inc., Tulsa, OK, USA." },
 ];
 
 const terms = [
@@ -82,7 +82,7 @@ const sections = [
       },
       {
         h: "Battery cell supply chain",
-        p: "All cells are manufactured in our Tulsa, Oklahoma facility. We do not source from foreign suppliers. Full chain-of-custody audit available to federal customers under NDA.",
+        p: "Federal deployments receive single-tenant physical isolation, US-based operations and personnel, and supply-chain documentation scoped per contract under NDA. Restricted-sourcing configurations are quoted per engagement.",
       },
       {
         h: "Storage of customer telemetry",

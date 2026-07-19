@@ -93,7 +93,7 @@ const stackChips = [
     vendor: "Cerebras",
     product: "CS-3 wafer-scale system",
     stat: "125 PFLOPS / system",
-    detail: "WSE-3 chip: 4 trillion transistors, 900k AI cores, 44GB on-wafer SRAM, 21 PB/s memory bandwidth. Available in AWS Bedrock since March 2026. OpenAI and AWS are anchor customers.",
+    detail: "WSE-3 chip: 4 trillion transistors, 900k AI cores, 44GB on-wafer SRAM, 21 PB/s memory bandwidth. AWS Bedrock deployment announced March 2026, rollout underway. OpenAI and AWS are anchor customers.",
     href: "https://www.cerebras.ai/blog/cerebras-is-coming-to-aws",
     source: "Cerebras newsroom",
     accent: "bg-peach",
