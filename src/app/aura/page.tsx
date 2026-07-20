@@ -158,7 +158,11 @@ export default function AuraPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                   <div className="border border-dashed border-bloom/40 bg-bloom/5 p-4">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Grid</div>
-                    <div className="font-anybody text-2xl font-bold text-slate">OFFLINE</div>
+                    <div className="relative h-8">
+                      <div className="absolute inset-0 font-anybody text-2xl font-bold text-slate aura-grid-live">LIVE</div>
+                      <div className="absolute inset-0 font-anybody text-2xl font-bold text-bloom aura-grid-fault">FAULT</div>
+                      <div className="absolute inset-0 font-anybody text-2xl font-bold text-greptile-green aura-grid-restored">RESTORED</div>
+                    </div>
                     <div className="font-space-mono text-[10px] text-greptile-green">Battery: 100%</div>
                   </div>
                   <div className="border border-dashed border-slate/30 bg-fog/50 p-4">
@@ -173,7 +177,7 @@ export default function AuraPage() {
                   </div>
                   <div className="border border-dashed border-slate/30 bg-fog/50 p-4">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Failover</div>
-                    <div className="font-anybody text-2xl font-bold text-slate">8.4 ms</div>
+                    <div className="font-anybody text-2xl font-bold text-slate">&lt;10 ms</div>
                     <div className="font-space-mono text-[10px] text-greptile-green">last 30 days</div>
                   </div>
                 </div>
@@ -208,7 +212,7 @@ export default function AuraPage() {
                 <div className="bg-greptile-green text-black px-5 py-4 flex items-center justify-between">
                   <div>
                     <div className="font-anybody text-sm font-bold uppercase tracking-wider">AURA alert</div>
-                    <div className="font-space-mono text-[11px]">ERCOT issued grid alert at 14:23 — AURA had us already islanded on full reserves by 14:24.</div>
+                    <div className="font-space-mono text-[11px]">Design scenario: regional grid alert at 14:23 — AURA islands the cluster on full reserves before the sag arrives. Simulated preview; as-built telemetry publishes at power-on.</div>
                   </div>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />

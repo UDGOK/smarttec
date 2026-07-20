@@ -25,6 +25,8 @@ const reserved = [
   { size: "1 node (8×H100)", monthly: "$12,800", annual: "$138,240", discount: "10% prepay" },
   { size: "4 nodes (32×H100)", monthly: "$46,080", annual: "$497,664", discount: "15% prepay" },
   { size: "16 nodes (128×H100)", monthly: "$174,080", annual: "$1,879,000", discount: "20% prepay" },
+  { size: "1× B200 (reserved)", monthly: "$3,240", annual: "$34,992", discount: "$4.50/GPU-hr · Q4 2026" },
+  { size: "5× B200 (anchor block)", monthly: "$16,200", annual: "$174,960", discount: "$4.50/GPU-hr · Q4 2026" },
 ];
 
 const cerebras = [

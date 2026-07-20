@@ -19,6 +19,7 @@ const dims = [
   { d: "Contract minimums", h: "None to enterprise-scale", n: "Typically large multi-year commitments", m: "None", s: "From a single reserved GPU to dedicated racks", win: true },
   { d: "Support model", h: "Ticket tiers", n: "Enterprise account teams", m: "Community forums", s: "A named engineer; no tiers between you and the people running the site", win: true },
   { d: "Compliance & certifications", h: "The deepest cert portfolios in the industry", n: "SOC 2 and enterprise attestations", m: "Varies wildly by host", s: "Single-tenant isolation and audit-ready telemetry; SOC 2 Type II in progress — honest: hyperscalers win this row today", win: false },
+  { d: "Power-aware orchestration", h: "Schedulers manage compute; power is someone else's department", n: "World-class cluster schedulers — not power-aware", m: "None", s: "AURA sees batteries, grid, and workload in one control loop — tokens-per-watt tuning and battery-aware islanding built in", win: true },
   { d: "Hardware at launch", h: "Everything, eventually, with quotas", n: "Latest NVIDIA at scale", m: "Mixed generations", s: "NVIDIA B200 + Cerebras CS-3 wafer-scale inference", win: true },
   { d: "Track record", h: "Decades", n: "Years, at massive scale", m: "Years, uneven", s: "Pre-launch. Our proof is owned assets and signed contracts, not history — we will not pretend otherwise", win: false },
 ];

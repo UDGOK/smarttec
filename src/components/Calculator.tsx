@@ -128,7 +128,7 @@ interface CalcResult {
 export function Calculator() {
   const [workload, setWorkload] = useState<Workload>("inference");
   const [chip, setChip] = useState<Chip>("H100");
-  const [qty, setQty] = useState(64);
+  const [qty, setQty] = useState(8);
   const [util, setUtil] = useState(75);
   const [hrsPerDay, setHrsPerDay] = useState(24);
   const [region, setRegion] = useState<Region>("us-avg");
