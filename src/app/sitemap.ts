@@ -4,7 +4,7 @@ import { posts } from "@/lib/posts";
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://smarttec.dev";
   const routes = [
-    "", "/compare", "/compute", "/power", "/aura", "/pricing", "/customers", "/enterprise",
+    "", "/mead", "/compare", "/compute", "/power", "/aura", "/pricing", "/customers", "/enterprise",
     "/features", "/inference", "/dgx-spark", "/deployments", "/about",
     "/investors", "/blog", "/contact", "/security", "/status",
   ];

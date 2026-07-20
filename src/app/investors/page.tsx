@@ -115,6 +115,12 @@ export default function InvestorsPage() {
               Request data room
             </a>
             <Link
+              href="/invest"
+              className="inline-flex items-center gap-2 border border-dashed border-slate/40 text-slate font-space-mono text-[11px] uppercase tracking-wider px-5 py-3 hover:border-greptile-green transition-colors"
+            >
+              Have access? Open the data room →
+            </Link>
+            <Link
               href="#forward-looking"
               className="inline-flex items-center gap-2 border border-dashed border-slate/40 text-slate font-space-mono text-[11px] uppercase tracking-wider px-5 py-3 hover:border-greptile-green hover:text-greptile-green transition-colors"
             >

@@ -16,6 +16,7 @@ const computeLinks = [
 const companyLinks = [
   { label: "About", href: "/about" },
   { label: "Deployments", href: "/deployments" },
+  { label: "Why Mead, OK", href: "/mead" },
   { label: "Customers", href: "/customers" },
   { label: "Power story", href: "/power" },
   { label: "Blog", href: "/blog" },

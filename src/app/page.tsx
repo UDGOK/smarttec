@@ -503,7 +503,7 @@ function DesignPartners() {
               Become one of our first three.
             </h2>
             <p className="text-lg text-slate/70 leading-relaxed mb-6 max-w-xl">
-              We&apos;re reserving discounted launch capacity for our first three design partners — teams with a serious training or inference workload who want to lock in early pricing and shape the platform.
+              We&apos;re reserving discounted launch capacity for our first three design partners — teams with a serious training or inference workload who want to lock in early pricing and shape the platform. (Design partners get launch pricing + a co-published case study; standard reservations are also open — same hardware, list pricing, no case-study commitment.)
             </p>
             <ul className="space-y-3 mb-8">
               {[

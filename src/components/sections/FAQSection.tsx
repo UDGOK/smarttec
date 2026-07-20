@@ -32,7 +32,7 @@ const faqItems = [
   {
     question: "Where is SmartTec located?",
     answer:
-      "Phase 1 in Mead, Oklahoma — on land, buildings, and a 3 MVA transformer we already own. We chose OK for low electricity prices, low disaster risk, and a friendly policy environment; batteries are manufactured at our Tulsa facility.",
+      "Phase 1 in Mead, Oklahoma — on land, buildings, and a 3 MVA transformer we already own. We chose OK for cheap power (~$0.08/kWh) and a friendly policy environment. Yes, it\u2019s tornado country — which is exactly why the site is battery-backed: grid events are our design basis, not a surprise. Battery systems are built on partner z1power\u2019s LFP platform, engineered by SmartTec.",
   },
   {
     question: "What about Cerebras?",
