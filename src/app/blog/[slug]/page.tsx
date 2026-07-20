@@ -208,6 +208,7 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
                   headline: post.title,
                   description: post.excerpt,
                   datePublished: post.date,
+                  dateModified: post.date,
                   author: { "@type": post.author.includes("Engineering") ? "Organization" : "Person", name: post.author },
                   publisher: { "@type": "Organization", name: "SmartTec", url: "https://smarttec.dev" },
                 }),

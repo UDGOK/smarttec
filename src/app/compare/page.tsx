@@ -83,6 +83,13 @@ export default function ComparePage() {
           </div>
         </section>
 
+        <section className="mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 pt-12">
+          <blockquote className="border-l-4 border-greptile-green pl-6 py-2 max-w-3xl">
+            <p className="text-xl md:text-2xl font-anybody font-bold text-slate italic leading-snug">&ldquo;We can&apos;t out-scale CoreWeave, so we don&apos;t try. We out-own them: our land, our transformer, our batteries, our contracts. At 30 GPUs, certainty beats size.&rdquo;</p>
+            <cite className="block mt-3 font-space-mono text-xs uppercase tracking-wider text-slate/60 not-italic">— Yasir Jahangir, Co-founder &amp; COO, SmartTec</cite>
+          </blockquote>
+        </section>
+
         <section className="mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="border-2 border-greptile-green bg-greptile-green/10 p-6">
