@@ -415,3 +415,21 @@ body {
 
 /* Mobile guard: horizontal overflow must never widen the page */
 html, body { overflow-x: clip; }
+
+/* AURA dashboard grid tile: live -> fault -> restored cycle (30s, synced with MeadTwin) */
+.aura-grid-live { opacity: 1; animation: aura-live 30s linear infinite; }
+.aura-grid-fault { opacity: 0; animation: aura-fault 30s linear infinite; }
+.aura-grid-restored { opacity: 0; animation: aura-restored 30s linear infinite; }
+.aura-grid-tile { animation: aura-tile 30s linear infinite; }
+@keyframes aura-live { 0%,77% { opacity: 1; } 78%,93% { opacity: 0; } 94%,100% { opacity: 1; } }
+@keyframes aura-fault { 0%,77% { opacity: 0; } 78%,86% { opacity: 1; } 87%,100% { opacity: 0; } }
+@keyframes aura-restored { 0%,86% { opacity: 0; } 87%,93% { opacity: 1; } 94%,100% { opacity: 0; } }
+@keyframes aura-tile {
+  0%,77% { border-color: rgba(61,59,79,0.3); background: rgba(238,238,238,0.5); }
+  78%,86% { border-color: rgba(229,72,77,0.5); background: rgba(229,72,77,0.06); }
+  87%,100% { border-color: rgba(61,59,79,0.3); background: rgba(238,238,238,0.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aura-grid-live, .aura-grid-fault, .aura-grid-restored, .aura-grid-tile { animation: none !important; }
+  .aura-grid-fault, .aura-grid-restored { opacity: 0 !important; }
+}

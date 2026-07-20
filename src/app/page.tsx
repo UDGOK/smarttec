@@ -742,10 +742,18 @@ function AURA() {
 
               <div className="p-6 md:p-8">
                 <div className="grid grid-cols-3 gap-3 mb-6">
-                  <div className="border border-dashed border-bloom/40 bg-bloom/5 p-3">
+                  <div className="relative border border-dashed border-slate/30 bg-fog/50 p-3 aura-grid-tile">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Grid</div>
-                    <div className="font-anybody text-2xl font-bold text-slate">OFFLINE</div>
-                    <div className="font-space-mono text-[10px] text-greptile-green">Battery: 100%</div>
+                    <div className="relative h-8">
+                      <div className="absolute inset-0 font-anybody text-2xl font-bold text-slate aura-grid-live">LIVE</div>
+                      <div className="absolute inset-0 font-anybody text-2xl font-bold text-bloom aura-grid-fault">FAULT</div>
+                      <div className="absolute inset-0 font-anybody text-2xl font-bold text-greptile-green aura-grid-restored">RESTORED</div>
+                    </div>
+                    <div className="relative h-4 font-space-mono text-[10px]">
+                      <span className="absolute inset-0 text-slate/60 aura-grid-live">Battery: standby · 100%</span>
+                      <span className="absolute inset-0 text-greptile-green aura-grid-fault">Battery carrying load · &lt;10ms</span>
+                      <span className="absolute inset-0 text-slate/60 aura-grid-restored">Battery: recharging</span>
+                    </div>
                   </div>
                   <div className="border border-dashed border-slate/30 bg-fog/50 p-3">
                     <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Compute</div>
