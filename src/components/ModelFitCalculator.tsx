@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import {
+  fleetRecommendations,
+  type FleetOption,
   MODELS,
   GPUS,
   QUANTS,
@@ -150,8 +152,9 @@ export default function ModelFitCalculator() {
     const maxSeq = maxConcurrentSeqs(model, quant.bytesPerParam, gpu.vram_gb, seqLen);
     const tps = estimatedTokensPerSec(model, gpu, batchSize, seqLen);
     const tp = recommendedTensorParallel(model, quant.bytesPerParam, gpu, seqLen);
+    const fleet = fleetRecommendations(model, quant.bytesPerParam, seqLen, batchSize);
     const cmd = generateDeployCommand(model, gpu, quant.bytesPerParam, tp, seqLen);
-    return { weightsGB, kvGB, totalGB, fits, usable, minFor1Seq, maxSeq, tps, tp, cmd };
+    return { weightsGB, kvGB, totalGB, fits, usable, minFor1Seq, maxSeq, tps, tp, cmd, fleet };
   }, [model, gpu, quant, seqLen, batchSize]);
 
   const onCopy = () => {
@@ -283,7 +286,7 @@ export default function ModelFitCalculator() {
         <div className="grid grid-cols-2 gap-4">
           <div className="border border-dashed border-slate/30 p-4 bg-background">
             <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60 mb-1">Est. throughput</div>
-            <div className="font-anybody font-extrabold text-2xl text-slate">{Math.round(result.tps).toLocaleString()}</div>
+            <div className="font-anybody font-extrabold text-2xl text-slate">{result.fits ? Math.round(result.tps).toLocaleString() : "—"}</div>
             <div className="font-space-mono text-[9px] text-slate/50">tokens / sec</div>
           </div>
           <div className="border border-dashed border-slate/30 p-4 bg-background">
@@ -293,20 +296,32 @@ export default function ModelFitCalculator() {
           </div>
         </div>
 
-        {/* Tensor parallel recommendation */}
-        {result.tp > 1 && (
-          <div className="border border-dashed border-greptile-green/60 bg-greptile-green/5 p-4">
-            <div className="font-space-mono text-[10px] uppercase tracking-wider text-greptile-green mb-1">
-              Recommendation
-            </div>
-            <div className="font-anybody font-bold text-slate">
-              Use tensor-parallel = {result.tp} (needs {result.tp}× {gpu.id})
-            </div>
-            <div className="font-space-mono text-[10px] text-slate/60 mt-1">
-              Or split the model across {result.tp} GPUs. Approximate cost: ${(gpu.unit_price_hr * result.tp * 730).toFixed(0)}/mo 24/7.
-            </div>
+        {/* Fleet auto-config: best deployable configuration across all GPUs */}
+        <div className="border border-dashed border-greptile-green/60 bg-greptile-green/5 p-4">
+          <div className="font-space-mono text-[10px] uppercase tracking-wider text-greptile-green mb-2">
+            Auto-config · best way to run this model
           </div>
-        )}
+          <div className="space-y-1.5">
+            {result.fleet.map((o: FleetOption, i: number) => {
+              const fastest = result.fleet.reduce((a: FleetOption, b: FleetOption) => (b.tps > a.tps ? b : a));
+              return (
+                <div key={o.gpu.id} className={`flex flex-wrap items-baseline justify-between gap-x-3 px-3 py-2 ${i === 0 ? "bg-greptile-green/15 border border-greptile-green/50" : "bg-background/60 border border-dashed border-slate/20"}`}>
+                  <div className="font-anybody font-bold text-slate text-sm">
+                    {o.count}× {o.gpu.id}
+                    {i === 0 && <span className="font-space-mono text-[9px] text-greptile-green ml-2">[✓ BEST VALUE]</span>}
+                    {o.gpu.id === fastest.gpu.id && i !== 0 && <span className="font-space-mono text-[9px] text-slate/50 ml-2">[FASTEST]</span>}
+                  </div>
+                  <div className="font-space-mono text-[10px] text-slate/70">
+                    ${o.monthly.toLocaleString()}/mo · ~{Math.round(o.tps).toLocaleString()} tok/s · {Math.round(o.capacityGB)} GB capacity
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="font-space-mono text-[9px] text-slate/50 mt-2">
+            Counts rounded to deployable tensor-parallel sizes (2/4/8 per node, then whole nodes). GB200 NVL72 shown for scale reference (Phase-1 fleet: B200 / H-class + CS-3). Cerebras CS-3 billed per token.
+          </div>
+        </div>
 
         {/* Deploy command */}
         <div className="space-y-2">

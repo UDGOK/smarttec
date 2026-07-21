@@ -76,7 +76,7 @@ export const GPUS: GpuSpec[] = [
   { id: "H100", label: "H100 80GB SXM",    vram_gb: 80,  bf16_tflops: 495,  mem_bw_gbps: 3350, unit_price_hr: 2.40, notes: "8 GPUs per node via NVLink + IB" },
   { id: "H200", label: "H200 141GB SXM",   vram_gb: 141, bf16_tflops: 495,  mem_bw_gbps: 4800, unit_price_hr: 3.20, notes: "Same compute, 76% more memory bandwidth" },
   { id: "B200", label: "B200 192GB SXM",   vram_gb: 192, bf16_tflops: 2250, mem_bw_gbps: 8000, unit_price_hr: 4.80, notes: "Blackwell. 4th-gen Tensor Cores" },
-  { id: "GB200", label: "GB200 NVL72 rack", vram_gb: 13824, bf16_tflops: 162000, mem_bw_gbps: 576000, unit_price_hr: 6.40, notes: "72 Blackwell + 36 Grace. 13.5 TB HBM3e, rack-scale." },
+  { id: "GB200", label: "GB200 NVL72 rack", vram_gb: 13824, bf16_tflops: 162000, mem_bw_gbps: 576000, unit_price_hr: 345.60, notes: "72 Blackwell + 36 Grace. 13.5 TB HBM3e. Priced per rack-hour (72 GPUs). Reference only — not in Phase-1 fleet." },
   { id: "CS-3", label: "Cerebras CS-3 system", vram_gb: 1200, bf16_tflops: 125000, mem_bw_gbps: 21000, unit_price_hr: 0.04, notes: "Wafer-scale. Per-1K-tokens billing, not per-hour.", },
 ];
 
@@ -190,7 +190,7 @@ docker run --gpus all --shm-size 1g \\
   --gpu-memory-utilization 0.92`;
 }
 
-export function recommendedTensorParallel(
+export function recommendedTensorParallelRaw(
   model: ModelSpec,
   quantBytes: number,
   gpu: GpuSpec,
@@ -203,4 +203,52 @@ export function recommendedTensorParallel(
   if (minRequiredPerGPU <= usable) return 1;
   // Need ceil(weights + 1 seq KV) / usable GPUs
   return Math.max(2, Math.ceil(minRequiredPerGPU / usable));
+}
+
+export function recommendedTensorParallel(
+  model: ModelSpec, quantBytes: number, gpu: GpuSpec, seqLen: number = 4096
+): number {
+  return saneGpuCount(recommendedTensorParallelRaw(model, quantBytes, gpu, seqLen));
+}
+
+// Deployable GPU counts: TP within a node (1/2/4/8), then whole nodes.
+const GPU_LADDER = [1, 2, 4, 8, 16, 24, 32, 48, 64];
+export function saneGpuCount(raw: number): number {
+  for (const n of GPU_LADDER) if (n >= raw) return n;
+  return Math.ceil(raw / 8) * 8;
+}
+
+export interface FleetOption {
+  gpu: GpuSpec;
+  count: number;
+  monthly: number;      // $ at 730h
+  totalGB: number;      // memory needed
+  capacityGB: number;   // usable across the config
+  tps: number;          // aggregate est. tokens/sec at requested batch
+  fits: boolean;
+}
+
+// Auto-config: cheapest deployable configuration per GPU type across the fleet.
+export function fleetRecommendations(
+  model: ModelSpec,
+  quantBytes: number,
+  seqLen: number,
+  batchSize: number
+): FleetOption[] {
+  const opts: FleetOption[] = [];
+  for (const gpu of GPUS) {
+    if (gpu.id === "CS-3") continue; // per-token product, not a GPU count
+    const totalGB = modelVRAM(model, quantBytes) + kvCacheGB(model, seqLen, batchSize, 2);
+    const raw = Math.ceil(totalGB / usableVRAM(gpu.vram_gb));
+    const count = saneGpuCount(raw);
+    const scaled: GpuSpec = { ...gpu, mem_bw_gbps: gpu.mem_bw_gbps * count, bf16_tflops: gpu.bf16_tflops * count };
+    const tps = estimatedTokensPerSec(model, scaled, batchSize, seqLen);
+    opts.push({
+      gpu, count,
+      monthly: Math.round(gpu.unit_price_hr * count * 730),
+      totalGB, capacityGB: usableVRAM(gpu.vram_gb) * count,
+      tps, fits: totalGB <= usableVRAM(gpu.vram_gb) * count,
+    });
+  }
+  return opts.sort((a, b) => a.monthly - b.monthly);
 }
