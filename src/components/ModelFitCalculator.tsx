@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { generateFitCheckPdf } from "@/components/generateFitCheckPdf";
 import {
   fleetRecommendations,
   type FleetOption,
@@ -136,6 +137,8 @@ export default function ModelFitCalculator() {
   const [seqLen, setSeqLen] = useState(4096);
   const [batchSize, setBatchSize] = useState(4);
   const [copied, setCopied] = useState(false);
+  const [exportEmail, setExportEmail] = useState("");
+  const [exportStatus, setExportStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const model = useMemo(() => MODELS.find((m) => m.id === modelId)!, [modelId]);
   const gpu = useMemo(() => GPUS.find((g) => g.id === gpuId)!, [gpuId]);
@@ -340,6 +343,69 @@ export default function ModelFitCalculator() {
           <p className="font-space-mono text-[10px] text-slate/50">
             Tensor-parallel = {result.tp}. Adjust {`--max-model-len`} and {`--gpu-memory-utilization`} for your batch / latency tradeoff.
           </p>
+        </div>
+
+        {/* Export: print / save PDF + email */}
+        <div className="border border-dashed border-slate/40 bg-fog/50 p-4">
+          <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60 mb-3">
+            [ Export this fit-check ]
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={() => {
+                const doc = generateFitCheckPdf({
+                  model, gpu, quantLabel: quant.label, seqLen, batchSize,
+                  weightsGB: result.weightsGB, kvGB: result.kvGB, totalGB: result.totalGB,
+                  fits: result.fits, maxSeq: result.maxSeq, tps: result.tps,
+                  fleet: result.fleet, cmd: result.cmd,
+                });
+                doc.save(`smarttec-fit-${model.id}.pdf`);
+              }}
+              className="inline-flex items-center justify-center gap-2 bg-slate text-fog font-space-mono text-[11px] uppercase tracking-wider px-4 py-2.5 hover:bg-slate/85 transition-colors"
+            >
+              <span className="w-1.5 h-1.5 bg-greptile-green" /> Download / Print PDF
+            </button>
+            <div className="flex flex-1 gap-2">
+              <input
+                type="email"
+                value={exportEmail}
+                onChange={(e) => { setExportEmail(e.target.value); if (exportStatus !== "idle") setExportStatus("idle"); }}
+                placeholder="you@company.com"
+                className="flex-1 min-w-0 bg-background border border-dashed border-slate/40 px-3 py-2 font-space-mono text-[11px] text-slate focus:outline-none focus:border-greptile-green"
+              />
+              <button
+                disabled={exportStatus === "sending" || !exportEmail.includes("@")}
+                onClick={async () => {
+                  setExportStatus("sending");
+                  try {
+                    const doc = generateFitCheckPdf({
+                      model, gpu, quantLabel: quant.label, seqLen, batchSize,
+                      weightsGB: result.weightsGB, kvGB: result.kvGB, totalGB: result.totalGB,
+                      fits: result.fits, maxSeq: result.maxSeq, tps: result.tps,
+                      fleet: result.fleet, cmd: result.cmd,
+                    });
+                    const pdfBase64 = doc.output("datauristring").split(",")[1];
+                    const best = result.fleet[0];
+                    const text = `Your SmartTec fit-check\n\nModel: ${model.family} ${model.name} (${model.params_b}B)\nQuantization: ${quant.label}\nContext x batch: ${seqLen} x ${batchSize}\nTotal memory: ${result.totalGB.toFixed(1)} GB\nBest configuration: ${best.count}x ${best.gpu.id} — $${best.monthly.toLocaleString()}/mo, ~${Math.round(best.tps).toLocaleString()} tok/s\n\nFull one-pager attached.`;
+                    const r = await fetch("/api/email-config", {
+                      method: "POST", headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ email: exportEmail, subject: `SmartTec fit-check: ${model.family} ${model.name}`, text, pdfBase64 }),
+                    });
+                    setExportStatus(r.ok ? "sent" : "error");
+                  } catch { setExportStatus("error"); }
+                }}
+                className="inline-flex items-center gap-2 bg-greptile-green text-slate font-space-mono text-[11px] uppercase tracking-wider px-4 py-2.5 hover:bg-greptile-green/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {exportStatus === "sending" ? "Sending…" : "Email me this"}
+              </button>
+            </div>
+          </div>
+          {exportStatus === "sent" && (
+            <p className="font-space-mono text-[10px] text-greptile-green mt-2">[ Sent — check your inbox. PDF attached. ]</p>
+          )}
+          {exportStatus === "error" && (
+            <p className="font-space-mono text-[10px] text-bloom mt-2">[ Couldn&apos;t send — download the PDF above or email hello@smarttec.dev ]</p>
+          )}
         </div>
       </div>
     </div>
