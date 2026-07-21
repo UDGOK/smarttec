@@ -34,6 +34,7 @@ const CHIP_BLURBS: Record<string, string> = {
   H200: "Hopper refresh · 141GB HBM3e · dense inference",
   B200: "Blackwell · 192GB HBM3e · next-gen training",
   GB200: "Grace Blackwell · rack-scale supercomputer",
+  "MI455X": "AMD CDNA5 · 432GB HBM4 · Phase 2/3 eval · pricing at OEM availability",
   "CS-3": "Cerebras CS-3 · wafer-scale · fastest inference",
 };
 

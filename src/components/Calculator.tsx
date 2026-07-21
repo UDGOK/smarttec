@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { generateCalculatorPdf } from "./generateCalculatorPdf";
 
-type Chip = "H100" | "H200" | "B200" | "GB200" | "CS-3";
+type Chip = "H100" | "H200" | "B200" | "GB200" | "MI455X" | "CS-3";
 type Workload = "training" | "inference";
 type PowerStrategy = "smarttec" | "grid";
 type Region = "us-avg" | "pjm" | "ercot" | "caiso";
@@ -69,6 +69,16 @@ const CHIPS: Record<Chip, ChipSpec> = {
     gpuHrPer1T: 65,
     blurb: "Grace Blackwell. 1 rack = a supercomputer.",
   },
+  "MI455X": {
+    label: "MI455X",
+    rate: 0,
+    tdpW: 2200,
+    unitsPerServer: 8,
+    overheadPct: 0.30,
+    tokPerSec: 14000,
+    gpuHrPer1T: 60,
+    blurb: "CDNA5 · 432GB HBM4 · 19.6 TB/s (2.4\u00d7 B200). Liquid-cooled, ~2.2 kW est. Phase 2/3 evaluation \u2014 rental pricing at OEM availability. Throughput estimated.",
+  },
   "CS-3": {
     label: "CS-3",
     rate: 0.04,
@@ -109,6 +119,7 @@ function fmtMw(n: number): string {
 }
 
 interface CalcResult {
+  hasPricing: boolean;
   gpuHours: number;
   tokens: number;
   avgPowerMW: number;
@@ -184,6 +195,7 @@ export function Calculator() {
     }
 
     const marginMonthly = revenueMonthly - powerMonthly;
+    const hasPricing = spec.rate > 0;
     const marginPct = revenueMonthly > 0 ? (marginMonthly / revenueMonthly) * 100 : 0;
     const annualSavings = strategy === "smarttec" ? 0 : 0;
     // Compute the SmartTec savings (if user picked grid, show what they'd save switching)
@@ -213,7 +225,7 @@ export function Calculator() {
       batteryAutonomyHrs,
       revenueMonthly,
       powerMonthly,
-      marginMonthly,
+      marginMonthly, hasPricing,
       marginPct,
       outagesProtected,
       co2AvoidedTons,
@@ -446,10 +458,10 @@ export function Calculator() {
 
         {/* Output 3: Economics */}
         <ResultsCard title="Economics" accent="bg-peach" highlight>
-          <BigStat label="Revenue / month" value={fmtMoney(result.revenueMonthly)} accent />
+          <BigStat label="Revenue / month" value={result.hasPricing ? fmtMoney(result.revenueMonthly) : "Pricing TBD"} accent />
           <StatRow label="Power cost / month" value={fmtMoney(result.powerMonthly)} inverted />
-          <BigStat label="Margin / month" value={fmtMoney(result.marginMonthly)} accent />
-          <StatRow label="Margin %" value={`${result.marginPct.toFixed(1)}%`} inverted />
+          <BigStat label="Margin / month" value={result.hasPricing ? fmtMoney(result.marginMonthly) : "\u2014"} accent />
+          <StatRow label="Margin %" value={result.hasPricing ? `${result.marginPct.toFixed(1)}%` : "at OEM availability"} inverted />
         </ResultsCard>
 
         {/* Output 4: Resilience */}
