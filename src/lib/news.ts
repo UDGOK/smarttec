@@ -32,8 +32,8 @@ export interface CompanyNewsItem {
 export const COMPANY_NEWS: CompanyNewsItem[] = [
   {
     date: "Jul 21, 2026",
-    title: "Multi-vendor track opened: evaluating AMD Instinct for Phase-2 inference",
-    body: "Following Microsoft\u2019s at-scale Helios commitment, SmartTec opened a formal Phase-2 evaluation of MI455X-class inference \u2014 gated on OEM availability at our scale, ROCm serving maturity, and measured $/token vs B200. Phase 1 remains 30\u00d7 NVIDIA B200.",
+    title: "Multi-vendor track opened: evaluating AMD Instinct for Phase 2/3 inference",
+    body: "Following Microsoft\u2019s at-scale Helios commitment, SmartTec opened a formal Phase 2/3 evaluation of MI455X-class inference \u2014 gated on OEM availability at our scale, ROCm serving maturity, and measured $/token vs B200. Phase 1 remains 30\u00d7 NVIDIA B200.",
     href: "/blog/amd-s-helios-moment-what-microsoft-s-rack-scale-bet-means-for-a-30-gpu-operator",
   },
   {

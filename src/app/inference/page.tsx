@@ -125,7 +125,7 @@ export default function InferencePage() {
             Stack as many servers as you need.
           </h2>
           <p className="font-anybody text-slate/70 text-lg leading-relaxed max-w-2xl mb-10">
-            Pick H100s, H200s, B200s, GB200 racks, and Cerebras CS-3 systems in any combination. See the run cost on SmartTec, what you could rent it for, and your gross margin — all live. Phase-2 cost-alternative track: AMD Instinct MI455X (432 GB HBM4, 19.6 TB/s — 2.4× the memory bandwidth of B200) is now selectable in the fit-check for planning; priced configurations publish once OEM availability and ROCm serving mature.
+            Pick H100s, H200s, B200s, GB200 racks, and Cerebras CS-3 systems in any combination. See the run cost on SmartTec, what you could rent it for, and your gross margin — all live. Phase 2/3 cost-alternative track: AMD Instinct MI455X (432 GB HBM4, 19.6 TB/s — 2.4× the memory bandwidth of B200) is now selectable in the fit-check for planning; priced configurations publish once OEM availability and ROCm serving mature.
           </p>
           <FleetBuilder />
         </div>

@@ -76,7 +76,7 @@ export const GPUS: GpuSpec[] = [
   { id: "H100", label: "H100 80GB SXM",    vram_gb: 80,  bf16_tflops: 495,  mem_bw_gbps: 3350, unit_price_hr: 2.40, notes: "8 GPUs per node via NVLink + IB" },
   { id: "H200", label: "H200 141GB SXM",   vram_gb: 141, bf16_tflops: 495,  mem_bw_gbps: 4800, unit_price_hr: 3.20, notes: "Same compute, 76% more memory bandwidth" },
   { id: "B200", label: "B200 192GB SXM",   vram_gb: 192, bf16_tflops: 2250, mem_bw_gbps: 8000, unit_price_hr: 4.80, notes: "Blackwell. 4th-gen Tensor Cores" },
-  { id: "MI455X", label: "AMD MI455X 432GB · Phase-2 eval", vram_gb: 432, bf16_tflops: 5000, mem_bw_gbps: 19600, unit_price_hr: 0, notes: "CDNA5 · 432GB HBM4 · 19.6 TB/s — 2.4x B200 bandwidth. Ships H2 2026; SmartTec Phase-2 evaluation. Pricing at OEM availability. BF16 estimated (AMD publishes FP4/FP8 only)." },
+  { id: "MI455X", label: "AMD MI455X 432GB · Phase 2/3 eval", vram_gb: 432, bf16_tflops: 5000, mem_bw_gbps: 19600, unit_price_hr: 0, notes: "CDNA5 · 432GB HBM4 · 19.6 TB/s — 2.4x B200 bandwidth. Ships H2 2026; SmartTec Phase 2/3 evaluation. Pricing at OEM availability. BF16 estimated (AMD publishes FP4/FP8 only)." },
   { id: "GB200", label: "GB200 NVL72 rack", vram_gb: 13824, bf16_tflops: 162000, mem_bw_gbps: 576000, unit_price_hr: 345.60, notes: "72 Blackwell + 36 Grace. 13.5 TB HBM3e. Priced per rack-hour (72 GPUs). Reference only — not in Phase-1 fleet." },
   { id: "CS-3", label: "Cerebras CS-3 system", vram_gb: 1200, bf16_tflops: 125000, mem_bw_gbps: 21000, unit_price_hr: 0.04, notes: "Wafer-scale. Per-1K-tokens billing, not per-hour.", },
 ];

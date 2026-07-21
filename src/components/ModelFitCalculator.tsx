@@ -322,7 +322,7 @@ export default function ModelFitCalculator() {
             })}
           </div>
           <div className="font-space-mono text-[9px] text-slate/50 mt-2">
-            Counts rounded to deployable tensor-parallel sizes (2/4/8 per node, then whole nodes). GB200 NVL72 shown for scale reference (Phase-1 fleet: B200 / H-class + CS-3). Cerebras CS-3 billed per token. AMD MI455X selectable above for Phase-2 fit exploration — priced configs publish at OEM availability.
+            Counts rounded to deployable tensor-parallel sizes (2/4/8 per node, then whole nodes). GB200 NVL72 shown for scale reference (Phase-1 fleet: B200 / H-class + CS-3). Cerebras CS-3 billed per token. AMD MI455X selectable above for Phase 2/3 fit exploration — priced configs publish at OEM availability.
           </div>
         </div>
 
