@@ -26,7 +26,7 @@ export const MODELS: ModelSpec[] = [
   // Mistral
   { id: "mistral-7b",          family: "Mistral",   name: "7B",     params_b: 7,    num_layers: 32,  num_kv_heads: 8,    head_dim: 128, hidden_size: 4096,  context_window: 32768,  blurb: "The OG open-weights baseline." },
   { id: "mistral-nemo-12b",    family: "Mistral",   name: "Nemo 12B", params_b: 12, num_layers: 40,  num_kv_heads: 8,    head_dim: 128, hidden_size: 5120,  context_window: 131072, blurb: "Mistral + NVIDIA. Multilingual. 128k context." },
-  { id: "mistral-small-24b",   family: "Mistral",   name: "Small 24B", params_b: 24, num_layers: 40, num_kv_heads: 8,    head_dim: 128, hidden_size: 6144,  context_window: 32768,  blurb: "Apache 2.0. Beats Llama 3 70B on most evals." },
+  { id: "mistral-small-3.2-24b", family: "Mistral",  name: "Small 3.2 24B", params_b: 24, num_layers: 40, num_kv_heads: 8, head_dim: 128, hidden_size: 5120,  context_window: 131072, blurb: "Apache 2.0. 128k context. Beats Llama 3 70B on most evals." },
   { id: "codestral-22b",       family: "Mistral",   name: "Codestral 22B", params_b: 22, num_layers: 56, num_kv_heads: 8, head_dim: 128, hidden_size: 6144,  context_window: 32768,  blurb: "Code-focused. ~256k context option." },
   // Qwen 2.5
   { id: "qwen-2.5-7b",         family: "Qwen 2.5",  name: "7B",     params_b: 7,    num_layers: 28,  num_kv_heads: 4,    head_dim: 128, hidden_size: 3584,  context_window: 131072, blurb: "Strong multilingual small model." },
@@ -35,8 +35,8 @@ export const MODELS: ModelSpec[] = [
   { id: "qwen-2.5-72b",        family: "Qwen 2.5",  name: "72B",    params_b: 72,   num_layers: 80,  num_kv_heads: 8,    head_dim: 128, hidden_size: 8192,  context_window: 131072, blurb: "Top open-weights model before DeepSeek." },
   { id: "qwen-2.5-coder-32b",  family: "Qwen 2.5",  name: "Coder 32B", params_b: 32, num_layers: 64, num_kv_heads: 8, head_dim: 128, hidden_size: 5120, context_window: 131072, blurb: "Code-focused Qwen. Strong on agentic coding tasks." },
   // DeepSeek
-  { id: "deepseek-v3",         family: "DeepSeek",  name: "V3",     params_b: 671,  num_layers: 61,  num_kv_heads: 128,  head_dim: 128, hidden_size: 7168,  context_window: 65536,  blurb: "MoE frontier. 671B total / 37B active. Best open model on most evals.", is_moe: true, num_experts: 256, active_experts: 8 },
-  { id: "deepseek-r1",         family: "DeepSeek",  name: "R1",     params_b: 671,  num_layers: 61,  num_kv_heads: 128,  head_dim: 128, hidden_size: 7168,  context_window: 65536,  blurb: "Reasoning-tuned. Same MoE arch as V3.", is_moe: true, num_experts: 256, active_experts: 8 },
+  { id: "deepseek-v3",         family: "DeepSeek",  name: "V3",     params_b: 671,  num_layers: 61,  num_kv_heads: 128,  head_dim: 128, hidden_size: 7168,  context_window: 131072, blurb: "MoE frontier. 671B total / 37B active. Foundation of the 2025 reasoning wave.", is_moe: true, num_experts: 256, active_experts: 8 },
+  { id: "deepseek-r1",         family: "DeepSeek",  name: "R1",     params_b: 671,  num_layers: 61,  num_kv_heads: 128,  head_dim: 128, hidden_size: 7168,  context_window: 131072, blurb: "Reasoning-tuned. Same MoE arch as V3.", is_moe: true, num_experts: 256, active_experts: 8 },
   { id: "deepseek-r1-distill-70b", family: "DeepSeek", name: "R1 Distill 70B", params_b: 70, num_layers: 80, num_kv_heads: 8, head_dim: 128, hidden_size: 8192, context_window: 131072, blurb: "Distilled reasoning in a 70B Llama-class form factor." },
   // Gemma 2
   { id: "gemma-2-9b",          family: "Gemma 2",   name: "9B",     params_b: 9,    num_layers: 42,  num_kv_heads: 4,    head_dim: 256, hidden_size: 3584,  context_window: 8192,   blurb: "Google's small flagship. Strong at short-context." },
@@ -44,6 +44,21 @@ export const MODELS: ModelSpec[] = [
   // Phi
   { id: "phi-3.5-mini",        family: "Phi",       name: "3.5 Mini", params_b: 3.8, num_layers: 32, num_kv_heads: 4, head_dim: 96, hidden_size: 3072, context_window: 131072, blurb: "Microsoft's tiny long-context model. Surprisingly capable." },
   { id: "phi-4",               family: "Phi",       name: "Phi-4 14B", params_b: 14, num_layers: 40, num_kv_heads: 10, head_dim: 128, hidden_size: 5120, context_window: 16384, blurb: "Microsoft reasoning + math. MIT license." },
+  // Llama 3.3 / Llama 4
+  { id: "llama-3.3-70b",       family: "Llama 3.3", name: "70B",    params_b: 70,   num_layers: 80,  num_kv_heads: 8,    head_dim: 128, hidden_size: 8192,  context_window: 131072, blurb: "Llama 3.1 70B arch, instruction-tuned to near-405B quality." },
+  { id: "llama-4-scout",       family: "Llama 4",   name: "Scout 109B", params_b: 109, num_layers: 48, num_kv_heads: 8,  head_dim: 128, hidden_size: 5120,  context_window: 131072, blurb: "MoE 109B total / 17B active, 16 experts. Up to 10M context claimed via iRoPE; 128k modeled here.", is_moe: true, num_experts: 16, active_experts: 1 },
+  { id: "llama-4-maverick",    family: "Llama 4",   name: "Maverick 400B", params_b: 400, num_layers: 48, num_kv_heads: 8, head_dim: 128, hidden_size: 5120, context_window: 131072, blurb: "MoE 400B total / 17B active, 128 experts. Meta's open flagship.", is_moe: true, num_experts: 128, active_experts: 1 },
+  // Qwen 3 (Apr 2025)
+  { id: "qwen3-8b",            family: "Qwen 3",    name: "8B",     params_b: 8,    num_layers: 36,  num_kv_heads: 8,    head_dim: 128, hidden_size: 4096,  context_window: 131072, blurb: "Hybrid thinking modes. Strong small model of 2025." },
+  { id: "qwen3-32b",           family: "Qwen 3",    name: "32B",    params_b: 32,   num_layers: 64,  num_kv_heads: 8,    head_dim: 128, hidden_size: 5120,  context_window: 131072, blurb: "Dense flagship. Reasoning toggle built in." },
+  { id: "qwen3-235b-a22b",     family: "Qwen 3",    name: "235B-A22B", params_b: 235, num_layers: 94, num_kv_heads: 4,   head_dim: 128, hidden_size: 4096,  context_window: 131072, blurb: "MoE 235B total / 22B active, 128 experts. Alibaba's frontier open model.", is_moe: true, num_experts: 128, active_experts: 8 },
+  // OpenAI GPT-OSS (Aug 2025)
+  { id: "gpt-oss-20b",         family: "GPT-OSS",   name: "20B",    params_b: 21,   num_layers: 24,  num_kv_heads: 8,    head_dim: 64,  hidden_size: 2880,  context_window: 131072, blurb: "OpenAI open weights. MoE 21B / 3.6B active. Runs on a single 24 GB card at MXFP4.", is_moe: true, num_experts: 32, active_experts: 4 },
+  { id: "gpt-oss-120b",        family: "GPT-OSS",   name: "120B",   params_b: 117,  num_layers: 36,  num_kv_heads: 8,    head_dim: 64,  hidden_size: 2880,  context_window: 131072, blurb: "OpenAI open weights. MoE 117B / 5.1B active. o4-mini-class reasoning, fits one H100 at MXFP4.", is_moe: true, num_experts: 128, active_experts: 4 },
+  // Moonshot Kimi K2 (Jul 2025)
+  { id: "kimi-k2",             family: "Kimi",      name: "K2 1T",  params_b: 1000, num_layers: 61,  num_kv_heads: 64,   head_dim: 128, hidden_size: 7168,  context_window: 131072, blurb: "MoE 1T total / 32B active, 384 experts. DeepSeek-style MLA. Agentic-coding standout.", is_moe: true, num_experts: 384, active_experts: 8 },
+  // Gemma 3 (Mar 2025)
+  { id: "gemma-3-27b",         family: "Gemma 3",   name: "27B",    params_b: 27,   num_layers: 62,  num_kv_heads: 16,   head_dim: 128, hidden_size: 5376,  context_window: 131072, blurb: "Google's open flagship. 128k context, multimodal, strong multilingual." },
 ];
 
 export interface GpuSpec {
@@ -60,7 +75,7 @@ export const GPUS: GpuSpec[] = [
   { id: "H100", label: "H100 80GB SXM",    vram_gb: 80,  bf16_tflops: 989,  mem_bw_gbps: 3350, unit_price_hr: 2.40, notes: "8 GPUs per node via NVLink + IB" },
   { id: "H200", label: "H200 141GB SXM",   vram_gb: 141, bf16_tflops: 989,  mem_bw_gbps: 4800, unit_price_hr: 3.20, notes: "Same compute, 76% more memory bandwidth" },
   { id: "B200", label: "B200 192GB SXM",   vram_gb: 192, bf16_tflops: 2250, mem_bw_gbps: 8000, unit_price_hr: 4.80, notes: "Blackwell. 4th-gen Tensor Cores" },
-  { id: "GB200", label: "GB200 NVL72 rack", vram_gb: 1320, bf16_tflops: 18000, mem_bw_gbps: 130000, unit_price_hr: 6.40, notes: "72 Blackwell + 36 Grace. Rack-scale." },
+  { id: "GB200", label: "GB200 NVL72 rack", vram_gb: 13824, bf16_tflops: 162000, mem_bw_gbps: 576000, unit_price_hr: 6.40, notes: "72 Blackwell + 36 Grace. 13.5 TB HBM3e, rack-scale." },
   { id: "CS-3", label: "Cerebras CS-3 system", vram_gb: 1200, bf16_tflops: 125000, mem_bw_gbps: 21000, unit_price_hr: 0.04, notes: "Wafer-scale. Per-1K-tokens billing, not per-hour.", },
 ];
 
