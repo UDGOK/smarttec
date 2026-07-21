@@ -126,6 +126,8 @@ interface CalcResult {
 }
 
 export function Calculator() {
+  const [exportEmail, setExportEmail] = useState("");
+  const [exportStatus, setExportStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [workload, setWorkload] = useState<Workload>("inference");
   const [chip, setChip] = useState<Chip>("H100");
   const [qty, setQty] = useState(8);
@@ -267,9 +269,48 @@ export function Calculator() {
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3">
               <path d="M224,152v56a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V152a8,8,0,0,1,16,0v56H208V152a8,8,0,0,1,16,0ZM120,40V136L86.34,102.34a8,8,0,0,0-11.32,11.32l48,48a8,8,0,0,0,11.32,0l48-48a8,8,0,0,0-11.32-11.32L136,136V40a8,8,0,0,0-16,0Z" />
             </svg>
-            Download PDF
+            Download / Print PDF
           </button>
+          <div className="flex items-center gap-2">
+            <input
+              type="email"
+              value={exportEmail}
+              onChange={(e) => { setExportEmail(e.target.value); if (exportStatus !== "idle") setExportStatus("idle"); }}
+              placeholder="you@company.com"
+              className="w-40 sm:w-48 bg-background border border-dashed border-slate/40 px-3 py-2 font-space-mono text-[11px] text-slate focus:outline-none focus:border-greptile-green"
+            />
+            <button
+              type="button"
+              disabled={exportStatus === "sending" || !exportEmail.includes("@")}
+              onClick={async () => {
+                setExportStatus("sending");
+                try {
+                  const doc = generateCalculatorPdf(
+                    { workload, chip, qty, util, hrsPerDay, region, strategy },
+                    { ...result, smarttecOnlyPowerMonthly, gridOnlyPowerMonthly },
+                    false
+                  );
+                  const pdfBase64 = doc.output("datauristring").split(",")[1];
+                  const text = `Your SmartTec TCO estimate\n\nWorkload: ${workload} · ${qty}× ${chip} · ${util}% util · ${hrsPerDay}h/day\nMonthly power on SmartTec (behind-the-meter): $${Math.round(smarttecOnlyPowerMonthly).toLocaleString()}\nMonthly power grid-tied: $${Math.round(gridOnlyPowerMonthly).toLocaleString()}\nEstimated annual savings: $${Math.round(result.annualSavings).toLocaleString()}\n\nFull one-pager attached.`;
+                  const r = await fetch("/api/email-config", {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: exportEmail, subject: `SmartTec TCO estimate: ${qty}× ${chip}`, text, pdfBase64 }),
+                  });
+                  setExportStatus(r.ok ? "sent" : "error");
+                } catch { setExportStatus("error"); }
+              }}
+              className="btn-hex btn-hex-sm !border-greptile-green !bg-greptile-green !text-black inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {exportStatus === "sending" ? "Sending…" : "Email me this"}
+            </button>
+          </div>
         </div>
+        {exportStatus === "sent" && (
+          <p className="w-full font-space-mono text-[10px] text-greptile-green">[ Sent — check your inbox. PDF attached. ]</p>
+        )}
+        {exportStatus === "error" && (
+          <p className="w-full font-space-mono text-[10px] text-bloom">[ Couldn&apos;t send — use Download above or email hello@smarttec.dev ]</p>
+        )}
       </div>
       {/* Inputs panel */}
       <div className="border border-dashed border-slate/30 bg-fog/30 p-6 md:p-8">

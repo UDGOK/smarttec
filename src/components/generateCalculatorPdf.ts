@@ -54,7 +54,7 @@ const COLORS = {
   divider: "#D4D4D4",
 };
 
-export function generateCalculatorPdf(config: CalculatorConfig, results: CalculatorResults) {
+export function generateCalculatorPdf(config: CalculatorConfig, results: CalculatorResults, autoSave = true) {
   const doc = new jsPDF({ unit: "pt", format: "letter" });
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -279,7 +279,8 @@ export function generateCalculatorPdf(config: CalculatorConfig, results: Calcula
 
   // Save
   const filename = `smarttec-compute-economics-${new Date().toISOString().slice(0, 10)}.pdf`;
-  doc.save(filename);
+  if (autoSave) doc.save(filename);
+  return doc;
 }
 
 // ===== helper functions =====
