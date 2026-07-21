@@ -6,7 +6,7 @@ import PageShell from "@/components/PageShell";
 
 const faqs = [
   { q: "How fast can I get GPUs online vs. a hyperscaler waitlist?", a: "From signed reservation to running, typical onboarding is days — not the 6-12 months typical of major hubs. The power is already there." },
-  { q: "What NVIDIA and Cerebras models do you run?", a: "NVIDIA H100, H200, and B200 at launch, with GB200 racks as allocation opens. Cerebras wafer-scale systems for fastest-inference workloads. Bare-metal or orchestrated." },
+  { q: "What NVIDIA and Cerebras models do you run?", a: "NVIDIA H100, H200, and B200 at launch, with GB200 racks as allocation opens. Cerebras wafer-scale systems for fastest-inference workloads. Multi-vendor evaluation track open for Phase 2 \u2014 including AMD Instinct MI455X-class (Helios) inference as ROCm serving and OEM availability mature. Bare-metal or orchestrated." },
   { q: "Can I reserve a dedicated cluster?", a: "Yes — monthly or annual reserved clusters, with early-partner pricing during the build phase. Discounted launch capacity available to design partners." },
   { q: "What's the contract minimum?", a: "On-demand has no minimum. Reserved clusters are typically 12-month terms. Colo starts at 100kW." },
   { q: "Do you offer spot / preemptible instances?", a: "Yes — preemptible NVIDIA instances at significant discounts, suitable for fault-tolerant training jobs." },

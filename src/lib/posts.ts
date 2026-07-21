@@ -29,6 +29,39 @@ function slugify(title: string): string {
 
 export const posts: Post[] = [
   {
+    slug: "amd-helios-second-rack",
+    title: "AMD\u2019s Helios moment: what Microsoft\u2019s rack-scale bet means for a 30-GPU operator",
+    excerpt: "Microsoft just became the first hyperscaler to commit to AMD\u2019s Helios racks at scale \u2014 72 MI455X GPUs, 31.1 TB of HBM4, inference-first. Here\u2019s the honest read from an operator whose Phase 1 is contractually NVIDIA.",
+    category: "Industry",
+    author: "Yasir Jahangir",
+    authorTitle: "Co-founder & COO",
+    date: "Jul 21, 2026",
+    readTime: "7 min read",
+    body: [
+      { type: "p", text: "On July 20, Microsoft became the first hyperscaler to publicly commit to deploying AMD\u2019s Helios rack-scale AI platform at scale on Azure. Helios is not a GPU \u2014 it is an integrated rack: 72 Instinct MI455X GPUs with 31.1 TB of HBM4 across the system, sixth-generation EPYC Venice CPUs, Pensando networking, and the ROCm software stack, shipping in the second half of 2026. Azure is positioning it inference-first, with new ND MI455X v7 instances, squarely against NVIDIA\u2019s Vera Rubin NVL72. AMD stock moved about 5% on the announcement, which follows its gigawatt-class deals with OpenAI and Meta." },
+      { type: "img", src: "/blog/helios-second-rack.svg", alt: "Comparison of NVIDIA rack-scale systems and AMD Helios rack specifications", caption: "The unit of competition shifted from chip to rack \u2014 and as of this week, there are two racks" },
+      { type: "h2", text: "Why this matters more than another GPU launch" },
+      { type: "p", text: "For three years, buying AI infrastructure meant buying NVIDIA \u2014 the only question was allocation. A credible second rack changes procurement math everywhere: hyperscalers gain pricing leverage, supply pressure on NVIDIA parts eases at the margin, and the industry\u2019s single-vendor risk finally gets a release valve. The open question is software: whether ROCm closes enough of the CUDA gap for production inference at frontier scale. Microsoft betting its own Azure services on it is the strongest ROCm endorsement to date \u2014 but a forward commitment, not shipped silicon; Helios hardware arrives in H2 2026. Meanwhile the same week brought a reminder of the other bifurcation: Tom\u2019s Hardware reported a gigawatt-scale Chinese data center running entirely on domestic accelerators \u2014 zero NVIDIA \u2014 which, if it scales, shifts Chinese demand off the parts US buyers compete for." },
+      { type: "stat", items: [ { value: "72\u00d7", label: "MI455X GPUs per Helios rack \u00b7 31.1 TB HBM4" }, { value: "H2 2026", label: "Helios ship window \u2014 forward commitment today" }, { value: "1st", label: "Microsoft: first hyperscaler committed at scale" } ] },
+      { type: "h2", text: "What a 30-GPU operator actually does with this news" },
+      { type: "p", text: "Honestly: nothing rash. Our Phase 1 is 30 NVIDIA B200s behind battery storage in Mead, Oklahoma \u2014 contracted with anchor tenants, and unchanged by a rack that ships after our power-on. What changes is Phase 2 planning. We are opening a formal multi-vendor evaluation track, and MI455X-class inference is on it, with three gates before AMD silicon earns a place in Building 2: availability outside Azure through OEM channels at our scale; ROCm maturity in the serving stack our tenants actually run (vLLM-class, day-one model support); and delivered dollars-per-token versus B200 at our power rate \u2014 measured, not marketed." },
+      { type: "callout", title: "The small-operator advantage in a two-vendor world", body: "Hyperscalers must bet billions years ahead. A 30-GPU operator can wait for shipped hardware, real benchmarks, and street pricing \u2014 then buy whichever rack wins on measured economics. Vendor competition is the one force in this market that structurally favors the small buyer." },
+      { type: "faq", items: [
+        { q: "What is AMD Helios?", a: "Helios is AMD\u2019s rack-scale AI platform: an integrated system of 72 Instinct MI455X GPUs with 31.1 TB of HBM4 memory across the rack, sixth-generation EPYC Venice CPUs, Pensando networking, and the ROCm software stack, sold as one unit. It ships in the second half of 2026 and competes with NVIDIA\u2019s Vera Rubin NVL72." },
+        { q: "Is Microsoft replacing NVIDIA with AMD?", a: "No \u2014 it is adding a second supplier. Microsoft committed to deploying Helios at scale on Azure for inference workloads (new ND MI455X v7 instances), alongside its existing NVIDIA fleet. It is the first hyperscaler to make a public at-scale Helios commitment, and it is a forward commitment: hardware ships H2 2026." },
+        { q: "Will SmartTec offer AMD GPUs?", a: "Not in Phase 1, which is contractually 30 NVIDIA B200s plus Cerebras CS-3 capacity at the Mead, Oklahoma site. SmartTec has opened a multi-vendor evaluation track for Phase 2 that includes MI455X-class inference, gated on OEM availability at small-operator scale, ROCm serving-stack maturity, and measured dollars-per-token versus B200." },
+        { q: "Does AMD\u2019s rise help GPU buyers?", a: "Structurally, yes. A credible second rack-scale vendor gives every buyer pricing leverage, eases allocation pressure on NVIDIA parts at the margin, and reduces single-vendor risk. Smaller operators benefit most, because they can wait for shipped hardware and measured benchmarks rather than committing capital years ahead." }
+      ] },
+      { type: "sources", items: [
+        { label: "Microsoft will deploy AMD Helios at scale on Azure \u2014 Tom\u2019s Hardware (Jul 2026)", url: "https://www.tomshardware.com/tech-industry/artificial-intelligence/microsoft-will-deploy-amds-helios-rack-scale-ai-accelerator-at-scale-on-azure-radeon-instinct-mi455x-and-epyc-venice-power-will-be-available-through-redmonds-cloud-infrastructure" },
+        { label: "Expanding AI infrastructure choice with AMD Helios \u2014 AMD (Jul 2026)", url: "https://www.amd.com/en/blogs/2025/Microsoft-Azure-Expanding-AI-Infra-Choice-with-AMD-Helios.html" },
+        { label: "Microsoft first hyperscaler to commit to Helios \u2014 StorageReview (Jul 2026)", url: "https://www.storagereview.com/news/microsoft-will-ramp-amds-helios-rack-scale-ai-platform-at-scale-on-azure" },
+        { label: "ND MI455X v7 inference instances \u2014 Windows News (Jul 2026)", url: "https://windowsnews.ai/article/microsoft-to-deploy-amds-helios-rack-scale-ai-platform-on-azure-new-mi455x-vms-arrive-late-2026.439720" }
+      ] }
+    ],
+  },
+
+  {
     slug: "where-a-110-kw-operator-fits-in-a-3-5-gw-world",
     title: "Where a 110 kW operator fits in a 3.5 GW world",
     excerpt: "CoreWeave and Nebius have contracted ~3.5 gigawatts each. The Gulf is deploying sovereign AI by the hundreds of megawatts. So what is a 30-GPU site in Oklahoma doing in this market? Winning different rows of the table.",

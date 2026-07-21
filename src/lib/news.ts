@@ -31,6 +31,12 @@ export interface CompanyNewsItem {
 // Curated SmartTec milestones — pinned above the live feed.
 export const COMPANY_NEWS: CompanyNewsItem[] = [
   {
+    date: "Jul 21, 2026",
+    title: "Multi-vendor track opened: evaluating AMD Instinct for Phase-2 inference",
+    body: "Following Microsoft\u2019s at-scale Helios commitment, SmartTec opened a formal Phase-2 evaluation of MI455X-class inference \u2014 gated on OEM availability at our scale, ROCm serving maturity, and measured $/token vs B200. Phase 1 remains 30\u00d7 NVIDIA B200.",
+    href: "/blog/amd-s-helios-moment-what-microsoft-s-rack-scale-bet-means-for-a-30-gpu-operator",
+  },
+  {
     date: "Jul 19, 2026",
     title: "Research series: five papers-to-practice articles published",
     body: "Five new engineering articles grounded in 2025–26 peer-reviewed research — battery-layered AI data centers, the thermal wall, PUE economics, and lessons from subsea and Asian deployments — each with infographics, FAQs, and cited sources.",
