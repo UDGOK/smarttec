@@ -77,8 +77,10 @@ const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?:
 const computeMenu = [
   { title: "NVIDIA Compute", desc: "H100 · H200 · B200 · GB200", tag: "Training", color: "bg-greptile-green", href: "/compute" },
   { title: "Cerebras Inference", desc: "Fastest tokens on earth", tag: "Inference", color: "bg-peach", href: "/compute" },
+  { title: "AMD Instinct", desc: "MI355X · MI455X · Helios", tag: "Reference", color: "bg-neon", href: "/amd-instinct" },
   { title: "Features", desc: "The full SmartTec stack", color: "bg-seafoam", href: "/features" },
   { title: "AURA control plane", desc: "Predictive orchestration", color: "bg-lavender", href: "/aura" },
+  { title: "Inference stack", desc: "Serving, endpoints, per-token", color: "bg-greptile-green", href: "/inference" },
 ];
 
 const companyMenu = [
