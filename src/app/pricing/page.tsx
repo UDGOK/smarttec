@@ -79,6 +79,13 @@ export default function PricingPage() {
                 GPUs by the hour.
               </h2>
               <p className="text-slate/70 mt-2">Spin up, train, tear down. Spot / preemptible available.</p>
+              <p className="text-sm text-slate/60 mt-3 max-w-2xl leading-relaxed">
+                Wondering whether these are good rates? We publish the whole market, not just ours — B200 capacity
+                trades between $3.50 and $14.24/GPU-hr across 13 providers, at a $6.12 median.{" "}
+                <Link href="/market" className="underline decoration-greptile-green underline-offset-4 text-slate hover:text-greptile-green">
+                  See the July 2026 market rates →
+                </Link>
+              </p>
             </div>
 
             {/* Hardware hero strip — 3 cards showing the actual systems */}

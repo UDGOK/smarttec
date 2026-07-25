@@ -55,6 +55,7 @@ const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?:
   {
     label: "Pricing",
     href: "/pricing",
+    hasMenu: true,
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
         <path d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z" />
@@ -90,6 +91,21 @@ const companyMenu = [
   { title: "Security", desc: "SOC 2 + compliance", href: "/security" },
 ];
 
+const pricingMenu = [
+  { title: "Our rates", desc: "On-demand + reserved plans", color: "bg-greptile-green", href: "/pricing" },
+  { title: "B200 market rates", desc: "$3.50–$14.24 across 13 providers", tag: "New", color: "bg-neon", href: "/market" },
+  { title: "Compare providers", desc: "Honest table — including where we lose", color: "bg-seafoam", href: "/compare" },
+  { title: "Cost calculator", desc: "Estimate your monthly spend", color: "bg-lavender", href: "/calculator" },
+];
+
+type MenuKey = "Compute" | "Company" | "Pricing";
+
+const menus: Record<MenuKey, { title: string; desc?: string; tag?: string; color?: string; href: string }[]> = {
+  Compute: computeMenu,
+  Company: companyMenu,
+  Pricing: pricingMenu,
+};
+
 function CaretIcon({ open }: { open: boolean }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}>
@@ -99,7 +115,7 @@ function CaretIcon({ open }: { open: boolean }) {
 }
 
 export function Navigation() {
-  const [openMenu, setOpenMenu] = useState<"Compute" | "Company" | null>(null);
+  const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Lock page scroll while the mobile menu is open so the menu itself scrolls.
@@ -165,7 +181,7 @@ export function Navigation() {
                 <div
                   key={link.label}
                   className="relative"
-                  onMouseEnter={() => link.hasMenu && setOpenMenu(link.label as "Compute" | "Company")}
+                  onMouseEnter={() => link.hasMenu && setOpenMenu(link.label as MenuKey)}
                   onMouseLeave={() => link.hasMenu && setOpenMenu(null)}
                 >
                   {link.hasMenu ? (
@@ -229,6 +245,38 @@ export function Navigation() {
                                     </div>
                                   </Link>
                                 ))}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                        {openMenu === link.label && link.label === "Pricing" && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 4 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50"
+                          >
+                            <div className="w-[460px] bg-fog border border-dashed border-silver shadow-2xl">
+                              <div className="grid grid-cols-1 gap-px bg-silver">
+                                {pricingMenu.map((m) => (
+                                  <Link key={m.title} href={m.href} className="group flex items-start gap-3 p-4 bg-fog hover:bg-greptile-green/20 transition-colors text-left">
+                                    <span className={`inline-block w-2 h-2 shrink-0 mt-1.5 ${m.color}`} />
+                                    <div>
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-sm font-anybody font-bold text-slate">{m.title}</span>
+                                        {m.tag && (
+                                          <span className="text-[9px] font-mono uppercase tracking-wider bg-neon text-slate px-1.5 py-0.5 rounded-sm">{m.tag}</span>
+                                        )}
+                                      </div>
+                                      <div className="text-xs text-slate/60 leading-snug">{m.desc}</div>
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                              <div className="px-4 py-3 bg-background border-t border-dashed border-silver flex items-center justify-between">
+                                <span className="font-space-mono text-[11px] uppercase tracking-wider text-slate/60">Rates last reviewed Jul 2026</span>
+                                <Link href="/pricing" className="font-anybody font-bold text-sm text-slate hover:text-greptile-green">See pricing →</Link>
                               </div>
                             </div>
                           </motion.div>
@@ -305,22 +353,16 @@ export function Navigation() {
             >
               <div className="px-4 pt-4 flex flex-col" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 2rem)" }}>
                 {navLinks.map((link) => {
-                  const hasSubmenu =
-                    link.label === "Compute" || link.label === "Company";
+                  const submenuItems = menus[link.label as MenuKey] ?? null;
+                  const hasSubmenu = Boolean(link.hasMenu && submenuItems);
                   const isOpen = openMenu === link.label;
-                  const submenuItems =
-                    link.label === "Compute"
-                      ? (computeMenu as { title: string; desc?: string; tag?: string; color?: string; href: string }[])
-                      : link.label === "Company"
-                      ? (companyMenu as { title: string; desc?: string; tag?: string; color?: string; href: string }[])
-                      : null;
 
                   return (
                     <div key={link.label} className="border-b border-dashed border-slate/20 last:border-b-0">
                       {hasSubmenu ? (
                         <>
                           <button
-                            onClick={() => setOpenMenu(isOpen ? null : (link.label as "Compute" | "Company"))}
+                            onClick={() => setOpenMenu(isOpen ? null : (link.label as MenuKey))}
                             className={`w-full font-anybody font-bold text-base md:text-lg tracking-tight uppercase text-left transition-colors flex items-center justify-between gap-3 px-2 py-3 ${
                               isOpen ? "bg-greptile-green text-black" : "text-slate hover:bg-greptile-green/15"
                             }`}
@@ -356,6 +398,9 @@ export function Navigation() {
                                           <span className={`inline-block w-1.5 h-1.5 ${m.color}`} />
                                         )}
                                         {m.title}
+                                        {m.tag && (
+                                          <span className="text-[9px] font-mono uppercase tracking-wider bg-neon text-slate px-1.5 py-0.5 rounded-sm">{m.tag}</span>
+                                        )}
                                       </span>
                                       {m.desc && (
                                         <span className="block font-space-mono text-[10px] uppercase tracking-wider text-slate/55 mt-0.5">

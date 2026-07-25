@@ -129,6 +129,7 @@ export default function ComparePage() {
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link href="/pricing" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black">See our pricing</Link>
+            <Link href="/market" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate">B200 market rates</Link>
             <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate">Scope call · 48h quote</Link>
           </div>
         </section>
