@@ -32,6 +32,8 @@
   reference (MLPerf-measured, not a SmartTec product — no AMD capacity is offered)
 - https://smarttec.dev/compare : honest comparison vs hyperscalers, neoclouds, marketplaces
 - https://smarttec.dev/mead : the site story — owned land, 3 MVA transformer, power economics
+- https://smarttec.dev/site : the Mead site itself — 30 acres, 3 buildings, 3 MVA transformer
+  (photo frames; real photography only, no renders — placeholders until shot)
 - https://smarttec.dev/customers : who it serves + design-partner program
 - https://smarttec.dev/blog : engineering articles on AI datacenter power
 - https://smarttec.dev/contact : contact form (routes to team)

@@ -18,6 +18,7 @@ const companyLinks = [
   { label: "About", href: "/about" },
   { label: "Deployments", href: "/deployments" },
   { label: "Why Mead, OK", href: "/mead" },
+  { label: "The site — photos", href: "/site" },
   { label: "Customers", href: "/customers" },
   { label: "Power story", href: "/power" },
   { label: "Blog", href: "/blog" },
