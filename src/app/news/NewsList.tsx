@@ -128,7 +128,7 @@ export function CategoryFilter({ items, activeCategory }: { items: NewsItem[]; a
         return (
           <Link
             key={c}
-            href={`/news?cat=${c}`}
+            href={`/news?cat=${encodeURIComponent(c)}`}
             className={`font-space-mono text-xs uppercase tracking-wider px-4 py-2 border border-dashed transition-colors ${isActive ? "bg-greptile-green border-greptile-green text-black" : "border-slate/30 text-slate/70 hover:bg-greptile-green/10"}`}
           >
             {c} <span className="ml-2 opacity-60">{count}</span>
