@@ -28,6 +28,8 @@
 - https://smarttec.dev/power : battery-backed power design
 - https://smarttec.dev/pricing : rates and reserved plans
 - https://smarttec.dev/market : published NVIDIA B200 market rates per GPU-hour, with cited sources
+- https://smarttec.dev/amd-instinct : vendor-neutral AMD Instinct MI355X/MI455X vs NVIDIA B200
+  reference (MLPerf-measured, not a SmartTec product — no AMD capacity is offered)
 - https://smarttec.dev/compare : honest comparison vs hyperscalers, neoclouds, marketplaces
 - https://smarttec.dev/mead : the site story — owned land, 3 MVA transformer, power economics
 - https://smarttec.dev/customers : who it serves + design-partner program

@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://smarttec.dev";
   const routes = [
     "", "/mead", "/compare", "/compute", "/power", "/aura", "/pricing", "/market", "/customers", "/enterprise",
-    "/features", "/inference", "/dgx-spark", "/deployments", "/calculator", "/about",
+    "/features", "/inference", "/amd-instinct", "/dgx-spark", "/deployments", "/calculator", "/about",
     "/investors", "/blog", "/contact", "/security", "/status",
   ];
   const staticEntries = routes.map((r) => ({
