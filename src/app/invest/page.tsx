@@ -43,8 +43,8 @@ const stats = [
   { v: "64×", l: "NVIDIA B200 GPUs · 60 rentable" },
   { v: "114 kW", l: "Phase 1A IT load" },
   { v: "100G", l: "Symmetrical DIA fiber (signed quote)" },
-  { v: "$4.50M", l: "Total CAPEX w/ 15% contingency" },
-  { v: "2.60×", l: "Modeled Year-1 DSCR (7-yr term)" },
+  { v: "$4.64M", l: "All-in CAPEX · two gated tranches" },
+  { v: "8%", l: "Investor pref, then 80/20 · underwritten at $4.00/hr" },
 ];
 
 const files = [
@@ -52,19 +52,19 @@ const files = [
     name: "Mead-Data-Center-Investor-Memorandum.pdf",
     title: "Investor Memorandum",
     kind: "PDF · 8 pages",
-    desc: "The full case: the asset, the itemized $4.5M build, unit economics, five-year model priced for 10%/yr rate decline, the levered capital structure, and the risks — including the two open engineering items — stated plainly.",
+    desc: "The full case: the asset, the itemized build with engineering fixes funded, the demand gate (78% of capital waits for signatures), underwriting vs target economics, the pref/promote waterfall — and the floor scenario printed, not hidden.",
   },
   {
     name: "Mead-Data-Center-Investor-FAQ.pdf",
     title: "Investor FAQ — 20 hard questions",
     kind: "PDF · 4 pages",
-    desc: "The questions you should be asking, answered with the same audited numbers — including the bear case, straight.",
+    desc: "Twenty hard questions answered with the same audited numbers — including what kills the deal, what the sponsor makes, and why the server capital cannot deploy before demand signs.",
   },
   {
     name: "SmartTec-Mead-DC-Model.xlsx",
     title: "Live Financial Model",
     kind: "Excel workbook · 126 formulas",
-    desc: "Fully formula-driven and reconciled line-by-line to Blueprint V4. Edit the rate, decay, debt and CAPEX levers; DSCR, payback, MOIC and IRR recalculate live.",
+    desc: "Fully formula-driven, reconciled line-by-line to the blueprint. Edit the rate, decay, pref and CAPEX levers; the investor waterfall, tranches, MOIC and IRR recalculate live. Set the rate to $4.00 to see the floor.",
   },
 ];
 
