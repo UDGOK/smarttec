@@ -3,8 +3,14 @@ import PageShell from "@/components/PageShell";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Compare GPU Clouds: Hyperscalers vs Neoclouds vs Marketplaces vs SmartTec",
+  title: "Compare GPU Clouds 2026: Hyperscalers vs Neoclouds vs Marketplaces vs SmartTec",
   alternates: { canonical: "/compare" },
+  openGraph: {
+    title: 'Compare GPU Clouds 2026: Hyperscalers vs Neoclouds vs Marketplaces vs SmartTec',
+    description: 'An honest 2026 comparison of AI compute options — including the rows SmartTec loses.',
+    url: "https://smarttec.dev/compare",
+    type: "website",
+  },
   description:
     "An honest comparison of AI compute options in 2026 — AWS-class hyperscalers, CoreWeave-class neoclouds, GPU marketplaces, and SmartTec's battery-backed owned-site model. Real tradeoffs, real numbers, no pretending.",
 };

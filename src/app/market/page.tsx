@@ -5,6 +5,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "NVIDIA B200 Price Per GPU-Hour — July 2026 Market Rates",
   alternates: { canonical: "/market" },
+  openGraph: {
+    title: 'NVIDIA B200 Price Per GPU-Hour — July 2026 Market Rates',
+    description: 'The published B200 market: $3.50–$14.24/GPU-hr across 13 providers, ~$6.12 median, every figure cited to primary sources.',
+    url: "https://smarttec.dev/market",
+    type: "website",
+  },
   description:
     "What an NVIDIA B200 actually costs per GPU-hour in July 2026: a $3.50–$14.24 on-demand spread across AWS, CoreWeave, Lambda, Nebius, RunPod and marketplaces, with a ~$6.12 median. Published rates, cited sources, and where SmartTec prices.",
 };

@@ -75,9 +75,9 @@ export default function CalculatorPage() {
                   <span className="inline-block w-2 h-2 bg-greptile-green" />
                   <span>[ NEXT STEP ]</span>
                 </div>
-                <h3 className="font-anybody font-extrabold text-2xl md:text-3xl text-slate tracking-tight">
+                <h2 className="font-anybody font-extrabold text-2xl md:text-3xl text-slate tracking-tight">
                   Economics confirmed. Now: will your model fit?
-                </h3>
+                </h2>
                 <p className="font-anybody text-slate/70 mt-2 max-w-2xl">
                   Use the inference fit-check to pick a model and GPU. You get VRAM fit, throughput, and a ready-to-run vLLM deploy command for SmartTec compute.
                 </p>

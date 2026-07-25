@@ -24,7 +24,25 @@ export default function robots(): MetadataRoute.Robots {
     "YandexBot",         // Yandex
     "Yeti",              // Naver
     "SeznamBot",         // Seznam
-    "DuckDuckBot"        // DuckDuckGo
+    "DuckDuckBot",       // DuckDuckGo
+    // Added Jul 2026 — verified against official crawler docs:
+    "Claude-SearchBot",  // Anthropic — Claude search index
+    "DuckAssistBot",     // DuckDuckGo AI answers
+    "MistralAI-Index",   // Mistral — Le Chat search index
+    "MistralAI-User",
+    "meta-webindexer",   // Meta AI search index
+    "meta-externalfetcher",
+    "Amzn-SearchBot",    // Amazon search experiences (Alexa)
+    "Amzn-User",
+    // Reported tokens, no official docs published (harmless — * already allows;
+    // listed to signal explicit welcome): xAI/Grok, Moonshot/Kimi, Zhipu/z.ai,
+    // DeepSeek, You.com
+    "GrokBot",
+    "Kimibot",
+    "MoonshotBot",
+    "ChatGLM-Spider",
+    "DeepSeekBot",
+    "YouBot"
   ];
   return {
     rules: [

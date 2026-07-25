@@ -36,6 +36,11 @@
   (photo frames; real photography only, no renders — placeholders until shot)
 - https://smarttec.dev/customers : who it serves + design-partner program
 - https://smarttec.dev/blog : engineering articles on AI datacenter power
+- https://smarttec.dev/calculator : free GPU cost + power calculator (model fit, VRAM, $/month)
+- https://smarttec.dev/inference : inference stack, endpoints, model-fit tooling
+- https://smarttec.dev/aura : AURA power/workload orchestration software
+- https://smarttec.dev/about : company story and founders
+- https://smarttec.dev/dgx-spark : NVIDIA DGX Spark desk-side reference
 - https://smarttec.dev/contact : contact form (routes to team)
 
 ## Contact

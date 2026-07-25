@@ -3,7 +3,13 @@ import PageShell from "@/components/PageShell";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Why Mead, Oklahoma? | The SmartTec Site Story",
+  title: "Mead, Oklahoma Data Center — Why SmartTec Built in Bryan County",
+  openGraph: {
+    title: 'Mead, Oklahoma Data Center — Why SmartTec Built in Bryan County',
+    description: '30 owned acres on US-70, a 3 MVA transformer, ~$0.08/kWh power, and a signed 100 Gbps fiber quote — the honest story of a battery-backed AI data center site in Mead, Oklahoma.',
+    url: "https://smarttec.dev/mead",
+    type: "website",
+  },
   description:
     "30 owned acres on US-70, a 3 MVA transformer, ~$0.08/kWh power, and a signed 100 Gbps fiber quote — why SmartTec's battery-backed AI data center is in Mead, Oklahoma, told honestly (tornadoes included).",
   alternates: { canonical: "/mead" },

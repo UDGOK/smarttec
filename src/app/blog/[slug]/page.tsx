@@ -16,10 +16,20 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return { title: "Not found · SmartTec" };
+  const iso = new Date(post.date).toISOString().slice(0, 10);
   return {
     title: `${post.title} · SmartTec Blog`,
     description: post.excerpt,
     alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `https://smarttec.dev/blog/${post.slug}`,
+      type: "article",
+      publishedTime: iso,
+      modifiedTime: iso,
+      authors: [post.author],
+    },
   };
 }
 
@@ -207,10 +217,27 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
                   "@type": "Article",
                   headline: post.title,
                   description: post.excerpt,
-                  datePublished: post.date,
-                  dateModified: post.date,
-                  author: { "@type": post.author.includes("Engineering") ? "Organization" : "Person", name: post.author },
-                  publisher: { "@type": "Organization", name: "SmartTec", url: "https://smarttec.dev" },
+                  datePublished: new Date(post.date).toISOString().slice(0, 10),
+                  dateModified: new Date(post.date).toISOString().slice(0, 10),
+                  url: `https://smarttec.dev/blog/${post.slug}`,
+                  mainEntityOfPage: { "@type": "WebPage", "@id": `https://smarttec.dev/blog/${post.slug}` },
+                  image: ["https://smarttec.dev/og.png"],
+                  author: { "@type": post.author.includes("Engineering") ? "Organization" : "Person", name: post.author, url: "https://smarttec.dev/about" },
+                  publisher: { "@type": "Organization", name: "SmartTec", url: "https://smarttec.dev", logo: { "@type": "ImageObject", url: "https://smarttec.dev/logo.svg" } },
+                }),
+              }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "BreadcrumbList",
+                  itemListElement: [
+                    { "@type": "ListItem", position: 1, name: "Home", item: "https://smarttec.dev/" },
+                    { "@type": "ListItem", position: 2, name: "Blog", item: "https://smarttec.dev/blog" },
+                    { "@type": "ListItem", position: 3, name: post.title, item: `https://smarttec.dev/blog/${post.slug}` },
+                  ],
                 }),
               }}
             />
