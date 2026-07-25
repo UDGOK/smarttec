@@ -54,6 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@smarttec_io",
     title: "SmartTec | Battery-Backed AI Compute",
     description:
       "NVIDIA + Cerebras compute behind z1power LFP storage. Sub-10ms failover, Mead, Oklahoma.",
@@ -86,6 +87,7 @@ export default function RootLayout({
                   "@type": "Organization",
                   "@id": "https://smarttec.dev/#org",
                   name: "SmartTec",
+                  alternateName: ["SmartTec.dev", "SmartTec — Mead, Oklahoma", "SmartTec battery-backed AI compute"],
                   url: "https://smarttec.dev",
                   logo: "https://smarttec.dev/logo.svg",
                   description:
@@ -93,8 +95,8 @@ export default function RootLayout({
                   foundingDate: "2025",
                   address: { "@type": "PostalAddress", addressRegion: "OK", addressCountry: "US" },
                   founders: [
-                    { "@type": "Person", name: "Syed Hussain" },
-                    { "@type": "Person", name: "Yasir Jahangir" },
+                    { "@type": "Person", name: "Syed Hussain", jobTitle: "Co-founder & CEO", worksFor: { "@id": "https://smarttec.dev/#org" } },
+                    { "@type": "Person", name: "Yasir Jahangir", jobTitle: "Co-founder & COO", worksFor: { "@id": "https://smarttec.dev/#org" } },
                   ],
                   sameAs: [
                     "https://z1power.com",

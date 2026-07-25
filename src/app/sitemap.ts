@@ -8,15 +8,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/features", "/inference", "/amd-instinct", "/dgx-spark", "/deployments", "/calculator", "/about",
     "/investors", "/blog", "/contact", "/security", "/status",
   ];
+  const REVIEWED = new Date("2026-07-25");
   const staticEntries = routes.map((r) => ({
     url: `${base}${r}`,
-    lastModified: new Date(),
+    lastModified: REVIEWED,
     changeFrequency: "weekly" as const,
     priority: r === "" ? 1 : 0.8,
   }));
   const blogEntries = posts.map((p) => ({
     url: `${base}/blog/${p.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(p.date),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));

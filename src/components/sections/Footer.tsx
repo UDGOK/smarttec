@@ -17,6 +17,7 @@ const computeLinks = [
 const companyLinks = [
   { label: "About", href: "/about" },
   { label: "Deployments", href: "/deployments" },
+  { label: "Enterprise", href: "/enterprise" },
   { label: "Why Mead, OK", href: "/mead" },
   { label: "The site — photos", href: "/site" },
   { label: "Customers", href: "/customers" },
@@ -31,6 +32,7 @@ const resourceLinks = [
   { label: "Security & SOC 2", href: "/security" },
   { label: "Technical docs", href: "/security" },
   { label: "Pilot program", href: "/deployments" },
+  { label: "Platform features", href: "/features" },
   { label: "AURA telemetry", href: "/aura" },
   { label: "Changelog", href: "/blog" },
 ];
