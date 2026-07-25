@@ -57,7 +57,7 @@ export function MeadTwin() {
           <path d="M360 260 L470 205 L600 270 L490 325 Z" fill="#EEEEEE" stroke="#3D3B4F" strokeWidth="2.5" />
           <path d="M360 260 L360 372 L490 437 L490 325 Z" fill="#FFFFFF" stroke="#3D3B4F" strokeWidth="2.5" />
           <path d="M600 270 L600 382 L490 437 L490 325 Z" fill="#D6D6D6" stroke="#3D3B4F" strokeWidth="2.5" />
-          <text x="380" y="252" className="mt-lbl">BUILDING 1 · 30× B200</text>
+          <text x="380" y="252" className="mt-lbl">BUILDING 1 · 64× B200</text>
           {/* rack row on front face (isometric-ish rects) */}
           {[0, 1, 2, 3].map((i) => (
             <g key={i} transform={`translate(${378 + i * 26} ${300 + i * 13})`}>

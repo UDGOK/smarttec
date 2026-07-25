@@ -40,8 +40,8 @@ async function logout() {
 }
 
 const stats = [
-  { v: "30×", l: "NVIDIA B200 GPUs" },
-  { v: "100%", l: "Capacity pre-committed · 6 anchors" },
+  { v: "64×", l: "NVIDIA B200 GPUs · 60 rentable" },
+  { v: "114 kW", l: "Phase 1A IT load" },
   { v: "100G", l: "Symmetrical DIA fiber (signed quote)" },
   { v: "$2.0M", l: "Raise · CAPEX $1.99M w/ contingency" },
   { v: "34%", l: "Modeled Year-1 cash yield" },
@@ -129,9 +129,9 @@ function Portal() {
           Mead Data Center
         </h1>
         <p className="mt-4 max-w-2xl text-slate/80 leading-relaxed">
-          A 30-GPU NVIDIA B200 cluster on land, power, and buildings we already
-          own — six anchor tenants committing 100% of capacity, a signed-quote
-          fiber path, and batteries from our own company behind the meter.
+          A 64-GPU NVIDIA B200 cluster — 8× HGX B200, 60 of them rentable — on land,
+          power, and buildings we already own, with anchor commitments in place, a
+          signed-quote fiber path, and batteries from our own company behind the meter.
         </p>
       </section>
 

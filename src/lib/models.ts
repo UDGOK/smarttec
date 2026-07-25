@@ -16,13 +16,27 @@ export interface ModelSpec {
   active_params_b?: number; // MoE: params activated per token (drives compute + per-token weight reads)
   num_experts?: number;
   active_experts?: number;
-  // Hybrid linear-attention models (e.g. Kimi Delta Attention) only carry a per-token KV
-  // cache on their periodic full-attention layers; linear layers hold constant-size state.
-  // Where set, this is the count of KV-bearing layers, NOT num_layers.
-  kv_layers?: number;
-  // True when the vendor has not published KV geometry (kv heads / head dim) yet, so any
-  // KV-cache figure would be invented. UI must show weights-only fit and say so.
+  // ── KV-cache geometry ────────────────────────────────────────────────────────────
+  // The 2026 model generation largely abandoned uniform GQA. Three cases now exist:
+  //
+  //  1. Uniform full attention  — leave these unset; every layer caches. (Llama, Qwen 2.5…)
+  //  2. Hybrid linear/Mamba     — only a subset of layers cache; the rest hold constant-size
+  //                               recurrent state. Set kv_layers to the caching count.
+  //                               (Kimi Delta Attention, Qwen 3.5 linear, Nemotron Mamba)
+  //  3. Sliding-window hybrid   — some layers cache only the last `sliding_window` tokens.
+  //                               Set kv_layers (full) + swa_layers + sliding_window.
+  //                               (Gemma 4, gpt-oss, Command A)
+  //
+  // For MLA models (DeepSeek/Kimi/GLM/Mistral-Large lineage) there is no K+V pair — a single
+  // compressed latent is cached. House convention: num_kv_heads = 1 and head_dim = half the
+  // per-layer latent width, so the formula's ×2 recovers it. Comment the real width inline.
+  kv_layers?: number;       // layers holding an UNBOUNDED per-token KV cache (default: num_layers)
+  swa_layers?: number;      // layers whose cache is capped at sliding_window
+  sliding_window?: number;  // window size in tokens for swa_layers
+  // Set when KV cache genuinely cannot be computed — vendor hasn't published the geometry, or
+  // it isn't expressible here. UI shows weights-only fit and renders kv_note instead of a number.
   kv_pending?: boolean;
+  kv_note?: string;
   blurb: string;
 }
 
@@ -113,10 +127,17 @@ export function kvCacheGB(
   batchSize: number,
   dtypeBytes = 2
 ): number {
-  // KV cache = 2 (K+V) * layers * kv_heads * head_dim * seq_len * dtype_bytes * batch
-  // Hybrid linear-attention models only pay this on their full-attention layers.
-  const kvLayers = model.kv_layers ?? model.num_layers;
-  return (2 * kvLayers * model.num_kv_heads * model.head_dim * seqLen * dtypeBytes * batchSize) / (1024 ** 3);
+  // Per layer-token width = 2 (K+V) * kv_heads * head_dim. For MLA entries the house
+  // convention folds the compressed latent width into kv_heads=1 * head_dim=width/2.
+  const perLayerToken = 2 * model.num_kv_heads * model.head_dim;
+  // Full-attention layers cache every token in the sequence...
+  const fullLayers = model.kv_layers ?? model.num_layers;
+  // ...sliding-window layers cache at most `sliding_window` of them...
+  const swaLayers = model.swa_layers ?? 0;
+  const window = model.sliding_window ?? seqLen;
+  // ...and linear / Mamba / KDA layers cache nothing that grows with sequence length.
+  const cachedTokens = fullLayers * seqLen + swaLayers * Math.min(seqLen, window);
+  return (cachedTokens * perLayerToken * dtypeBytes * batchSize) / (1024 ** 3);
 }
 
 // Standard vLLM utilization headroom — CUDA context + activations + safety margin.
