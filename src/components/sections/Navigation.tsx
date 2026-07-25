@@ -85,6 +85,7 @@ const computeMenu = [
 
 const companyMenu = [
   { title: "About", desc: "Our story + team", href: "/about" },
+  { title: "The Site", desc: "Mead, OK — land, power, buildings", href: "/site" },
   { title: "Enterprise", desc: "Federal, federal-adjacent, large teams", href: "/enterprise" },
   { title: "Deployments", desc: "Pilot program", href: "/deployments" },
   { title: "Customers", desc: "Design partners", href: "/customers" },
