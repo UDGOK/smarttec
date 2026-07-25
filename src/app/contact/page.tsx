@@ -167,6 +167,7 @@ export default function ContactPage() {
                         <select name="power" className="w-full px-4 py-3 bg-background border border-dashed border-slate/30 focus:border-greptile-green focus:outline-none font-sans text-slate">
                           <option>1 — 8 GPUs (reserved)</option>
                           <option>8 — 30 GPUs (dedicated)</option>
+                          <option>31 — 60 GPUs (dedicated racks)</option>
                           <option>Dedicated CS-3 / inference</option>
                           <option>{"Colo / power (100 kW+)"}</option>
                           <option>Not sure yet</option>

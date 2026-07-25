@@ -214,11 +214,11 @@ export function TopologyDiagram() {
           {/* 3 LFP cells with charge fill */}
           {cells.map((cell, i) => (
             <g key={i}>
-              <rect x="200" y="155 + i * 35" width="100" height="28" fill="#3D3B4F" />
+              <rect x="200" y={155 + i * 35} width="100" height="28" fill="#3D3B4F" />
               {/* Charge fill — animated width */}
               <rect
                 x="200"
-                y="155 + i * 35"
+                y={155 + i * 35}
                 width={cell.pct}
                 height="28"
                 fill={cell.active ? "#DAFF01" : "#28E99F"}
@@ -235,7 +235,7 @@ export function TopologyDiagram() {
                   className="animate-pulse"
                 />
               )}
-              <text x="250" y="174 + i * 35" fill={cell.active ? "#000" : "#28E99F"} fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
+              <text x="250" y={174 + i * 35} fill={cell.active ? "#000" : "#28E99F"} fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
                 LFP {i + 1} · {Math.round(cell.pct)}%
               </text>
             </g>

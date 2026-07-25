@@ -237,8 +237,8 @@ export default function AboutPage() {
               <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
                 Become a design partner
               </Link>
-              <Link href="/careers" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
-                See open roles
+              <Link href="/contact" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
+                Work with us
               </Link>
             </div>
           </div>
