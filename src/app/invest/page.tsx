@@ -43,8 +43,8 @@ const stats = [
   { v: "64×", l: "NVIDIA B200 GPUs · 60 rentable" },
   { v: "114 kW", l: "Phase 1A IT load" },
   { v: "100G", l: "Symmetrical DIA fiber (signed quote)" },
-  { v: "$2.0M", l: "Raise · CAPEX $1.99M w/ contingency" },
-  { v: "34%", l: "Modeled Year-1 cash yield" },
+  { v: "$4.50M", l: "Total CAPEX w/ 15% contingency" },
+  { v: "2.60×", l: "Modeled Year-1 DSCR (7-yr term)" },
 ];
 
 const files = [
@@ -52,7 +52,7 @@ const files = [
     name: "Mead-Data-Center-Investor-Memorandum.pdf",
     title: "Investor Memorandum",
     kind: "PDF · 8 pages",
-    desc: "The full case: the asset, audited build, unit economics, five-year model priced for rate decline, investment tiers, risks stated plainly.",
+    desc: "The full case: the asset, the itemized $4.5M build, unit economics, five-year model priced for 10%/yr rate decline, the levered capital structure, and the risks — including the two open engineering items — stated plainly.",
   },
   {
     name: "Mead-Data-Center-Investor-FAQ.pdf",
@@ -63,8 +63,8 @@ const files = [
   {
     name: "SmartTec-Mead-DC-Model.xlsx",
     title: "Live Financial Model",
-    kind: "Excel workbook · 120 formulas",
-    desc: "Fully formula-driven. Edit the rate, decay, and CAPEX levers; payback, MOIC, and IRR recalculate live. Includes the levered debt option.",
+    kind: "Excel workbook · 126 formulas",
+    desc: "Fully formula-driven and reconciled line-by-line to Blueprint V4. Edit the rate, decay, debt and CAPEX levers; DSCR, payback, MOIC and IRR recalculate live.",
   },
 ];
 
@@ -130,8 +130,8 @@ function Portal() {
         </h1>
         <p className="mt-4 max-w-2xl text-slate/80 leading-relaxed">
           A 64-GPU NVIDIA B200 cluster — 8× HGX B200, 60 of them rentable — on land,
-          power, and buildings we already own, with anchor commitments in place, a
-          signed-quote fiber path, and batteries from our own company behind the meter.
+          power, and buildings we already own, sold through a five-channel
+          demand stack, a signed-quote fiber path, and batteries from our own company behind the meter.
         </p>
       </section>
 
