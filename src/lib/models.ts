@@ -16,6 +16,13 @@ export interface ModelSpec {
   active_params_b?: number; // MoE: params activated per token (drives compute + per-token weight reads)
   num_experts?: number;
   active_experts?: number;
+  // Hybrid linear-attention models (e.g. Kimi Delta Attention) only carry a per-token KV
+  // cache on their periodic full-attention layers; linear layers hold constant-size state.
+  // Where set, this is the count of KV-bearing layers, NOT num_layers.
+  kv_layers?: number;
+  // True when the vendor has not published KV geometry (kv heads / head dim) yet, so any
+  // KV-cache figure would be invented. UI must show weights-only fit and say so.
+  kv_pending?: boolean;
   blurb: string;
 }
 
@@ -58,6 +65,11 @@ export const MODELS: ModelSpec[] = [
   { id: "gpt-oss-120b",        family: "GPT-OSS",   name: "120B",   params_b: 117, active_params_b: 5.1,  num_layers: 36,  num_kv_heads: 8,    head_dim: 64,  hidden_size: 2880,  context_window: 131072, blurb: "OpenAI open weights. MoE 117B / 5.1B active. o4-mini-class reasoning, fits one H100 at MXFP4.", is_moe: true, num_experts: 128, active_experts: 4 },
   // Moonshot Kimi K2 (Jul 2025)
   { id: "kimi-k2",             family: "Kimi",      name: "K2 1T",  params_b: 1000, active_params_b: 32, num_layers: 61,  num_kv_heads: 1,    head_dim: 288, /* MLA-effective */ hidden_size: 7168,  context_window: 131072, blurb: "MoE 1T total / 32B active, 384 experts. DeepSeek-style MLA. Agentic-coding standout.", is_moe: true, num_experts: 384, active_experts: 8 },
+  // Moonshot Kimi K3 (Jul 2026) — 2.8T MoE, Kimi Delta Attention, 1M context.
+  // Total/active params, layer count, expert config and context are published; KV geometry
+  // (kv heads / head dim) is NOT — weights land by Jul 27 2026. kv_pending keeps the tool
+  // honest: weights-only fit until the config.json is public. Do not invent the KV numbers.
+  { id: "kimi-k3",             family: "Kimi",      name: "K3 2.8T", params_b: 2800, active_params_b: 50, num_layers: 93,  num_kv_heads: 0,    head_dim: 0,   hidden_size: 0,     context_window: 1048576, blurb: "MoE 2.8T total / ~50B active, 896 experts (16/token). Kimi Delta Attention — hybrid linear attention with full attention every 4th layer. 1M context, MXFP4 weights (~1.4 TB). Modified-MIT.", is_moe: true, num_experts: 896, active_experts: 16, kv_layers: 23, kv_pending: true },
   // Gemma 3 (Mar 2025)
   { id: "gemma-3-27b",         family: "Gemma 3",   name: "27B",    params_b: 27,   num_layers: 62,  num_kv_heads: 16,   head_dim: 128, hidden_size: 5376,  context_window: 131072, blurb: "Google's open flagship. 128k context, multimodal, strong multilingual." },
 ];
@@ -102,7 +114,9 @@ export function kvCacheGB(
   dtypeBytes = 2
 ): number {
   // KV cache = 2 (K+V) * layers * kv_heads * head_dim * seq_len * dtype_bytes * batch
-  return (2 * model.num_layers * model.num_kv_heads * model.head_dim * seqLen * dtypeBytes * batchSize) / (1024 ** 3);
+  // Hybrid linear-attention models only pay this on their full-attention layers.
+  const kvLayers = model.kv_layers ?? model.num_layers;
+  return (2 * kvLayers * model.num_kv_heads * model.head_dim * seqLen * dtypeBytes * batchSize) / (1024 ** 3);
 }
 
 // Standard vLLM utilization headroom — CUDA context + activations + safety margin.
@@ -131,6 +145,8 @@ export function maxConcurrentSeqs(
   const kvPer = kvCacheGB(model, seqLen, 1, 2);
   const usable = usableVRAM(gpuVramGB);
   if (weights + kvPer > usable) return 0;
+  // KV geometry unpublished — concurrency is unknowable, not infinite. Callers render "—".
+  if (kvPer <= 0) return 0;
   return Math.max(1, Math.floor((usable - weights) / kvPer));
 }
 

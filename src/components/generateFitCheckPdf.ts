@@ -67,9 +67,15 @@ export function generateFitCheckPdf(x: FitCheckExport): jsPDF {
 
   label("Memory");
   row("Model weights", `${x.weightsGB.toFixed(1)} GB`);
-  row("KV cache", `${x.kvGB.toFixed(1)} GB`);
-  row("Total required", `${x.totalGB.toFixed(1)} GB`, true);
-  row(`Fits on 1x ${x.gpu.id}`, x.fits ? `YES — up to ${x.maxSeq} concurrent seq, ~${Math.round(x.tps)} tok/s` : "NO — see configurations below", true);
+  row("KV cache", x.model.kv_pending ? "Not published by vendor" : `${x.kvGB.toFixed(1)} GB`);
+  row(x.model.kv_pending ? "Weights only" : "Total required", `${x.totalGB.toFixed(1)} GB`, true);
+  row(
+    `Fits on 1x ${x.gpu.id}`,
+    x.model.kv_pending
+      ? (x.fits ? "Weights fit — concurrency pending vendor config" : "NO on weights alone — see configurations below")
+      : (x.fits ? `YES — up to ${x.maxSeq} concurrent seq, ~${Math.round(x.tps)} tok/s` : "NO — see configurations below"),
+    true
+  );
   y += 3;
 
   label("Recommended configurations (cheapest first)");
