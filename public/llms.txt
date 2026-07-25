@@ -34,6 +34,8 @@
 - https://smarttec.dev/mead : the site story — owned land, 3 MVA transformer, power economics
 - https://smarttec.dev/site : the Mead site itself — 30 acres, 3 buildings, 3 MVA transformer
   (photo frames; real photography only, no renders — placeholders until shot)
+- https://smarttec.dev/oklahoma-data-centers : sourced tracker of every announced Oklahoma
+  data center project (Google $9B, Meta $1B+ Tulsa, ~300 MW under construction)
 - https://smarttec.dev/customers : who it serves + design-partner program
 - https://smarttec.dev/blog : engineering articles on AI datacenter power
 - https://smarttec.dev/calculator : free GPU cost + power calculator (model fit, VRAM, $/month)
