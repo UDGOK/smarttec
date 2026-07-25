@@ -276,13 +276,24 @@ export default function ModelFitCalculator() {
             </div>
             <div className="flex items-baseline justify-between border-b border-dashed border-slate/15 pb-2">
               <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">KV cache ({batchSize} × {seqLen >= 1024 ? `${(seqLen / 1024).toFixed(0)}k` : seqLen})</span>
-              <span className="font-anybody font-bold text-lg text-slate">{result.kvGB.toFixed(1)} GB</span>
+              <span className={`font-anybody font-bold text-lg ${model.kv_pending ? "text-slate/45" : "text-slate"}`}>
+                {model.kv_pending ? "Not published" : `${result.kvGB.toFixed(1)} GB`}
+              </span>
             </div>
             <div className="flex items-baseline justify-between pt-1">
-              <span className="font-space-mono text-[10px] uppercase tracking-wider text-greptile-green">Total</span>
+              <span className="font-space-mono text-[10px] uppercase tracking-wider text-greptile-green">
+                {model.kv_pending ? "Weights only" : "Total"}
+              </span>
               <span className="font-anybody font-extrabold text-2xl text-greptile-green">{result.totalGB.toFixed(1)} GB</span>
             </div>
           </div>
+          {model.kv_pending && (
+            <p className="font-space-mono text-[10px] leading-relaxed text-slate/55 border border-dashed border-slate/30 bg-fog/50 p-3">
+              {model.family} {model.name} uses hybrid linear attention, and its KV geometry
+              (heads / head dim) is not published yet. We show the weights-only footprint rather
+              than invent a KV figure — concurrency and total VRAM will firm up when the config ships.
+            </p>
+          )}
         </div>
 
         {/* Performance stats */}
@@ -294,7 +305,7 @@ export default function ModelFitCalculator() {
           </div>
           <div className="border border-dashed border-slate/30 p-4 bg-background">
             <div className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60 mb-1">Max concurrent</div>
-            <div className="font-anybody font-extrabold text-2xl text-slate">{result.maxSeq}</div>
+            <div className="font-anybody font-extrabold text-2xl text-slate">{model.kv_pending ? "—" : result.maxSeq}</div>
             <div className="font-space-mono text-[9px] text-slate/50">sequences @ {seqLen >= 1024 ? `${(seqLen / 1024).toFixed(0)}k` : seqLen} ctx</div>
           </div>
         </div>
