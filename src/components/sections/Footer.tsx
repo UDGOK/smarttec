@@ -10,6 +10,7 @@ const computeLinks = [
   { label: "Bare-metal", href: "/compute" },
   { label: "Colocation", href: "/contact" },
   { label: "Pricing", href: "/pricing" },
+  { label: "B200 market rates", href: "/market" },
   { label: "Compare providers", href: "/compare" },
 ];
 
