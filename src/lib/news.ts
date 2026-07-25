@@ -56,7 +56,7 @@ export const COMPANY_NEWS: CompanyNewsItem[] = [
   {
     date: "Jul 18, 2026",
     title: "Mead, Oklahoma confirmed as Phase 1 site",
-    body: "Phase 1 (30× NVIDIA B200, ~110 kW IT load) deploys on 30 owned acres with three buildings and a 3 MVA on-site transformer. Batteries remain manufactured by partner z1power; power-on target Q4 2026.",
+    body: "Phase 1A (8× HGX B200 — 64 GPUs installed, 60 rentable, ~114 kW IT load) deploys on 30 owned acres with three buildings and a 3 MVA on-site transformer. Batteries remain manufactured by partner z1power; power-on target Q4 2026.",
     href: "/deployments",
   },
   {

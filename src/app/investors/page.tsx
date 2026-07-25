@@ -43,7 +43,7 @@ const traction = [
 ];
 
 const useOfFunds = [
-  { pct: 40, label: "Hardware procurement", note: "BESS integration + NVIDIA compute for Phase 1 (30× B200, ~110 kW IT load)" },
+  { pct: 40, label: "Hardware procurement", note: "BESS integration + NVIDIA compute for Phase 1A (8× HGX B200 — 64 GPUs installed, 60 rentable, ~114 kW IT load)" },
   { pct: 25, label: "Manufacturing scale-up", note: "Tulsa cell + module production line capacity" },
   { pct: 20, label: "Sales + engineering", note: "Federal capture team, deployment engineers, AURA product" },
   { pct: 15, label: "Working capital", note: "12-month operating runway buffer post-power-on" },
@@ -104,7 +104,7 @@ export default function InvestorsPage() {
             <span className="text-greptile-green">Power-on target Q4 2026.</span>
           </h1>
           <p className="font-anybody text-xl md:text-2xl text-slate/70 mt-6 max-w-2xl leading-relaxed">
-            SmartTec runs NVIDIA and Cerebras compute behind battery storage we engineer on z1power LFP. We&apos;re raising to bring Phase 1 (30× B200 at our owned Mead, OK site) online. Materials below contain forward-looking statements — see disclaimer at the bottom of this page.
+            SmartTec runs NVIDIA and Cerebras compute behind battery storage we engineer on z1power LFP. We&apos;re raising to bring Phase 1A (8× HGX B200 — 64 GPUs installed, 60 rentable — at our owned Mead, OK site) online. Materials below contain forward-looking statements — see disclaimer at the bottom of this page.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a

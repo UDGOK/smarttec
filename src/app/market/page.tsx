@@ -47,7 +47,7 @@ const concessions = [
   },
   {
     t: "SmartTec has not sold a GPU-hour yet.",
-    b: "Phase 1 — 30 NVIDIA B200s, roughly 110 kW of IT load at an owned site in Mead, Oklahoma — targets power-on in Q4 2026. The $4.50/GPU-hr reserved figure is a published target rate for capacity that is not yet energized, not a billing history. We would rather say that plainly here than have you discover it later.",
+    b: "Phase 1A — 8× HGX B200, 64 GPUs installed and 60 rentable, roughly 114 kW of IT load at an owned site in Mead, Oklahoma — targets power-on in Q4 2026. The $4.50/GPU-hr reserved figure is a published target rate for capacity that is not yet energized, not a billing history. We would rather say that plainly here than have you discover it later.",
   },
 ];
 
@@ -66,7 +66,7 @@ const faq = [
   },
   {
     q: "Why can SmartTec price B200 capacity below the market median?",
-    a: "SmartTec's $4.50/GPU-hr reserved rate sits roughly 28% under the July 2026 market median of $6.25 because most of its cost stack is owned rather than rented. The company owns 30 acres in Mead, Oklahoma and a 3 MVA on-site transformer, which removes both land rent and the multi-year interconnection queue that gates most new capacity — Phase 1's 110 kW load uses under 4% of that transformer. Power comes from the Oklahoma grid at approximately $0.08/kWh, battery storage comes from founder-owned z1power at manufacturer cost, and 100 Gbps symmetrical fiber is locked on a signed 60-month Dobson quote at $8,075/month. A competitor must buy at retail what SmartTec already holds at cost.",
+    a: "SmartTec's $4.50/GPU-hr reserved rate sits roughly 28% under the July 2026 market median of $6.25 because most of its cost stack is owned rather than rented. The company owns 30 acres in Mead, Oklahoma and a 3 MVA on-site transformer, which removes both land rent and the multi-year interconnection queue that gates most new capacity — Phase 1A's 114 kW load uses about 4% of that transformer. Power comes from the Oklahoma grid at approximately $0.08/kWh, battery storage comes from founder-owned z1power at manufacturer cost, and 100 Gbps symmetrical fiber is locked on a signed 60-month Dobson quote at $8,075/month. A competitor must buy at retail what SmartTec already holds at cost.",
   },
   {
     q: "Are B200 rental prices expected to fall?",

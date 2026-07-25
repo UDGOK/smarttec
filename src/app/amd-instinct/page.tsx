@@ -262,7 +262,7 @@ export default function AmdInstinctPage() {
               <strong className="font-anybody font-bold text-slate">
                 SmartTec does not offer AMD Instinct capacity, and none is scheduled.
               </strong>{" "}
-              Phase 1 at Mead is 30 NVIDIA B200s behind battery storage, fully contracted to anchor tenants and
+              Phase 1A at Mead is 8× HGX B200 — 64 GPUs installed, 60 rentable — behind battery storage, and
               unchanged by anything on this page. AMD Instinct sits on our open multi-vendor evaluation track for
               Phase 2/3 — you can already model MI455X fit in our{" "}
               <Link href="/calculator" className="underline decoration-greptile-green underline-offset-4">calculator</Link>,

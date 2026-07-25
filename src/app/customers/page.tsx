@@ -18,7 +18,7 @@ const pilots = [
 
 const stats = [
   { value: "4,000+", label: "Cycle-life z1power LFP cells" },
-  { value: "110 kW", label: "Phase-1 IT load - Mead, OK" },
+  { value: "114 kW", label: "Phase-1A IT load - Mead, OK" },
   { value: "Q4 2026", label: "Power-on target" },
   { value: "3 of 3", label: "Design partner slots open" },
 ];

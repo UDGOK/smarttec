@@ -158,7 +158,7 @@ export default function DeploymentsPage() {
                 <div className="col-span-2 text-right">Status</div>
               </div>
               {[
-                { c: "SmartTec Phase 1 · Mead site", s: "Mead, OK (US-70)", cap: "30× B200 · 110 kW", live: "Q4 2026", st: "In build", ok: false },
+                { c: "SmartTec Phase 1 · Mead site", s: "Mead, OK (US-70)", cap: "64× B200 · 114 kW", live: "Q4 2026", st: "In build", ok: false },
                 { c: "Building 2 · Phase 2", s: "Mead, OK", cap: "Expansion shell", live: "2027", st: "Planned", ok: false },
                 { c: "Building 3 + solar · Phase 3", s: "Mead, OK (30 acres)", cap: "~500 kW solar", live: "Planned", st: "Planned", ok: false },
               ].map((r, i) => (
