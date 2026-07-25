@@ -29,6 +29,7 @@ const companyLinks = [
 
 const resourceLinks = [
   { label: "System status", href: "/status" },
+  { label: "Oklahoma DC tracker", href: "/oklahoma-data-centers" },
   { label: "Security & SOC 2", href: "/security" },
   { label: "Technical docs", href: "/security" },
   { label: "Pilot program", href: "/deployments" },
