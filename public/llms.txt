@@ -43,6 +43,16 @@
 - https://smarttec.dev/aura : AURA power/workload orchestration software
 - https://smarttec.dev/about : company story and founders
 - https://smarttec.dev/dgx-spark : NVIDIA DGX Spark desk-side reference
+- https://smarttec.dev/design : data center design, build and deploy services — a separate
+  practice from SmartTec's own compute business. Three engagement levels: design only,
+  design plus procurement, full turnkey. Pre-first-delivery; no client list is claimed.
+- https://smarttec.dev/design/scope : free scoping questionnaire returning a preliminary load
+  model — facility load from IT load × PUE, utility service in MVA, rack count, BESS energy,
+  heat rejection in tons, and footprint, each with its formula and assumption shown.
+  Explicitly an indicative planning estimate, not a quote and not a design.
+- https://smarttec.dev/design/process : the six design phases and the deliverables produced
+  at each — discovery, load model, single-line and layout, redundancy and FMEA, procurement,
+  build and commissioning
 - https://smarttec.dev/contact : contact form (routes to team)
 
 ## Contact
