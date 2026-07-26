@@ -536,3 +536,18 @@ html, body { overflow-x: clip; }
   .banner-cta-text::after,
   .banner-cta-text::before { transition: none !important; }
 }
+
+/* ============================================================
+   STATUS CONSOLE
+   ============================================================ */
+@keyframes flow { to { stroke-dashoffset: -32; } }
+
+.status-blink { animation: status-blink 2.4s ease-in-out infinite; }
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-blink { animation: none !important; }
+}
