@@ -101,9 +101,9 @@ export function Hero() {
                 AI-managed battery energy stacks that keep your infrastructure running — even when the grid doesn&apos;t.
               </p>
               <div className="btn-hex-group">
-                <a href="#contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
+                <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
                   Contact Sales
-                </a>
+                </Link>
                 <Link href="/pricing" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black xl:btn-hex-lg">
                   See pricing
                 </Link>

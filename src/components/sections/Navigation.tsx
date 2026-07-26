@@ -151,10 +151,10 @@ export function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Announcement banner — repositioned as "Now reserving" */}
-      <div className="bg-greptile-green border-b border-slate/20">
+      <div className="bg-greptile-green border-b border-slate/20 banner-anim">
         <div className="relative z-10 flex items-center justify-center h-10 sm:h-11 px-3 sm:px-4">
           <div className="flex max-w-7xl items-center justify-center gap-2 text-center">
-            <span className="inline-flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full bg-black">
+            <span className="banner-bolt inline-flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full bg-black">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="#28E99F">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
               </svg>
@@ -163,9 +163,9 @@ export function Navigation() {
               <span className="hidden md:inline">Now reserving first-wave capacity.</span>
               <span className="md:hidden">Now reserving.</span>
             </p>
-            <Link href="#reserve" className="group inline-flex items-center gap-1 font-space-mono text-[11px] sm:text-xs md:text-sm font-medium tracking-wide text-black">
-              <span className="underline underline-offset-2">Lock in launch pricing</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3 transition-transform group-hover:translate-x-0.5">
+            <Link href="/contact" className="group inline-flex items-center gap-1 font-space-mono text-[11px] sm:text-xs md:text-sm font-medium tracking-wide text-black">
+              <span className="banner-cta-text">Lock in launch pricing</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1">
                 <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
               </svg>
             </Link>

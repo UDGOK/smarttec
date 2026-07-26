@@ -433,3 +433,106 @@ html, body { overflow-x: clip; }
   .aura-grid-live, .aura-grid-fault, .aura-grid-restored, .aura-grid-tile { animation: none !important; }
   .aura-grid-fault, .aura-grid-restored { opacity: 0 !important; }
 }
+
+/* ============================================================
+   ANNOUNCEMENT BANNER — animated, compositor-only
+   Every animated property is transform or opacity, so these run on the
+   GPU compositor thread: no layout, no paint, no main-thread cost.
+   ============================================================ */
+
+.banner-anim { position: relative; overflow: hidden; }
+
+/* Light sheen sweeping left to right */
+.banner-anim::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translate3d(-140%, 0, 0) skewX(-18deg);
+  will-change: transform;
+  animation: banner-sheen 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes banner-sheen {
+  0%   { transform: translate3d(-140%, 0, 0) skewX(-18deg); }
+  55%  { transform: translate3d(330%, 0, 0) skewX(-18deg); }
+  100% { transform: translate3d(330%, 0, 0) skewX(-18deg); }
+}
+
+/* Bolt badge: expanding ring, like a slow radar ping */
+.banner-bolt { position: relative; }
+.banner-bolt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid #000;
+  transform: scale(1);
+  opacity: 0.55;
+  will-change: transform, opacity;
+  animation: banner-ping 3.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+@keyframes banner-ping {
+  0%   { transform: scale(1);    opacity: 0.5; }
+  70%  { transform: scale(1.85); opacity: 0; }
+  100% { transform: scale(1.85); opacity: 0; }
+}
+
+/* Bolt glyph: subtle breathing scale */
+.banner-bolt svg {
+  will-change: transform;
+  animation: banner-bolt-pulse 3.2s ease-in-out infinite;
+}
+@keyframes banner-bolt-pulse {
+  0%, 100% { transform: scale(1); }
+  8%       { transform: scale(1.18); }
+  20%      { transform: scale(1); }
+}
+
+/* CTA link: underline wipes in from the left on hover */
+.banner-cta-text { position: relative; display: inline-block; }
+.banner-cta-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: left center;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.group:hover .banner-cta-text::after { transform: scaleX(0); transform-origin: right center; }
+.banner-cta-text::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1) 0.12s;
+}
+.group:hover .banner-cta-text::before { transform: scaleX(1); transform-origin: left center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-anim::after,
+  .banner-bolt::before,
+  .banner-bolt svg { animation: none !important; }
+  .banner-anim::after { opacity: 0; }
+  .banner-bolt::before { opacity: 0; }
+  .banner-cta-text::after,
+  .banner-cta-text::before { transition: none !important; }
+}

@@ -41,9 +41,9 @@ export function MarqueeCTA() {
             Get a fixed-price proposal in 14 days. No surprises, no scope creep, no quarterly renegotiations.
           </p>
           <div className="btn-hex-group justify-center">
-            <a href="#contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
+            <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate xl:btn-hex-lg">
               Contact Sales
-            </a>
+            </Link>
             <Link href="/pricing" className="btn-hex btn-hex-md !border-slate !bg-slate !text-fog xl:btn-hex-lg">
               See pricing
             </Link>
