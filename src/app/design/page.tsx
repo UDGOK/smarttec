@@ -1,5 +1,6 @@
 import PageShell from "@/components/PageShell";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/JsonLd";
 
 const TIERS = [
   {
@@ -81,6 +82,7 @@ export default function DesignPage() {
 
   return (
     <PageShell>
+      <Breadcrumbs trail={[{ name: "Design & Build", path: "/design" }]} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 

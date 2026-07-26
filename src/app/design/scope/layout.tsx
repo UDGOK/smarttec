@@ -11,6 +11,8 @@ export const metadata: Metadata = {
       "A short questionnaire that returns a real preliminary load model, with every assumption printed next to the number.",
     url: "https://smarttec.dev/design/scope",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
 };
 

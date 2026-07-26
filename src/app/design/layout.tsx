@@ -11,6 +11,8 @@ export const metadata: Metadata = {
       "Load modeling, redundancy architecture, liquid cooling, battery-backed power. Take the drawings, or take the keys.",
     url: "https://smarttec.dev/design",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
 };
 

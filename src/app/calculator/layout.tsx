@@ -11,6 +11,8 @@ export const metadata: Metadata = {
       "Pick a model and a GPU: VRAM fit, throughput, fleet cost per month, and battery-backed power draw.",
     url: "https://smarttec.dev/calculator",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
 };
 

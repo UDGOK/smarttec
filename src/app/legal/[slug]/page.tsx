@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
+import { Breadcrumbs } from "@/components/JsonLd";
 import { LEGAL_DOCS, getLegalDoc } from "@/lib/legal";
 
 export function generateStaticParams() {
@@ -25,7 +26,9 @@ export async function generateMetadata({
       description: doc.metaDescription,
       url: `https://smarttec.dev/legal/${doc.slug}`,
       type: "article",
-    },
+    
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
+  },
   };
 }
 
@@ -36,6 +39,7 @@ export default async function LegalDocPage({ params }: { params: Promise<{ slug:
 
   return (
     <PageShell>
+      <Breadcrumbs trail={[{ name: "Legal", path: "/legal" }, { name: doc.shortTitle, path: `/legal/${doc.slug}` }]} />
       <div className="bg-background">
         <section className="relative bg-paper-plus-ruled border-b border-dashed border-slate/25">
           <div className="relative mx-auto w-full max-w-[900px] px-5 sm:px-8 py-14 md:py-20">

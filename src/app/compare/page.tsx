@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     description: 'An honest 2026 comparison of AI compute options — including the rows SmartTec loses.',
     url: "https://smarttec.dev/compare",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
   description:
     "An honest comparison of AI compute options in 2026 — AWS-class hyperscalers, CoreWeave-class neoclouds, GPU marketplaces, and SmartTec's battery-backed owned-site model. Real tradeoffs, real numbers, no pretending.",

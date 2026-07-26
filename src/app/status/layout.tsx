@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     description: "Live status for SmartTec platform services, battery-backed power, and network.",
     url: "https://smarttec.dev/status",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
 };
 

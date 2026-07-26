@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     description: '30 owned acres on US-70, a 3 MVA transformer, ~$0.08/kWh power, and a signed 100 Gbps fiber quote — the honest story of a battery-backed AI data center site in Mead, Oklahoma.',
     url: "https://smarttec.dev/mead",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
   description:
     "30 owned acres on US-70, a 3 MVA transformer, ~$0.08/kWh power, and a signed 100 Gbps fiber quote — why SmartTec's battery-backed AI data center is in Mead, Oklahoma, told honestly (tornadoes included).",

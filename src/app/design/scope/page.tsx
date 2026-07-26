@@ -1,10 +1,36 @@
 import PageShell from "@/components/PageShell";
 import ScopeWizard from "@/components/ScopeWizard";
 import Link from "next/link";
+import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 
 export default function ScopePage() {
+  const toolLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "SmartTec Data Center Scoping Tool",
+    url: "https://smarttec.dev/design/scope",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    provider: { "@id": "https://smarttec.dev/#org" },
+    description:
+      "Free browser-based tool that returns a preliminary data center load model from your inputs: facility load from IT load and PUE, utility service in MVA, rack count, battery energy, heat rejection, and footprint — each shown with the formula and assumption behind it.",
+    featureList: [
+      "Facility load from IT load and cooling-derived PUE",
+      "Utility service sizing in MVA by redundancy class",
+      "Rack count at a given kW per rack",
+      "BESS energy for a target ride-through",
+      "Heat rejection in tons of refrigeration",
+      "White space and total footprint estimate",
+    ],
+  };
+
   return (
     <PageShell>
+      <Breadcrumbs trail={[{ name: "Design & Build", path: "/design" }, { name: "Scope your site", path: "/design/scope" }]} />
+      <JsonLd data={toolLd} />
       <div className="bg-background">
         {/* Hero */}
         <section className="relative bg-paper-plus-ruled">

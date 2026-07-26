@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     description: 'Vendor-neutral reference: MLPerf-measured MI355X vs B200, and Helios vs GB200 NVL72 at rack scale. Sparsity conventions flagged.',
     url: "https://smarttec.dev/amd-instinct",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
   description:
     "A vendor-neutral reference on AMD Instinct for AI inference: MI355X versus B200 on measured MLPerf Inference 6.0 results, and Helios (72× MI455X, 432 GB HBM4, 19.6 TB/s) versus GB200 NVL72 at rack scale. Primary-source figures, sparsity conventions flagged.",

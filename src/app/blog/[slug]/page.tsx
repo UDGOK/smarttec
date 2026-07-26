@@ -29,7 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       publishedTime: iso,
       modifiedTime: iso,
       authors: [post.author],
-    },
+    
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
+  },
   };
 }
 

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     description: 'Reserve NVIDIA B200 capacity at $4.50/GPU-hr (Q4 2026 power-on) or H100 from $2.40/GPU-hr on-demand. Launch pricing open.',
     url: "https://smarttec.dev/pricing",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
 };
 

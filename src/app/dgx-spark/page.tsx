@@ -95,11 +95,12 @@ export default function DgxSparkPage() {
           {/* DGX Spark */}
           <div className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden">
             <div className="relative w-full aspect-[16/10] bg-slate overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+                            <Image
                 src="/hardware/nvidia-dgx-spark-desktop.jpg"
                 alt="NVIDIA DGX Spark desktop supercomputer on a desk"
-                className="absolute inset-0 w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
             <div className="p-6 md:p-8 space-y-4">
@@ -133,11 +134,12 @@ export default function DgxSparkPage() {
           {/* SmartTec AI factory */}
           <div className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden">
             <div className="relative w-full aspect-[16/10] bg-slate overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+                            <Image
                 src="/hardware/nvidia-gb200-nvl72-rack.jpg"
                 alt="NVIDIA GB200 NVL72 rack-scale system at SmartTec"
-                className="absolute inset-0 w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
             <div className="p-6 md:p-8 space-y-4">

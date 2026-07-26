@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     description: 'The published B200 market: $3.50–$14.24/GPU-hr across 13 providers, ~$6.12 median, every figure cited to primary sources.',
     url: "https://smarttec.dev/market",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
   description:
     "What an NVIDIA B200 actually costs per GPU-hour in July 2026: a $3.50–$14.24 on-demand spread across AWS, CoreWeave, Lambda, Nebius, RunPod and marketplaces, with a ~$6.12 median. Published rates, cited sources, and where SmartTec prices.",

@@ -97,24 +97,29 @@ export default function RootLayout({
                   "@type": "Organization",
                   "@id": "https://smarttec.dev/#org",
                   name: "SmartTec",
+                  legalName: "SmartTec, Inc.",
                   alternateName: ["SmartTec.dev", "SmartTec — Mead, Oklahoma", "SmartTec battery-backed AI compute"],
                   url: "https://smarttec.dev",
                   logo: "https://smarttec.dev/logo.svg",
                   description:
                     "Battery-backed AI compute. NVIDIA and Cerebras systems behind z1power LFP battery storage with sub-10ms failover, at an owned site in Mead, Oklahoma.",
                   foundingDate: "2025",
-                  address: { "@type": "PostalAddress", addressRegion: "OK", addressCountry: "US" },
+                  address: { "@type": "PostalAddress", addressLocality: "Tulsa", addressRegion: "OK", addressCountry: "US" },
+                  knowsAbout: [
+                    "data center design",
+                    "battery energy storage",
+                    "behind-the-meter power",
+                    "GPU compute",
+                    "liquid cooling",
+                    "grid resilience",
+                  ],
                   founders: [
                     { "@type": "Person", name: "Syed Hussain", jobTitle: "Co-founder & CEO", worksFor: { "@id": "https://smarttec.dev/#org" } },
                     { "@type": "Person", name: "Yasir Jahangir", jobTitle: "Co-founder & COO", worksFor: { "@id": "https://smarttec.dev/#org" } },
                   ],
-                  sameAs: [
-                    "https://z1power.com",
-                    "https://twitter.com/smarttec_io",
-                    "https://www.linkedin.com/company/smarttec-io",
-                    "https://github.com/UDGOK/smarttec",
-                    "https://youtube.com/@smarttec",
-                  ],
+                  // sameAs must only list profiles that resolve. A 404 here actively
+                  // weakens entity resolution. Re-add each URL as the profile goes live.
+                  sameAs: ["https://z1power.com", "https://github.com/UDGOK/smarttec"],
                   contactPoint: { "@type": "ContactPoint", email: "hello@smarttec.dev", contactType: "sales" },
                 },
                 {
@@ -126,11 +131,23 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Service",
+                  "@id": "https://smarttec.dev/#service-compute",
                   name: "GPU cloud and AI compute hosting",
                   provider: { "@id": "https://smarttec.dev/#org" },
                   areaServed: "US",
                   description:
                     "Reserved and on-demand NVIDIA GPU compute and Cerebras inference, colocation, and behind-the-meter battery-backed power for AI workloads.",
+                },
+                {
+                  "@type": "Service",
+                  "@id": "https://smarttec.dev/#service-designbuild",
+                  name: "Data center design, build and deployment",
+                  serviceType: "Data center design and construction",
+                  provider: { "@id": "https://smarttec.dev/#org" },
+                  areaServed: "US",
+                  url: "https://smarttec.dev/design",
+                  description:
+                    "Design, procurement, and turnkey delivery of high-density AI compute facilities — load modeling, redundancy architecture, cooling design, battery-backed power, and commissioning.",
                 },
               ],
             }),

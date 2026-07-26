@@ -45,9 +45,13 @@ const contactLinks = [
   { label: "Investors", href: "/investors" },
 ];
 
+// `live` gates rendering. Twitter, LinkedIn and YouTube currently 404 — linking
+// to a dead profile is a broken link for users and a bad entity signal for search.
+// Flip to true (and re-add to sameAs in app/layout.tsx) as each profile goes live.
 const socialLinks = [
   {
     name: "Twitter",
+    live: false,
     href: "https://twitter.com/smarttec_io",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -57,6 +61,7 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
+    live: false,
     href: "https://www.linkedin.com/company/smarttec-io",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -66,6 +71,7 @@ const socialLinks = [
   },
   {
     name: "GitHub",
+    live: true,
     href: "https://github.com/UDGOK/smarttec",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -75,6 +81,7 @@ const socialLinks = [
   },
   {
     name: "YouTube",
+    live: false,
     href: "https://youtube.com/@smarttec",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -102,7 +109,7 @@ export function Footer() {
             </p>
 
             <div className="flex items-center gap-3">
-              {socialLinks.map((s) => (
+              {socialLinks.filter((s) => s.live).map((s) => (
                 <a
                   key={s.name}
                   href={s.href}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
+import { Breadcrumbs } from "@/components/JsonLd";
 import { LEGAL_DOCS } from "@/lib/legal";
 
 export const metadata: Metadata = {
@@ -13,12 +14,15 @@ export const metadata: Metadata = {
     description: "Terms of Use, Privacy Policy, engineering disclaimers, and acceptable use for smarttec.dev.",
     url: "https://smarttec.dev/legal",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
 };
 
 export default function LegalIndex() {
   return (
     <PageShell>
+      <Breadcrumbs trail={[{ name: "Legal", path: "/legal" }]} />
       <div className="bg-background">
         <section className="relative bg-paper-plus-ruled border-b border-dashed border-slate/25">
           <div className="relative mx-auto w-full max-w-[1000px] px-5 sm:px-8 py-16 md:py-24">

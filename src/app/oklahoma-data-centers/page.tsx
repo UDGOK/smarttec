@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
+import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,6 +12,8 @@ export const metadata: Metadata = {
       "Google's $9B Stillwater + Pryor build, Meta's $1B+ Tulsa groundbreaking, 300 MW under construction — every announced Oklahoma data center project in one sourced table, updated as announcements land.",
     url: "https://smarttec.dev/oklahoma-data-centers",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
   description:
     "Every announced Oklahoma data center project in one sourced table: Google's $9B Stillwater and Pryor investment, Meta's $1B+ Tulsa AI data center, Core Scientific, CloudBurst, Cerebras, and more — including the smallest project on the list, ours.",
@@ -48,28 +51,59 @@ const statusStyle: Record<Status, string> = {
   "Pre-launch build": "text-slate/70",
 };
 
+// Structured data is derived from the arrays above — nothing is asserted here
+// that is not already stated and sourced on the page itself.
+const REVIEWED = "2026-07-26";
+
 export default function OklahomaTrackerPage() {
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
+  const datasetLd = {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: "Oklahoma Data Center Tracker",
+    description:
+      "Every announced, approved, under-construction and operating data center project in Oklahoma, with operator, location, investment, scale, status and a primary source for each entry.",
+    url: "https://smarttec.dev/oklahoma-data-centers",
+    creator: { "@id": "https://smarttec.dev/#org" },
+    isAccessibleForFree: true,
+    dateModified: REVIEWED,
+    spatialCoverage: { "@type": "Place", name: "Oklahoma, United States" },
+    keywords: ["Oklahoma data centers", "data center construction", "megawatts", "AI data center", "interconnection"],
+  };
+
+  const listLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Oklahoma data center projects",
+    numberOfItems: projects.length,
+    itemListElement: projects.map((pr, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Project",
+        name: `${pr.op} — ${pr.loc}`,
+        location: { "@type": "Place", name: `${pr.loc}, Oklahoma, United States` },
+        description: `${pr.scale}. Status: ${pr.status} (${pr.date}).`,
+        url: pr.src,
+      },
+    })),
+  };
+
   return (
     <PageShell>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "ItemList",
-            name: "Oklahoma Data Center Projects (2026)",
-            description: "Announced and active data center projects in Oklahoma, with sources.",
-            itemListElement: projects.map((p, i) => ({
-              "@type": "ListItem", position: i + 1,
-              name: `${p.op} — ${p.loc}`,
-              description: `${p.scale}. Status: ${p.status} (${p.date}).`,
-            })),
-          },
-          {
-            "@type": "FAQPage",
-            mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-          },
-        ],
-      }) }} />
+      <Breadcrumbs trail={[{ name: "Oklahoma Data Center Tracker", path: "/oklahoma-data-centers" }]} />
+      <JsonLd data={faqLd} />
+      <JsonLd data={datasetLd} />
+      <JsonLd data={listLd} />
 
       <div className="bg-background">
         {/* Hero */}

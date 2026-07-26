@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     description: "SmartTec's owned data center site in Mead, Oklahoma: 30 acres, three buildings, a 3 MVA transformer, 100G fiber signed. Real photographs or empty frames — no renders.",
     url: "https://smarttec.dev/site",
     type: "website",
+  
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SmartTec — battery-backed AI compute" }],
   },
   description:
     "SmartTec's owned data center site in Mead, Oklahoma on US-70: 30 acres, three 3,000 sqft buildings, a 3 MVA on-site transformer, and 100G fiber under a signed 60-month quote. Real photographs or empty frames — no renders, no stock.",

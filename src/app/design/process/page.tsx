@@ -1,5 +1,6 @@
 import PageShell from "@/components/PageShell";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/JsonLd";
 
 const PHASES = [
   {
@@ -49,6 +50,7 @@ const PHASES = [
 export default function ProcessPage() {
   return (
     <PageShell>
+      <Breadcrumbs trail={[{ name: "Design & Build", path: "/design" }, { name: "Process", path: "/design/process" }]} />
       <div className="bg-background">
         <section className="relative bg-paper-plus-ruled">
           <div className="relative mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12 py-16 md:py-24">
