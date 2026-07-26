@@ -17,6 +17,15 @@ export default function robots(): MetadataRoute.Robots {
     "Applebot-Extended",
     "Amazonbot",         // Alexa
     "cohere-ai",
+    "CCBot",             // Common Crawl — upstream corpus for many models + RAG pipelines
+    "Google-CloudVertexBot", // Vertex AI grounding
+    "AI2Bot",            // Allen Institute
+    "AI2Bot-Dolma",
+    "Diffbot",           // knowledge graph feeding several answer engines
+    "LinerBot",          // Liner answer engine
+    "TimpiBot",
+    "PetalBot",          // Huawei Petal search
+    "omgili",            // Webz.io corpus
     "Bytespider",        // ByteDance
     "meta-externalagent", // Meta AI
     "Baiduspider",       // Baidu
