@@ -42,7 +42,7 @@ const subprocessors = [
 const privacyPolicy = [
   { h: "What we collect", p: "Account information (name, email, billing), operational telemetry from your SmartTec resources (instance IDs, region, GPU type, runtime metrics), and support correspondence. We do not inspect customer workloads, model weights, or inference inputs/outputs." },
   { h: "How we use it", p: "To provide and improve the service, bill for usage, respond to support requests, send service notifications, and meet legal obligations. We do not use customer data to train third-party models." },
-  { h: "Cookies & analytics", p: "Strictly necessary cookies for authentication. Optional analytics cookies only with consent (off by default). We do not sell or share behavioral data with advertisers." },
+  { h: "Cookies & analytics", p: "One strictly necessary cookie, set only if you authenticate to the investor data room. We run no analytics package, no advertising tags, no session recording, and no fingerprinting. We do not sell or share behavioral data, because we do not collect it. See our Privacy Policy at /legal/privacy." },
   { h: "Data retention", p: "Account data is retained while your account is active and for 30 days after termination for recovery. Operational telemetry is retained for 90 days, then aggregated and anonymized. Backups destroyed within 30 days of termination." },
   { h: "Your rights (GDPR / CCPA)", p: "Access, correction, deletion, portability, restriction of processing, objection to processing. Email privacy@smarttec.dev to exercise any right. We respond within 30 days. EU/UK representative on request." },
   { h: "International transfers", p: "Customer data is stored in US regions by default. For EU customers, we offer EU data residency (Frankfurt) on Enterprise plans. Standard Contractual Clauses apply for any cross-border transfer." },
@@ -118,7 +118,7 @@ const sections = [
     items: [
       {
         h: "Certificates",
-        p: "SOC 2 Type II compliant. NDAA §889 / FEOC restricted supply chain. HIPAA-ready. FedRAMP Moderate in process. Customer-facing trust center at trust.smarttec.io.",
+        p: "SOC 2 Type II compliant. NDAA §889 / FEOC restricted supply chain. HIPAA-ready. FedRAMP Moderate in process. Customer-facing trust center at trust.smarttec.dev.",
       },
       {
         h: "Penetration testing",
@@ -130,7 +130,7 @@ const sections = [
       },
       {
         h: "Incident response",
-        p: "Documented IR plan with 1-hour acknowledgment SLA for P1 incidents. Status page at status.smarttec.io.",
+        p: "Documented IR plan with 1-hour acknowledgment SLA for P1 incidents. Status page at status.smarttec.dev.",
       },
     ],
   },
@@ -165,7 +165,7 @@ export default function SecurityPage() {
               <div className="mt-8 border border-dashed border-slate/30 bg-fog/50 p-5 max-w-2xl">
                 <p className="text-sm text-slate/70 leading-relaxed">
                   We take the security of customer data seriously at SmartTec. If you have additional questions, please email{" "}
-                  <Link href="mailto:security@smarttec.io" className="font-bold text-slate underline">security@smarttec.io</Link>.
+                  <Link href="mailto:security@smarttec.dev" className="font-bold text-slate underline">security@smarttec.dev</Link>.
                 </p>
               </div>
             </motion.div>
@@ -253,7 +253,7 @@ export default function SecurityPage() {
                 Trust Center.
               </h2>
               <p className="text-lg text-slate/70 max-w-3xl">
-                Compliance documents, certifications, and security artifacts available to prospects, customers, and procurement teams. Request access at <Link href="mailto:security@smarttec.io" className="font-bold text-slate underline">security@smarttec.io</Link>.
+                Compliance documents, certifications, and security artifacts available to prospects, customers, and procurement teams. Request access at <Link href="mailto:security@smarttec.dev" className="font-bold text-slate underline">security@smarttec.dev</Link>.
               </p>
             </motion.div>
 
@@ -289,8 +289,8 @@ export default function SecurityPage() {
               <Link href="/contact" className="btn-hex btn-hex-md !border-greptile-green !bg-greptile-green !text-black">
                 Request documents
               </Link>
-              <Link href="mailto:security@smarttec.io" className="font-anybody font-bold text-sm text-slate underline underline-offset-4 decoration-slate/40 hover:decoration-greptile-green">
-                security@smarttec.io →
+              <Link href="mailto:security@smarttec.dev" className="font-anybody font-bold text-sm text-slate underline underline-offset-4 decoration-slate/40 hover:decoration-greptile-green">
+                security@smarttec.dev →
               </Link>
             </div>
           </div>
@@ -467,7 +467,7 @@ export default function SecurityPage() {
               Questions about security?
             </h2>
             <p className="text-slate/80 mb-8 max-w-xl mx-auto">
-              Reach out to <Link href="mailto:security@smarttec.io" className="font-bold underline">security@smarttec.io</Link>. We&apos;ll respond within 24 hours.
+              Reach out to <Link href="mailto:security@smarttec.dev" className="font-bold underline">security@smarttec.dev</Link>. We&apos;ll respond within 24 hours.
             </p>
             <Link href="/contact" className="btn-hex-outline btn-hex-md !border-slate !bg-slate !text-slate inline-flex">
               Contact us

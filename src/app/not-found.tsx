@@ -103,8 +103,8 @@ export default function NotFound() {
             </span>
             <p className="text-lg text-slate/70 leading-relaxed">
               If you got here from a link on our site, that&apos;s a bug — please email{" "}
-              <Link href="mailto:team@smarttec.io" className="font-anybody font-bold text-slate underline underline-offset-4 decoration-slate/40 hover:decoration-greptile-green">
-                team@smarttec.io
+              <Link href="mailto:team@smarttec.dev" className="font-anybody font-bold text-slate underline underline-offset-4 decoration-slate/40 hover:decoration-greptile-green">
+                team@smarttec.dev
               </Link>{" "}
               and we&apos;ll fix it.
             </p>

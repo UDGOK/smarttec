@@ -80,7 +80,7 @@ export const FEED_SOURCES: FeedSource[] = [
   { name: "Energy-Storage.news", short: "ES News", url: "https://www.energy-storage.news/feed/", category: "Batteries" },
 ];
 
-const UA = "Mozilla/5.0 (compatible; SmartTec-News/1.0; +https://smarttec.io/news)";
+const UA = "Mozilla/5.0 (compatible; SmartTec-News/1.0; +https://smarttec.dev/news)";
 
 const KEYWORDS_TO_CATEGORY: { match: RegExp; category: NewsItem["category"] }[] = [
   { match: /\b(battery|bess|energy stor|lithium|iron phosphate|lfp|grid-?forming|state of charge)\b/i, category: "Batteries" },

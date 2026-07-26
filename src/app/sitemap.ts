@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "", "/mead", "/site", "/oklahoma-data-centers", "/compare", "/compute", "/power", "/aura", "/pricing", "/market", "/customers", "/enterprise",
     "/features", "/inference", "/amd-instinct", "/dgx-spark", "/deployments", "/calculator", "/about",
     "/design", "/design/scope", "/design/process",
+    "/legal", "/legal/terms", "/legal/privacy", "/legal/engineering-disclaimer",
+    "/legal/forward-looking-statements", "/legal/acceptable-use",
     "/investors", "/blog", "/contact", "/security", "/status",
   ];
   const REVIEWED = new Date("2026-07-25");

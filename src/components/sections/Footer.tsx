@@ -138,8 +138,14 @@ export function Footer() {
             <Link href="/security" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
               Security
             </Link>
-            <Link href="/contact" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
-              Privacy & terms
+            <Link href="/legal/privacy" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+              Privacy
+            </Link>
+            <Link href="/legal/terms" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+              Terms
+            </Link>
+            <Link href="/legal" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
+              Legal
             </Link>
             <Link href="/status" className="font-space-mono text-[11px] uppercase tracking-wider text-fog/60 hover:text-fog">
               Status

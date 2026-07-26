@@ -274,7 +274,7 @@ export function generateCalculatorPdf(config: CalculatorConfig, results: Calcula
   doc.text("3. Power-on target: Q4 2026. Three design-partner slots open.", margin + 14, y + 76);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(COLORS.greptileGreen);
-  doc.text("smarttec.io/contact →", margin + 14, y + 92);
+  doc.text("smarttec.dev/contact →", margin + 14, y + 92);
 
   drawFooter(doc, pageWidth, pageHeight, 2);
 

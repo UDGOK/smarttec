@@ -54,6 +54,17 @@
   at each — discovery, load model, single-line and layout, redundancy and FMEA, procurement,
   build and commissioning
 - https://smarttec.dev/contact : contact form (routes to team)
+- https://smarttec.dev/legal : legal document index
+- https://smarttec.dev/legal/terms : Terms of Use — warranty disclaimer, liability cap,
+  binding individual arbitration seated in Tulsa County, Oklahoma, class action waiver
+- https://smarttec.dev/legal/privacy : Privacy Policy — no analytics, no advertising trackers,
+  no sale or sharing of personal information; processors are Vercel, Brevo, ImprovMX, Google
+- https://smarttec.dev/legal/engineering-disclaimer : governs the /design/scope tool and all
+  engineering content. No professional engineering services are offered through the website;
+  output is an indicative planning estimate requiring licensed PE sign-off before any use
+- https://smarttec.dev/legal/forward-looking-statements : how to read projections and timelines;
+  nothing on the site is an offer to sell securities
+- https://smarttec.dev/legal/acceptable-use : prohibited conduct and prohibited high-risk uses
 
 ## Contact
 - hello@smarttec.dev

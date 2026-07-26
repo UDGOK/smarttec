@@ -108,7 +108,7 @@ export default function InvestorsPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a
-              href="mailto:investors@smarttec.io?subject=Investor%20materials%20request"
+              href="mailto:investors@smarttec.dev?subject=Investor%20materials%20request"
               className="inline-flex items-center gap-2 bg-greptile-green text-slate font-space-mono text-[11px] uppercase tracking-wider px-5 py-3 hover:bg-greptile-green/85 transition-colors"
             >
               <span className="w-1.5 h-1.5 bg-slate" />
@@ -377,7 +377,7 @@ export default function InvestorsPage() {
               Market sizing references: Gartner, NVIDIA Q3 2026 earnings call, BloombergNEF Energy Storage Outlook 2026, Belfer Center for Science and International Affairs (Harvard Kennedy School), FERC interconnection queue data. All forward-looking dates are targets, not commitments. Pilot deployment figures are from real customer sites operating under NDA.
             </p>
             <p className="font-anybody text-slate/80 leading-relaxed">
-              Contact: <a href="mailto:investors@smarttec.io" className="text-greptile-green underline underline-offset-4 hover:no-underline">investors@smarttec.io</a>
+              Contact: <a href="mailto:investors@smarttec.dev" className="text-greptile-green underline underline-offset-4 hover:no-underline">investors@smarttec.dev</a>
             </p>
           </div>
         </div>
@@ -393,11 +393,11 @@ export default function InvestorsPage() {
             Data room access, founder calls, and reference introductions for qualified investors. We&apos;ll respond within two business days.
           </p>
           <a
-            href="mailto:investors@smarttec.io?subject=Investor%20inquiry"
+            href="mailto:investors@smarttec.dev?subject=Investor%20inquiry"
             className="inline-flex items-center gap-2 bg-greptile-green text-slate font-space-mono text-[11px] uppercase tracking-wider px-6 py-4 hover:bg-greptile-green/85 transition-colors"
           >
             <span className="w-1.5 h-1.5 bg-slate" />
-            investors@smarttec.io →
+            investors@smarttec.dev →
           </a>
           <div className="mt-8 font-space-mono text-[10px] uppercase tracking-wider text-fog/50">
             [ This page is informational and does not constitute an offer to sell securities. ]

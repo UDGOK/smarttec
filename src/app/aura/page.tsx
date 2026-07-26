@@ -146,7 +146,7 @@ export default function AuraPage() {
                     <span className="w-2.5 h-2.5 rounded-full bg-neon" />
                     <span className="w-2.5 h-2.5 rounded-full bg-greptile-green" />
                   </div>
-                  <span className="font-space-mono text-[11px] text-slate/60">aura.smarttec.io/dashboard</span>
+                  <span className="font-space-mono text-[11px] text-slate/60">aura.smarttec.dev/dashboard</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="font-space-mono text-[10px] uppercase tracking-wider text-slate/60">Live</span>

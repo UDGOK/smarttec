@@ -344,8 +344,8 @@ export const posts: Post[] = [
         "Willingness to publish. Anonymized references are available, but the best deals go to teams who'll be a named case study.",
       ] },
       { type: "h2", text: "How to apply" },
-      { type: "p", text: "Send a short note describing your workload and team to partners@smarttec.io. We review applications on a rolling basis. Three slots, first come first served." },
-      { type: "callout", title: "Apply now", body: "Three slots open. Q4 2026 power-on. partners@smarttec.io" },
+      { type: "p", text: "Send a short note describing your workload and team to partners@smarttec.dev. We review applications on a rolling basis. Three slots, first come first served." },
+      { type: "callout", title: "Apply now", body: "Three slots open. Q4 2026 power-on. partners@smarttec.dev" },
     ],
   },
   {
@@ -477,7 +477,7 @@ export const posts: Post[] = [
       ] },
       { type: "h2", text: "Per-GPU economics" },
       { type: "p", text: "All-in cost per H100 per hour: roughly $1.50-2.50, depending on utilization and financing structure. That's competitive with major hyperscalers, and you get the grid-independence story." },
-      { type: "callout", title: "Want a custom TCO model?", body: "Email tco@smarttec.io with your workload profile (training vs inference, utilization, term) and we'll send a detailed model within a week." },
+      { type: "callout", title: "Want a custom TCO model?", body: "Email tco@smarttec.dev with your workload profile (training vs inference, utilization, term) and we'll send a detailed model within a week." },
     ],
   },
   {
@@ -500,7 +500,7 @@ export const posts: Post[] = [
       { type: "h2", text: "The load shedding problem" },
       { type: "p", text: "When the batteries take over, they're carrying the full compute load. If the load exceeds the batteries' instantaneous discharge capability (which can happen if a GPU job suddenly demands more power), we need to shed load gracefully — slow down non-critical workloads before we lose power entirely." },
       { type: "p", text: "AURA handles this by monitoring every GPU's instantaneous power draw and pre-emptively throttling jobs that are close to the limit. Job-level throttling, not cluster-level. Your training job slows down by 5% for the duration of the grid event, then resumes normal speed once grid power is restored." },
-      { type: "callout", title: "Want to see failover data?", body: "Email engineering@smarttec.io. We'll send you the actual trace from a recent event — voltage, frequency, GPU clock speeds, all of it." },
+      { type: "callout", title: "Want to see failover data?", body: "Email engineering@smarttec.dev. We'll send you the actual trace from a recent event — voltage, frequency, GPU clock speeds, all of it." },
     ],
   },
   {

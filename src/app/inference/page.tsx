@@ -307,7 +307,7 @@ export default function InferencePage() {
                 Fit confirmed. Now scope the build.
               </h3>
               <p className="font-anybody text-slate/70 text-lg leading-relaxed mt-3 max-w-2xl">
-                Send this fit-check to <span className="text-slate font-bold">partners@smarttec.io</span>. We'll send back a deployment plan, Q4 2026 power-on target, and design-partner pricing locked for 12 months.
+                Send this fit-check to <span className="text-slate font-bold">partners@smarttec.dev</span>. We'll send back a deployment plan, Q4 2026 power-on target, and design-partner pricing locked for 12 months.
               </p>
             </div>
             <a

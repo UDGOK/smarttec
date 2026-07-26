@@ -813,6 +813,10 @@ export default function ScopeWizard() {
               Indicative planning estimate. Not a quote, not a design.
               <br />
               Requires engineering validation and licensed PE sign-off before use.
+              <br />
+              <a href="/legal/engineering-disclaimer" className="underline">
+                Full disclaimer →
+              </a>
             </p>
           </div>
         </aside>
@@ -896,7 +900,15 @@ function ScopeResult({
         <strong>WHAT THIS IS NOT.</strong> This is an indicative planning estimate generated from a short questionnaire.
         It is not a design, not a quote, and not an engineering deliverable. Actual requirements depend on site survey,
         utility study, AHJ review, equipment selection, and real load profile. Nothing here is valid for construction or
-        procurement without licensed PE sign-off.
+        procurement without licensed PE sign-off. Your use of this tool is governed by our{" "}
+        <a href="/legal/engineering-disclaimer" className="underline">
+          Engineering &amp; Scope Tool Disclaimer
+        </a>{" "}
+        and{" "}
+        <a href="/legal/terms" className="underline">
+          Terms of Use
+        </a>
+        .
       </div>
 
       <div className="flex flex-wrap gap-3 items-center mt-7">
