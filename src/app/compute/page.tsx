@@ -68,10 +68,11 @@ export default function ComputePage() {
           <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16 py-20 md:py-28">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
               <motion.div
+                id="nvidia"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden"
+                className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden scroll-mt-32"
               >
                 <div className="relative w-full aspect-[16/9] bg-slate overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -92,10 +93,11 @@ export default function ComputePage() {
               </motion.div>
 
               <motion.div
+                id="cerebras"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden"
+                className="border border-dashed border-slate/30 bg-fog/50 overflow-hidden scroll-mt-32"
               >
                 <div className="relative w-full aspect-[16/9] bg-slate overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

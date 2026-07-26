@@ -145,7 +145,7 @@ export default function FeaturesPage() {
                 <p className="text-slate/70 leading-relaxed mb-6">
                   H100 / H200 / B200 / GB200 built to NVIDIA reference-architecture practices. 8 GPUs per node, InfiniBand NDR fabric, fat-tree topology. Bare-metal or orchestrated with Kubernetes or Slurm.
                 </p>
-                <Link href="/compute#nvidia" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-fog">
+                <Link href="/compute#nvidia" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate">
                   Explore NVIDIA compute →
                 </Link>
               </div>
@@ -160,7 +160,7 @@ export default function FeaturesPage() {
                 <p className="text-slate/70 leading-relaxed mb-6">
                   Wafer-scale CS-3 systems for committed inference workloads. Lowest latency inference available, on the same fabric as your NVIDIA compute. Per-token billing on shared endpoints.
                 </p>
-                <Link href="/compute#cerebras" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-fog">
+                <Link href="/compute#cerebras" className="btn-hex-outline btn-hex-sm !border-slate !bg-slate !text-slate">
                   Explore Cerebras inference →
                 </Link>
               </div>
