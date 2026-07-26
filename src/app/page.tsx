@@ -3,8 +3,19 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { TopologyDiagram } from "@/components/sections/TopologyDiagram";
+import dynamic from "next/dynamic";
 import { MeadTwin } from "@/components/sections/MeadTwin";
+
+// Below-the-fold decorative diagram — deferred so its JS does not compete
+// with hydration of the hero. Placeholder reserves the exact rendered
+// height at each breakpoint so deferring it costs zero layout shift.
+const TopologyDiagram = dynamic(
+  () => import("@/components/sections/TopologyDiagram").then((m) => m.TopologyDiagram),
+  {
+    ssr: false,
+    loading: () => <div aria-hidden="true" className="w-full h-[280px] lg:h-[576px]" />,
+  }
+);
 import { Navigation } from "@/components/sections/Navigation";
 import { Footer } from "@/components/sections/Footer";
 
@@ -566,8 +577,7 @@ function DgxSparkCallout() {
         <div className="grid lg:grid-cols-[5fr_7fr] gap-8 items-center">
           {/* Photo */}
           <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden aspect-[16/10]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/hardware/nvidia-dgx-spark-desktop.jpg" alt="NVIDIA DGX Spark desktop supercomputer" className="absolute inset-0 w-full h-full object-cover" />
+            <Image src="/hardware/nvidia-dgx-spark-desktop.jpg" alt="NVIDIA DGX Spark desktop supercomputer" fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
             <div className="absolute bottom-0 left-0 right-0 bg-slate/85 backdrop-blur px-4 py-2 border-t border-slate/30">
               <div className="flex items-baseline justify-between gap-3">
                 <div className="font-space-mono text-[10px] uppercase tracking-[0.18em] text-greptile-green">[ NVIDIA CES 2025 ]</div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
@@ -99,8 +100,7 @@ export default function PricingPage() {
               {/* H100 / H200 */}
               <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden group">
                 <div className="relative w-full aspect-[16/9]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/hardware/nvidia-h200-tensor-core.jpg" alt="NVIDIA H100 / H200 8-GPU node" className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                  <Image src="/hardware/nvidia-h200-tensor-core.jpg" alt="NVIDIA H100 / H200 8-GPU node" fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover opacity-90" />
                 </div>
                 <div className="p-4 bg-slate text-fog">
                   <div className="flex items-baseline justify-between gap-3">
@@ -113,8 +113,7 @@ export default function PricingPage() {
               {/* B200 */}
               <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden group">
                 <div className="relative w-full aspect-[16/9]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/hardware/nvidia-hgx-b200-baseboard.jpg" alt="NVIDIA HGX B200 8-GPU baseboard" className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                  <Image src="/hardware/nvidia-hgx-b200-baseboard.jpg" alt="NVIDIA HGX B200 8-GPU baseboard" fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover opacity-90" />
                 </div>
                 <div className="p-4 bg-slate text-fog">
                   <div className="flex items-baseline justify-between gap-3">
@@ -127,8 +126,7 @@ export default function PricingPage() {
               {/* GB200 */}
               <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden group">
                 <div className="relative w-full aspect-[16/9]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/hardware/nvidia-gb200-nvl72-rack.jpg" alt="NVIDIA GB200 NVL72 rack" className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                  <Image src="/hardware/nvidia-gb200-nvl72-rack.jpg" alt="NVIDIA GB200 NVL72 rack" fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover opacity-90" />
                 </div>
                 <div className="p-4 bg-slate text-fog">
                   <div className="flex items-baseline justify-between gap-3">
@@ -214,8 +212,7 @@ export default function PricingPage() {
             <div className="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-3 mb-10">
               <div className="relative border border-dashed border-slate/30 bg-slate overflow-hidden">
                 <div className="relative w-full aspect-[4/3]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/hardware/cerebras-cs3-system.png" alt="Cerebras CS-3 system" className="absolute inset-0 w-full h-full object-cover" />
+                  <Image src="/hardware/cerebras-cs3-system.png" alt="Cerebras CS-3 system" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                 </div>
                 <div className="p-4 bg-slate text-fog">
                   <div className="flex items-baseline justify-between gap-3">
@@ -226,8 +223,7 @@ export default function PricingPage() {
               </div>
               <div className="relative border border-dashed border-slate/30 bg-fog/30 overflow-hidden">
                 <div className="relative w-full aspect-[4/3]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/hardware/cerebras-cs3-datacenter.jpg" alt="Cerebras CS-3 in production rack" className="absolute inset-0 w-full h-full object-cover" />
+                  <Image src="/hardware/cerebras-cs3-datacenter.jpg" alt="Cerebras CS-3 in production rack" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                 </div>
                 <div className="p-4 bg-fog">
                   <div className="flex items-baseline justify-between gap-3">

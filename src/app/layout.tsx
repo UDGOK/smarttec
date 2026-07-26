@@ -2,28 +2,38 @@ import type { Metadata } from "next";
 import { DM_Sans, Space_Mono, Anybody, Nanum_Pen_Script } from "next/font/google";
 import "./globals.css";
 
+// Only the weights actually used in the codebase are requested. Every
+// declared weight is a separate preloaded woff2 competing with LCP.
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-space-mono",
   weight: ["400", "700"],
+  display: "swap",
 });
 
+// 400 is required — 49 elements use font-anybody with no weight class.
+// 500 and 600 are never used and are dropped.
 const anybody = Anybody({
   subsets: ["latin"],
   variable: "--font-anybody",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "700", "800", "900"],
+  display: "swap",
 });
 
+// Used in a single decorative accent — never preload it against the LCP text.
 const nanumPenScript = Nanum_Pen_Script({
   subsets: ["latin"],
   variable: "--font-nanum-pen-script",
   weight: ["400"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
