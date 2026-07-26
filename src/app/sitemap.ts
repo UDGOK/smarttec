@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "", "/mead", "/site", "/oklahoma-data-centers", "/compare", "/compute", "/power", "/aura", "/pricing", "/market", "/customers", "/enterprise",
     "/features", "/inference", "/amd-instinct", "/dgx-spark", "/deployments", "/calculator", "/about",
+    "/design", "/design/scope", "/design/process",
     "/investors", "/blog", "/contact", "/security", "/status",
   ];
   const REVIEWED = new Date("2026-07-25");

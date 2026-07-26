@@ -53,6 +53,15 @@ const navLinks: { label: string; href: string; icon?: React.ReactNode; hasMenu?:
     ),
   },
   {
+    label: "Design",
+    href: "/design",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.32,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.32,64l24-24L216,84.69Z" />
+      </svg>
+    ),
+  },
+  {
     label: "Pricing",
     href: "/pricing",
     hasMenu: true,
@@ -84,6 +93,7 @@ const computeMenu = [
 ];
 
 const companyMenu = [
+  { title: "Design & Build", desc: "We design and deploy data centers", color: "bg-neon", href: "/design" },
   { title: "About", desc: "Our story + team", href: "/about" },
   { title: "The Site", desc: "Mead, OK — land, power, buildings", href: "/site" },
   { title: "Enterprise", desc: "Federal, federal-adjacent, large teams", href: "/enterprise" },
@@ -287,7 +297,12 @@ export function Navigation() {
                       </AnimatePresence>
                     </>
                   ) : (
-                    <Link href={link.href} className="font-space-mono text-xs uppercase tracking-wider text-slate hover:bg-greptile-green hover:text-black transition-colors flex items-center gap-1.5 px-2 -mx-2 py-1">
+                    <Link
+                      href={link.href}
+                      className={`font-space-mono text-xs uppercase tracking-wider text-slate hover:text-black transition-colors flex items-center gap-1.5 px-2 -mx-2 py-1 ${
+                        link.label === "Design" ? "hover:bg-neon" : "hover:bg-greptile-green"
+                      }`}
+                    >
                       {link.icon}
                       {link.label}
                     </Link>
