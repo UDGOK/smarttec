@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import RobotAvatar from "@/components/RobotAvatar";
+import CertBadges from "@/components/CertBadges";
 
 type Person = { name: string; role: string; initials: string; linkedin?: string };
 
@@ -263,17 +264,16 @@ export default function AboutPage() {
               )}
             </div>
 
-            <div className="mt-6 border border-dashed border-slate/30 bg-background p-6">
-              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-3">
-                <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
+            <div className="mt-14">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-5">
+                <span className="w-1.5 h-1.5 bg-neon" />
                 [ TEAM CERTIFICATIONS ]
               </span>
-              <div className="flex flex-wrap gap-3">
-                {["NVIDIA data center design", "Google Cloud Architect", "Anthropic Claude developer"].map((c) => (
-                  <span key={c} className="font-space-mono text-[11px] uppercase tracking-wider text-slate border border-slate/40 px-3 py-1.5 bg-fog/50">{c}</span>
-                ))}
-              </div>
-              <p className="text-sm text-slate/60 mt-3 leading-relaxed">Held across the founding team — the same disciplines this facility is designed to: NVIDIA data-center architecture, hyperscale cloud design, and AI application infrastructure.</p>
+              <CertBadges />
+              <p className="text-sm text-slate/60 mt-4 leading-relaxed max-w-[74ch]">
+                Held across the SmartTec team. Badges above are our own illustrations, not the issuers&apos; official
+                marks — credential names are stated as fact, and the artwork is ours. Verification available on request.
+              </p>
             </div>
 
           </div>

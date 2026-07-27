@@ -123,6 +123,13 @@ export default function RootLayout({
                   employee: [
                     { "@type": "Person", name: "Muhammad Siddiqui", jobTitle: "Chief Operating Officer", worksFor: { "@id": "https://smarttec.dev/#org" } },
                   ],
+                  hasCredential: [
+                    { "@type": "EducationalOccupationalCredential", name: "Professional Cloud Network Engineer", credentialCategory: "certification", recognizedBy: { "@type": "Organization", name: "Google Cloud" } },
+                    { "@type": "EducationalOccupationalCredential", name: "Professional Cloud Architect", credentialCategory: "certification", recognizedBy: { "@type": "Organization", name: "Google Cloud" } },
+                    { "@type": "EducationalOccupationalCredential", name: "NVIDIA-Certified Professional: AI Infrastructure (NCP-AII)", credentialCategory: "certification", recognizedBy: { "@type": "Organization", name: "NVIDIA" } },
+                    { "@type": "EducationalOccupationalCredential", name: "Project Management Professional (PMP)", credentialCategory: "certification", recognizedBy: { "@type": "Organization", name: "Project Management Institute" } },
+                    { "@type": "EducationalOccupationalCredential", name: "Generative AI Overview for Project Managers", credentialCategory: "certificate", recognizedBy: { "@type": "Organization", name: "Project Management Institute" } },
+                  ],
                   contactPoint: { "@type": "ContactPoint", email: "hello@smarttec.dev", contactType: "sales" },
                 },
                 {

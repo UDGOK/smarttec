@@ -595,3 +595,17 @@ html, body { overflow-x: clip; }
   .robot-float, .robot-blink, .robot-scan, .robot-pulse { animation: none !important; }
   .robot-scan { opacity: 0.85; }
 }
+
+/* ---- certification badges ---- */
+.cert-mark { animation: ct-rise 5s ease-in-out infinite; animation-delay: var(--ct-delay, 0s); transform-box: fill-box; transform-origin: center; will-change: transform; }
+@keyframes ct-rise { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+
+.cert-pulse { animation: ct-pulse 2.8s ease-in-out infinite; animation-delay: var(--ct-delay, 0s); transform-box: fill-box; transform-origin: center; will-change: opacity, transform; }
+@keyframes ct-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.75); } }
+
+.group:hover .cert-mark  { animation-duration: 2s; }
+.group:hover .cert-pulse { animation-duration: 1s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-mark, .cert-pulse { animation: none !important; }
+}
