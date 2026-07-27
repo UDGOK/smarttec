@@ -5,8 +5,8 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 
 const team = [
-  { name: "Syed Hussain", role: "Co-founder & CEO. Background in power systems and energy infrastructure. Founded z1power and SmartTec.", initials: "SH" },
-  { name: "Yasir Jahangir", role: "Co-founder & COO. Operations across cell production, supply chain, deployment, and partner delivery.", initials: "YJ" },
+  { name: "Syed Hussain", role: "Co-founder & CEO. Background in power systems and energy infrastructure. Founded z1power and SmartTec.", initials: "SH", linkedin: "" },
+  { name: "Yasir Jahangir", role: "Co-founder & COO. Operations across cell production, supply chain, deployment, and partner delivery.", initials: "YJ", linkedin: "https://www.linkedin.com/in/hyasir/" },
 ];
 
 const values = [
@@ -200,12 +200,26 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {team.map((m) => (
-                <div key={m.role} className="bg-background border border-dashed border-slate/30 p-6 text-center">
+                <div key={m.name} className="bg-background border border-dashed border-slate/30 p-6 text-center">
                   <div className="w-16 h-16 mx-auto mb-4 bg-fog border border-dashed border-slate/30 flex items-center justify-center font-anybody font-bold text-2xl text-slate">
                     {m.initials}
                   </div>
-                  <div className="font-anybody font-bold text-slate mb-1">{m.role}</div>
+                  <div className="font-anybody font-bold text-slate mb-1">{m.name}</div>
                   <div className="text-sm text-slate/60 leading-relaxed">{m.role}</div>
+                  {m.linkedin && (
+                    <a
+                      href={m.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${m.name} on LinkedIn`}
+                      className="mt-4 inline-flex items-center gap-2 font-space-mono text-[11px] uppercase tracking-wider text-slate/70 border border-dashed border-slate/40 px-3 py-1.5 hover:bg-greptile-green hover:text-black hover:border-slate transition-colors"
+                    >
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden="true">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                      LinkedIn
+                    </a>
+                  )}
                 </div>
               ))}
             </div>

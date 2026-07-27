@@ -71,7 +71,7 @@ const socialLinks = [
   },
   {
     name: "GitHub",
-    live: true,
+    live: false,
     href: "https://github.com/UDGOK/smarttec",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -108,7 +108,7 @@ export function Footer() {
               Battery-backed AI compute. NVIDIA and Cerebras behind z1power LFP battery systems, engineered by SmartTec in Oklahoma.
             </p>
 
-            <div className="flex items-center gap-3">
+            <div className={socialLinks.some((s) => s.live) ? "flex items-center gap-3" : "hidden"}>
               {socialLinks.filter((s) => s.live).map((s) => (
                 <a
                   key={s.name}

@@ -115,7 +115,7 @@ export default function RootLayout({
                   ],
                   founders: [
                     { "@type": "Person", name: "Syed Hussain", jobTitle: "Co-founder & CEO", worksFor: { "@id": "https://smarttec.dev/#org" } },
-                    { "@type": "Person", name: "Yasir Jahangir", jobTitle: "Co-founder & COO", worksFor: { "@id": "https://smarttec.dev/#org" } },
+                    { "@type": "Person", name: "Yasir Jahangir", jobTitle: "Co-founder & COO", worksFor: { "@id": "https://smarttec.dev/#org" }, sameAs: ["https://www.linkedin.com/in/hyasir/"] },
                   ],
                   // sameAs must only list profiles that resolve. A 404 here actively
                   // weakens entity resolution. Re-add each URL as the profile goes live.
