@@ -3,11 +3,43 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
+import RobotAvatar from "@/components/RobotAvatar";
 
-const team = [
-  { name: "Syed Hussain", role: "Co-founder & CEO. Background in power systems and energy infrastructure. Founded z1power and SmartTec.", initials: "SH", linkedin: "" },
-  { name: "Yasir Jahangir", role: "Co-founder & COO. Operations across cell production, supply chain, deployment, and partner delivery.", initials: "YJ", linkedin: "https://www.linkedin.com/in/hyasir/" },
+type Person = { name: string; role: string; initials: string; linkedin?: string };
+
+const leadership: Person[] = [
+  {
+    name: "Syed Hussain",
+    role: "Co-founder & CEO. Background in power systems and energy infrastructure. Founded z1power and SmartTec.",
+    initials: "SH",
+    linkedin: "https://www.linkedin.com/in/syed-hussain-033661230/",
+  },
+  {
+    name: "Yasir Jahangir",
+    role: "Co-founder. Operations across cell production, supply chain, deployment, and partner delivery.",
+    initials: "YJ",
+    linkedin: "https://www.linkedin.com/in/hyasir/",
+  },
+  {
+    name: "Muhammad Siddiqui",
+    role: "Chief Operating Officer.",
+    initials: "MS",
+  },
 ];
+
+const advisors: Person[] = [
+  {
+    name: "Javed Iqbal, Ph.D.",
+    role: "Advisor — Sustainability & Business Development, EVSE.",
+    initials: "JI",
+  },
+];
+
+// Board seats are not filled yet. This stays empty until they are — an
+// invented board is exactly the kind of claim the site's truth policy exists
+// to prevent. Add entries here and the section renders itself.
+const board: Person[] = [];
+
 
 const values = [
   {
@@ -194,35 +226,43 @@ export default function AboutPage() {
                 The people behind it.
               </h2>
               <p className="text-slate/70 mt-4 max-w-2xl">
-                [Add real names + backgrounds before publishing. Roles are real; descriptions are directionally accurate.]
+                A small team that builds what it sells. Portraits are illustrated units, not stock photography — real
+                photography goes up when the site does.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {team.map((m) => (
-                <div key={m.name} className="bg-background border border-dashed border-slate/30 p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-fog border border-dashed border-slate/30 flex items-center justify-center font-anybody font-bold text-2xl text-slate">
-                    {m.initials}
-                  </div>
-                  <div className="font-anybody font-bold text-slate mb-1">{m.name}</div>
-                  <div className="text-sm text-slate/60 leading-relaxed">{m.role}</div>
-                  {m.linkedin && (
-                    <a
-                      href={m.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${m.name} on LinkedIn`}
-                      className="mt-4 inline-flex items-center gap-2 font-space-mono text-[11px] uppercase tracking-wider text-slate/70 border border-dashed border-slate/40 px-3 py-1.5 hover:bg-greptile-green hover:text-black hover:border-slate transition-colors"
-                    >
-                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden="true">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                      </svg>
-                      LinkedIn
-                    </a>
-                  )}
+            <PersonGrid people={leadership} />
+
+            {advisors.length > 0 && (
+              <div className="mt-14">
+                <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-5">
+                  <span className="w-1.5 h-1.5 bg-neon" />
+                  [ ADVISORS ]
+                </span>
+                <PersonGrid people={advisors} />
+              </div>
+            )}
+
+            <div className="mt-14">
+              <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-5">
+                <span className="w-1.5 h-1.5 bg-neon" />
+                [ BOARD OF DIRECTORS ]
+              </span>
+              {board.length > 0 ? (
+                <PersonGrid people={board} />
+              ) : (
+                <div className="border border-dashed border-slate/40 bg-fog/40 p-8">
+                  <p className="font-anybody font-extrabold uppercase tracking-tight text-xl text-slate mb-2">
+                    Being seated.
+                  </p>
+                  <p className="text-slate/70 text-[15px] leading-relaxed max-w-[62ch]">
+                    We would rather show an empty board than a decorative one. Directors will be listed here by name,
+                    with their affiliation, once appointed.
+                  </p>
                 </div>
-              ))}
+              )}
             </div>
+
             <div className="mt-6 border border-dashed border-slate/30 bg-background p-6">
               <span className="inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-slate/60 mb-3">
                 <span className="w-1.5 h-1.5 bg-greptile-green rounded-full" />
@@ -259,5 +299,36 @@ export default function AboutPage() {
         </section>
       </div>
     </PageShell>
+  );
+}
+
+function PersonGrid({ people }: { people: Person[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {people.map((m, i) => (
+        <div
+          key={m.name}
+          className="group bg-background border border-dashed border-slate/30 p-6 text-center transition-colors hover:border-slate/60 hover:bg-fog/40"
+        >
+          <RobotAvatar name={m.name} initials={m.initials} index={i} className="w-28 h-28 mx-auto mb-4" />
+          <div className="font-anybody font-bold text-slate mb-1">{m.name}</div>
+          <div className="text-sm text-slate/60 leading-relaxed">{m.role}</div>
+          {m.linkedin && (
+            <a
+              href={m.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${m.name} on LinkedIn`}
+              className="mt-4 inline-flex items-center gap-2 font-space-mono text-[11px] uppercase tracking-wider text-slate/70 border border-dashed border-slate/40 px-3 py-1.5 hover:bg-greptile-green hover:text-black hover:border-slate transition-colors"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+              LinkedIn
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
   );
 }

@@ -551,3 +551,47 @@ html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   .status-blink { animation: none !important; }
 }
+
+/* ============================================================
+   ROBOT AVATAR — all motion is transform/opacity (compositor only)
+   ============================================================ */
+.robot { color: #3D3B4F; overflow: visible; }
+
+.robot-float { animation: rb-float 6s ease-in-out infinite; animation-delay: var(--rb-delay, 0s); will-change: transform; }
+@keyframes rb-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+/* eyelid shut — fast, occasional, staggered per avatar */
+.robot-blink { animation: rb-blink 5.5s ease-in-out infinite; animation-delay: var(--rb-delay, 0s); will-change: transform; transform-box: fill-box; transform-origin: center; }
+@keyframes rb-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(0.08); }
+  97%           { transform: scaleY(1); }
+}
+
+/* visor scan sweep */
+.robot-scan { animation: rb-scan 3.6s cubic-bezier(0.4, 0, 0.6, 1) infinite; animation-delay: var(--rb-delay, 0s); will-change: transform; }
+@keyframes rb-scan {
+  0%   { transform: translateY(0);    opacity: 0; }
+  10%  { opacity: 0.85; }
+  50%  { transform: translateY(22px); opacity: 0.85; }
+  60%  { opacity: 0; }
+  100% { transform: translateY(22px); opacity: 0; }
+}
+
+/* status lights */
+.robot-pulse { animation: rb-pulse 2.4s ease-in-out infinite; animation-delay: var(--rb-delay, 0s); will-change: opacity, transform; transform-box: fill-box; transform-origin: center; }
+.robot-pulse-b { animation-duration: 3.1s; }
+@keyframes rb-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.86); }
+}
+
+/* wake up on hover of the enclosing card */
+.group:hover .robot-scan  { animation-duration: 1.2s; }
+.group:hover .robot-pulse { animation-duration: 0.9s; }
+.group:hover .robot-float { animation-duration: 2.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .robot-float, .robot-blink, .robot-scan, .robot-pulse { animation: none !important; }
+  .robot-scan { opacity: 0.85; }
+}
