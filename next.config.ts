@@ -19,6 +19,16 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["framer-motion"],
   },
 
+  async rewrites() {
+    return [
+      // Password-gated 3D visualization (static, AES-encrypted client-side)
+      {
+        source: "/z1power-sugarland-bess",
+        destination: "/z1power-sugarland-bess/index.html",
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
