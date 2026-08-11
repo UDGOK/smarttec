@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>z1Power - Sugarland BESS — Live Panel Simulator (Rev K) — Proprietary: STR Medical</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --ink:#e6edf3; --ink2:#9aa7b3; --ink3:#6b7683;
+    --line:#2d333b; --accent:#e8a33d;
+    --c480:#ff5252; --caux:#ff9838; --c120:#e3c93c; --c24:#4d8dff; --ccom:#3ec5e8;
+    --ceth:#c77dff; --ccan:#2fd6c3; --cfire:#ff6b6b; --cpe:#41d97a; --cmtr:#69c26e;
+    --good:#41d97a; --warn:#e3c93c; --crit:#ff5252;
+  }
+  *{box-sizing:border-box} html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:14px/1.45 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line)}
+  header h1{font-size:16px;margin:0 14px 0 0;letter-spacing:.4px}
+  header h1 small{color:var(--ink2);font-weight:400}
+  .btn{background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:7px 12px;border-radius:8px;
+    cursor:pointer;font-size:13px;transition:.15s}
+  .btn:hover{border-color:var(--accent)} .btn.active{background:var(--accent);color:#141414;border-color:var(--accent);font-weight:600}
+  .btn.ctl{padding:7px 10px}
+  .spd{display:flex;align-items:center;gap:8px;color:var(--ink2);font-size:12px;margin-left:auto}
+  .spd input{width:150px;accent-color:var(--accent)}
+  main{display:grid;grid-template-columns:1fr 320px;gap:0}
+  #stage{padding:6px 4px 0 10px}
+  svg{width:100%;height:auto;display:block}
+  aside{border-left:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 60px);}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .tile .k{font-size:10.5px;color:var(--ink2);text-transform:uppercase;letter-spacing:.6px}
+  .tile .v{font-size:19px;font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums}
+  .tile .u{font-size:11px;color:var(--ink3);font-weight:400}
+  #clockbox{grid-column:1/3;display:flex;justify-content:space-between;align-items:center}
+  #facpTile .v{font-size:14px}
+  #log{flex:1;overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:8px 10px;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;min-height:140px}
+  #log .t{color:var(--ink3)} #log .warn{color:var(--warn)} #log .crit{color:var(--crit)} #log .good{color:var(--good)}
+  footer{padding:8px 18px;color:var(--ink3);font-size:11px;border-top:1px solid var(--line)}
+  /* SVG styles */
+  text{font:11px -apple-system,"Segoe UI",Roboto,Arial,sans-serif;fill:var(--ink)}
+  .blk{fill:#1c232d;stroke:#3a4450;stroke-width:1.2;rx:6}
+  .blk-lab{font-size:10.5px;fill:var(--ink)} .blk-sub{font-size:9px;fill:var(--ink2)}
+  .zone{fill:none;stroke:#3d4653;stroke-width:1.4;stroke-dasharray:7 5}
+  .zone-lab{font-size:11px;fill:var(--ink2);letter-spacing:1px}
+  .wire{fill:none;stroke-linecap:round}
+  .flow{fill:none;stroke-linecap:round;pointer-events:none}
+  .dead{opacity:.22}
+  .chip{font-size:9.5px;fill:var(--ink2)}
+  .chipv{font-size:10px;fill:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+  .lgd{font-size:9.5px;fill:var(--ink2)}
+  /* ===== Rev K device-state animation layer =====
+     Overlay rects sit on top of each block; ONLY opacity / transform are
+     animated (compositor-friendly). States are toggled by class - zero
+     per-frame JS for device visuals. */
+  .st{fill:none;stroke-width:2.5;opacity:0;pointer-events:none}
+  .st-alarm{stroke:var(--crit);fill:rgba(255,82,82,.14);animation:stPulse .8s ease-in-out infinite}
+  .st-flash{stroke:var(--crit);fill:rgba(255,82,82,.30);animation:stFlash .3s steps(2,end) infinite}
+  .st-active{stroke:var(--good);fill:rgba(65,217,122,.08);animation:stBreathe 1.8s ease-in-out infinite}
+  .st-warn{stroke:var(--warn);fill:rgba(227,201,60,.10);animation:stPulse 1.1s ease-in-out infinite}
+  .st-trip{stroke:var(--crit);fill:rgba(255,82,82,.22);animation:stFlash .22s steps(2,end) 6, stHold .1s .0s forwards}
+  .st-off{stroke:#5a2830;fill:rgba(10,12,16,.55);opacity:1;animation:none}
+  .st-ok{stroke:var(--good);opacity:.5;animation:none}
+  @keyframes stPulse{0%,100%{opacity:.25}50%{opacity:1}}
+  @keyframes stFlash{0%{opacity:1}50%{opacity:.1}100%{opacity:1}}
+  @keyframes stBreathe{0%,100%{opacity:.15}50%{opacity:.7}}
+  @keyframes stHold{to{opacity:1}}
+  /* siren pressure waves: transform-only scale rings */
+  .wave{fill:none;stroke:var(--crit);stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
+  .waves-on .wave{animation:waveOut 1.1s linear infinite}
+  .waves-on .wave:nth-child(2){animation-delay:.55s}
+  @keyframes waveOut{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  /* emphasized wire: brighter + thicker (static emphasis; dash speed via rate) */
+  .hot{stroke-width:4px !important;opacity:1 !important}
+  .hot-dim{opacity:.06 !important}
+  /* ===== hover inspector ===== */
+  .blk-hover{stroke:var(--accent) !important;stroke-width:2.2 !important;cursor:pointer}
+  .blk-peer{stroke:var(--accent) !important;stroke-width:1.6 !important;stroke-dasharray:none !important;opacity:1}
+  #tip{position:fixed;z-index:50;max-width:340px;background:#10151cf2;border:1px solid var(--accent);
+    border-radius:12px;padding:12px 14px;pointer-events:none;opacity:0;transform:translateY(8px) scale(.98);
+    transition:opacity .16s ease,transform .16s ease;box-shadow:0 12px 32px #000a;backdrop-filter:blur(3px)}
+  #tip.on{opacity:1;transform:translateY(0) scale(1)}
+  #tip h3{margin:0 0 2px;font-size:13.5px;color:var(--ink)}
+  #tip .role{font-size:11.5px;color:var(--accent);margin-bottom:7px;letter-spacing:.3px}
+  #tip .dt{font-size:11.5px;color:var(--ink2);line-height:1.5;margin-bottom:2px}
+  #tip .dt b{color:var(--ink);font-weight:600}
+  #tip .wh{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin:9px 0 4px;
+    border-top:1px solid var(--line);padding-top:7px}
+  #tip .wl{display:flex;align-items:baseline;gap:7px;font-size:11px;color:var(--ink2);line-height:1.55}
+  #tip .wl i{width:14px;height:3px;border-radius:2px;flex:none;display:inline-block;transform:translateY(-2px)}
+  #tip .rvk{margin-top:8px;font-size:10.5px;color:var(--good);border-top:1px solid var(--line);padding-top:6px}
+  /* ===== v3: annunciator ===== */
+  #ann{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+  .al{background:#10151c;border:1px solid var(--line);border-radius:7px;padding:5px 4px;text-align:center;
+    font-size:8.5px;letter-spacing:.4px;color:var(--ink3);text-transform:uppercase;user-select:none;line-height:1.25}
+  .al b{display:block;font-size:8.5px;font-weight:700;color:inherit}
+  .al.on-crit{border-color:var(--crit);color:var(--crit);background:#2a1114;animation:annBlink .5s steps(2,end) infinite}
+  .al.on-warn{border-color:var(--warn);color:var(--warn);background:#26210e;animation:annBlink .7s steps(2,end) infinite}
+  .al.acked{animation:none}
+  @keyframes annBlink{50%{opacity:.35}}
+  #annhead{display:flex;justify-content:space-between;align-items:center}
+  #annhead .k{font-size:10.5px;color:var(--ink2);text-transform:uppercase;letter-spacing:.6px}
+  #ack{font-size:10px;padding:3px 10px}
+  /* ===== v3: timeline ===== */
+  #tl{display:flex;align-items:center;gap:8px;padding:4px 10px 8px}
+  #tlbar{position:relative;flex:1;height:26px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+  .tlm{position:absolute;top:3px;width:8px;height:8px;border-radius:50%;background:var(--accent);cursor:pointer;
+    transform:translateX(-4px);transition:transform .12s}
+  .tlm:hover{transform:translateX(-4px) scale(1.5)}
+  .tlm.fired{background:var(--ink3)}
+  .tlm-lab{position:absolute;top:12px;font-size:8px;color:var(--ink3);transform:translateX(-50%);white-space:nowrap}
+  #tlcur{position:absolute;top:0;width:2px;height:100%;background:var(--accent);opacity:.85}
+  /* ===== v3: probe DMM ===== */
+  #dmm{position:fixed;z-index:60;background:#0c1117f5;border:1px solid var(--ccom);border-radius:10px;
+    padding:8px 12px;pointer-events:none;opacity:0;transition:opacity .12s;font:12px ui-monospace,Menlo,monospace}
+  #dmm.on{opacity:1}
+  #dmm .nm{font-size:10px;color:var(--ink2);margin-bottom:3px}
+  #dmm .vv{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+  #dmm .ww{font-size:10px;color:var(--ink3)}
+  #svg.probing{cursor:crosshair}
+  .hit{fill:none;stroke:#9fe8ff;stroke-opacity:0;stroke-width:22;pointer-events:none;
+    transition:stroke-opacity .15s}
+  .probing .hit{pointer-events:stroke;cursor:crosshair;stroke-opacity:.055}
+  .probing .hit:hover{stroke-opacity:.2}
+  /* ===== v3: trace ===== */
+  #tracer{filter:drop-shadow(0 0 5px currentColor)}
+  .badge{opacity:0;transition:opacity .3s}
+  .badge.on{opacity:1}
+  /* ===== v3: tour caption ===== */
+  #cap{position:fixed;left:50%;bottom:56px;transform:translateX(-50%);max-width:70%;z-index:40;
+    background:#0c1117ee;border:1px solid var(--accent);border-radius:12px;padding:12px 20px;
+    font-size:16px;line-height:1.5;color:var(--ink);opacity:0;transition:opacity .25s;pointer-events:none}
+  #cap.on{opacity:1}
+  /* ===== v3: SOC bars ===== */
+  .socbg{fill:#1a212b;stroke:#3a4450;stroke-width:.8;rx:3}
+  .socfill{fill:var(--good)}
+  .soctxt{font-size:9px;fill:var(--ink2)}
+  .injmode .blk{cursor:crosshair !important}
+  .inj-dead{stroke:var(--crit) !important;stroke-dasharray:4 3 !important}
+  @media (prefers-reduced-motion: reduce){
+    .st,.wave{animation:none !important}
+    .st-alarm,.st-flash,.st-trip{opacity:.9}
+    .st-active,.st-warn{opacity:.5}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>z1Power - SUGARLAND BESS — LIVE SIMULATOR <small>· Rev K model · PROPRIETARY: STR MEDICAL</small></h1>
+  <button class="btn active" data-sc="normal">▶ Normal Operation</button>
+  <button class="btn" data-sc="gridloss">⚡ Grid Loss / UPS</button>
+  <button class="btn" data-sc="fire">🔥 Fire Event</button>
+  <button class="btn" data-sc="inrush">🌀 HVAC Inrush</button>
+  <button class="btn" data-sc="surge">🌩 Lightning / SPD</button>
+  <button class="btn" data-sc="wanloss">📡 Internet Loss</button>
+  <button class="btn ctl" id="injbtn" title="click devices to fail/restore them">🔧 Inject Faults</button>
+  <button class="btn ctl" id="probebtn" title="hover or tap wires for a live multimeter">🔎 Probe</button>
+  <button class="btn ctl" id="tourbtn" title="auto-play all scenarios with captions">🎬 Tour</button>
+  <button class="btn ctl" id="pause">⏸ Pause</button>
+  <div class="spd"><span style="color:var(--ink3);font-size:11px;margin-right:10px">💡 hover any device for its role + wiring map</span>SLOW&nbsp;<input type="range" id="speed" min="-1.3" max="0.3" step="0.01" value="-0.3">
+    <span id="spdv" style="width:44px">0.5×</span>&nbsp;FAST</div>
+</header>
+<main>
+  <div id="stage">
+  <div id="tl"><button class="btn ctl" id="stepb" title="previous event">⏮</button><button class="btn ctl" id="stepf" title="next event">⏭</button><div id="tlbar"><div id="tlcur"></div></div><button class="btn ctl" id="replay" title="restart scenario">↺</button></div>
+  <svg viewBox="0 0 1520 900" id="svg" role="img" aria-label="Animated one-line diagram of the Sugarland BESS panel">
+    <!-- ========================= ZONES ========================= -->
+    <rect class="zone" x="298" y="62" width="650" height="768"/>
+    <text class="zone-lab" x="308" y="80">COMBINED EMS + MBMU ENCLOSURE — NEMA 4, A/C COOLED</text>
+    <text class="zone-lab" x="1010" y="80">FIELD — CATL ENERONE+ CABINETS (3× ~407 kWh)</text>
+    <text class="zone-lab" x="40" y="80">UTILITY / PAD</text>
+
+    <!-- ========================= WIRES (base + flow overlay) ==== -->
+    <g id="wires"></g>
+
+    <!-- ========================= BLOCKS ========================= -->
+    <g id="blocks"></g>
+
+    <!-- dynamic overlays -->
+    <g id="fx"></g>
+
+    <!-- legend -->
+    <g id="legend" transform="translate(310,846)"></g>
+  </svg>
+  </div>
+  <aside>
+    <div class="tiles">
+      <div class="tile" id="clockbox">
+        <div><div class="k">Sim clock</div><div class="v" id="clock">0.0 s</div></div>
+        <div style="text-align:right"><div class="k">Scenario</div><div class="v" id="scname" style="font-size:14px">Normal</div></div>
+      </div>
+      <div class="tile"><div class="k">480 V main draw</div><div class="v" id="tMain">12.8 <span class="u">A</span></div></div>
+      <div class="tile"><div class="k">Aux to cabinets</div><div class="v" id="tAux">9.4 <span class="u">kVA</span></div></div>
+      <div class="tile"><div class="k">24 V UPS-backed load</div><div class="v" id="t24">56 <span class="u">W</span></div></div>
+      <div class="tile"><div class="k">UPS energy</div><div class="v" id="tUps">3900 <span class="u">J</span></div></div>
+      <div class="tile"><div class="k">Enclosure temp</div><div class="v" id="tTemp">34.5 <span class="u">°C</span></div></div>
+      <div class="tile" id="facpTile"><div class="k">Fire panel</div><div class="v" id="tFacp" style="color:var(--good)">● NORMAL</div></div>
+    </div>
+    <div id="annhead"><span class="k">Annunciator</span><button class="btn ctl" id="ack">ACK</button></div>
+    <div id="ann"></div>
+    <div id="log"><div><span class="t">[0.0s]</span> Simulator ready. Rev K model loaded (174/174 nets verified).</div></div>
+  </aside>
+</main>
+<div id="tip" role="tooltip"></div>
+<div id="dmm"></div>
+<div id="cap"></div>
+<footer>
+  PROPRIETARY - STR MEDICAL. Educational animation of the verified Rev K engineering model (values from TEST-REPORT + CATL EnerOne+ public spec: HVAC 3 kW/10 A,
+  inrush 12.5 A per spec / 31 A surge per CATL EW diagram · suppression 1.14 A/cab alarm · UPS ~3.9 kJ usable @ 56 W Rev K census (~70 s) · CAN term 60 Ω crimped J5.33/34 per Carson as-built).
+  Not a protection study. FOR REVIEW — PE review required before any construction decision.
+</footer>
+
+<script>
+"use strict";
+/* ============================== model constants (Rev E) ============ */
+const K = {
+  mainA: 12.8, auxKVA: 9.4, upsLoadW: 56.0, upsJ: 3900, holdReq: 30,
+  tempC: 34.5, ambC: 46, hvacInrushA: 31, hvacRatedA: 10, brkA: 20,
+  supA: 1.14, contactorDelay: 10
+};
+/* ============================== geometry helpers =================== */
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+function el(tag, attrs, parent, text){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  (parent || $("svg")).appendChild(e);
+  return e;
+}
+/* blocks: [id, x, y, w, h, label, sub] */
+const BLOCKS = [
+  ["utility", 30, 100, 190, 46, "480V 3PH FEEDER", "site main bus (by others)"],
+  ["padtx",   30, 330, 200, 62, "KEHUA CAB-375 AUX TX", "30 kVA 480→380Y/220 · inside PCS cabinet"],
+  ["q1",     330, 100, 120, 42, "Q1 MAIN DISC", "40 A 3P"],
+  ["spd",    330, 168, 120, 40, "SPD TYPE 2", "480/277Y + 30 A CB"],
+  ["cpt",    330, 234, 120, 42, "CPT 500 VA", "480 → 120/240"],
+  ["cb2",    330, 300, 120, 34, "120V CONTROL MAIN", "2P 15 A"],
+  ["psu12",  330, 358, 120, 46, "PSU1 + PSU2", "NDR-75-24 ×2 → DRDN20"],
+  ["ups",    330, 428, 120, 52, "QUINT CAP 4kJ", "DC UPS · supercap"],
+  ["psu3",   330, 504, 120, 34, "PSU3+PSU4 NDR-240-24 ×2", "via RM2 — redundant (Rev K)"],
+  ["fuses",  330, 562, 120, 44, "DC FUSES F13–F17", "BMS1·BMS2·BMS3·IO·ETH"],
+  ["auxcb",  330, 630, 120, 44, "CB3–CB11", "20 A HVAC · 6 A BMS · A/C+HTR"],
+  ["egauge", 330, 706, 120, 50, "eGAUGE EG4115", "9× 333 mV CTs · PT taps"],
+  ["cpu1",   520,  98, 128, 38, "MOXA UC-2222A #1", "Battalion EMS"],
+  ["cpu2",   520, 146, 128, 38, "MOXA UC-2222A #2", "redundant"],
+  ["sw1",    520, 210, 128, 92, "EDS-4014 MANAGED", "VLAN: WAN·LAN·BMS"],
+  ["io1",    520, 328, 128, 36, "IOLOGIK E1214", "FACP mon + supply health"],
+  ["facp",   520, 400, 128,110, "POTTER ARC-100", "+CA-6075 Class A · releasing"],
+  ["bat",    520, 534, 128, 30, "2× 12V 8Ah (FACP)", "4.73 Ah req — NFPA72-W1"],
+  ["nac",    692, 404,  96, 52, "SIREN + STROBE", "NAC w/ EOL"],
+  ["psn",    664, 470,  88, 44, "PSN-1000", "releasing PSU"],
+  ["ds1",    762, 470,  60, 44, "DS1", "service disc"],
+  ["k1",     520, 578, 128, 34, "K1 PCS TRIP RELAY", "held energized (Rev K)"],
+  ["mbmu1",  760,  98, 168, 52, "MBMU 1 + ETH (J902)", "J3/J5 per Carson · 60Ω term"],
+  ["mbmu2",  760, 170, 168, 52, "MBMU 2 + ETH (J902)", "J3/J5 per Carson · 60Ω term"],
+  ["mbmu3",  760, 242, 168, 52, "MBMU 3 + ETH (J902)", "J3/J5 per Carson · 60Ω term"],
+  ["ac",     880, 776, 66, 48, "A/C", "1.5 kBTU"],
+  ["cab1",  1010,  96, 470,142, "", ""],
+  ["cab2",  1010, 268, 470,142, "", ""],
+  ["cab3",  1010, 440, 470,142, "", ""],
+  ["pcs",   1010, 622, 470, 48, "3× KEHUA 125 kW PCS — Modbus TCP (comms only in panel scope)", ""],
+  ["net",   1010, 700, 470, 40, "SITE INTERNET / WAN (PRIMARY)", ""],
+  ["lte",   1010, 752, 470, 40, "OPTIONAL LTE FAILOVER — NOT IN REV K BOM (candidate at IFC)", ""],
+];
+/* cabinet internals drawn separately */
+const gB = $("blocks") || document.getElementById("blocks");
+const blocksG = document.getElementById("blocks");
+for (const [id,x,y,w,h,lab,sub] of BLOCKS){
+  const g = el("g", {id:"b_"+id}, blocksG);
+  el("rect", {class:"blk", x, y, width:w, height:h, rx:7}, g);
+  if (lab) el("text", {class:"blk-lab", x:x+8, y:y+16}, g, lab);
+  if (sub) el("text", {class:"blk-sub", x:x+8, y:y+29}, g, sub);
+}
+/* device-state overlays: one rect per block, toggled by class only */
+const STATE_IDS = {};
+for (const [id,x,y,w,h] of BLOCKS){
+  STATE_IDS[id] = el("rect", {id:"st_"+id, class:"st", x:x-2, y:y-2,
+    width:w+4, height:h+4, rx:9}, document.getElementById("fx"));
+}
+function setState(id, state){
+  const e = STATE_IDS[id]; if (!e) return;
+  e.setAttribute("class", "st" + (state ? " st-"+state : ""));
+}
+function clearStates(){ for (const id in STATE_IDS) setState(id, null); }
+function setHot(ids, on){ ids.forEach(id => { const f = FLOW[id];
+  if (f) f.el.classList.toggle("hot", on); }); }
+/* PCS STOPPED banner */
+let pcsStopTxt = null;
+function pcsStopped(on){
+  document.getElementById("b_pcs").style.opacity = on ? .35 : 1;
+  if (on && !pcsStopTxt){
+    pcsStopTxt = el("text", {x:1245, y:652, "text-anchor":"middle",
+      style:"font-size:15px;font-weight:800", fill:"var(--crit)"},
+      document.getElementById("fx"), "■ STOPPED — HARDWIRED EPO (K1)");
+  } else if (!on && pcsStopTxt){ pcsStopTxt.remove(); pcsStopTxt = null; }
+}
+/* siren pressure waves (transform-only) */
+const wavesG = el("g", {id:"sirenWaves", class:"", transform:"translate(740,430)"},
+  document.getElementById("fx"));
+el("circle", {class:"wave", r:14}, wavesG);
+el("circle", {class:"wave", r:14}, wavesG);
+function sirenWaves(on){ wavesG.setAttribute("class", on ? "waves-on" : ""); }
+/* cabinets detail */
+const CABS = [[1,1010,96],[2,1010,268],[3,1010,440]];
+for (const [n,x,y] of CABS){
+  const g = el("g", {id:"cab"+n}, blocksG);
+  el("text", {class:"blk-lab", x:x+10, y:y+18}, g, `CATL ENERONE+ CABINET ${n} — ~407 kWh · LFP · liquid cooled`);
+  el("rect", {class:"blk", x:x+12,  y:y+30, width:118, height:40, rx:5}, g);
+  el("text", {class:"blk-sub", x:x+18, y:y+47}, g, "HVAC 3 kW · 13.6 A cont");
+  el("text", {class:"blk-sub", x:x+18, y:y+60}, g, "inrush 31 A EW / 12.5 A spec");
+  el("rect", {class:"blk", x:x+12,  y:y+80, width:118, height:30, rx:5}, g);
+  el("text", {class:"blk-sub", x:x+18, y:y+99}, g, "BMS 135 W / 2.3 A");
+  el("rect", {class:"blk", x:x+148, y:y+30, width:130, height:80, rx:5}, g);
+  el("text", {class:"blk-sub", x:x+156, y:y+46}, g, "DETECTORS");
+  el("circle", {id:`det${n}a`, cx:x+170, cy:y+62, r:6, fill:"#2a3340", stroke:"#4a5666"}, g);
+  el("text", {class:"chip", x:x+182, y:y+66}, g, "heat");
+  el("circle", {id:`det${n}b`, cx:x+170, cy:y+86, r:6, fill:"#2a3340", stroke:"#4a5666"}, g);
+  el("text", {class:"chip", x:x+182, y:y+90}, g, "smoke");
+  el("rect", {id:`aero${n}`, x:x+296, y:y+34, width:74, height:76, rx:6, fill:"#242b35", stroke:"#4a5666"}, g);
+  el("text", {class:"blk-sub", x:x+304, y:y+52}, g, "AEROSOL");
+  el("text", {class:"blk-sub", x:x+304, y:y+65}, g, "1.14 A alm");
+  el("text", {class:"blk-sub", x:x+304, y:y+78}, g, "trig 70 °C");
+  el("rect", {id:`ctc${n}`, x:x+388, y:y+34, width:70, height:76, rx:6, fill:"#242b35", stroke:"#4a5666"}, g);
+  el("text", {class:"blk-sub", x:x+394, y:y+52}, g, "MAIN");
+  el("text", {class:"blk-sub", x:x+394, y:y+65}, g, "CONTACTOR");
+  el("text", {id:`ctcs${n}`, class:"chipv", x:x+394, y:y+92, fill:"var(--good)"}, g, "CLOSED");
+}
+/* ============================== wires ============================== */
+/* [id, class, width, path, label?, lx, ly] */
+const W = {
+  c480:"var(--c480)", caux:"var(--caux)", c120:"var(--c120)", c24:"var(--c24)",
+  ccom:"var(--ccom)", ceth:"var(--ceth)", ccan:"var(--ccan)", cfire:"var(--cfire)",
+  cpe:"var(--cpe)", cmtr:"var(--cmtr)"
+};
+const WIRES = [
+  ["w_feed",  W.c480, 3.2, "M220,123 L330,123", "480V", 250, 116],
+  ["w_q1spd", W.c480, 2.4, "M390,142 L390,168"],
+  ["w_q1cpt", W.c480, 2.4, "M370,142 L370,234"],
+  ["w_txout", W.c480, 3.2, "M330,121 L300,121 L262,121 L262,300 L130,300 L130,330", "480V out", 180, 294],
+  ["w_txret", W.caux, 3.2, "M130,392 L130,660 L330,660", "380Y/220V feeder from PCS cabinet", 150, 420],
+  ["w_aux1",  W.caux, 2.6, "M450,650 L980,650 L980,150 L1022,150", "", 0,0],
+  ["w_aux2",  W.caux, 2.6, "M450,658 L988,658 L988,322 L1022,322"],
+  ["w_aux3",  W.caux, 2.6, "M450,666 L996,666 L996,494 L1022,494"],
+  ["w_cpt120",W.c120, 2.2, "M390,276 L390,300"],
+  ["w_120psu",W.c120, 2.2, "M390,334 L390,358"],
+  ["w_120facp",W.c120,2.0, "M450,317 L492,317 L492,420 L520,420", "120V→FACP", 456, 388],
+  ["w_psuups",W.c24,  2.2, "M390,404 L390,428"],
+  ["w_ups24", W.c24,  2.4, "M450,452 L484,452 L484,120 L520,120", "24V EMS A/B", 456, 240],
+  ["w_24cpu2",W.c24,  1.8, "M484,165 L520,165"],
+  ["w_24sw",  W.c24,  1.8, "M484,256 L520,256"],
+  ["w_psu3f", W.c24,  2.0, "M390,538 L390,562"],
+  ["w_f_mbmu",W.c24,  2.0, "M450,584 L472,584 L472,584 L472,584 M450,584 L472,584 L472,760 L700,760 L700,124 L760,124", "24V BMS1-3/IO/ETH", 476, 745],
+  ["w_f_m2",  W.c24,  1.6, "M700,196 L760,196"],
+  ["w_f_m3",  W.c24,  1.6, "M700,268 L760,268"],
+  ["w_f_io",  W.c24,  1.6, "M700,346 L648,346"],
+  ["w_eth1",  W.ceth, 1.8, "M648,117 L676,117 L676,224 L648,224", "", 0,0],
+  ["w_eth2",  W.ceth, 1.8, "M648,165 L668,165 L668,238 L648,238"],
+  ["w_ethm1", W.ceth, 1.8, "M928,110 L952,110 L952,370 L676,370 L676,262 L648,262", "BMS VLAN", 940, 386],
+  ["w_ethm2", W.ceth, 1.6, "M928,182 L944,182 L944,362 L684,362 L684,270 L648,270"],
+  ["w_ethm3", W.ceth, 1.6, "M928,254 L936,254 L936,354 L692,354 L692,278 L648,278"],
+  ["w_ethio", W.ceth, 1.6, "M584,328 L584,302"],
+  ["w_ethpcs",W.ceth, 1.8, "M648,290 L720,290 L720,646 L1010,646", "PCS Modbus", 730, 640],
+  ["w_wan",   W.ceth, 1.8, "M632,302 L632,318 L712,318 L712,720 L1010,720", "WAN 1: SITE ISP", 730, 714],
+  ["w_lte",   W.ceth, 1.8, "M640,302 L640,326 L704,326 L704,772 L1010,772", "WAN 2: LTE BACKUP", 730, 788],
+  ["w_ethmtr",W.ceth, 1.5, "M450,714 L466,714 L466,296 L520,296"],
+  ["w_can1",  W.ccan, 2.0, "M928,124 L1010,124", "CAN 60Ω term", 935, 92],
+  ["w_can2",  W.ccan, 2.0, "M928,196 L968,196 L968,296 L1010,296"],
+  ["w_can3",  W.ccan, 2.0, "M928,268 L960,268 L960,468 L1010,468"],
+  ["w_slc",   W.cfire,2.0, "M648,432 L1002,432 L1002,180 L1130,180 M1130,180 L1130,352 M1130,352 L1130,524 M1130,524 L1006,524 L1006,548 L648,548 L648,510", "SLC CLASS A LOOP", 830, 425],
+  ["w_nac",   W.cfire,1.8, "M648,470 L692,470? M648,458 L692,458"],
+  ["w_sup1",  W.cfire,2.0, "M648,486 L820,486 L820,66 L1330,66 L1330,96", "SUP 24V ×3 (1.14 A ea)", 700, 480],
+  ["w_sup2",  W.cfire,2.0, "M648,494 L828,494 L828,58 L1338,58 L1338,268"],
+  ["w_sup3",  W.cfire,2.0, "M648,502 L836,502 L836,50 L1346,50 L1346,440"],
+  ["w_ct",    W.cmtr, 1.5, "M330,736 L240,736 L240,806 L1060,806 L1060,672", "CTs: PoI · Solar · BESS", 640, 800],
+  ["w_trip",  W.cfire,2.2, "M648,595 L708,595 L708,636 L1010,636", "HARDWIRED EPO TRIP (K1, fail-safe)", 716, 630],
+  ["w_pe",    W.cpe,  2.2, "M390,208 L390,222 L316,222 L316,824 L560,824", "PE", 322, 818],
+];
+const wiresG = document.getElementById("wires");
+const FLOW = {};
+for (const [id, color, wdt, d, lab, lx, ly] of WIRES){
+  const dd = d.replace("?", "");
+  el("path", {id:"base_"+id, class:"wire", d:dd, stroke:color, "stroke-width":wdt, opacity:.34}, wiresG);
+  const f = el("path", {id, class:"flow", d:dd, stroke:color, "stroke-width":wdt,
+                        "stroke-dasharray":"7 9", opacity:.95}, wiresG);
+  FLOW[id] = {el:f, off:0, rate:0, color};
+  if (lab) el("text", {class:"chip", x:lx, y:ly, fill:color}, wiresG, lab);
+}
+/* legend */
+const LEG = [["480V",W.c480],["380Y/220 AUX",W.caux],["120V CTRL",W.c120],["24VDC",W.c24],
+             ["ETHERNET",W.ceth],["CAN",W.ccan],["FIRE",W.cfire],["PE",W.cpe],["METERING",W.cmtr]];
+const legG = document.getElementById("legend");
+LEG.forEach((L,i)=>{
+  const x = i*128;
+  el("line",{x1:x,y1:-4,x2:x+26,y2:-4,stroke:L[1],"stroke-width":4},legG);
+  el("text",{class:"lgd",x:x+32,y:0},legG,L[0]);
+});
+/* UPS energy bar */
+const upsBar = el("rect",{x:336,y:466,width:108,height:8,rx:3,fill:"#22406e"}, document.getElementById("fx"));
+const upsFill= el("rect",{id:"upsfill",x:336,y:466,width:108,height:8,rx:3,fill:"var(--c24)"}, document.getElementById("fx"));
+/* inrush scope inset (hidden by default) */
+const scope = el("g",{id:"scope",transform:"translate(1010,760)",opacity:0}, document.getElementById("fx"));
+el("rect",{x:0,y:0,width:470,height:110,rx:8,fill:"#10151c",stroke:"#3a4450"},scope);
+el("text",{class:"blk-lab",x:10,y:16},scope,"HVAC START — CURRENT vs TIME (log t)");
+el("line",{x1:40,y1:88,x2:450,y2:88,stroke:"#3a4450"},scope);
+el("line",{x1:40,y1:20,x2:40,y2:88,stroke:"#3a4450"},scope);
+el("line",{x1:40,y1:40,x2:450,y2:40,stroke:"var(--crit)","stroke-dasharray":"4 4",opacity:.6},scope);
+el("text",{class:"chip",x:452,y:43,fill:"var(--crit)","text-anchor":"end"},scope,"mag. pickup ≥100 A");
+el("line",{x1:40,y1:58,x2:450,y2:58,stroke:"var(--warn)","stroke-dasharray":"4 4",opacity:.6},scope);
+el("text",{class:"chip",x:452,y:54,fill:"var(--warn)","text-anchor":"end"},scope,"20 A breaker (thermal)");
+const scopePath = el("path",{d:"M40,88 L40,88",fill:"none",stroke:"var(--caux)","stroke-width":2},scope);
+el("text",{class:"chip",x:60,y:30,fill:"var(--caux)"},scope,"31 A worst-case surge → settles at 13.6 A cont — NO TRIP");
+/* surge bolt */
+const bolt = el("path",{d:"M150,40 L128,86 L146,86 L118,140 L156,92 L138,92 L162,40 Z",fill:"var(--warn)",opacity:0}, document.getElementById("fx"));
+/* countdown ring for contactor delay */
+const ring = el("g",{id:"ring",opacity:0,transform:"translate(1433,338)"}, document.getElementById("fx"));
+el("circle",{r:22,fill:"#10151c",stroke:"#3a4450"},ring);
+const ringArc = el("circle",{r:17,fill:"none",stroke:"var(--warn)","stroke-width":5,
+  "stroke-dasharray":"106.8","stroke-dashoffset":"0",transform:"rotate(-90)"},ring);
+const ringTxt = el("text",{y:5,"text-anchor":"middle",style:"font-size:13px;font-weight:700"},ring,"10");
+/* ============================== engine ============================= */
+const logBox = $("log");
+function log(msg, cls){
+  const d = document.createElement("div");
+  d.innerHTML = `<span class="t">[${sim.t.toFixed(1)}s]</span> <span class="${cls||""}">${msg}</span>`;
+  logBox.appendChild(d); logBox.scrollTop = logBox.scrollHeight;
+}
+const sim = {t:0, speed:0.5, paused:false, sc:"normal", fired:new Set(), upsJ:K.upsJ, state:{}};
+function setRates(map){ for (const id in FLOW) FLOW[id].rate = 0;
+  for (const id in map) if (FLOW[id]) FLOW[id].rate = map[id]; }
+function setDead(ids, dead){ ids.forEach(id=>{
+  const b = FLOW[id]; if(!b) return; b.el.classList.toggle("dead", dead);
+  document.getElementById("base_"+id).classList.toggle("dead", dead); });}
+const ALL = Object.keys(FLOW);
+const NORMAL = {w_feed:60,w_q1spd:8,w_q1cpt:16,w_txout:55,w_txret:55,w_aux1:40,w_aux2:40,w_aux3:40,
+  w_cpt120:18,w_120psu:16,w_120facp:8,w_psuups:16,w_ups24:20,w_24cpu2:14,w_24sw:14,w_psu3f:14,
+  w_f_mbmu:14,w_f_m2:10,w_f_m3:10,w_f_io:10,w_eth1:26,w_eth2:26,w_ethm1:22,w_ethm2:22,w_ethm3:22,
+  w_ethio:16,w_ethpcs:26,w_wan:20,w_lte:0,w_ethmtr:14,w_trip:6,w_can1:18,w_can2:18,w_can3:18,w_slc:12,w_ct:10};
+function resetVisual(){
+  setDead(ALL,false); setRates(NORMAL);
+  ["1","2","3"].forEach(n=>{
+    document.getElementById("det"+n+"a").setAttribute("fill","#2a3340");
+    document.getElementById("det"+n+"b").setAttribute("fill","#2a3340");
+    document.getElementById("aero"+n).setAttribute("stroke","#4a5666");
+    document.getElementById("aero"+n).setAttribute("fill","#242b35");
+    const cs=document.getElementById("ctcs"+n); cs.textContent="CLOSED"; cs.setAttribute("fill","var(--good)");
+  });
+  scope.setAttribute("opacity",0); bolt.setAttribute("opacity",0); ring.setAttribute("opacity",0);
+  clearStates(); sirenWaves(false); pcsStopped(false);
+  annClear(); clearTrace();
+  setHot(ALL, false); ALL.forEach(id=>FLOW[id].el.classList.remove("hot-dim"));
+  setState("k1","ok"); setState("cpu1","active"); setState("cpu2","active");
+  sim.upsJ = K.upsJ; setFacp("● NORMAL","var(--good)");
+}
+function setFacp(txt,color){ const e=$("tFacp"); e.textContent=txt; e.style.color=color; }
+function setTiles(o){
+  if("main" in o) $("tMain").innerHTML = o.main;
+  if("aux" in o)  $("tAux").innerHTML  = o.aux;
+  if("l24" in o)  $("t24").innerHTML   = o.l24;
+  if("ups" in o)  $("tUps").innerHTML  = o.ups;
+  if("temp" in o) $("tTemp").innerHTML = o.temp;
+}
+function tilesNormal(){
+  setTiles({main:`${K.mainA} <span class="u">A</span>`, aux:`${K.auxKVA} <span class="u">kVA</span>`,
+    l24:`${K.upsLoadW} <span class="u">W</span>`, ups:`${Math.round(sim.upsJ)} <span class="u">J</span>`,
+    temp:`${K.tempC} <span class="u">°C</span>`});
+}
+/* one-shot event helper */
+function once(id, tAt, fn){ if (sim.t >= tAt && !sim.fired.has(id)){ sim.fired.add(id); fn(); } }
+/* ---------------- scenarios ---------------- */
+const SCEN = {
+ normal:{
+  name:"Normal", init(){ resetVisual(); tilesNormal();
+    log("K1 trip loop is HELD ENERGIZED (slow red dash to the PCS = supervised, healthy). Watch it collapse in the Fire scenario.","t");
+    log("Normal operation: Q2 aux feeder 63% worst phase · aux TX 31% · PSUs ≤35% shared · all comms up. Supply-health contacts (RM1/RM2 DC-OK, UPS buffer) all green at the EMS (Rev K).","good");
+    log("IRL: this is ~99% of the plant's life — 24/7/365 unattended operation in ERCOT wholesale market.","t");},
+  tick(){}
+ },
+ gridloss:{
+  name:"Grid loss / UPS ride-through",
+  init(){ resetVisual(); tilesNormal(); log("Grid healthy… loss in 2 s.","warn");
+    log("IRL: ERCOT distribution outages — hurricane/storm season, feeder trips, utility switching. Expect several per year on the Gulf Coast (Uri 2021: days-long).","t");},
+  tick(){
+    once("g1",2,()=>{ log("⚡ 480 V FEEDER LOST. AC power dead — cabinets on internal BMS. DC UPS carries EMS + network.","crit");
+      setDead(["w_feed","w_q1spd","w_q1cpt","w_txout","w_txret","w_aux1","w_aux2","w_aux3","w_cpt120","w_120psu","w_120facp","w_psuups","w_psu3f","w_f_mbmu","w_f_m2","w_f_m3","w_ct","w_ethmtr"],true);
+      setState("egauge","off"); ann("meter","warn");
+      setRates({w_ups24:22,w_24cpu2:15,w_24sw:15,w_eth1:24,w_eth2:24,w_ethpcs:22,w_wan:18,w_ethmtr:10,w_trip:6});
+      setFacp("● ON BATTERY","var(--warn)");
+      ["q1","spd","cpt","cb2","psu12","psu3","fuses","auxcb","utility","padtx","ac"].forEach(b=>setState(b,"off"));
+      setState("ups","active"); setState("facp","warn"); setState("bat","warn");
+      ann("acpwr","crit"); ann("upsbuf","warn"); ann("psua","warn"); ann("psub","warn");
+      setState("psn","warn"); setHot(["w_ups24"], true);
+      log("Supply-health DIs flip at the EMS: RM1/RM2 DC-OK report loss of AC feed; UPS buffer contact = BUFFERING (Rev K R-09).","warn");
+      setTiles({main:`0 <span class="u">A</span>`, aux:`0 <span class="u">kVA</span>`}); });
+    if (sim.t>2){
+      if (sim.upsJ>0){
+        sim.upsJ = Math.max(0, sim.upsJ - K.upsLoadW * sim.dt);
+        setTiles({ups:`${Math.round(sim.upsJ)} <span class="u">J</span>`});
+        once("g2",2+K.holdReq,()=>log(`✓ ${K.holdReq}s ride-through REQUIREMENT MET — energy remaining ${Math.round(sim.upsJ)} J (Rev K census: ~70 s total at 56 W, >2x requirement).`,"good"));
+      }
+      if (sim.upsJ<=0) once("g3",sim.t,()=>{
+        setTiles({ups:`0 <span class="u">J</span>`});
+        log(`UPS depleted after ${(sim.t-2).toFixed(0)} s (>2x the 30 s requirement). EMS shuts down gracefully — AND the fail-safe fires:`,"warn");
+        log("⚡ 24V_UPS bus dies → F18 loses supply → K1 DROPS → Kehua EPO. Total control-power loss STOPS the inverter by wire — same fail-safe as a fire or a dead FACP (Rev K R-01).","crit");
+        setDead(["w_ups24","w_24cpu2","w_24sw","w_eth1","w_eth2","w_ethm1","w_ethm2","w_ethm3","w_ethio","w_ethpcs","w_wan","w_ethmtr","w_trip"],true);
+        ["ups","cpu1","cpu2","sw1","io1"].forEach(b=>setState(b,"off"));
+        setState("k1","off"); ann("epo","crit"); pcsStopped(true);
+        setRates({}); });
+    }
+  }
+ },
+ fire:{
+  name:"Fire event — cabinet 2",
+  init(){ resetVisual(); tilesNormal();
+    log("All quiet. Heat detector in Cabinet 2 will trip at t=2 s. Watch the sequence — slow it down!","warn");
+    log("IRL: extremely rare — internal cell defect, BMS failure, or external fire. Odds are it never happens at this site; this sequence is why the panel can be trusted when it does.","t");},
+  tick(){
+    once("f1",2,()=>{ document.getElementById("det2a").setAttribute("fill","var(--warn)");
+      setRates({...NORMAL, w_slc:60}); setFacp("● LEVEL 1 ALARM","var(--warn)");
+      setState("facp","alarm"); setState("nac","flash"); sirenWaves(true);
+      setState("cab2","warn"); setHot(["w_slc"], true);
+      ann("fire","crit"); clearTrace(); runTrace(FIRE_TRACE_1);
+      log("🔥 HEAT DETECTOR (Cab 2) → SLC Class A (rack-to-rack ring, Rev K) reports to ARC-100. LEVEL 1: siren + strobe ON. Hardwired trip: FACP relay drops → K1 → Kehua EPO — the 375 kW inverter STOPS, no software in the path (Rev K R-01). Constant-pressure ABORT at the cabinet line-up can hold the aerosol release.","warn");
+      ring.setAttribute("opacity",1); sim.state.ringT0=sim.t; });
+    once("f1b",3,()=>{ setState("k1","trip"); setHot(["w_trip"], true);
+      log("⚡ K1 DROPS (held-energized coil released by the FACP) → EPO contacts change state at X23.","crit"); });
+    once("f1c",4.2,()=>{ setState("k1","off"); setHot(["w_trip"], false); ann("epo","crit");
+      setDead(["w_trip"], true); pcsStopped(true);
+      setRates({...NORMAL, w_slc:60, w_ethpcs:0});
+      log("■ KEHUA PCS STOPS — 375 kW inverter offline by WIRE, not software. EMS Modbus link becomes read-only telemetry.","crit"); });
+    if (sim.state.ringT0!=null){
+      const rem = Math.max(0, K.contactorDelay-(sim.t-sim.state.ringT0));
+      ringTxt.textContent = Math.ceil(rem);
+      ringArc.setAttribute("stroke-dashoffset", (106.8*(1-rem/K.contactorDelay)).toFixed(1));
+      if (rem<=0 && !sim.fired.has("f2b")){ sim.fired.add("f2b");
+        document.getElementById("ctcs2").textContent="OPEN";
+        document.getElementById("ctcs2").setAttribute("fill","var(--crit)");
+        log("⏱ Delay expired → Cabinet 2 MAIN CONTACTOR OPENS (battery isolated).","crit");
+        ring.setAttribute("opacity",0); }
+    }
+    once("f3",6,()=>{ document.getElementById("det2b").setAttribute("fill","var(--crit)");
+      if (sim.inj.has("ds1")){
+        setFacp("● RELEASE BLOCKED","var(--warn)");
+        log("🔒 DS1 IS LOCKED OUT — cross-zone confirmed but the RELEASE IS BLOCKED at the service disconnect (that is its job during maintenance). Contactor still opens, K1 already tripped the PCS, supervisory has been latched at the FACP since lockout. Restore DS1 and replay to see the discharge.","crit");
+        sim.fired.add("f2b"); sim.state.ringT0=null; ring.setAttribute("opacity",0);
+        document.getElementById("ctcs2").textContent="OPEN";
+        document.getElementById("ctcs2").setAttribute("fill","var(--crit)");
+        document.getElementById("det2b").setAttribute("fill","var(--crit)");
+        sim.fired.add("f4"); sim.fired.add("f5");
+        return;
+      }
+      setFacp("● RELEASE","var(--crit)");
+      log("🔥🔥 SECOND DETECTOR (smoke, Cab 2) → cross-zone confirmed. IMMEDIATE shutdown (CATL dual-detector logic overrides the 10 s delay) + RELEASE sequence.","crit");
+      sim.fired.add("f2b"); sim.state.ringT0=null; ring.setAttribute("opacity",0);
+      document.getElementById("ctcs2").textContent="OPEN";
+      document.getElementById("ctcs2").setAttribute("fill","var(--crit)");
+      const a=document.getElementById("aero2"); a.setAttribute("stroke","var(--crit)"); a.setAttribute("fill","#3a1418");
+      setState("cab2","alarm"); setState("psn","alarm"); setState("ds1","active");
+      setHot(["w_sup2"], true); runTrace(FIRE_TRACE_2);
+      setRates({...NORMAL, w_slc:60, w_sup2:70, w_ethpcs:0});
+      log("→ SUP-2 circuit energized: 1.14 A @ 24 V to Cab 2 aerosol (per-cabinet circuit — 3.41 A total would exceed a single circuit; this is why Rev D split them).","warn"); });
+    once("f4",8,()=>{ log("Release chain (Option B, Rev K): FACP TRIG → PSN-1000 releasing PSU (own batteries) → DS1 service disconnect → cabinet aerosol input, EOL-supervised. The N/C ALARM contact opened at FIRST alarm (t=2) — IOLogik DI0 → EMS halted dispatch and paged the operator back then; this beat is the release-power path completing.","good");
+      setState("io1","active"); setState("cpu1","warn"); setState("cpu2","warn");
+      setHot(["w_ethio"], true);
+      setRates({...NORMAL, w_slc:60, w_sup2:70, w_ethio:60, w_eth1:50, w_ethpcs:0}); });
+    once("f5",11,()=>{ log("Aerosol discharged in Cab 2. Cabinets 1 & 3 unaffected — circuits independent. NAC continues until panel reset.","good");
+      setState("psn","active"); setHot(["w_sup2"], false);
+      setState("cab1","ok"); setState("cab3","ok"); });
+  }
+ },
+ inrush:{
+  name:"HVAC compressor start — Cab 1",
+  init(){ resetVisual(); tilesNormal(); scope.setAttribute("opacity",1); sim.state.pts=[];
+    log("Cabinet 1 HVAC compressor start at t=2 s. CATL docs disagree: spec R08306P05L31 says ≤12.5 A <1 ms, CATL External Wiring Diagram says 31 A surge (public sheet 32 A). Design uses 31 A worst case. Breaker: 20 A C-curve per Rev J review (3 kW cont = 13.6 A, NEC 125% = 17 A; mag. pickup ≥100 A).","warn");
+    log("IRL: the MOST frequent event on this page — every compressor start, dozens of times per day in a Texas summer. A mis-specified breaker would nuisance-trip weekly.","t");},
+  tick(){
+    once("i1",2,()=>{ setRates({...NORMAL, w_aux1:120}); setState("auxcb","warn");
+      setState("cab1","warn"); setHot(["w_aux1"], true);
+      log("🌀 START — 31 A worst-case surge (sub-millisecond)…","warn"); });
+    once("i2",3.2,()=>{ setRates(NORMAL); setState("auxcb","ok"); setState("cab1",null);
+      setHot(["w_aux1"], false);
+      log("✓ Settled at 13.6 A continuous (design basis; CATL plate says 3 kW/10 A — RFI-002 resolves). 31 A ≪ 100 A magnetic pickup and far too brief for the 20 A thermal element — NO TRIP.","good"); });
+    if (sim.t>2 && sim.t<7){
+      const tt = sim.t-2;
+      const amps = tt<0.15 ? 32 : (tt<1.2 ? 13.6+18.4*Math.exp(-(tt-0.15)*6) : 13.6);
+      sim.state.pts.push([tt, amps]);
+      const d = "M" + sim.state.pts.map(([a,b])=>`${(40+a*82).toFixed(1)},${(88-b*1.5).toFixed(1)}`).join(" L");
+      scopePath.setAttribute("d", d);
+    }
+  }
+ },
+ wanloss:{
+  name:"Site internet loss — local-control ride-through",
+  init(){ resetVisual(); tilesNormal();
+    log("Site ISP healthy. Fiber cut at t=2 s.","warn");
+    log("IRL: the MOST COMMON failure at remote sites — ISP outages, fiber cuts by excavators, storm damage. Plan for multiple events per year.","t");},
+  tick(){
+    once("w1",2,()=>{ setDead(["w_wan"],true); setState("net","off"); ann("comms","warn");
+      setState("cpu1","active"); setState("cpu2","active"); setState("sw1","active");
+      log("📡 SITE INTERNET DOWN. Important: the BESS keeps operating — EMS control is LOCAL (CAN + Modbus never leave the site). Only cloud telemetry/dispatch is dark.","crit"); });
+    once("w2",5,()=>{ setRates({...NORMAL, w_wan:0});
+      log("NO cellular backup exists in the Rev K BOM — and nothing dangerous happens without it: EMS + MBMUs keep running the plant on LOCAL control, the fire system never depends on the network, and telemetry buffers. (Optional LTE failover — UC-2222A built-in modem or a router — remains an IFC add-on candidate.)","good"); });
+    once("w3",9,()=>{ log("✓ Ride-through complete on local control; monitoring resumes when the link returns. If remote visibility during outages matters to operations, price the optional LTE add-on at IFC (~$400-800 + SIM).","good"); });
+  }
+ },
+ surge:{
+  name:"Lightning / SPD clamp",
+  init(){ resetVisual(); tilesNormal();
+    log("Storm overhead. Induced surge on the 480 V feeder at t=2 s. SPD: Type 2, 480/277Y on 30 A breaker.","warn");
+    log("IRL: Sugar Land sees ~60-70 thunderstorm days/year. Nearby strikes induce feeder transients several times each season — the SPD earns its $460 annually.","t");},
+  tick(){
+    once("s1",2,()=>{ bolt.setAttribute("opacity",1);
+      setState("spd","flash"); setHot(["w_q1spd","w_pe"], true); ann("trbl","warn");
+      setRates({...NORMAL, w_feed:200, w_q1spd:220, w_pe:220});
+      log("🌩 TRANSIENT ARRIVES → SPD clamps, diverting surge energy to the PE ground bus. Loads see clamped voltage only.","crit"); });
+    once("s2",3.2,()=>{ bolt.setAttribute("opacity",0); setRates(NORMAL);
+      setState("spd","ok"); setHot(["w_q1spd","w_pe"], false); ann("trbl",null);
+      log("✓ Surge over in microseconds (slowed here ~10⁶×). SPD status indicator remains green; no breaker operation. Note: fitted as GOOD PRACTICE — this panel is not dwelling service equipment (NEC 230.67 does not apply).","good"); });
+  }
+ }
+};
+/* ============== hover inspector: role + details + wiring map ========== */
+const TIP = {
+ utility:{t:"480 V 3PH Feeder (field)",r:"WHERE THE POWER COMES FROM",d:["Site main bus, by others. Lands on TB1 in the panel.","8 AWG THHN Cu, 40 A circuit."],w:["w_feed"]},
+ padtx:{t:"Kehua Cab-375 Aux Transformer",r:"MAKES THE 220 V THE CABINETS LIVE ON",d:["30 kVA 480→380Y/220 V, built INTO the PCS cabinet (Rev I).","3 output breakers (ratings at RFI-001).","N-G bond lives HERE, not in the panel — one bond per system."],w:["w_txout","w_txret"]},
+ q1:{t:"Q1 — Main Disconnect",r:"THE 480 V KILL SWITCH",d:["40 A 3-pole, Phoenix TMC S3D (verify AIC).","Feeds SPD, CPT and the meter taps.","Two-source panel: opening Q1 does NOT kill the 380Y aux — see Q2/label L-04."],w:["w_feed","w_q1spd","w_q1cpt"]},
+ spd:{t:"SPD1 — Surge Protector",r:"EATS LIGHTNING SO ELECTRONICS DON'T",d:["Type 2, 480/277Y on its own 30 A breaker (CB1).","Clamps transients to the PE bus in microseconds.","Status window visible through the door."],w:["w_q1spd","w_pe"]},
+ cpt:{t:"T2 — Control Power Transformer",r:"MAKES THE PANEL'S OWN 120/240 V",d:["500 VA, 480→120/240. Per-leg census: 141 VA/leg (56%).","F4/F5 primaries: 3 A TIME-DELAY per NEC 450.3(B).","BD1 N-G bond at its secondary — the only panel bond."],w:["w_q1cpt","w_cpt120"]},
+ cb2:{t:"CB2 — 120 V Control Main",r:"ONE SWITCH FOR ALL CONTROL POWER",d:["2-pole 15 A, common trip (shared neutral = MWBC).","Feeds PSU1+PSU4 on L1, PSU2+PSU3 on L2 — rails CROSSED so one leg fault cannot drop a redundant pair.","Fire panel is NOT here — it has its own CB9 (Rev K)."],w:["w_cpt120","w_120psu","w_120facp"]},
+ psu12:{t:"PSU1 + PSU2 — 24 V Rail A",r:"REDUNDANT BRAIN POWER",d:["2× Mean Well NDR-75-24 through RM1 ORing module.","Either one ALONE carries the full rail-A load at ~73% (27% headroom); ~35% each when sharing.","RM1 DC-OK contact → IO1 DI3: first failure annunciates."],w:["w_120psu","w_psuups"]},
+ ups:{t:"UPS1 — Supercap DC UPS",r:"RIDES THROUGH OUTAGES, NO BATTERIES TO AGE",d:["Phoenix QUINT4-CAP 4 kJ (~3.9 kJ usable) — ~70 s at the 56 W Rev K census.","Backs: CPUs, switch, IO1, K1 trip loop (Rev K).","Buffer contact → IO1 DI5 warns the EMS it's discharging."],w:["w_psuups","w_ups24"]},
+ psu3:{t:"PSU3 + PSU4 — 24 V Rail B",r:"BATTERY-TELEMETRY POWER, NOW REDUNDANT",d:["2× NDR-240-24 (10 A) through RM2 (Rev K R-08).","Feeds MBMU ×3 + ETH modules — 79% headroom on one supply.","RM2 DC-OK → IO1 DI4."],w:["w_psu3f"]},
+ fuses:{t:"F13–F17 — DC Branch Fuses",r:"EVERY 24 V LOAD ON ITS OWN FUSE",d:["KLKR-2 class CC, labels BMS1/BMS2/BMS3/IO/ETH per Carson.","IO branch (F16) moved to the UPS rail in Rev K.","Full ratings: fuse schedule Z1SL-SCH-001."],w:["w_psu3f","w_f_mbmu","w_f_m2","w_f_m3","w_f_io"]},
+ auxcb:{t:"CB3–CB11 — Aux Branch Breakers",r:"ONE BREAKER PER CABINET LOAD",d:["20 A C-curve per chiller (holds 31 A start surge), 6 A per BMS.","CB10/CB11: enclosure A/C + heater (Rev K).","480Y/277V-rated UL489 — 380 V L-L clearing duty."],w:["w_txret","w_aux1","w_aux2","w_aux3"]},
+ egauge:{t:"M1 — eGauge Revenue Meter",r:"COUNTS EVERY kWh, THREE PLACES AT ONCE",d:["9× 333 mV CTs: grid PoI, solar, BESS (3 phases each).","Voltage-output CTs — open-circuit SAFE, no shorting blocks.","OPEN ITEM: v2.0 doc wants EG4130 / 18 CTs — client decision."],w:["w_ct","w_ethmtr"]},
+ cpu1:{t:"CPU1 — Moxa UC-2222A #1",r:"THE SITE'S DECISION-MAKER",d:["Runs the Battalion EMS image. Talks Modbus to the PCS.","UPS-backed; pair with CPU2 = no single brain."],w:["w_ups24","w_eth1"]},
+ cpu2:{t:"CPU2 — Moxa UC-2222A #2",r:"THE SECOND OPINION",d:["Hot spare of CPU1 — same image, same links.","Loss of either: the other carries the site."],w:["w_24cpu2","w_eth2"]},
+ sw1:{t:"SW1 — EDS-4014 Managed Switch",r:"THREE NETWORKS IN ONE BOX",d:["VLAN 10 WAN · VLAN 20 LAN · VLAN 30 BMS.","Single switch = accepted deviation (client sign-off pending).","Config sheet + Battalion sign-off before ordering."],w:["w_24sw","w_eth1","w_eth2","w_ethm1","w_ethm2","w_ethm3","w_ethio","w_ethpcs","w_wan","w_ethmtr"]},
+ io1:{t:"IO1 — ioLogik E1214",r:"THE EMS'S EYES ON FIRE + POWER HEALTH",d:["DI0-2: FACP alarm/supervisory/trouble — wired N/C, fail-safe.","DI3-5: RM1/RM2 DC-OK + UPS buffer (Rev K R-09).","UPS-backed so it sees trouble even during an outage."],w:["w_f_io","w_ethio"]},
+ facp:{t:"FACP1 — Potter ARC-100",r:"THE FIRE BRAIN — INDEPENDENT OF EVERYTHING",d:["Addressable releasing panel + CA-6075 Class A card.","Own batteries (4.73 Ah calc, NFPA72-W1). Dedicated CB9 branch.","Relay 26/27 held energized → K1: dies = inverter stops."],w:["w_120facp","w_slc","w_nac","w_sup1","w_sup2","w_sup3"]},
+ bat:{t:"BAT1/BAT2 — FACP Batteries",r:"24 HOURS OF FIRE WATCH, GRID OR NO GRID",d:["2× 12 V 8 Ah = 8 Ah vs 4.73 Ah required.","Open item: CATL's 2 h sound/light term with the AHJ."],w:[]},
+ nac:{t:"SIR1 + STB1 — Siren & Strobe",r:"THE PART THE NEIGHBORS HEAR",d:["24 V NAC with EOL (R4) — a broken wire annunciates.","Siren top-left of enclosure, strobe on the door."],w:["w_nac"]},
+ psn:{t:"PSN1 — Potter PSN-1000",r:"THE MUSCLE BEHIND THE AEROSOL RELEASE",d:["Listed releasing PSU: 10 A, 3 A/circuit vs 1.14 A load.","Own batteries (BAT3/4) + own NFPA 72 calc.","Trouble reports onto the SLC via MM3 (Rev K)."],w:["w_sup1","w_sup2","w_sup3"]},
+ ds1:{t:"DS1 — Releasing Service Disconnect",r:"MAKES A CABINET SAFE TO ENTER",d:["Lockable; kills all 3 release circuits for maintenance.","Position SUPERVISED via MM1 — panel knows it's off.","Board finding R-15."],w:["w_sup1","w_sup2","w_sup3"]},
+ k1:{t:"K1 — PCS Fire-Trip Relay",r:"THE MOST IMPORTANT WIRE IN THE PANEL",d:["Held energized by FACP relay 26/27 through F18 (UPS bus).","Alarm, FACP death, or power loss drops it → Kehua EPO.","Fail-safe: the safe thing happens when the system dies."],w:["w_trip"]},
+ mbmu1:{t:"MBMU 1 + ETH Module",r:"CABINET 1'S BATTERY BRAIN",d:["Sets charge/discharge limits for cabinet 1's racks.","J3/J5 pinout per Carson as-built; 60 Ω check at J902.21/22.","J3.6/23 (Option A loop) deliberately UNWIRED (Rev K)."],w:["w_f_mbmu","w_can1","w_ethm1"]},
+ mbmu2:{t:"MBMU 2 + ETH Module",r:"CABINET 2'S BATTERY BRAIN",d:["Same as MBMU 1, cabinet 2. CAN to rack JX1_IN 9/10.","24 V from redundant rail B via fuse BMS2."],w:["w_f_m2","w_can2","w_ethm2"]},
+ mbmu3:{t:"MBMU 3 + ETH Module",r:"CABINET 3'S BATTERY BRAIN",d:["Same as MBMU 1, cabinet 3.","ETH module housing bonded to PE (CATL checklist)."],w:["w_f_m3","w_can3","w_ethm3"]},
+ ac:{t:"AC1 — Enclosure A/C",r:"KEEPS THE FIRE PANEL UNDER 49 °C",d:["230 V unit on CB10 (lockable = its NEC 440.14 disconnect).","Final size from the heat-balance sheet at IFC.","HTR1 + thermostat fight Gulf-Coast condensation."],w:[]},
+ cab1:{t:"CATL EnerOne+ Cabinet 1",r:"~407 kWh OF ENERGY, SELF-PROTECTING",d:["LFP racks, liquid cooled, internal detectors + aerosol.","Panel gives it: 220 V aux, 24 V telemetry, CAN, SLC, release ckt.","Contactor opens itself on confirmed fault."],w:["w_aux1","w_can1","w_sup1","w_slc"]},
+ cab2:{t:"CATL EnerOne+ Cabinet 2",r:"~407 kWh OF ENERGY, SELF-PROTECTING",d:["Identical to cabinet 1. SLC chains rack-to-rack 1→2→3.","Try the Fire scenario to watch this one fight a fire."],w:["w_aux2","w_can2","w_sup2","w_slc"]},
+ cab3:{t:"CATL EnerOne+ Cabinet 3",r:"~407 kWh OF ENERGY, SELF-PROTECTING",d:["Identical to cabinet 1; SLC return leg comes home from here","in a SEPARATE raceway (Class A, Rev K)."],w:["w_aux3","w_can3","w_sup3","w_slc"]},
+ pcs:{t:"3× Kehua 125 kW PCS",r:"WHERE DC BECOMES AC (AND BACK)",d:["Grid-forming inverters inside Cabinet-375.","Panel scope: Modbus TCP control + the hardwired EPO trip.","EPO contact sense pinned down at RFI-001."],w:["w_ethpcs","w_trip"]},
+ net:{t:"Site Internet / WAN",r:"THE WINDOW, NOT THE LIFELINE",d:["Cloud telemetry + ERCOT dispatch ride this link.","If it dies, local control keeps the plant safe — try the scenario."],w:["w_wan"]},
+ lte:{t:"Optional LTE Failover",r:"NOT INSTALLED — HONEST ABOUT IT",d:["Not in the Rev K BOM. Candidate add-on at IFC (~$400-800).","UC-2222A has a built-in modem option if wanted."],w:["w_lte"]},
+};
+const tipEl = document.getElementById("tip");
+let tipPin = null;
+let tipLocked = false;   // tap-to-pin
+function wireColorOf(id){ const f = FLOW[id]; return f ? f.color : "#888"; }
+const WIRE_DESC = {
+ w_feed:"480 V from site bus",w_q1spd:"480 V to SPD",w_q1cpt:"480 V to CPT",w_txout:"480 V to Kehua aux TX",
+ w_txret:"380Y/220 V feeder in",w_aux1:"220 V to cabinet 1",w_aux2:"220 V to cabinet 2",w_aux3:"220 V to cabinet 3",
+ w_cpt120:"120 V to control main",w_120psu:"120 V to PSUs",w_120facp:"120 V fire branch (CB9)",
+ w_psuups:"24 V rail A to UPS",w_ups24:"24 V UPS-backed bus",w_24cpu2:"24 V to CPU2",w_24sw:"24 V to switch",
+ w_psu3f:"24 V rail B to fuses",w_f_mbmu:"24 V to MBMU 1",w_f_m2:"24 V to MBMU 2",w_f_m3:"24 V to MBMU 3",w_f_io:"24 V to IO1",
+ w_eth1:"Ethernet CPU1↔switch",w_eth2:"Ethernet CPU2↔switch",w_ethm1:"BMS VLAN to ETH 1",w_ethm2:"BMS VLAN to ETH 2",
+ w_ethm3:"BMS VLAN to ETH 3",w_ethio:"Ethernet to IO1",w_ethpcs:"Modbus TCP to PCS",w_wan:"WAN uplink",
+ w_lte:"optional LTE path",w_ethmtr:"Ethernet to meter",w_can1:"CAN to cabinet 1",w_can2:"CAN to cabinet 2",
+ w_can3:"CAN to cabinet 3",w_slc:"SLC Class A detector ring",w_nac:"NAC siren/strobe",
+ w_sup1:"release circuit, cab 1",w_sup2:"release circuit, cab 2",w_sup3:"release circuit, cab 3",
+ w_ct:"CT leads (metering)",w_pe:"protective earth",w_trip:"hardwired EPO trip",
+};
+/* reverse index: wire -> blocks, for peer discovery */
+const WIRE_BLOCKS = {};
+for (const bid in TIP) for (const w of TIP[bid].w)
+  (WIRE_BLOCKS[w] = WIRE_BLOCKS[w] || []).push(bid);
+function blockRect(bid){ const g = document.getElementById("b_"+bid);
+  return g ? g.querySelector("rect") : null; }
+function showTip(bid, evt){
+  const T = TIP[bid]; if (!T) return;
+  tipPin = bid;
+  /* card */
+  let h = `<h3>${T.t}</h3><div class="role">${T.r}</div>`;
+  for (const d of T.d) h += `<div class="dt">${d}</div>`;
+  if (T.w.length){
+    h += `<div class="wh">Wiring map — highlighted on the diagram</div>`;
+    for (const w of T.w)
+      h += `<div class="wl"><i style="background:${wireColorOf(w)}"></i>${WIRE_DESC[w]||w}</div>`;
+  }
+  tipEl.innerHTML = h;
+  tipEl.classList.add("on");
+  /* position near the block, clamped to viewport */
+  const r = evt.currentTarget.getBoundingClientRect();
+  const tw = 348, th = tipEl.offsetHeight || 220;
+  let x = r.right + 14, y = r.top;
+  if (x + tw > innerWidth) x = r.left - tw - 14;
+  if (x < 8) x = Math.min(innerWidth - tw - 8, Math.max(8, r.left));
+  if (y + th > innerHeight - 8) y = innerHeight - th - 8;
+  tipEl.style.left = x + "px"; tipEl.style.top = Math.max(8, y) + "px";
+  /* diagram: light MY wires, dim the rest */
+  const mine = new Set(T.w);
+  for (const id in FLOW){
+    FLOW[id].el.classList.toggle("hot", mine.has(id));
+    FLOW[id].el.classList.toggle("hot-dim", !mine.has(id));
+    const b = document.getElementById("base_"+id);
+    b.classList.toggle("hot", mine.has(id));
+    b.classList.toggle("hot-dim", !mine.has(id));
+  }
+  /* peers: everything sharing a wire with me */
+  const peers = new Set();
+  for (const w of T.w) (WIRE_BLOCKS[w]||[]).forEach(p => { if (p !== bid) peers.add(p); });
+  const mrect = blockRect(bid); if (mrect) mrect.classList.add("blk-hover");
+  peers.forEach(p => { const pr = blockRect(p); if (pr) pr.classList.add("blk-peer"); });
+  sim.state._peers = [...peers];
+}
+function hideTip(force){
+  if (tipLocked && !force) return;
+  if (tipPin == null) return;
+  const bid = tipPin; tipPin = null;
+  tipEl.classList.remove("on");
+  for (const id in FLOW){
+    FLOW[id].el.classList.remove("hot","hot-dim");
+    const b = document.getElementById("base_"+id);
+    b.classList.remove("hot","hot-dim");
+  }
+  const mrect = blockRect(bid); if (mrect) mrect.classList.remove("blk-hover");
+  (sim.state._peers||[]).forEach(p => { const pr = blockRect(p);
+    if (pr) pr.classList.remove("blk-peer"); });
+}
+for (const bid in TIP){
+  const g = document.getElementById("b_"+bid); if (!g) continue;
+  g.style.cursor = "pointer";
+  g.addEventListener("pointerenter", e => { if (!tipLocked) showTip(bid, e); });
+  g.addEventListener("pointerleave", () => hideTip(false));
+  g.addEventListener("click", e => {
+    e.stopPropagation();
+    if (typeof injMode !== "undefined" && injMode){ injToggle(bid); return; }
+    /* tap-to-pin: click pins the card (touch + presentations); click the
+       same block, empty canvas, or press Esc to release */
+    if (tipLocked && tipPin === bid){ tipLocked = false; hideTip(true); return; }
+    tipLocked = false; hideTip(true); showTip(bid, e); tipLocked = true;
+  });
+}
+document.getElementById("svg").addEventListener("click", () => {
+  if (tipLocked){ tipLocked = false; hideTip(true); } });
+addEventListener("keydown", e => {
+  if (e.key === "Escape"){ tipLocked = false; hideTip(true);
+    if (typeof tour !== "undefined" && tour) tourStop(); } });
+/* cabinet internals sit in their own groups - forward hover to the tip */
+["1","2","3"].forEach(n => {
+  const g = document.getElementById("cab"+n); if (!g) return;
+  g.style.cursor = "pointer";
+  g.addEventListener("pointerenter", e => { if (!tipLocked) showTip("cab"+n, e); });
+  g.addEventListener("pointerleave", () => hideTip(false));
+  g.addEventListener("click", e => { e.stopPropagation();
+    if (typeof injMode !== "undefined" && injMode) return;
+    if (tipLocked && tipPin === "cab"+n){ tipLocked=false; hideTip(true); return; }
+    tipLocked=false; hideTip(true); showTip("cab"+n, e); tipLocked=true; });
+});
+/* ================= v3: ANNUNCIATOR ================= */
+const ANN_IDS = [["acpwr","AC POWER"],["upsbuf","UPS BUFFER"],["psua","PSU RAIL A"],
+  ["psub","PSU RAIL B"],["fire","FIRE ALARM"],["supv","SUPERVISORY"],
+  ["trbl","TROUBLE"],["epo","PCS EPO"],["comms","COMMS"],["meter","METERING"]];
+const annG = document.getElementById("ann");
+const ANN = {};
+for (const [id, lab] of ANN_IDS){
+  const d = document.createElement("div");
+  d.className = "al"; d.innerHTML = `<b>${lab}</b>`;
+  annG.appendChild(d); ANN[id] = d;
+}
+function ann(id, level){ const d = ANN[id]; if (!d) return;
+  d.className = "al" + (level ? " on-"+level : ""); }
+function annClear(){ for (const id in ANN) ANN[id].className = "al"; }
+document.getElementById("ack").onclick = () =>
+  { for (const id in ANN) if (ANN[id].className.includes("on-")) ANN[id].classList.add("acked"); };
+
+/* ================= v3: FAILURE INJECTION ================= */
+/* Each entry models the REAL Rev K consequence. apply/clear must be exact
+   inverses. Values from the verified design database. */
+sim.inj = new Set();
+const INJ = {
+ psu12:{label:"PSU1 (rail A supply #1)",
+  apply(){ setState("psu12","warn"); ann("psua","warn");
+    log("🔧 INJECT: PSU1 FAILS. RM1 ORing module carries rail A on PSU2 alone (~73% load, 27% headroom). DC-OK contact A opens → IO1 DI3 → EMS pages maintenance. NOTHING drops (Rev K R-08/R-09).","warn");},
+  clear(){ setState("psu12",null); ann("psua",null);
+    log("🔧 RESTORE: PSU1 back. RM1 shares load again; DI3 closes.","good");}},
+ psu3:{label:"PSU3 (rail B supply #1)",
+  apply(){ setState("psu3","warn"); ann("psub","warn");
+    log("🔧 INJECT: PSU3 FAILS. RM2 carries rail B on PSU4 alone — MBMU + ETH telemetry unaffected (79% headroom). DC-OK B opens → IO1 DI4. Before Rev K this was a SINGLE supply: this exact failure silently killed all battery telemetry.","warn");},
+  clear(){ setState("psu3",null); ann("psub",null);
+    log("🔧 RESTORE: PSU3 back; rail B redundant again.","good");}},
+ ups:{label:"UPS1 supercap module",
+  apply(){ setState("ups","warn"); ann("upsbuf","warn");
+    log("🔧 INJECT: UPS1 MODULE FAULT. QUINT-CAP passes power straight through (internal bypass) — loads stay up on rail A, but ride-through is GONE and the signal contact reports it (IO1 DI5). A grid loss right now would drop the EMS.","warn");},
+  clear(){ setState("ups",null); ann("upsbuf",null);
+    log("🔧 RESTORE: UPS1 healthy; 4 kJ buffer available.","good");}},
+ cpu1:{label:"EMS computer CPU1",
+  apply(){ setState("cpu1","off"); setDead(["w_eth1"],true);
+    log("🔧 INJECT: CPU1 DIES. CPU2 (hot pair) carries the site — dispatch, PCS control, logging continue. Single-brain risk is why there are two.","warn");},
+  clear(){ setState("cpu1","active"); setDead(["w_eth1"],false);
+    log("🔧 RESTORE: CPU1 back in the pair.","good");}},
+ sw1:{label:"SW1 network switch",
+  apply(){ setState("sw1","off"); ann("comms","crit");
+    setDead(["w_eth1","w_eth2","w_ethm1","w_ethm2","w_ethm3","w_ethio","w_ethpcs","w_wan","w_ethmtr"],true);
+    log("🔧 INJECT: SW1 FAILS — the documented single failure domain (accepted deviation). ALL Ethernet stops: Modbus dispatch, BMS VLAN, WAN, meter. WHAT SURVIVES: K1 hardwired trip (no network in that path), MBMU-to-rack CAN, cabinet self-protection, FACP. The plant is SAFE but blind — dual-switch LACP is the upgrade path.","crit");},
+  clear(){ setState("sw1",null); ann("comms",null);
+    setDead(["w_eth1","w_eth2","w_ethm1","w_ethm2","w_ethm3","w_ethio","w_ethpcs","w_wan","w_ethmtr"],false);
+    log("🔧 RESTORE: SW1 back; all VLANs up.","good");}},
+ facp:{label:"FACP1 fire panel (total failure)",
+  apply(){ setState("facp","off"); ann("trbl","crit"); ann("epo","crit");
+    setState("k1","off"); setDead(["w_trip"],true); setHot(["w_trip"],false); pcsStopped(true);
+    setDead(["w_slc","w_nac"],true); setFacp("● DEAD","var(--crit)");
+    log("🔧 INJECT: FIRE PANEL DIES COMPLETELY (both batteries too — beyond design basis). Watch what the fail-safe does: relay 26/27 de-energizes → K1 DROPS → PCS STOPS. The system's response to losing its fire brain is to make the plant safe. That is what normally-energized means (Rev K R-01).","crit");},
+  clear(){ setState("facp",null); ann("trbl",null); ann("epo",null);
+    setState("k1","ok"); setDead(["w_trip","w_slc","w_nac"],false); pcsStopped(false);
+    setFacp("● NORMAL","var(--good)");
+    log("🔧 RESTORE: FACP back → relay re-energizes → K1 picks up → PCS may restart per procedure.","good");}},
+ k1:{label:"K1 trip relay (coil failure)",
+  apply(){ setState("k1","off"); ann("epo","crit"); setDead(["w_trip"],true); pcsStopped(true);
+    log("🔧 INJECT: K1 COIL FAILS. Same story — a dead relay = dropped relay = PCS stops. A failed SAFETY COMPONENT cannot mask a fire. Fail-safe by construction.","crit");},
+  clear(){ setState("k1","ok"); ann("epo",null); setDead(["w_trip"],false); pcsStopped(false);
+    log("🔧 RESTORE: K1 replaced; loop supervised again.","good");}},
+ ds1:{label:"DS1 releasing disconnect (LOCKOUT)",
+  apply(){ setState("ds1","off"); ann("supv","warn");
+    setDead(["w_sup1","w_sup2","w_sup3"],true);
+    log("🔧 LOCKOUT: DS1 OPENED + LOCKED (technician entering a cabinet). All 3 release circuits disabled. MM1 reports the position → SUPERVISORY at the FACP — the panel KNOWS suppression is disabled; it cannot be forgotten silently. Try the Fire scenario now: detection + trip still work, aerosol will NOT discharge.","warn");},
+  clear(){ setState("ds1",null); ann("supv",null);
+    setDead(["w_sup1","w_sup2","w_sup3"],false);
+    log("🔧 RESTORE: DS1 closed; releasing circuits armed; supervisory clears.","good");}},
+ q1:{label:"Q1 main disconnect (opened)",
+  apply(){ ["q1","spd","cpt","cb2","psu12","psu3","fuses","egauge"].forEach(b=>setState(b,"off"));
+    ann("acpwr","crit");
+    setDead(["w_feed","w_q1spd","w_q1cpt","w_cpt120","w_120psu","w_120facp","w_ct","w_ethmtr"],true);
+    ann("psua","warn"); ann("psub","warn"); ann("upsbuf","warn"); ann("meter","warn");
+    setFacp("● ON BATTERY","var(--warn)");
+    log("🔧 INJECT: Q1 OPENED. 480 V train dead, FACP on battery — but LOOK: the 380Y/220 AUX IS STILL LIVE from the Kehua transformer. Two sources of supply = two disconnects (Q1 + Q2) before this panel is dead. That is exactly what label L-04 warns (NEC 409.110).","crit");},
+  clear(){ ["q1","spd","cpt","cb2","psu12","psu3","fuses","egauge"].forEach(b=>setState(b,null));
+    ann("acpwr",null);
+    setDead(["w_feed","w_q1spd","w_q1cpt","w_cpt120","w_120psu","w_120facp","w_ct","w_ethmtr"],false);
+    ann("psua",null); ann("psub",null); ann("upsbuf",null); ann("meter",null);
+    setFacp("● NORMAL","var(--good)");
+    setState("cpu1","active"); setState("cpu2","active"); setState("k1","ok");
+    log("🔧 RESTORE: Q1 closed; 480 V train live.","good");}},
+ auxcb:{label:"Q2 / aux distribution (opened)",
+  apply(){ setState("auxcb","off"); setState("ac","off"); ann("acpwr","warn");
+    setDead(["w_txret","w_aux1","w_aux2","w_aux3"],true);
+    log("🔧 INJECT: AUX MAIN OPENED. Chillers + rack BMS lose 220 V; cabinets warm up on thermal inertia — but MBMU + ETH TELEMETRY STAY UP because they run on THIS panel's 24 V, not the aux (the exact point verified from CATL docs in Rev H). EMS sees everything while HVAC is down.","warn");},
+  clear(){ setState("auxcb",null); setState("ac",null); ann("acpwr",null);
+    setDead(["w_txret","w_aux1","w_aux2","w_aux3"],false);
+    log("🔧 RESTORE: aux distribution closed; chillers restart (watch the inrush scenario).","good");}},
+ egauge:{label:"M1 revenue meter",
+  apply(){ setState("egauge","off"); ann("meter","warn"); setDead(["w_ct","w_ethmtr"],true);
+    log("🔧 INJECT: METER FAILS. Revenue/settlement data stops — CONTROL is unaffected (EMS does not depend on M1). Settlement exposure only; 333 mV CTs are safe de-energized.","warn");},
+  clear(){ setState("egauge",null); ann("meter",null); setDead(["w_ct","w_ethmtr"],false);
+    log("🔧 RESTORE: meter back online.","good");}},
+};
+let injMode = false;
+const injBtn = document.getElementById("injbtn");
+injBtn.onclick = () => {
+  injMode = !injMode;
+  injBtn.classList.toggle("active", injMode);
+  document.getElementById("svg").classList.toggle("injmode", injMode);
+  if (injMode) log("🔧 FAULT-INJECTION ARMED — click a device to fail it, click again to restore. DS1 lockout persists into the Fire scenario; everything else clears on scenario change.","warn");
+  else log("🔧 Fault injection off.","t");
+};
+function injToggle(bid){
+  if (!INJ[bid]){ log("No fault model for that device — try a PSU, UPS, switch, CPU, FACP, K1, DS1, Q1, aux, or the meter.","t"); return; }
+  if (sim.inj.has(bid)){ sim.inj.delete(bid); INJ[bid].clear(); }
+  else { sim.inj.add(bid); INJ[bid].apply(); }
+}
+/* ================= v3: PROBE (virtual multimeter) ================= */
+/* nominal [volts, amps] per wire at NORMAL rates; scaled by rate ratio */
+const ELEC = {
+ w_feed:[480,12.8],w_q1spd:[480,0],w_q1cpt:[480,1.0],w_txout:[480,12.0],
+ w_txret:[380,14.4],w_aux1:[220,15.9],w_aux2:[220,15.9],w_aux3:[220,15.9],
+ w_cpt120:[120,2.1],w_120psu:[120,1.9],w_120facp:[120,0.25],
+ w_psuups:[24,2.3],w_ups24:[24,2.3],w_24cpu2:[24,0.5],w_24sw:[24,1.1],
+ w_psu3f:[24,2.1],w_f_mbmu:[24,0.5],w_f_m2:[24,0.5],w_f_m3:[24,0.5],w_f_io:[24,0.2],
+ w_eth1:[0,0],w_eth2:[0,0],w_ethm1:[0,0],w_ethm2:[0,0],w_ethm3:[0,0],w_ethio:[0,0],
+ w_ethpcs:[0,0],w_wan:[0,0],w_lte:[0,0],w_ethmtr:[0,0],
+ w_can1:[2.5,0],w_can2:[2.5,0],w_can3:[2.5,0],
+ w_slc:[24,0.02],w_nac:[24,0.35],w_sup1:[24,0],w_sup2:[24,0],w_sup3:[24,0],
+ w_ct:[0.333,0],w_pe:[0,0],w_trip:[24,0.03],
+};
+const DATA_WIRES = new Set(["w_eth1","w_eth2","w_ethm1","w_ethm2","w_ethm3","w_ethio",
+  "w_ethpcs","w_wan","w_lte","w_ethmtr","w_can1","w_can2","w_can3"]);
+let probeMode = false;
+const probeBtn = document.getElementById("probebtn");
+const dmm = document.getElementById("dmm");
+probeBtn.onclick = () => {
+  probeMode = !probeMode;
+  probeBtn.classList.toggle("active", probeMode);
+  document.getElementById("svg").classList.toggle("probing", probeMode);
+  if (!probeMode) dmm.classList.remove("on");
+  log(probeMode ? "🔎 PROBE ON — every wire now shows a soft glow band: hover or tap anywhere on it for live V / A / W." : "🔎 Probe off.", "t");
+};
+function probeShow(id, evt){
+  if (!probeMode) return;
+  const f = FLOW[id]; const e = ELEC[id] || [0,0];
+  const dead = f.el.classList.contains("dead");
+  const ratio = (NORMAL[id] > 0 && f.rate >= 0) ? f.rate / NORMAL[id] : (f.rate>0?1:0);
+  let html = `<div class="nm" style="color:${f.color}">${WIRE_DESC[id]||id}</div>`;
+  if (DATA_WIRES.has(id)){
+    const st = dead || f.rate === 0 ? "LINK DOWN" : "LINK UP";
+    html += `<div class="vv" style="color:${dead?'var(--crit)':'var(--good)'}">${st}</div>`;
+    html += `<div class="ww">${id.startsWith("w_can")?"CAN 2.5 V idle · 250 kbit/s":"Ethernet 100/1000BASE-T"}</div>`;
+  } else {
+    const v = dead ? 0 : e[0];
+    const a = dead ? 0 : +(e[1] * (ratio || (e[1]?1:0))).toFixed(2);
+    const w = Math.round(v * a);
+    html += `<div class="vv">${v.toFixed(v<10?3:0)} V &nbsp; ${a.toFixed(2)} A</div>`;
+    html += `<div class="ww">≈ ${w} W per conductor path · nominal model, not a measurement</div>`;
+  }
+  dmm.innerHTML = html; dmm.classList.add("on");
+  dmm.style.left = Math.min(innerWidth-240, evt.clientX+16)+"px";
+  dmm.style.top = Math.max(8, evt.clientY-14)+"px";
+}
+/* hit paths live in a TOPMOST group so wires stay probe-able even where they
+   pass under device blocks; pointer-events only engage while probing, so they
+   never steal hover from the block inspector in normal mode. */
+const probeG = el("g",{id:"probeg"}, document.getElementById("svg"));
+for (const [id,,,dths] of WIRES){
+  const dd0 = WIRES.find(w=>w[0]===id)[3].replace("?","");
+  const hit = el("path",{class:"hit",d:dd0}, probeG);
+  hit.addEventListener("pointermove", e => probeShow(id, e));
+  hit.addEventListener("pointerdown", e => probeShow(id, e));  // tap/click = probe too
+  hit.addEventListener("pointerleave", () => dmm.classList.remove("on"));
+}
+/* touch has no pointerleave — tapping empty space dismisses the meter */
+document.getElementById("svg").addEventListener("pointerdown", e => {
+  if (probeMode && !(e.target.classList && e.target.classList.contains("hit")))
+    dmm.classList.remove("on");
+});
+/* ================= v3: SIGNAL TRACER ================= */
+/* A single glowing pulse travels leg-by-leg along polyline points; a
+   numbered badge drops at each leg's end. One getPointAtLength-free
+   implementation: manual polyline interpolation (cheap, exact). */
+const tracer = el("circle",{id:"tracer",r:6,fill:"#fff",opacity:0}, document.getElementById("fx"));
+const badges = [];
+function badge(n, x, y, color){
+  const g = el("g",{class:"badge",transform:`translate(${x},${y})`}, document.getElementById("fx"));
+  el("circle",{r:9,fill:color,stroke:"#fff","stroke-width":1.2}, g);
+  el("text",{y:4,"text-anchor":"middle",style:"font-size:11px;font-weight:800",fill:"#fff"}, g, String(n));
+  requestAnimationFrame(()=>g.classList.add("on"));
+  badges.push(g); return g;
+}
+function clearTrace(){ tracer.setAttribute("opacity",0); sim.state.trace=null;
+  badges.forEach(b=>b.remove()); badges.length=0; }
+function runTrace(legs){ sim.state.trace = {legs, leg:0, t:0}; }
+function traceTick(dtWall){
+  const T = sim.state.trace; if (!T){ tracer.setAttribute("opacity",0); return; }
+  const leg = T.legs[T.leg]; if (!leg){ sim.state.trace=null; tracer.setAttribute("opacity",0); return; }
+  const pts = leg.pts;
+  let total = 0, segs = [];
+  for (let i=1;i<pts.length;i++){ const L = Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]);
+    segs.push(L); total += L; }
+  T.t += dtWall * 520;                       // px/s wall-clock, speed-independent
+  let d = T.t;
+  if (d >= total){
+    badge(leg.n, pts[pts.length-1][0], pts[pts.length-1][1], leg.color);
+    T.leg++; T.t = 0; return;
+  }
+  let i = 0; while (d > segs[i]) { d -= segs[i]; i++; }
+  const f = segs[i] ? d/segs[i] : 0;
+  const x = pts[i][0] + (pts[i+1][0]-pts[i][0])*f;
+  const y = pts[i][1] + (pts[i+1][1]-pts[i][1])*f;
+  tracer.setAttribute("cx",x); tracer.setAttribute("cy",y);
+  tracer.setAttribute("fill", leg.color); tracer.setAttribute("opacity",1);
+  tracer.setAttribute("style","color:"+leg.color);
+}
+/* fire-sequence legs (Rev K chain, drawn coordinates) */
+const FIRE_TRACE_1 = [
+ {n:1, color:"var(--cfire)", pts:[[1180,330],[1130,330],[1130,180],[1002,180],[1002,432],[648,432]]},        // cab2 heat det > SLC ring > FACP
+ {n:2, color:"var(--cfire)", pts:[[584,510],[584,578]]},                                                     // FACP relay > K1
+ {n:3, color:"var(--crit)",  pts:[[648,595],[708,595],[708,636],[1010,636]]},                                 // K1 > PCS EPO
+];
+const FIRE_TRACE_2 = [
+ {n:4, color:"var(--cfire)", pts:[[648,490],[664,490]]},                                                      // FACP TRIG > PSN
+ {n:5, color:"var(--cfire)", pts:[[752,490],[762,490]]},                                                      // PSN > DS1
+ {n:6, color:"var(--crit)",  pts:[[822,494],[828,494],[828,58],[1338,58],[1338,268],[1343,302]]},            // DS1 > release circuit > cab2 aerosol
+];
+/* ================= v3: TIMELINE ================= */
+const TL_EVENTS = {
+ normal:[{t:0,l:"steady state"},{t:6,l:"charge cycle"},{t:18,l:"discharge cycle"}],
+ gridloss:[{t:2,l:"feeder lost"},{t:32,l:"30 s req met"},{t:72,l:"UPS out"}],
+ fire:[{t:2,l:"heat det"},{t:3,l:"K1 drops"},{t:4.2,l:"PCS stops"},{t:6,l:"2nd det + release"},{t:8,l:"EMS paged"},{t:11,l:"discharged"}],
+ inrush:[{t:2,l:"start 31A"},{t:3.2,l:"settled"}],
+ surge:[{t:2,l:"strike"},{t:3.2,l:"clamped"}],
+ wanloss:[{t:2,l:"fiber cut"},{t:5,l:"local ctl"},{t:9,l:"ride-through"}],
+};
+const TL_SPAN = { normal:24, gridloss:80, fire:14, inrush:8, surge:6, wanloss:11 };
+const tlbar = document.getElementById("tlbar");
+const tlcur = document.getElementById("tlcur");
+let tlMarkers = [];
+function tlBuild(sc){
+  [...tlbar.querySelectorAll(".tlm,.tlm-lab")].forEach(e=>e.remove());
+  tlMarkers = [];
+  const span = TL_SPAN[sc] || 20;
+  for (const ev of (TL_EVENTS[sc]||[])){
+    const x = (ev.t/span*100).toFixed(2)+"%";
+    const m = document.createElement("div"); m.className="tlm"; m.style.left=x;
+    m.title = `t=${ev.t}s — ${ev.l}`; m.onclick = ()=>jumpTo(ev.t);
+    tlMarkers.push([m, ev.t]);
+    tlbar.appendChild(m);
+    const l = document.createElement("div"); l.className="tlm-lab"; l.style.left=x;
+    l.textContent = ev.l; tlbar.appendChild(l);
+  }
+}
+function jumpTo(t){
+  const sc = sim.sc;
+  sim.fired.clear(); sim.state={}; sim.upsJ=K.upsJ;   // clear BEFORE init:
+  SCEN[sc].init();                                     // init seeds sim.state
+  clearTrace(); reapplyInj();
+  if (sc === "gridloss" && t > 2) sim.upsJ = Math.max(0, K.upsJ - K.upsLoadW * (t - 2));
+  sim.t = t + 0.001; sim.dt = 0.001;
+  SCEN[sc].tick();          // fires every once() with tAt <= t, in code order
+  $("clock").textContent = sim.t.toFixed(1)+" s";      // update even when paused
+  tlcur.style.left = Math.min(100, sim.t/(TL_SPAN[sc]||20)*100).toFixed(2)+"%";
+  log(`⏭ jumped to t=${t}s`,"t");
+}
+function nextEvent(dir){
+  const evs = TL_EVENTS[sim.sc]||[]; if (!evs.length) return;
+  if (dir>0){ const n = evs.find(e=>e.t > sim.t+0.01); if (n) jumpTo(n.t); }
+  else { const p = [...evs].reverse().find(e=>e.t < sim.t-0.2); jumpTo(p?p.t:0); }
+}
+document.getElementById("stepf").onclick=()=>nextEvent(1);
+document.getElementById("stepb").onclick=()=>nextEvent(-1);
+document.getElementById("replay").onclick=()=>setScenario(sim.sc);
+/* ================= v3: PRESENTER TOUR ================= */
+const TOUR = ["normal","fire","gridloss","inrush","surge","wanloss"];
+const TOUR_DWELL = { normal:14, fire:16, gridloss:38, inrush:9, surge:7, wanloss:12 };
+let tour = null;
+const capEl = document.getElementById("cap");
+const tourBtn = document.getElementById("tourbtn");
+tourBtn.onclick = () => tour ? tourStop() : tourStart();
+function tourStart(){ tour = {i:0, prevSpeed: sim.speed, prevSlider: document.getElementById("speed").value};
+  tourBtn.classList.add("active");
+  sim.speed = 1.0; document.getElementById("speed").value = 0;
+  document.getElementById("spdv").textContent = "1.0×";
+  setScenario(TOUR[0]); capShow("🎬 TOUR — sit back. Each scenario plays once; hover anything to pause on it. Click Tour again to exit."); }
+function tourStop(){
+  if (tour){ sim.speed = tour.prevSpeed;
+    document.getElementById("speed").value = tour.prevSlider;
+    document.getElementById("spdv").textContent = sim.speed<0.1 ? sim.speed.toFixed(2)+"×" : sim.speed.toFixed(1)+"×"; }
+  tour = null; tourBtn.classList.remove("active");
+  capEl.classList.remove("on"); }
+function capShow(txt){ capEl.textContent = txt; capEl.classList.add("on"); }
+/* captions piggyback on log() while touring */
+const _log = log;
+log = function(msg, cls){ _log(msg, cls);
+  if (tour && (cls==="crit"||cls==="warn"||cls==="good")) capShow(msg.replace(/<[^>]+>/g,"")); };
+/* ================= v3: ENERGY STORY (normal scenario) ================= */
+const soc = { g: el("g",{id:"socg"}, document.getElementById("fx")), fills:[], txts:[], arrow:null, atxt:null };
+[[1,1010,96],[2,1010,268],[3,1010,440]].forEach(([n,x,y],i)=>{
+  el("rect",{class:"socbg",x:x+296,y:y+116,width:160,height:9,rx:3}, soc.g);
+  soc.fills.push(el("rect",{class:"socfill",x:x+297,y:y+117,width:80,height:7,rx:2}, soc.g));
+  soc.txts.push(el("text",{class:"soctxt",x:x+240,y:y+124}, soc.g, "SOC 50%"));
+});
+soc.arrow = el("path",{d:"M1150,608 L1330,608",stroke:"var(--good)","stroke-width":5,
+  "stroke-dasharray":"10 7",fill:"none",opacity:0}, soc.g);
+soc.atxt = el("text",{x:1240,y:600,"text-anchor":"middle",
+  style:"font-size:12px;font-weight:700",fill:"var(--good)",opacity:0}, soc.g, "");
+let socLevel = 50, socDir = 1, socOff = 0;
+function energyTick(){
+  const on = sim.sc === "normal";
+  soc.arrow.setAttribute("opacity", on?0.9:0); soc.atxt.setAttribute("opacity", on?1:0);
+  soc.g.setAttribute("opacity", on?1:0);
+  if (!on) return;
+  const phase = Math.floor(sim.t / 12) % 2;        // 12 s charge, 12 s discharge
+  socDir = phase === 0 ? 1 : -1;
+  socLevel = Math.max(8, Math.min(96, socLevel + socDir * sim.dt * 2.2));
+  soc.fills.forEach((f,i)=>{ f.setAttribute("width",(158*socLevel/100).toFixed(1));
+    f.setAttribute("fill", socLevel<20 ? "var(--warn)" : "var(--good)"); });
+  soc.txts.forEach(t=>t.textContent = "SOC "+Math.round(socLevel)+"%");
+  socOff -= socDir * sim.dt * 30;
+  soc.arrow.setAttribute("stroke-dashoffset", socOff.toFixed(1));
+  soc.arrow.setAttribute("stroke", socDir>0 ? "var(--good)" : "var(--caux)");
+  soc.atxt.setAttribute("fill", socDir>0 ? "var(--good)" : "var(--caux)");
+  soc.atxt.textContent = socDir>0 ? "◀ CHARGING — grid → cabinets (375 kW)" : "DISCHARGING — cabinets → grid (375 kW) ▶";
+}
+function reapplyInj(){ for (const bid of sim.inj) if (INJ[bid]) INJ[bid].apply(); }
+/* ---------------- main loop ---------------- */
+let last = performance.now();
+function frame(now){
+  const wall = Math.min(0.1,(now-last)/1000); last = now;
+  if (!sim.paused){
+    sim.dt = wall * sim.speed;
+    sim.t += sim.dt;
+    try { SCEN[sim.sc].tick(); } catch(err){ console.warn('scenario tick error', err); }
+    for (const id in FLOW){ const f = FLOW[id];
+      if (f.rate>0 && !f.el.classList.contains("dead")){
+        f.off -= f.rate * sim.dt; f.el.setAttribute("stroke-dashoffset", f.off.toFixed(1));
+        f.el.setAttribute("opacity", .95);
+      } else f.el.setAttribute("opacity", f.el.classList.contains("dead") ? 0 : .18);
+    }
+    upsFill.setAttribute("width",(108*sim.upsJ/K.upsJ).toFixed(1));
+    traceTick(wall);
+    energyTick();
+    const span = TL_SPAN[sim.sc]||20;
+    tlcur.style.left = Math.min(100, sim.t/span*100).toFixed(2)+"%";
+    for (const [m, mt] of tlMarkers) m.classList.toggle("fired", mt <= sim.t);
+    if (tour){
+      const dwell = TOUR_DWELL[sim.sc]||12;
+      if (sim.t > dwell){
+        tour.i++;
+        if (tour.i >= TOUR.length){ tourStop(); capShow("🎬 Tour complete — explore with hover, Probe and Inject Faults."); setTimeout(()=>capEl.classList.remove("on"), 6000); }
+        else setScenario(TOUR[tour.i]);
+      }
+    }
+    $("clock").textContent = sim.t.toFixed(1)+" s";
+  }
+  requestAnimationFrame(frame);
+}
+function setScenario(sc){
+  /* injections: DS1 lockout persists (realistic maintenance state); the
+     rest clear so scenarios start from a known-good plant */
+  for (const bid of [...sim.inj]) if (bid !== "ds1"){ sim.inj.delete(bid); INJ[bid].clear(); }
+  sim.sc=sc; sim.t=0; sim.fired.clear(); sim.state={}; sim.upsJ=K.upsJ;
+  $("scname").textContent = SCEN[sc].name;
+  document.querySelectorAll("[data-sc]").forEach(b=>b.classList.toggle("active",b.dataset.sc===sc));
+  logBox.innerHTML=""; SCEN[sc].init(); tlBuild(sc); reapplyInj();
+}
+document.querySelectorAll("[data-sc]").forEach(b=>b.onclick=()=>setScenario(b.dataset.sc));
+$("pause").onclick = ()=>{ sim.paused=!sim.paused; $("pause").textContent = sim.paused?"▶ Run":"⏸ Pause"; };
+$("speed").oninput = e=>{ sim.speed = Math.pow(10, +e.target.value);
+  $("spdv").textContent = sim.speed<0.1 ? sim.speed.toFixed(2)+"×" : sim.speed.toFixed(1)+"×"; };
+setScenario("normal");
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

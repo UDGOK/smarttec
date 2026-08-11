@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>z1Power Sugarland — Site Fit-Up 3D</title>
+<style>
+  :root{--bg:#0e1116;--panel:#151a21;--ink:#e8ecf2;--ink2:#9aa7b8;--ink3:#5c6a7c;
+    --accent:#e8a33d;--crit:#e05252;--good:#4cc38a;--line:#242c38}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--ink);font:13px/1.45 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow:hidden}
+  #wrap{display:flex;flex-direction:column;height:100%}
+  header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--panel);
+    border-bottom:1px solid var(--line);flex-wrap:wrap;z-index:5}
+  header h1{font-size:15px;font-weight:800;letter-spacing:.4px}
+  header h1 span{color:var(--accent)}
+  .sub{font-size:11px;color:var(--ink2)}
+  .btn{background:#1d242e;color:var(--ink);border:1px solid #2c3644;border-radius:8px;
+    padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.active{background:var(--accent);color:#141414;border-color:var(--accent)}
+  .btn.pwr{border-color:#3f7d55;color:#7fe0a5}
+  .btn.pwr.on{background:#1f7a45;color:#eafff2;border-color:#2fae63;box-shadow:0 0 14px #2fae6355}
+  #stage{flex:1;position:relative;min-height:0}
+  #c3d{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #cap{position:absolute;left:50%;bottom:86px;transform:translateX(-50%);max-width:660px;width:calc(100% - 40px);
+    background:#10151cee;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;
+    padding:10px 16px;transition:opacity .3s;pointer-events:none}
+  #cap.pwr{border-left-color:#2fae63}
+  #cap .t{font-weight:800;font-size:13px;color:var(--accent);letter-spacing:.4px}
+  #cap.pwr .t{color:#7fe0a5}
+  #cap .d{font-size:12px;color:var(--ink2);margin-top:2px}
+  #chips{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:6px;flex-wrap:wrap;
+    justify-content:center;max-width:960px}
+  .chip{background:#161c25cc;border:1px solid #26303e;color:var(--ink3);border-radius:20px;padding:4px 11px;
+    font-size:10.5px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:all .2s}
+  .chip.done{color:var(--ink2);border-color:#33415a}
+  .chip.now{background:var(--accent);color:#141414;border-color:var(--accent)}
+  #tt{position:fixed;z-index:50;background:#0c1117f2;border:1px solid #33415a;border-radius:10px;padding:9px 12px;
+    max-width:300px;pointer-events:none;opacity:0;transition:opacity .12s}
+  #tt .n{font-weight:800;font-size:12px;color:var(--accent)}
+  #tt .g{font-size:9.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.6px;margin:1px 0 4px}
+  #tt .d{font-size:11px;color:var(--ink2)}
+  #note{position:absolute;top:10px;right:12px;text-align:right;font-size:10px;color:var(--ink3);max-width:300px}
+  #note b{color:var(--crit)}
+  #alert{position:absolute;top:12px;left:50%;transform:translateX(-50%);display:none;z-index:8;
+    padding:10px 22px;border-radius:10px;font-weight:800;font-size:14px;letter-spacing:.5px;
+    border:2px solid;white-space:nowrap;max-width:calc(100% - 40px);overflow:hidden;text-overflow:ellipsis}
+  #alert.fire{display:block;background:#3a0c0cf0;border-color:#ff3b30;color:#ffd7d4;
+    animation:aflash .5s step-end infinite}
+  #alert.warn{display:block;background:#3a2a08f0;border-color:#e8a33d;color:#ffe9c4}
+  @keyframes aflash{0%{box-shadow:0 0 24px #ff3b30cc;border-color:#ff3b30}
+    50%{box-shadow:0 0 4px #ff3b3044;border-color:#7a1d17}}
+  @media (max-width:760px){ #cap{bottom:110px} }
+</style>
+</head>
+<body>
+<div id="wrap">
+<header>
+  <div>
+    <h1>z1Power — SUGARLAND BESS · <span>SITE FIT-UP 3D</span></h1>
+    <div class="sub">EMS+MBMU panel · 3× CATL EnerOne+ 407 kWh · Kehua 375 kW PCS · drag = orbit · right-drag / Shift+drag / two-finger = move · wheel/pinch = zoom</div>
+  </div>
+  <div style="flex:1"></div>
+  <button class="btn pwr" id="pwr">⚡ Energize</button>
+  <button class="btn" id="auto">🔁 Auto Demo</button>
+  <button class="btn" id="sc_charge">▲ Charge</button>
+  <button class="btn" id="sc_dis">▼ Discharge</button>
+  <button class="btn" id="sc_grid">🕳 Grid Loss</button>
+  <button class="btn" id="sc_fire">🔥 Fire</button>
+  <button class="btn" id="replay">▶ Replay build</button>
+  <button class="btn" id="doors">🚪 Doors</button>
+  <button class="btn active" id="wires">〰 Wiring</button>
+  <button class="btn" id="labels">🏷 Labels</button>
+  <button class="btn active" id="spin">🔄 Auto-rotate</button>
+</header>
+<div id="stage">
+  <canvas id="c3d"></canvas>
+  <div id="note"><b>CONCEPTUAL ARRANGEMENT</b> — component sizes approximate; EnerOne+ envelope
+    per CATL public spec (2348×1390×1344 mm, 407.34 kWh). The dimensioned layout/elevation sheet
+    governs. PROPRIETARY — STR MEDICAL · FOR REVIEW ONLY — PE REVIEW REQUIRED.</div>
+  <div id="alert"></div>
+  <div id="cap"><div class="t" id="capT"></div><div class="d" id="capD"></div></div>
+  <div id="chips"></div>
+</div>
+</div>
+<div id="tt"><div class="n"></div><div class="g"></div><div class="d"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+"use strict";
+/* ================= scene ================= */
+const canvas = document.getElementById("c3d");
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputEncoding = THREE.sRGBEncoding;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0e1116);
+scene.fog = new THREE.Fog(0x0e1116, 550, 1100);
+const camera = new THREE.PerspectiveCamera(38, 2, 1, 2600);
+
+scene.add(new THREE.HemisphereLight(0xbfd0e4, 0x1a1d22, 0.55));
+const key = new THREE.DirectionalLight(0xfff2df, 1.0);
+key.position.set(150, 260, 190); key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.left = -260; key.shadow.camera.right = 420;
+key.shadow.camera.top = 260; key.shadow.camera.bottom = -60;
+key.shadow.camera.far = 900; key.shadow.bias = -0.0005;
+scene.add(key);
+const fill = new THREE.DirectionalLight(0x9fb6d8, 0.32); fill.position.set(-160, 120, -140); scene.add(fill);
+
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200, 2200),
+  new THREE.MeshStandardMaterial({color:0x161a20, roughness:.95}));
+ground.rotation.x = -Math.PI/2; ground.receiveShadow = true; scene.add(ground);
+const grid = new THREE.GridHelper(1600, 80, 0x232a35, 0x1b2129); grid.position.y = .05; scene.add(grid);
+
+/* concrete pad — whole site */
+const pad = new THREE.Mesh(new THREE.BoxGeometry(480, 4, 96),
+  new THREE.MeshStandardMaterial({color:0x40454c, roughness:.9}));
+pad.position.set(150, 2, -12); pad.receiveShadow = pad.castShadow = true; scene.add(pad);
+const PADT = 4;
+
+/* ================= materials + helpers ================= */
+function mat(hex, rough=.55, metal=.35){ return new THREE.MeshStandardMaterial({color:hex, roughness:rough, metalness:metal}); }
+const M = {
+  shell: mat(0xd0d4cd,.5,.4), inner: mat(0xc3c8c1,.65,.2), plate: mat(0xe4e7e1,.7,.15),
+  duct: mat(0x8a9099,.6,.2), ductSlot: mat(0x6e747d,.7,.1), rail: mat(0xb9bec6,.35,.7),
+  grey: mat(0x565d68,.55,.3), dark: mat(0x2e333b,.6,.25), blue: mat(0x2c4a80,.5,.3),
+  red: mat(0x9e2a2a,.5,.3), orange: mat(0xC05010,.5,.3), green: mat(0x2f7d4f,.55,.25),
+  yellow: mat(0xd9a02b,.5,.3), black: mat(0x21262e,.6,.2), copper: mat(0xb4722c,.35,.85),
+  catl: mat(0xd3d7d2,.5,.35), catlDark: mat(0x363b42,.55,.3), kehua: mat(0xc7ccc9,.5,.35),
+  vent: mat(0x24282e,.75,.2), fanBlade: mat(0x9aa0a8,.4,.6), skid: mat(0x24272c,.7,.3),
+  conduit: mat(0x878d95,.5,.4), tray: mat(0x4a5058,.6,.35),
+};
+function edges(mesh, opacity=.35, color=0x10141a){
+  mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry),
+    new THREE.LineBasicMaterial({color, transparent:true, opacity})));
+  return mesh;
+}
+function boxMesh(w,h,d,m,x,y,z,parent,noEdge){
+  const b = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), m);
+  b.position.set(x,y,z); b.castShadow = b.receiveShadow = true;
+  if(!noEdge) edges(b);
+  parent.add(b); return b;
+}
+/* LED registry — lit by class during energize */
+const LEDS = [];
+const ledGeo = new THREE.SphereGeometry(.42, 10, 10);
+function LED(parent, x, y, z, hex, cls, r){
+  const m = new THREE.Mesh(r ? new THREE.SphereGeometry(r,10,10) : ledGeo,
+    new THREE.MeshStandardMaterial({color:0x20242a, roughness:.4, metalness:.1,
+      emissive:hex, emissiveIntensity:0}));
+  m.position.set(x,y,z); parent.add(m);
+  LEDS.push({m, cls, hex}); return m;
+}
+/* sprite label */
+function makeLabel(text, scl=1){
+  const c = document.createElement("canvas"); const s = 4;
+  const ctx = c.getContext("2d"); ctx.font = `700 ${13*s}px Arial`;
+  const w = ctx.measureText(text).width + 26*s;
+  c.width = w; c.height = 30*s;
+  const g = c.getContext("2d");
+  g.fillStyle = "rgba(10,14,20,.85)"; g.strokeStyle = "#e8a33d"; g.lineWidth = 1.5*s;
+  g.beginPath(); g.roundRect(1*s,1*s,w-2*s,28*s,7*s); g.fill(); g.stroke();
+  g.font = `700 ${13*s}px Arial`; g.fillStyle = "#f2d4a0"; g.textBaseline = "middle";
+  g.fillText(text, 13*s, 15.5*s);
+  const tex = new THREE.CanvasTexture(c); tex.minFilter = THREE.LinearFilter;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, depthTest:false, transparent:true}));
+  sp.scale.set(w/(5.5*4)*scl, 30/(5.5*4)*scl, 1); return sp;
+}
+/* flat logo plate with text */
+function logoPlate(text, sub, wIn, hIn, bg, fg){
+  const c = document.createElement("canvas"); c.width = 512; c.height = Math.round(512*hIn/wIn);
+  const g = c.getContext("2d");
+  g.fillStyle = bg; g.fillRect(0,0,c.width,c.height);
+  g.fillStyle = fg; g.font = `800 ${c.height*0.42}px Arial`; g.textBaseline="middle";
+  g.fillText(text, c.width*0.06, c.height*0.40);
+  if (sub){ g.font = `600 ${c.height*0.20}px Arial`; g.globalAlpha=.85;
+    g.fillText(sub, c.width*0.06, c.height*0.74); }
+  const tex = new THREE.CanvasTexture(c); tex.minFilter = THREE.LinearFilter;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(wIn, hIn),
+    new THREE.MeshBasicMaterial({map:tex}));
+  return m;
+}
+/* live LCD — redrawable canvas texture */
+function makeLCD(wIn, hIn){
+  const cnv = document.createElement("canvas");
+  cnv.width = 360; cnv.height = Math.round(360*hIn/wIn);
+  const tex = new THREE.CanvasTexture(cnv); tex.minFilter = THREE.LinearFilter;
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(wIn, hIn),
+    new THREE.MeshBasicMaterial({map:tex}));
+  const L = {cnv, g:cnv.getContext("2d"), tex, mesh};
+  lcdOff(L); return L;
+}
+function lcdOff(L){
+  const g = L.g; g.fillStyle = "#0a0d11"; g.fillRect(0,0,L.cnv.width,L.cnv.height);
+  g.strokeStyle = "#1c2129"; g.lineWidth = 6; g.strokeRect(3,3,L.cnv.width-6,L.cnv.height-6);
+  L.tex.needsUpdate = true;
+}
+function lcdDraw(L, title, rows, theme){   // theme: ok | chg | dis | warn | fire | off
+  const g = L.g, W = L.cnv.width, H = L.cnv.height;
+  const th = {
+    ok:  {bg:"#07130c", fg:"#5ff0a0", dim:"#2c7d52", bar:"#0f2e1d"},
+    chg: {bg:"#07130c", fg:"#5ff0a0", dim:"#2c7d52", bar:"#0f2e1d"},
+    dis: {bg:"#0b1016", fg:"#6fc9ff", dim:"#33698c", bar:"#122534"},
+    warn:{bg:"#171106", fg:"#ffd35e", dim:"#8c6f2a", bar:"#33270e"},
+    fire:{bg:"#1c0605", fg:"#ff6a5e", dim:"#8c332c", bar:"#3b0e0b"},
+  }[theme] || {bg:"#07130c", fg:"#5ff0a0", dim:"#2c7d52", bar:"#0f2e1d"};
+  g.fillStyle = th.bg; g.fillRect(0,0,W,H);
+  g.strokeStyle = th.dim; g.lineWidth = 5; g.strokeRect(3,3,W-6,H-6);
+  g.fillStyle = th.bar; g.fillRect(8,8,W-16,H*.22);
+  g.fillStyle = th.fg; g.font = `800 ${Math.round(H*.15)}px ui-monospace,Menlo,monospace`;
+  g.textBaseline = "middle";
+  g.fillText(title, 16, 8 + H*.11);
+  g.font = `700 ${Math.round(H*.13)}px ui-monospace,Menlo,monospace`;
+  rows.forEach((r,i) => {
+    g.fillStyle = i===0 ? th.fg : th.dim;
+    g.fillText(r, 16, H*.36 + i*H*.17 + H*.08);
+  });
+  L.tex.needsUpdate = true;
+}
+
+/* ================= control enclosure ================= */
+const ENC = {W:48, H:72, D:24};
+const encG = new THREE.Group(); encG.position.y = PADT; scene.add(encG);
+const shellParts = [];
+function sBox(w,h,d,m,x,y,z,parent){ const b = boxMesh(w,h,d,m,x,y,z,parent||encG); shellParts.push(b); return b; }
+sBox(ENC.W,1,ENC.D,M.shell,0,ENC.H-.5,0); sBox(ENC.W+2,1.4,ENC.D+2,M.shell,0,ENC.H+.2,0);
+sBox(ENC.W,1,ENC.D,M.shell,0,.5,0);
+sBox(1,ENC.H,ENC.D,M.shell,-ENC.W/2+.5,ENC.H/2,0); sBox(1,ENC.H,ENC.D,M.shell,ENC.W/2-.5,ENC.H/2,0);
+sBox(ENC.W,ENC.H,1,M.shell,0,ENC.H/2,-ENC.D/2+.5);
+sBox(ENC.W,3,ENC.D,M.skid,0,-1.5,0);
+const doorL = new THREE.Group(), doorR = new THREE.Group();
+doorL.position.set(-ENC.W/2,0,ENC.D/2); doorR.position.set(ENC.W/2,0,ENC.D/2);
+encG.add(doorL, doorR);
+sBox(ENC.W/2-.6,ENC.H-2,1,M.shell,(ENC.W/4-.15),ENC.H/2,0,doorL);
+sBox(ENC.W/2-.6,ENC.H-2,1,M.shell,-(ENC.W/4-.15),ENC.H/2,0,doorR);
+boxMesh(ENC.W/2-8,ENC.H-14,.4,M.inner,(ENC.W/4-.15),ENC.H/2,-.7,doorL);
+boxMesh(ENC.W/2-8,ENC.H-14,.4,M.inner,-(ENC.W/4-.15),ENC.H/2,-.7,doorR);
+boxMesh(1,7,1.2,M.dark,ENC.W/2-2.2,ENC.H/2,.8,doorL);
+boxMesh(1,7,1.2,M.dark,-(ENC.W/2-2.2),ENC.H/2,.8,doorR);
+boxMesh(2,ENC.H-3,.5,M.shell,-ENC.W/2,ENC.H/2,-.8,doorR);
+/* panel A/C on right side */
+const acg = new THREE.Group(); encG.add(acg);
+boxMesh(7,30,12,M.shell,ENC.W/2+3.5,40,0,acg);
+boxMesh(.6,26,9,M.vent,ENC.W/2+7.2,40,0,acg);
+/* siren + strobe */
+boxMesh(6,6,2.4,M.red,-ENC.W/2+6,ENC.H-6,ENC.D/2+1.6,encG);
+const strobe = new THREE.Mesh(new THREE.CylinderGeometry(1.4,1.6,2.2,16),
+  new THREE.MeshStandardMaterial({color:0xf4f7ff, roughness:.2, emissive:0x8899bb, emissiveIntensity:.3}));
+strobe.rotation.x = Math.PI/2; strobe.position.set(-ENC.W/2+6, ENC.H-6, ENC.D/2+3.2);
+encG.add(strobe);
+/* rotating RED FIRE BEACON on the enclosure roof */
+const beaconG = new THREE.Group(); beaconG.position.set(10, ENC.H+1.6, 5); encG.add(beaconG);
+boxMesh(3.4,1.2,3.4,M.dark,0,.6,0,beaconG,true);
+const dome = new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.9,3.2,16),
+  new THREE.MeshStandardMaterial({color:0x4a0f0f, transparent:true, opacity:.9, roughness:.25,
+    emissive:0xff2018, emissiveIntensity:0}));
+dome.position.y = 2.6; beaconG.add(dome);
+const beamMat = new THREE.MeshBasicMaterial({color:0xff3b30, transparent:true, opacity:0,
+  side:THREE.DoubleSide, depthWrite:false});
+const beamG = new THREE.Group(); beamG.position.y = 2.6; beaconG.add(beamG);
+for (const s of [1,-1]){
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(3, 22, 12, 1, true), beamMat);
+  cone.rotation.z = s*Math.PI/2; cone.position.x = s*11; beamG.add(cone);
+}
+const fireLight = new THREE.PointLight(0xff2a20, 0, 260);
+fireLight.position.set(10, ENC.H+8, 10); encG.add(fireLight);
+/* LTE roof antenna puck (modem is OPTIONAL — candidate at IFC) */
+const puck = new THREE.Mesh(new THREE.CylinderGeometry(1.7,2,1.4,14), M.dark);
+puck.position.set(18, ENC.H+1.6, 2); puck.castShadow = true; encG.add(puck);
+/* siren pressure rings (fire) */
+const rings = [];
+for (let i=0;i<3;i++){
+  const rm = new THREE.MeshBasicMaterial({color:0xff6a60, transparent:true, opacity:0,
+    side:THREE.DoubleSide, depthWrite:false});
+  const r = new THREE.Mesh(new THREE.TorusGeometry(1,.09,8,42), rm);
+  r.position.set(-ENC.W/2+6, ENC.H-6, ENC.D/2+2.6); encG.add(r);
+  rings.push({r, ph:i/3});
+}
+
+const PLATE = {W:44, H:66, y0:3, z:-ENC.D/2+2};
+function P(px,py,d){ return [px, PLATE.y0+py, PLATE.z + d/2 + .3]; }
+
+/* ================= component catalog ================= */
+const COMPS = [
+ ["plate","BACKPLATE 44 × 66 in",1, 44,66,.6, 0,33, "plate","Painted steel backplate; removable for shop wiring."],
+ ["duct1","WIRE DUCT",1, 43,2.6,3, 0,54, "duct","Slotted duct — 480/120 V band above, 24 V control band below."],
+ ["duct2","WIRE DUCT",1, 43,2.6,3, 0,40.5, "duct","Slotted duct between the control band and the fire / MBMU band."],
+ ["duct3","WIRE DUCT",1, 43,2.6,3, 0,10.8, "duct","Slotted duct above the terminal rows — field wiring lands below."],
+ ["rail1","DIN RAIL",1, 42,1.2,.7, 0,47.4, "rail","35 mm DIN rail — 24 V power + control row."],
+ ["rail2","DIN RAIL",1, 14,1.2,.7, 9,60, "rail","DIN rail — 120 V distribution."],
+ ["rail3","DIN RAIL",1, 14,1.2,.7, 9,56, "rail","DIN rail — aux breakers Q2 + CB3-CB11."],
+ ["rail4","DIN RAIL",1, 33,1.2,.7, -4,7, "rail","DIN rail — terminal rows TB1-TB23."],
+ ["q1","Q1 — MAIN DISCONNECT 40 A 3P",2, 6.5,8.5,5, -18.5,59.5, "dark","Single point of isolation. Rotary handle turns on Energize."],
+ ["spd","SPD — TYPE 2, 480/277 V",2, 4.5,6,3.2, -12.5,59.5, "grey","Surge protection on the 480 V bus; green status window when healthy."],
+ ["cpt","CPT — 500 VA 480→120/240 V",2, 8,7.5,7, -5.5,59.3, "grey","Control transformer — the panel's ONLY N-G bond (NEC 250.30)."],
+ ["f45","F4/F5 — CPT PRIMARY FUSES",2, 2.6,4.5,3, .8,59.5, "black","FNQ-R-3 time-delay fuses per NEC 450.3(B)."],
+ ["cb120","120 V MAIN + BRANCHES",3, 12,3.4,3.2, 8,61.3, "black","2P 15 A main + branches; legs deliberately CROSSED so one leg loss never drops a whole 24 V rail."],
+ ["cb9","CB9 — FIRE BRANCH (RED)",3, 1.6,3.4,3.4, 15.2,61.3, "red","Dedicated fire branch: red handle + lock-on per NEC 760.121(B)."],
+ ["cbaux","Q2 + CB3-CB11 — AUX 380/220 V",3, 14,3.4,3.2, 9,56.9, "black","Tap-rule feeder OCPD + 20 A chiller/heater/A/C branches."],
+ ["psu1","PSU1 — QUINT 24 V",4, 2.3,5,5, -20.3,49, "blue","24 V supply, pair A — 120 V leg L1."],
+ ["psu2","PSU2 — QUINT 24 V",4, 2.3,5,5, -17.7,49, "blue","24 V supply, pair A — leg L2 (crossed)."],
+ ["psu3","PSU3 — QUINT 24 V",4, 2.3,5,5, -15.1,49, "blue","24 V supply, pair B — leg L2."],
+ ["psu4","PSU4 — QUINT 24 V",4, 2.3,5,5, -12.5,49, "blue","24 V supply, pair B — leg L1 (crossed)."],
+ ["rm1","RM1 — REDUNDANCY",4, 1.9,5,4.6, -10.1,49, "grey","ORs PSU1+2 into rail A; DC-OK to IO module."],
+ ["rm2","RM2 — REDUNDANCY",4, 1.9,5,4.6, -8.1,49, "grey","ORs PSU3+4 into rail B (MBMU + ETH)."],
+ ["ups","UPS1 — DC-UPS",4, 2.2,5,4.8, -5.9,49, "blue","Buffer module, rail A: 56 W census → ~70 s hold-up."],
+ ["cap","QUINT CAP — 4 kJ",4, 5,5.4,5, -2.2,49.2, "blue","Supercap store (~3.9 kJ usable) behind UPS1."],
+ ["k1","K1 — PCS TRIP RELAY",4, 1.4,3.4,3.4, 1.2,49, "orange","Held energized from the FACP; drops → Kehua EPO opens → PCS stops."],
+ ["fdc","F6-F19 — DC FUSES",4, 10,2.8,3, -14.9,43.6, "black","DIN fuse holders for every 24 V branch."],
+ ["cpu1","CPU1 — BATTALION EMS",5, 2.4,5,4.6, 3.9,49, "green","Moxa UC-2222A #1 — ERCOT dispatch + telemetry."],
+ ["cpu2","CPU2 — EMS REDUNDANT",5, 2.4,5,4.6, 6.5,49, "green","Moxa UC-2222A #2 — redundant partner."],
+ ["sw1","SW1 — EDS-4014 SWITCH",5, 3.4,6,4.4, 9.6,49.4, "green","Managed switch; VLANs WAN/LAN/BMS. UPS-backed."],
+ ["io1","IO1 — ioLOGIK E1214",5, 1.8,4.6,4, 12.4,49, "green","DI0-2 fire contacts, DI3-5 supply health → Ethernet."],
+ ["mtr","M1 — eGAUGE EG4115",5, 4.2,4.2,3.4, 15.8,49, "green","Revenue meter: 9× 333 mV CTs + PT taps."],
+ ["lte","LTE MODEM — WAN 2 (OPTIONAL)",5, 2.4,4.6,3.6, 18.9,49, "grey","Cellular failover for ERCOT market comms if the site ISP drops. OPTIONAL — not in the Rev K BOM (candidate at IFC). Dual-SIM industrial modem; antenna puck on the enclosure roof."],
+ ["th1","TH1 — THERMOSTAT",5, 1.6,2.6,2, 19.6,43.6, "grey","Heater call at low enclosure temperature."],
+ ["mb1","MBMU 1 + ETH (CAB 1)",6, 15,4.6,6, 13,37, "dark","CATL master BMS, cabinet 1 — CAN loop to rack, 60 Ω term."],
+ ["mb2","MBMU 2 + ETH (CAB 2)",6, 15,4.6,6, 13,31.5, "dark","CATL master BMS, cabinet 2."],
+ ["mb3","MBMU 3 + ETH (CAB 3)",6, 15,4.6,6, 13,26, "dark","CATL master BMS, cabinet 3."],
+ ["facp","FACP — POTTER ARC-100",7, 13,15,4.5, -14.5,30.5, "red","Releasing fire panel: SLC Class A, NAC, relay 26/27 → K1, TRIG → PSN-1000."],
+ ["psn","PSN-1000 — RELEASING PSU",7, 11,13,4.5, -2.6,29.5, "red","Releasing supply; REL1-3 → DS1 → TB14 → JX1 aerosol pins 3/4."],
+ ["ds1","DS1 — RELEASE DISCONNECT",7, 2.6,4.6,3.4, 4.5,35.8, "yellow","Lockable, SUPERVISED releasing disconnect."],
+ ["mm","MM1-MM3 — MONITOR MODULES",7, 4.6,2.6,2.4, 4.2,21.5, "red","Abort, manual release + DS1 status onto the SLC."],
+ ["bat1","BAT1/2 — FACP 12 V 8 Ah",7, 11,4,3.4, -15,15.3, "black","FACP secondary power (4.73 Ah required)."],
+ ["bat3","BAT3/4 — PSN BATTERIES",7, 11,4,3.4, -2.8,15.3, "black","PSN-1000 secondary power."],
+ ["tb1","TB — FIELD TERMINALS",8, 33,2.2,2.6, -4,8.3, "grey","TB1-TB23: detection, SLC, releasing, EPO, metering."],
+ ["tb2","TB — CONTROL TERMINALS",8, 33,2.2,2.6, -4,5.4, "grey","24 V distribution + health contacts + spares."],
+ ["x2345","X23/X24/X25 — FIELD IFACES",8, 3.4,7.4,3, 16.5,6.8, "orange","Kehua EPO · abort station · manual release."],
+ ["gnd","GROUND BAR",8, 24,1.4,1.6, -6,2.6, "green","EGC bar — single N-G bond at the CPT only."],
+ ["htr","HTR1 — HEATER",8, 5.5,3,3, 10.5,2.9, "grey","Anti-condensation heater, branch CB11."],
+];
+const STAGES = [
+ {t:"THE SITE", d:"Control enclosure on the pad with the Kehua 375 kW PCS and three CATL EnerOne+ cabinets (407 kWh each, CATL public envelope). Watch the panel build itself, then press ⚡ Energize."},
+ {t:"BACKPLATE, DUCTS + DIN RAILS", d:"Slotted duct splits the plate into bands: 480/120 V, 24 V control, fire + MBMU, terminals."},
+ {t:"STEP 1 — 480 V SERVICE", d:"Q1 main disconnect, Type 2 SPD, 500 VA CPT with time-delay fuses. The CPT carries the only N-G bond."},
+ {t:"STEP 2 — 120 V DISTRIBUTION", d:"Crossed control legs, the red lock-on CB9 fire branch, and the Q2 aux row for cabinet chillers."},
+ {t:"STEP 3 — 24 V POWER", d:"Four PSUs → two redundancy modules; rail A gets the supercap DC-UPS. K1 trip relay ends the row."},
+ {t:"STEP 4 — CONTROLS + COMMS", d:"Redundant EMS CPUs, managed switch, hardwired I/O, revenue meter — all UPS-backed."},
+ {t:"STEP 5 — MBMU SECTION", d:"Three CATL master BMS units — Ethernet up to SW1, CAN loops out to the racks."},
+ {t:"STEP 6 — FIRE SECTION (SEGREGATED)", d:"ARC-100, PSN-1000, DS1, monitor modules, batteries — own zone per NEC 760.136."},
+ {t:"STEP 7 — TERMINALS + WIRING", d:"Field terminals, ground bar, heater — then the panel is wired: black 480 V, white 120 V, blue 24 V, red fire, teal Ethernet, green ground."},
+ {t:"READY TO ENERGIZE", d:"Assembly complete and wired. Press ⚡ Energize to close in the utility and watch power flow through the whole site."},
+];
+
+/* build component meshes + per-type detail */
+const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
+const pickables = [], compObjs = {};
+const finGeo = new THREE.BoxGeometry(.16, 3.6, 3.6);
+function addDetail(m, id, w, h, d){
+  const F = d/2;  // front face offset
+  const add = (mm) => { m.add(mm); return mm; };
+  if (/^psu|^ups/.test(id)){
+    for (let i=-2;i<=2;i++){ const f = new THREE.Mesh(finGeo, M.dark); f.position.set(i*(w/6), .2, F+.08); m.add(f); }
+    LED(m, -w/2+.5, h/2-.7, F+.25, 0x37e07a, id.startsWith("psu")?"24":"24", .3);
+  } else if (id==="cap"){
+    for (let i=0;i<3;i++){ const cy = new THREE.Mesh(new THREE.CylinderGeometry(.65,.65,h*.7,12), M.dark);
+      cy.position.set(-w/4 + i*w/4, 0, F+.35); m.add(cy); }
+    LED(m, w/2-.7, h/2-.7, F+.25, 0x37e07a, "24", .3);
+  } else if (id==="q1"){
+    const disc = new THREE.Mesh(new THREE.CylinderGeometry(1.7,1.7,.7,20), M.grey);
+    disc.rotation.x = Math.PI/2; disc.position.set(0, -.6, F+.35); m.add(disc);
+    const hdl = new THREE.Mesh(new THREE.BoxGeometry(.9, 3.4, .7), M.red);
+    hdl.position.set(0, -.6, F+.8); m.add(hdl); m.userData.handle = hdl;
+    LED(m, w/2-.8, h/2-.8, F+.25, 0xffb84d, "480", .32);
+  } else if (id==="spd"){
+    LED(m, 0, .4, F+.22, 0x37e07a, "480", .38);
+  } else if (id==="cpt"){
+    const coil = new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.5,w*.72,14), M.copper);
+    coil.rotation.z = Math.PI/2; coil.position.set(0, -h/2+2, F+.5); m.add(coil);
+  } else if (/^cb|^f45|^fdc/.test(id)){
+    const n = Math.max(3, Math.round(w/1.5));
+    for (let i=0;i<n;i++){
+      const t = new THREE.Mesh(new THREE.BoxGeometry(.5,1.1,.5), id==="cb9"?M.yellow:M.grey);
+      t.position.set(-w/2 + (i+.5)*(w/n), .2, F+.2); m.add(t);
+    }
+    if (id==="cb120") LED(m, -w/2+.6, -h/2+.6, F+.2, 0x37e07a, "120", .26);
+  } else if (/^cpu|^io1/.test(id)){
+    for (let i=0;i<2;i++){ const p = new THREE.Mesh(new THREE.BoxGeometry(.8,.55,.2), M.vent);
+      p.position.set(0, -h/2+1+i*.9, F+.12); m.add(p); }
+    LED(m, 0, h/2-.6, F+.2, 0x37e07a, "ctl", .26);
+  } else if (id==="sw1"){
+    for (let i=0;i<6;i++){ const p = new THREE.Mesh(new THREE.BoxGeometry(.75,.5,.2), M.vent);
+      p.position.set(-w/2+.8+(i%3)*1.0, -h/2+1+Math.floor(i/3)*.85, F+.12); m.add(p); }
+    LED(m, w/2-.5, h/2-.6, F+.2, 0x37e07a, "ctl", .26);
+    LED(m, w/2-.5, h/2-1.5, F+.2, 0x4db8ff, "eth", .26);
+  } else if (id==="mtr"){
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(w*.62,h*.4),
+      new THREE.MeshStandardMaterial({color:0x0d1a12, emissive:0x1f6b3a, emissiveIntensity:0}));
+    scr.position.set(0,.4,F+.16); m.add(scr); m.userData.screen = scr;
+    LED(m, w/2-.6, -h/2+.6, F+.2, 0x37e07a, "ctl", .24);
+  } else if (/^mb/.test(id)){
+    for (let i=0;i<5;i++){ const p = new THREE.Mesh(new THREE.BoxGeometry(1.3,.8,.2), M.vent);
+      p.position.set(-w/2+2+i*2.4, -.4, F+.14); m.add(p); }
+    LED(m, w/2-1, .8, F+.2, 0x37e07a, "bms", .3);
+    LED(m, w/2-2.2, .8, F+.2, 0x4db8ff, "eth", .26);
+  } else if (id==="facp"){
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(5,2.2),
+      new THREE.MeshStandardMaterial({color:0x101408, emissive:0x5d8f2a, emissiveIntensity:0}));
+    scr.position.set(0, h/2-3, F+.16); m.add(scr); m.userData.screen = scr;
+    LED(m, -w/2+1.4, h/2-1.4, F+.2, 0x37e07a, "fire", .3);   // POWER
+    LED(m, -w/2+2.8, h/2-1.4, F+.2, 0xffc14d, "none", .3);   // SUPERVISORY (off)
+    m.userData.almLED = LED(m, -w/2+4.2, h/2-1.4, F+.2, 0xff5d5d, "alm", .3);  // ALARM
+    boxMesh(w*.7, h*.4, .3, M.dark, 0, -h/2+3.6, F+.05, m);
+  } else if (id==="psn"){
+    LED(m, -w/2+1.2, h/2-1.2, F+.2, 0x37e07a, "fire", .3);
+    boxMesh(w*.66, h*.34, .3, M.dark, 0, -h/2+2.9, F+.05, m);
+  } else if (id==="lte"){
+    for (const dx of [-.7,.7]){
+      const ant = new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,2.4,6), M.dark);
+      ant.position.set(dx, h/2+1.2, 0); m.add(ant);
+    }
+    LED(m, 0, h/2-.6, F+.2, 0x4db8ff, "eth", .26);
+  } else if (id==="k1"){
+    LED(m, 0, h/2-.55, F+.25, 0x37e07a, "k1", .28);
+  } else if (id==="ds1"){
+    const hdl = new THREE.Mesh(new THREE.BoxGeometry(.7,2.4,.6), M.red);
+    hdl.position.set(0,0,F+.4); m.add(hdl);
+  } else if (/^bat/.test(id)){
+    boxMesh(.7,.5,.4, M.copper, -w/4, h/2+.2, 0, m); boxMesh(.7,.5,.4, M.copper, w/4, h/2+.2, 0, m);
+  } else if (/^tb/.test(id)){
+    const n = 22;
+    for (let i=0;i<n;i++){
+      const t = new THREE.Mesh(new THREE.BoxGeometry(w/n*.8, h*.9, .25), i%4===3 ? M.blue : M.inner);
+      t.position.set(-w/2+(i+.5)*(w/n), 0, F+.12); m.add(t);
+    }
+  } else if (id==="gnd"){
+    for (let i=0;i<8;i++){ const s = new THREE.Mesh(new THREE.CylinderGeometry(.18,.18,.5,8), M.copper);
+      s.rotation.x = Math.PI/2; s.position.set(-w/2+1.6+i*2.9, 0, F+.2); m.add(s); }
+  } else if (w >= 4 && h >= 4 && id!=="plate"){
+    boxMesh(w*.72, Math.min(1.1,h*.18), .25, M.inner, 0, h*.28, F+.13, m);
+  }
+}
+for (const [id,name,stg,w,h,d,px,py,mkey,desc] of COMPS){
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), M[mkey].clone());
+  const [x,y,z] = P(px,py,d);
+  m.castShadow = m.receiveShadow = true; edges(m);
+  m.userData = {id,name,stage:stg,desc, home:new THREE.Vector3(x,y,z)};
+  m.position.set(x, y, z+60); m.visible = false;
+  addDetail(m, id, w, h, d);
+  encG.add(m); pickables.push(m); compObjs[id] = m;
+}
+/* fire zone frame */
+const zone = new THREE.Group(); encG.add(zone); zone.visible = false;
+const zmat = new THREE.MeshStandardMaterial({color:0x9e2a2a, roughness:.6, emissive:0x5a1414, emissiveIntensity:.4});
+function zbar(w,h,x,y){ const b = new THREE.Mesh(new THREE.BoxGeometry(w,h,.7), zmat);
+  b.position.set(x, PLATE.y0+y, PLATE.z+5.4); zone.add(b); }
+zbar(28.8,.6,-7.7,39.2); zbar(28.8,.6,-7.7,12.6); zbar(.6,27.2,-21.8,25.9); zbar(.6,27.2,6.4,25.9);
+
+/* ================= PANEL WIRING (PE-neat: duct runs + square drops) ================= */
+const WCOL = { p480:0x15161a, p120:0xe4e6ea, dc24:0x2565d8, fire:0xc03030, eth:0x2fa8a0, gnd:0x3f9b4f, aux:0xd98a2b };
+const WGLOW = { p480:"480", p120:"120", dc24:"24", fire:"fire", eth:"eth", gnd:"gnd", aux:"aux" };
+const wiresG = new THREE.Group(); encG.add(wiresG);
+const wireMats = [];   // {mat, cls}
+const wireCurves = []; // {curve, cls} for pulses
+/* pts: [px,py] plate-local; lane: z offset from plate face; slot: duct y-offset */
+function wireRun(cls, pts, lane, slot){
+  const P3 = pts.map(([px,py]) => new THREE.Vector3(px, PLATE.y0+py+(slot||0), PLATE.z + lane));
+  // chamfer corners
+  const path = new THREE.CurvePath();
+  const R = 1.1;
+  let a = P3[0];
+  for (let i = 1; i < P3.length - 1; i++){
+    const b = P3[i], c = P3[i+1];
+    const d1 = b.clone().sub(a).normalize(), d2 = c.clone().sub(b).normalize();
+    const p1 = b.clone().sub(d1.clone().multiplyScalar(Math.min(R, a.distanceTo(b)/2)));
+    const p2 = b.clone().add(d2.clone().multiplyScalar(Math.min(R, b.distanceTo(c)/2)));
+    path.add(new THREE.LineCurve3(a, p1));
+    path.add(new THREE.QuadraticBezierCurve3(p1, b, p2));
+    a = p2;
+  }
+  path.add(new THREE.LineCurve3(a, P3[P3.length-1]));
+  const mt = new THREE.MeshStandardMaterial({color:WCOL[cls], roughness:.5, metalness:.1,
+    emissive:WCOL[cls], emissiveIntensity:0});
+  const tube = new THREE.Mesh(new THREE.TubeGeometry(path, 48, .22, 7, false), mt);
+  tube.castShadow = true; wiresG.add(tube);
+  wireMats.push({mat:mt, cls:WGLOW[cls]});
+  wireCurves.push({curve:path, cls:WGLOW[cls]});
+}
+const RUNS = [
+ ["p480", [[-19.6,-4],[-19.6,59.5],[-18.5,59.5]], 1.6, 0],
+ ["p480", [[-18.5,56.2],[-18.5,54],[-12.5,54],[-12.5,56.7]], 1.6, -.5],
+ ["p480", [[-17,56.2],[-17,54],[-5.5,54],[-5.5,55.8]], 1.6, .5],
+ ["aux",  [[21,-4],[21,54],[9,54],[9,55.4]], 1.6, .9],
+ ["p120", [[-4,55.8],[-4,54],[8,54],[8,59.8]], 1.6, 0],
+ ["p120", [[6,59.8],[6,54],[-20.3,54],[-20.3,51.4]], 1.6, -.9],
+ ["p120", [[7,59.8],[7,54],[-15.1,54],[-15.1,51.4]], 1.6, .45],
+ ["fire", [[15.2,59.8],[15.2,54],[-19,54],[-19,37.9]], 2.4, -.45],
+ ["dc24", [[-5.9,51.4],[-5.9,54],[1.2,54],[1.2,50.6]], 1.6, .2],
+ ["dc24", [[-2.2,51.8],[-2.2,54],[3.9,54],[3.9,51.4]], 1.6, -.2],
+ ["dc24", [[-8.1,51.4],[-8.1,40.5],[12,40.5],[12,39.2]], 1.6, .2],
+ ["dc24", [[-3,51.8],[-3,54],[12.4,54],[12.4,51.2]], 1.6, .7],
+ ["fire", [[-9,35],[-9,40.5],[1.2,40.5],[1.2,47.4]], 2.4, -.4],
+ ["fire", [[-9,28],[-4.5,28]], 2.4, 0],
+ ["fire", [[-1.5,35.9],[3.3,35.9]], 2.4, 0],
+ ["fire", [[4.5,33.6],[4.5,10.8],[-1,10.8],[-1,9.3]], 2.4, .3],
+ ["fire", [[-16,23.2],[-16,10.8],[-8,10.8],[-8,9.3]], 2.4, -.3],
+ ["eth",  [[9,52.3],[9,54],[4.5,54],[4.5,51.4]], 2.4, -.75],
+ ["eth",  [[9.6,46.5],[9.6,40.5],[14.5,40.5],[14.5,39.2]], 2.4, -.5],
+ ["eth",  [[10.2,46.5],[10.2,40.5],[15.5,40.5],[15.5,33.7]], 2.4, .5],
+ ["eth",  [[10.8,46.5],[10.8,40.5],[16.5,40.5],[16.5,28.2]], 2.4, .8],
+ ["eth",  [[11,52.3],[11,54],[15.8,54],[15.8,51]], 2.4, .75],
+ ["eth",  [[8.4,46.5],[8.4,40.5],[20.6,40.5],[20.6,-4]], 2.4, -.8],
+ ["eth",  [[11.2,52.3],[11.2,54],[18.9,54],[18.9,51.4]], 2.4, .95],
+ ["gnd",  [[-6.8,55.8],[-6.8,54],[-21.2,54],[-21.2,2.6],[-17.5,2.6]], 1.6, .85],
+];
+for (const [cls, pts, lane, slot] of RUNS) wireRun(cls, pts, lane, slot);
+wiresG.visible = true;
+
+/* ================= EXTERIOR UNITS ================= */
+const siteTips = [];  // extra pickables with tooltips
+function pick(m, name, group, desc){ m.userData = {id:name, name, desc, stage:0, group}; pickables.push(m); siteTips.push(m); }
+
+/* --- Kehua 375 kW PCS --- */
+const pcsG = new THREE.Group(); pcsG.position.set(95, PADT, -8); scene.add(pcsG);
+{
+  boxMesh(55,4,40,M.skid,0,-2,0,pcsG);
+  const body = boxMesh(55,86,40,M.kehua,0,43,0,pcsG);
+  pick(body, "KEHUA 375 kW PCS — CABINET-375", "POWER CONVERSION",
+    "Bidirectional PCS, 480 V grid tie, with the integrated 30 kVA 480→380Y/220 aux transformer that feeds the panel's Q2 aux row. Panel scope talks to it over Modbus TCP; the safety stop is the hardwired EPO at X23.");
+  boxMesh(57,3,42,M.shell,0,87.5,0,pcsG);
+  boxMesh(45,22,.8,M.vent,0,20,20.1,pcsG);           // lower vent
+  boxMesh(45,14,.8,M.vent,0,72,20.1,pcsG);           // upper vent
+  const lg = logoPlate("KEHUA", "375 kW PCS · CABINET-375", 22, 6, "#2b3038", "#e8ecf2");
+  lg.position.set(0, 48, 20.15); pcsG.add(lg);
+  const lcd = makeLCD(13, 6.8);
+  lcd.mesh.position.set(0, 58, 20.15); pcsG.add(lcd.mesh); pcsG.userData = {lcd};
+  LED(pcsG, 20, 80, 20.2, 0x37e07a, "pcs", .6);
+}
+
+/* --- CATL EnerOne+ cabinets (2348H x 1390W x 1344D mm ≈ 92.4 x 54.7 x 52.9 in) --- */
+const CAB = {W:54.7, H:92.4, D:52.9};
+const cabinets = [];
+function enerOne(x, n){
+  const g = new THREE.Group(); g.position.set(x, PADT, -14.5); scene.add(g);
+  boxMesh(CAB.W,4,CAB.D,M.skid,0,-2,0,g);
+  const body = boxMesh(CAB.W,CAB.H,CAB.D,M.catl,0,CAB.H/2,0,g);
+  pick(body, `CATL EnerOne+ — CABINET ${n}`, "BATTERY",
+    "407.34 kWh LFP (306 Ah cells), 1040-1500 VDC, liquid-cooled with integrated chiller, IP56 battery compartment. Envelope 2348×1390×1344 mm per CATL public spec. Detection, aerosol releasing (JX1 pins 3/4), SLC pass-through and MBMU CAN all land back at the panel.");
+  body.material = body.material.clone();                              // per-cabinet emissive control
+  boxMesh(CAB.W+1.6,2.6,CAB.D+1.6,M.catlDark,0,CAB.H+1.2,0,g);       // roof cap
+  /* front doors: two recessed panels */
+  const zF = CAB.D/2;
+  boxMesh(CAB.W-6,CAB.H-22,.9,M.inner,0,CAB.H/2-4,zF+.5,g);
+  boxMesh(.7,CAB.H-24,.5,M.catlDark,0,CAB.H/2-4,zF+1.05,g);          // center seam
+  boxMesh(1,6,.8,M.dark,-5,CAB.H/2-6,zF+1.1,g); boxMesh(1,6,.8,M.dark,5,CAB.H/2-6,zF+1.1,g); // handles
+  /* dark top band + branding */
+  boxMesh(CAB.W,10,.8,M.catlDark,0,CAB.H-6,zF+.55,g);
+  const lg = logoPlate("CATL", "EnerOne+ · 407 kWh LFP", 26, 6.5, "#363b42", "#eef1f4");
+  lg.position.set(-6, CAB.H-6, zF+1.0); g.add(lg);
+  const num = logoPlate(String(n), "", 6, 6.5, "#C05010", "#ffffff");
+  num.position.set(20, CAB.H-6, zF+1.0); g.add(num);
+  /* chiller module on right side with fan */
+  boxMesh(6,26,30,M.catlDark,CAB.W/2+3,24,0,g);
+  const fanRim = new THREE.Mesh(new THREE.CylinderGeometry(8,8,1.2,24), M.vent);
+  fanRim.rotation.z = Math.PI/2; fanRim.position.set(CAB.W/2+6.4,24,0); g.add(fanRim);
+  const fan = new THREE.Group(); fan.position.set(CAB.W/2+6.6,24,0); g.add(fan);
+  for (let i=0;i<3;i++){ const bl = new THREE.Mesh(new THREE.BoxGeometry(.4,2.6,6.4), M.fanBlade);
+    bl.rotation.x = i*Math.PI*2/3; fan.add(bl); }
+  /* SOC bar + beacon */
+  const socBg = boxMesh(30,1.4,.5,M.vent,0,16,zF+.6,g,true);
+  const soc = new THREE.Mesh(new THREE.BoxGeometry(1,1,1),
+    new THREE.MeshStandardMaterial({color:0x1f7a45, emissive:0x2fae63, emissiveIntensity:0}));
+  soc.scale.set(0.01,1,0.4); soc.position.set(-15,16,zF+.85); g.add(soc);
+  const beacon = LED(g, 0, CAB.H-13, zF+.9, 0x37e07a, "bms", .6);
+  /* BMS LCD on the front door */
+  const lcd = makeLCD(15, 8);
+  lcd.mesh.position.set(-13, CAB.H-21, zF+1.15); g.add(lcd.mesh);
+  /* gland conduits down to pad */
+  boxMesh(3,8,3,M.conduit,-CAB.W/2+6,4,zF-4,g,true);
+  cabinets.push({g, fan, soc, n, beacon, lcd, body});
+  return g;
+}
+enerOne(185,1); enerOne(255,2); enerOne(325,3);
+
+/* --- cable tray linking panel → PCS → cabinets (rear) --- */
+const trayG = new THREE.Group(); scene.add(trayG);
+function tray(x1,x2,z,y){ const t = boxMesh(x2-x1, 2.2, 7, M.tray, (x1+x2)/2, y, z, trayG);
+  boxMesh(x2-x1, .5, 7.6, M.conduit, (x1+x2)/2, y+1.3, z, trayG, true); return t; }
+const trayY = PADT+3, trayZ = -38;
+const t1 = tray(-8, 352, trayZ, trayY);
+pick(t1, "SITE CABLE TRAY", "FIELD WIRING",
+  "Carries the field runs: SLC Class A loop (send/return in separate raceway), releasing circuits, EPO pair to the PCS, CAN + Ethernet, aux 380/220 V feeder, CT/PT metering. Wire numbers assigned at fab release.");
+/* risers from tray to each unit */
+function riser(x, h, z0){ boxMesh(4, h, 4, M.conduit, x, PADT+h/2, z0, trayG, true);
+  boxMesh(4, 4, (Math.abs(trayZ-z0)), M.conduit, x, trayY, (trayZ+z0)/2, trayG, true); }
+riser(10, 30, -12);          // panel rear
+riser(95, 34, -28);          // PCS rear
+riser(185, 40, -41); riser(255, 40, -41); riser(325, 40, -41);
+/* utility feeder stub from the left */
+boxMesh(4, 26, 4, M.conduit, -30, PADT+13, -12, trayG, true);
+boxMesh(56, 4, 4, M.conduit, -30+2, trayY, (trayZ-12)/2 - 0, trayG, true);
+
+/* ================= THE GRID — utility pole, overhead line, site switchgear ================= */
+const gridG = new THREE.Group(); scene.add(gridG);
+const gridWireMats = [];
+{
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(1.5,2.2,150,10), mat(0x6b5a43,.85,.05));
+  pole.position.set(-270,75,-60); pole.castShadow = true; gridG.add(pole);
+  boxMesh(28,2.2,2.2, mat(0x5d4f3c,.85,.05), -270, 138, -60, gridG);
+  for (const dx of [-11,0,11]){
+    const ins = new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,2.6,8), mat(0x8a8f96,.4,.3));
+    ins.position.set(-270+dx, 140.4, -60); gridG.add(ins);
+  }
+  const swg = boxMesh(26,45,20,M.dark,-62,PADT+22.5,-30,gridG);
+  swg.userData = {id:"swg", name:"SITE MAIN SWITCHGEAR — BY OTHERS", group:"UTILITY / GRID",
+    desc:"480 V service point. Utility overhead drop lands here; it feeds the Kehua PCS grid tie and the panel's Q1 main. Fault current at these terminals is the SCCR input the panel shop still needs.", stage:0};
+  pickables.push(swg);
+  const glg = logoPlate("UTILITY 480 V", "SERVICE POINT", 18, 5.5, "#1d2126", "#e8ecf2");
+  glg.position.set(-62, PADT+38, -19.8); gridG.add(glg);
+  /* three-conductor overhead drop with sag */
+  for (const [dx,dz] of [[-11,-3],[0,0],[11,3]]){
+    const a = new THREE.Vector3(-270+dx, 139.5, -60);
+    const b = new THREE.Vector3(-62+dx*.4, PADT+45, -30+dz*.4);
+    const mid = a.clone().add(b).multiplyScalar(.5); mid.y -= 22;
+    const mt = new THREE.MeshStandardMaterial({color:0x22262c, roughness:.6, metalness:.2,
+      emissive:0xffc14d, emissiveIntensity:0});
+    const t = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(a,mid,b), 30, .32, 6, false), mt);
+    gridG.add(t); gridWireMats.push(mt);
+  }
+  /* switchgear → tray */
+  boxMesh(4, 4, 10, M.conduit, -62, trayY, (trayZ-20)/2 - 10, trayG, true);
+  boxMesh(4, 4, 34, M.conduit, -46, trayY, trayZ+4, trayG, true);
+}
+/* aerosol discharge visual (cabinet 1) */
+const aero = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 16),
+  new THREE.MeshBasicMaterial({color:0xeef2f5, transparent:true, opacity:0, depthWrite:false}));
+aero.position.set(185, PADT+46, -14.5); scene.add(aero);
+/* cabinet-1 fire theatrics: floating tag, smoke plume, interior glow */
+const fireLabel = makeLabel("🔥 FIRE — CABINET 1", 2.4);
+fireLabel.material.color = new THREE.Color(0xff8078);
+fireLabel.position.set(185, 122, -14.5); fireLabel.visible = false; scene.add(fireLabel);
+const cabFireLight = new THREE.PointLight(0xff5a20, 0, 170);
+cabFireLight.position.set(185, 60, -14.5); scene.add(cabFireLight);
+const smoke = [];
+for (let i=0;i<7;i++){
+  const s = new THREE.Mesh(new THREE.SphereGeometry(3, 10, 10),
+    new THREE.MeshBasicMaterial({color:0x393d43, transparent:true, opacity:0, depthWrite:false}));
+  scene.add(s); smoke.push({s, ph:i/7, dx:(i%3-1)*4, dz:(i%2 ? 3.5 : -3.5)});
+}
+
+/* ================= HV pulse paths (site energy flow) ================= */
+const sitePulsePaths = [];
+function sitePath(pts, cls){
+  const v = pts.map(p => new THREE.Vector3(...p));
+  const path = new THREE.CurvePath();
+  for (let i=0;i<v.length-1;i++) path.add(new THREE.LineCurve3(v[i], v[i+1]));
+  sitePulsePaths.push({curve:path, cls});
+}
+sitePath([[-270,138,-60],[-64,PADT+46,-30],[-62,trayY+2,trayZ],[95,trayY+2,trayZ],[95,trayY+2,-28]], "480"); // grid → PCS
+sitePath([[-62,trayY+2,trayZ],[-30,trayY+2,trayZ],[-30,trayY+2,-12]], "pfeed");                 // grid → panel Q1
+sitePath([[95,trayY+2,-28],[185,trayY+2,trayZ],[185,trayY+2,-41]], "bms");                      // PCS ↔ cab DC
+sitePath([[95,trayY+2,-28],[255,trayY+2,trayZ],[255,trayY+2,-41]], "bms");
+sitePath([[95,trayY+2,-28],[325,trayY+2,trayZ],[325,trayY+2,-41]], "bms");
+sitePath([[10,trayY+2,-12],[10,trayY+2,trayZ],[95,trayY+2,trayZ],[95,trayY+2,-28]], "eth");     // panel ↔ PCS comms
+const pulseG = new THREE.Group(); scene.add(pulseG);
+const pulses = [];
+const PCOL = { "480":0xffc14d, pfeed:0xffc14d, bms:0x6fe3a0, eth:0x4db8ff,
+  "120":0xf2f4f8, "24":0x5a9bff, fire:0xff6a5e, aux:0xffa04d, gnd:0x58c07a };
+function spawnPulses(){
+  for (const p of sitePulsePaths){
+    for (let k=0;k<3;k++){
+      const s = new THREE.Mesh(new THREE.SphereGeometry(1.1,8,8),
+        new THREE.MeshBasicMaterial({color:PCOL[p.cls]||0xffffff}));
+      s.visible = false; pulseG.add(s);
+      pulses.push({s, curve:p.curve, u:k/3, speed:.16, cls:p.cls, site:true});
+    }
+  }
+  /* every panel wire carries a direction dot (source → load); ground is bond-only */
+  for (const w of wireCurves){
+    if (w.cls==="gnd") continue;
+    const s = new THREE.Mesh(new THREE.SphereGeometry(.3,8,8),
+      new THREE.MeshBasicMaterial({color:PCOL[w.cls]||0xffffff}));
+    s.visible = false; encG.add(s);
+    pulses.push({s, curve:w.curve, u:Math.random(), speed:w.cls==="fire" ? .22 : .4, cls:w.cls, site:false});
+  }
+}
+spawnPulses();
+
+/* ================= labels ================= */
+const labels = new THREE.Group(); labels.visible = false; scene.add(labels);
+function labelAt(text, x, y, z, scl){ const sp = makeLabel(text, scl||1); sp.position.set(x,y,z); labels.add(sp); }
+for (const lid of ["q1","cpt","cb9","cap","k1","sw1","mtr","mb1","facp","psn","ds1","tb1"]){
+  const o = compObjs[lid]; const h = o.geometry.parameters.height;
+  const p = o.userData.home;
+  labelAt(o.userData.name.split("—")[0].trim(), p.x, PADT + p.y + h/2 + 2.6, p.z + 4, 1);
+}
+labelAt("CONTROL PANEL — EMS + MBMU", 0, PADT+82, 14, 1.6);
+labelAt("KEHUA 375 kW PCS", 95, PADT+96, 12, 1.6);
+labelAt("EnerOne+ CAB 1 — 407 kWh", 185, PADT+102, 12, 1.6);
+labelAt("EnerOne+ CAB 2 — 407 kWh", 255, PADT+102, 12, 1.6);
+labelAt("EnerOne+ CAB 3 — 407 kWh", 325, PADT+102, 12, 1.6);
+
+/* ================= camera ================= */
+const target = new THREE.Vector3(60, 42, -6);
+let theta = .34, phi = 1.22, radius = 330, autoSpin = true, swingDir = 1;
+window.VIEW = (t,p,r,tx,ty,tz) => { theta=t; phi=p; radius=r;
+  if (tx!==undefined) target.set(tx,ty,tz); };
+function applyCam(){
+  camera.position.set(
+    target.x + radius*Math.sin(phi)*Math.sin(theta),
+    target.y + radius*Math.cos(phi),
+    target.z + radius*Math.sin(phi)*Math.cos(theta));
+  camera.lookAt(target);
+}
+let dragging=false, panMode=false, lx=0, ly=0, moved=0, ttXY=[0,0];
+function pan(dx, dy){
+  const f = radius * .0011;
+  const right = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 0);
+  const up = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 1);
+  target.addScaledVector(right, -dx*f).addScaledVector(up, dy*f);
+  target.x = Math.max(-380, Math.min(480, target.x));
+  target.y = Math.max(4, Math.min(170, target.y));
+  target.z = Math.max(-280, Math.min(280, target.z));
+}
+canvas.addEventListener("contextmenu", e => e.preventDefault());
+canvas.addEventListener("pointerdown", e => { dragging=true; moved=0; lx=e.clientX; ly=e.clientY;
+  panMode = (e.button===2 || e.button===1 || e.shiftKey); });
+addEventListener("pointerup", () => { dragging=false; panMode=false; });
+addEventListener("pointermove", e => {
+  if (dragging){ const dx=e.clientX-lx, dy=e.clientY-ly; lx=e.clientX; ly=e.clientY;
+    moved += Math.abs(dx)+Math.abs(dy);
+    if (panMode) pan(dx, dy);
+    else { theta -= dx*.006; phi = Math.min(1.52, Math.max(.3, phi - dy*.005)); } }
+  pointer.x = (e.clientX/innerWidth)*2-1;
+  pointer.y = -((e.clientY - canvas.getBoundingClientRect().top)/canvas.clientHeight)*2+1;
+  ttXY = [e.clientX, e.clientY];
+});
+canvas.addEventListener("wheel", e => { e.preventDefault();
+  radius = Math.min(900, Math.max(60, radius*(1+Math.sign(e.deltaY)*.08))); }, {passive:false});
+let pinchD = 0, pinchMid = null;
+canvas.addEventListener("touchmove", e => {
+  if (e.touches.length===2){
+    const d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+    const mid = [(e.touches[0].clientX+e.touches[1].clientX)/2, (e.touches[0].clientY+e.touches[1].clientY)/2];
+    if (pinchD) radius = Math.min(900, Math.max(60, radius*pinchD/d));
+    if (pinchMid) pan(mid[0]-pinchMid[0], mid[1]-pinchMid[1]);   // two-finger drag pans
+    pinchD = d; pinchMid = mid; }
+}, {passive:true});
+canvas.addEventListener("touchend", () => { pinchD=0; pinchMid=null; });
+
+/* ================= assembly sequencing ================= */
+let simT = 0, stageNow = -1, doorPos = 1, doorGoal = 1;
+const FLY = .8, GAP = .12;
+const schedule = [];
+{
+  let t = 1.2;
+  for (let s=1;s<=8;s++){
+    const items = pickables.filter(p => p.userData.stage === s);
+    items.forEach((m,i) => schedule.push({m, start:t + i*GAP}));
+    t += items.length*GAP + FLY + 1.35;
+  }
+}
+const stageTimes = [0];
+{ let tt = 1.2;
+  for (let s=1;s<=8;s++){ stageTimes.push(tt);
+    tt += pickables.filter(p=>p.userData.stage===s).length*GAP + FLY + 1.35; }
+  stageTimes.push(tt);
+}
+function ease(u){ return u<.5 ? 4*u*u*u : 1-Math.pow(-2*u+2,3)/2; }
+function resetBuild(){
+  simT = 0; stageNow = -1; doorGoal = 1; doorPos = 1; zone.visible = false;
+  powerOff();
+  for (const m of pickables){ if (m.userData.stage===0) continue;
+    m.visible = false; m.position.copy(m.userData.home).add(new THREE.Vector3(0,6,60)); }
+  wiresG.visible = false;
+}
+function syncToTime(){
+  for (const {m,start} of schedule){
+    if (simT >= start+FLY){ m.visible = true; m.position.copy(m.userData.home); }
+    else if (simT < start){ m.visible = false; }
+  }
+  zone.visible = simT >= stageTimes[7];
+  wiresG.visible = wiresOn && simT >= stageTimes[8];
+}
+
+/* captions + chips */
+const capT = document.getElementById("capT"), capD = document.getElementById("capD"),
+      cap = document.getElementById("cap"), chipsEl = document.getElementById("chips");
+const chipNames = ["SITE","PLATE","480 V","120 V","24 V","CTRL","MBMU","FIRE","WIRED","READY"];
+chipNames.forEach((n,i) => {
+  const c = document.createElement("div"); c.className = "chip"; c.textContent = n;
+  c.onclick = () => { if (mode==="power") return; simT = stageTimes[i] + .01; syncToTime(); };
+  chipsEl.appendChild(c);
+});
+function setStage(s){
+  if (s === stageNow || mode==="power") return; stageNow = s;
+  const st = STAGES[Math.min(s, STAGES.length-1)];
+  capT.textContent = st.t; capD.textContent = st.d;
+  [...chipsEl.children].forEach((c,i) => { c.classList.toggle("now", i===s); c.classList.toggle("done", i<s); });
+  if (s >= 7) zone.visible = true;
+  if (s >= 8 && wiresOn) wiresG.visible = true;
+}
+
+/* ================= ENERGIZE ================= */
+let mode = "build";       // build | power
+let pwrT = -1;            // power sequence clock
+const pwrBtn = document.getElementById("pwr");
+const CLS_T = { "480":1.0, "aux":8.6, "120":2.4, "24":3.8, "k1":3.9, "ctl":5.0, "eth":5.0, "bms":6.4, "fire":7.6, "pcs":8.6, "gnd":0.4 };
+const PWR_CAPS = [
+ [0.0,"UTILITY CLOSES IN","480 V three-phase arrives at the Q1 line side from the site bus."],
+ [1.0,"Q1 ON — 480 V LIVE","The main disconnect handle rotates. SPD watches the bus; black 480 V runs energize."],
+ [2.4,"CPT → 120 V CONTROL","The control transformer picks up. Two crossed 120 V legs feed the PSU pairs and the fire branch."],
+ [3.8,"24 V RAILS UP","PSUs light in sequence, redundancy modules OR the pairs, the supercap DC-UPS charges. K1 trip loop pulls in — held energized."],
+ [5.0,"EMS + COMMS BOOT","CPUs, switch, I/O and meter come up. Watch Ethernet pulses run to the MBMUs and out the WAN."],
+ [6.4,"MBMUs POLL THE RACKS","Master BMS units wake their cabinets: chillers spin, SOC bars report ~53%, status beacons go green."],
+ [7.6,"FIRE PANEL NORMAL","ARC-100 and PSN-1000 power from CB9, supervise every loop, and hold the trip relay energized. Panel reads NORMAL."],
+ [8.6,"PCS FOLLOWS DISPATCH","Kehua PCS syncs to the grid; the aux transformer back-feeds the panel's Q2 row. Energy pulses flow pad-wide."],
+ [10.2,"SYSTEM ONLINE — 375 kW / 1,221 kWh","Full site energized: hardwired trip chain armed, releasing supervised, EMS dispatching. Hover anything for its role."],
+];
+let capIdx = -1;
+function powerOn(){
+  // fast-forward the build if needed
+  if (simT < stageTimes[9]){ simT = stageTimes[9] + .5; syncToTime(); }
+  mode = "power"; pwrT = 0; capIdx = -1;
+  cap.classList.add("pwr"); pwrBtn.classList.add("on"); pwrBtn.textContent = "⏻ De-energize";
+}
+function powerOff(){
+  mode = "build"; pwrT = -1; capIdx = -1;
+  cap.classList.remove("pwr"); pwrBtn.classList.remove("on"); pwrBtn.textContent = "⚡ Energize";
+  for (const L of LEDS) L.m.material.emissiveIntensity = 0;
+  for (const w of wireMats) w.mat.emissiveIntensity = 0;
+  for (const p of pulses) p.s.visible = false;
+  for (const c of cabinets){ c.soc.scale.x = .01; c.soc.material.emissiveIntensity = 0;
+    lcdOff(c.lcd); c.body.material.emissiveIntensity = 0; }
+  lcdOff(pcsG.userData.lcd);
+  alertEl.className = "";
+  fireLabel.visible = false; cabFireLight.intensity = 0;
+  for (const S of smoke) S.s.material.opacity = 0;
+  if (compObjs.mtr.userData.screen) compObjs.mtr.userData.screen.material.emissiveIntensity = 0;
+  if (compObjs.facp.userData.screen) compObjs.facp.userData.screen.material.emissiveIntensity = 0;
+  if (compObjs.q1.userData.handle) compObjs.q1.userData.handle.rotation.z = 0;
+  scn = "charge"; gridOn = true; fireOn = false; fireT = 0; soc = .53; capKey = null;
+  autoOn = false; autoBtn.classList.remove("active");
+  beamMat.opacity = 0; dome.material.emissiveIntensity = 0; fireLight.intensity = 0;
+  for (const R of rings) R.r.material.opacity = 0;
+  aero.material.opacity = 0;
+  cabinets[0].beacon.material.emissive.setHex(0x37e07a);
+  for (const g of gridWireMats) g.emissiveIntensity = 0;
+  stageNow = -1;
+}
+pwrBtn.onclick = () => { if (mode==="power") powerOff(); else powerOn(); };
+window.PSET = (t) => { if (mode!=="power") powerOn(); pwrT = t; };
+
+/* ================= SCENARIOS + AUTO DEMO ================= */
+let scn = "charge", gridOn = true, fireOn = false, fireT = 0, soc = .53, capKey = null, lcdT = 1;
+const alertEl = document.getElementById("alert");
+const FIRE_CAPS = [
+ [0,"🔥 FIRE — DETECTION IN CABINET 1","Heat + smoke confirm on the SLC Class A loop. FACP in alarm: siren + strobe active, red beacon rotating on the panel roof."],
+ [1.5,"HARDWIRED TRIP — PCS STOPPED","FACP relay 26/27 drops → K1 releases → X23 EPO opens at the Kehua. No software in the path — a wiring or power loss causes the same safe trip."],
+ [3,"AEROSOL RELEASED — CABINET 1","PSN-1000 fires the releasing circuits through DS1 → TB14 → JX1 pins 3/4. Every leg EOL-supervised. Abort holds the RELEASE only — never the trip."],
+ [8,"SAFE STATE — AWAITING RESPONSE","PCS locked out, cabinet 1 isolated, EMS telemetry live on the UPS rail. FACP reset is a deliberate manual action after inspection."],
+];
+const PHASES = [
+ {dur:12, go:()=>{ if (mode!=="power") powerOn(); }},
+ {dur:9,  go:()=>{ fireOn=false; gridOn=true; scn="charge"; }},
+ {dur:9,  go:()=>{ scn="discharge"; }},
+ {dur:10, go:()=>{ gridOn=false; }},
+ {dur:5,  go:()=>{ gridOn=true; scn="charge"; }},
+ {dur:14, go:()=>{ fireOn=true; fireT=0; }},
+ {dur:6,  go:()=>{ fireOn=false; scn="charge"; }},
+];
+let autoOn = false, autoT = 0, autoIdx = 0;
+const autoBtn = document.getElementById("auto");
+autoBtn.onclick = () => {
+  autoOn = !autoOn; autoBtn.classList.toggle("active", autoOn);
+  if (autoOn){ autoT = 0;
+    if (mode==="power" && pwrT > 10.2){ autoIdx = 1; PHASES[1].go(); }
+    else { autoIdx = 0; PHASES[0].go(); } }
+};
+function manual(fn){ return () => {
+  autoOn = false; autoBtn.classList.remove("active");
+  if (mode!=="power"){ powerOn(); pwrT = 10.3; }
+  fn(); }; }
+document.getElementById("sc_charge").onclick = manual(()=>{ fireOn=false; gridOn=true; scn="charge"; });
+document.getElementById("sc_dis").onclick   = manual(()=>{ fireOn=false; gridOn=true; scn="discharge"; });
+document.getElementById("sc_grid").onclick  = manual(()=>{ fireOn=false; gridOn=false; });
+document.getElementById("sc_fire").onclick  = manual(()=>{
+  if (fireOn){ fireOn=false; scn="charge"; } else { fireOn=true; fireT=0; } });
+window.FIRE = (t) => { if (mode!=="power"){ powerOn(); pwrT = 10.3; } fireOn = true; fireT = t||0; };
+window.SCN  = (s) => { if (mode!=="power"){ powerOn(); pwrT = 10.3; }
+  if (s==="gridloss"){ fireOn=false; gridOn=false; } else { fireOn=false; gridOn=true; scn=s; } };
+
+/* ================= UI ================= */
+let wiresOn = true;
+document.getElementById("replay").onclick = () => resetBuild();
+document.getElementById("doors").onclick = () => { doorGoal = doorGoal > .5 ? 0 : 1; };
+document.getElementById("wires").onclick = function(){ wiresOn = !wiresOn;
+  this.classList.toggle("active", wiresOn); wiresG.visible = wiresOn && simT >= stageTimes[8]; };
+document.getElementById("labels").onclick = function(){ labels.visible = !labels.visible;
+  this.classList.toggle("active", labels.visible); };
+document.getElementById("spin").onclick = function(){ autoSpin = !autoSpin;
+  this.classList.toggle("active", autoSpin); };
+
+/* tooltip */
+const tt = document.getElementById("tt");
+let hovered = null;
+
+/* ================= frame loop ================= */
+const clock = new THREE.Clock();
+function frame(){
+  requestAnimationFrame(frame);
+  const dt = Math.min(.05, clock.getDelta());
+  simT += dt;
+
+  /* stage captions (build mode) */
+  let s = 0;
+  for (let i=0;i<stageTimes.length;i++) if (simT >= stageTimes[i]) s = i;
+  setStage(Math.min(s,9));
+
+  /* fly-ins */
+  for (const {m,start} of schedule){
+    if (simT >= start && simT < start+FLY){
+      m.visible = true;
+      const u = ease((simT-start)/FLY);
+      const from = m.userData.home.clone().add(new THREE.Vector3(0,6,60));
+      m.position.lerpVectors(from, m.userData.home, u);
+      m.position.y += Math.sin(u*Math.PI)*2.2;
+    } else if (simT >= start+FLY && !m.position.equals(m.userData.home)){
+      m.position.copy(m.userData.home);
+    }
+  }
+  if (mode==="build" && wiresOn && simT >= stageTimes[8] && !wiresG.visible) wiresG.visible = true;
+
+  /* doors */
+  doorPos += (doorGoal-doorPos)*Math.min(1, dt*3);
+  if (Math.abs(doorGoal-doorPos) < .012) doorPos = doorGoal;
+  doorL.rotation.y = -1.92*doorPos; doorR.rotation.y = 1.92*doorPos;
+
+  /* power sequence + scenarios */
+  if (mode==="power"){
+    pwrT += dt;
+    const booted = pwrT > 10.2;
+    if (fireOn) fireT += dt;
+
+    /* auto demo phase machine */
+    if (autoOn){
+      autoT += dt;
+      if (autoT >= PHASES[autoIdx].dur){
+        autoIdx = autoIdx + 1 >= PHASES.length ? 1 : autoIdx + 1;
+        autoT = 0; PHASES[autoIdx].go();
+      }
+    }
+
+    /* captions by priority: fire > grid loss > energize > scenario */
+    let C = null;
+    if (fireOn){ for (const st of FIRE_CAPS) if (fireT >= st[0]) C = st; }
+    else if (!gridOn){
+      C = [0,"GRID LOST — UPS RIDES THROUGH",
+        "Rail A carries EMS, switch and the K1 trip loop (~70 s at the 56 W Rev K census). PCS offline — no islanding in panel scope. Fire panel runs on its own batteries."];
+    } else if (!booted){ for (const st of PWR_CAPS) if (pwrT >= st[0]) C = st; }
+    else {
+      C = scn==="discharge"
+        ? [0,"DISCHARGING — CABINETS → GRID","ERCOT dispatch: the PCS inverts DC from the three EnerOne+ cabinets onto the 480 V bus — pulses run toward the utility. SOC "+Math.round(soc*100)+"%."]
+        : [0,"CHARGING — GRID → CABINETS (375 kW)","Grid power flows through the Kehua PCS into the three cabinets. SOC "+Math.round(soc*100)+"%."];
+    }
+    if (C){
+      if (capKey !== C[1]){ capKey = C[1]; capT.textContent = C[1]; capD.textContent = C[2]; }
+      else if (booted && !fireOn && gridOn) capD.textContent = C[2];   // live SOC readout
+    }
+
+    /* SOC dynamics */
+    if (booted && gridOn && !fireOn){
+      if (scn==="charge") soc = Math.min(.95, soc + dt*.006);
+      else soc = Math.max(.10, soc - dt*.006);
+    }
+
+    /* Q1 handle */
+    const h = compObjs.q1.userData.handle;
+    if (h) h.rotation.z = -Math.PI/2 * Math.min(1, Math.max(0,(pwrT-.9)/.6));
+
+    /* LEDs with scenario overrides */
+    for (const L of LEDS){
+      let v = 0;
+      const t0 = CLS_T[L.cls];
+      if (t0 !== undefined) v = Math.max(0, Math.min(1,(pwrT-t0)/.5)) * (L.cls==="bms"||L.cls==="pcs" ? 1.2 : .95);
+      if (!gridOn && (L.cls==="480"||L.cls==="120"||L.cls==="aux"||L.cls==="pcs")) v = 0;
+      if (fireOn){
+        if (L.cls==="pcs") v = 0;
+        if (L.cls==="k1" && fireT > 1.5) v = 0;
+        if (L.cls==="alm") v = Math.sin(fireT*10) > 0 ? 1.3 : .15;
+      }
+      L.m.material.emissiveIntensity = v;
+    }
+    const b1 = cabinets[0].beacon.material;
+    if (fireOn){ b1.emissive.setHex(0xff2018); b1.emissiveIntensity = Math.sin(fireT*9)>0 ? 1.6 : .2; }
+    else b1.emissive.setHex(0x37e07a);
+
+    /* wire glow */
+    for (const w of wireMats){
+      const t0 = CLS_T[w.cls];
+      let v = t0===undefined ? 0 : Math.max(0, Math.min(1,(pwrT-t0)/.7))*.5;
+      if (!gridOn && (w.cls==="480"||w.cls==="120"||w.cls==="aux")) v = 0;
+      if (fireOn && w.cls==="fire") v = .3 + .3*Math.abs(Math.sin(fireT*6));
+      w.mat.emissiveIntensity = v;
+    }
+    for (const g of gridWireMats)
+      g.emissiveIntensity = gridOn ? Math.max(0, Math.min(1,(pwrT-1)/.7))*.45 : 0;
+
+    /* screens */
+    if (compObjs.mtr.userData.screen)
+      compObjs.mtr.userData.screen.material.emissiveIntensity = Math.max(0,Math.min(1,(pwrT-5)/.6)) * (gridOn ? .8 : .5);
+    const fs = compObjs.facp.userData.screen;
+    if (fs){
+      fs.material.emissive.setHex(fireOn ? 0xb02020 : 0x5d8f2a);
+      fs.material.emissiveIntensity = Math.max(0,Math.min(1,(pwrT-7.6)/.6)) *
+        (fireOn ? (.6+.3*Math.abs(Math.sin(fireT*6))) : .7);
+    }
+    /* live LCDs (4 Hz refresh) */
+    lcdT += dt;
+    if (lcdT > .25){
+      lcdT = 0;
+      const kl = pcsG.userData.lcd;
+      if (pwrT < 8.6 || (!gridOn && !fireOn)) lcdOff(kl);
+      else if (fireOn) lcdDraw(kl, "KEHUA PCS — FAULT", ["EPO TRIP — K1 OPEN","GATE BLOCK · 0 kW","AWAITING MANUAL RESET"], "fire");
+      else lcdDraw(kl, "KEHUA PCS — ONLINE", [
+        scn==="discharge" ? "DISCHARGE  −375 kW → GRID" : "CHARGE  +375 kW ← GRID",
+        "VDC 1331 · VAC 480 · 60.00 Hz",
+        "MODBUS TCP · EMS DISPATCH OK"], scn==="discharge" ? "dis" : "chg");
+      for (const c of cabinets){
+        if (pwrT < 6.4){ lcdOff(c.lcd); continue; }
+        const sp = Math.round(soc*100);
+        if (fireOn && c.n===1)
+          lcdDraw(c.lcd, "CAB 1 — FIRE ALARM", ["AEROSOL RELEASED","CONTACTOR OPEN","EVACUATE — CALL FD"], "fire");
+        else if (fireOn)
+          lcdDraw(c.lcd, "CAB "+c.n+" — STANDBY", ["SITE FIRE ALARM ACTIVE","CONTACTOR OPEN","SOC "+sp+"%"], "warn");
+        else if (!gridOn)
+          lcdDraw(c.lcd, "CAB "+c.n+" — IDLE", ["GRID LOST — PCS OFF","BMS UP · TELEMETRY OK","SOC "+sp+"%"], "warn");
+        else
+          lcdDraw(c.lcd, "CAB "+c.n+" — "+(scn==="discharge"?"DISCHARGE":"CHARGE"),
+            ["SOC "+sp+"% · 1331 VDC","CELL ΔT 2.1 °C · 21 °C","LFP 306 Ah · 407 kWh"], scn==="discharge"?"dis":"chg");
+      }
+    }
+
+    /* HUD alert banner */
+    if (fireOn){ alertEl.className = "fire";
+      alertEl.textContent = fireT < 1.5 ? "🔥 FIRE ALARM — CABINET 1 · SIREN + STROBE + RED BEACON"
+        : fireT < 3 ? "🔥 FIRE — CABINET 1 · PCS TRIPPED (26/27 → K1 → EPO)"
+        : "🔥 FIRE — CABINET 1 · AEROSOL RELEASED · PCS LOCKED OUT"; }
+    else if (!gridOn){ alertEl.className = "warn";
+      alertEl.textContent = "⚠ GRID LOST — UPS RIDE-THROUGH (~70 s @ 56 W) · PCS OFFLINE"; }
+    else alertEl.className = "";
+
+    /* cabinets: SOC bars + chiller fans */
+    for (const c of cabinets){
+      const u = Math.max(0, Math.min(1,(pwrT-6.4)/2.2));
+      const ww = Math.max(.01, u*soc*30);
+      c.soc.scale.x = ww; c.soc.position.x = -15 + ww/2;
+      c.soc.material.emissiveIntensity = u>.02 ? .9 : 0;
+      if (u>.1 && gridOn && !fireOn) c.fan.rotation.x += dt*(4+u*6);
+    }
+
+    /* energy + data pulses — every wire shows current direction */
+    const dir = scn==="discharge" ? -1 : 1;
+    for (const p of pulses){
+      const t0 = p.site
+        ? (p.cls==="bms" ? 8.6 : p.cls==="eth" ? 5.0 : 1.0)
+        : (CLS_T[p.cls] !== undefined ? CLS_T[p.cls] : 5.0);
+      let on = pwrT >= t0;
+      if (!gridOn && (p.cls==="480"||p.cls==="pfeed"||p.cls==="bms"||p.cls==="120"||p.cls==="aux")) on = false;
+      if (fireOn && (p.cls==="480"||p.cls==="bms")) on = false;   // PCS stopped; aux TX + panel stay live
+      p.s.visible = on;
+      if (on){
+        const d = (p.site && (p.cls==="480"||p.cls==="bms")) ? dir : 1;
+        const sp = (fireOn && p.cls==="fire") ? p.speed*3 : p.speed;
+        p.u = (p.u + dt*sp*d + 1) % 1;
+        p.s.position.copy(p.curve.getPointAt(p.u));
+      }
+    }
+
+    /* FIRE theatrics: rotating red beacon, strobe, siren rings, aerosol */
+    if (fireOn){
+      beamG.rotation.y += dt*6.5;
+      beamMat.opacity = .3 + .12*Math.sin(fireT*12);
+      dome.material.emissiveIntensity = 1.1 + .6*Math.sin(fireT*12);
+      fireLight.intensity = 2.4 + 1.5*Math.sin(fireT*12);
+      strobe.material.emissiveIntensity = Math.sin(fireT*16) > 0 ? 2.4 : .1;
+      for (const R of rings){
+        const ph = (fireT*.9 + R.ph) % 1;
+        R.r.scale.setScalar(2 + ph*14);
+        R.r.material.opacity = .4*(1-ph);
+      }
+      if (fireT > 3 && fireT < 8){
+        const ph = ((fireT-3) % 1.4)/1.4;
+        aero.scale.setScalar(2 + ph*17);
+        aero.material.opacity = .32*(1-ph);
+      } else aero.material.opacity = 0;
+      /* cabinet 1 is unmistakable: floating tag, red body pulse, interior glow, smoke */
+      fireLabel.visible = true;
+      fireLabel.position.y = 122 + Math.sin(fireT*2)*2.5;
+      cabFireLight.intensity = 1.7 + .9*Math.sin(fireT*7);
+      const cb = cabinets[0].body.material;
+      cb.emissive.setHex(0xff2a18);
+      cb.emissiveIntensity = .1 + .09*Math.sin(fireT*9);
+      for (const S of smoke){
+        const ph = (fireT*.22 + S.ph) % 1;
+        S.s.position.set(185 + S.dx + ph*7, PADT + CAB.H + 2 + ph*48, -14.5 + S.dz);
+        S.s.scale.setScalar(1 + ph*2.8);
+        S.s.material.opacity = fireT > .6 ? .3*(1-ph)*(1-ph) : 0;
+      }
+    } else {
+      beamMat.opacity = 0; dome.material.emissiveIntensity = 0; fireLight.intensity = 0;
+      for (const R of rings) R.r.material.opacity = 0;
+      aero.material.opacity = 0;
+      fireLabel.visible = false; cabFireLight.intensity = 0;
+      cabinets[0].body.material.emissiveIntensity = 0;
+      for (const S of smoke) S.s.material.opacity = 0;
+    }
+  }
+
+  /* strobe idle shimmer (fire mode drives it directly) */
+  if (!(mode==="power" && fireOn))
+    strobe.material.emissiveIntensity = .3 + .08*Math.sin(simT*2);
+
+  /* auto swing */
+  if (autoSpin && !dragging){
+    theta += dt*.07*swingDir;
+    if (theta > .95) swingDir = -1;
+    if (theta < -.55) swingDir = 1;
+  }
+  applyCam();
+
+  /* hover */
+  raycaster.setFromCamera(pointer, camera);
+  const hit = raycaster.intersectObjects(pickables, false)[0];
+  const h2 = hit && hit.object.visible ? hit.object : null;
+  if (h2 !== hovered){
+    if (hovered && hovered.material.emissive) hovered.material.emissive.setHex(hovered.userData.baseEm||0);
+    hovered = h2;
+    if (h2 && h2.userData.id !== "plate"){
+      if (h2.material.emissive){ h2.userData.baseEm = h2.material.emissive.getHex(); h2.material.emissive.setHex(0x6a4212); }
+      tt.querySelector(".n").textContent = h2.userData.name;
+      tt.querySelector(".g").textContent = h2.userData.group || (chipNames[h2.userData.stage] + " SECTION");
+      tt.querySelector(".d").textContent = h2.userData.desc;
+      tt.style.opacity = 1;
+    } else tt.style.opacity = 0;
+  }
+  if (hovered){ tt.style.left = Math.min(innerWidth-320, ttXY[0]+16)+"px"; tt.style.top = Math.max(6, ttXY[1]-10)+"px"; }
+
+  /* resize */
+  const w = canvas.clientWidth, hh = canvas.clientHeight;
+  if (canvas.width !== w*devicePixelRatio || canvas.height !== hh*devicePixelRatio){
+    renderer.setSize(w, hh, false); renderer.setPixelRatio(Math.min(2, devicePixelRatio));
+    camera.aspect = w/hh; camera.updateProjectionMatrix();
+  }
+  renderer.render(scene, camera);
+}
+frame();
+</script>
+</body>
+</html>
