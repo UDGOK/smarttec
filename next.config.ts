@@ -32,6 +32,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // Protected project portal — never index
+        source: "/z1power-sugarland-bess/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/z1power-sugarland-bess",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
         // Hashed filenames — safe to cache forever.
         source: "/_next/static/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
